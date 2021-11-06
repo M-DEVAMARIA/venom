@@ -22,7 +22,10 @@ class Bot(Client):
             sleep_threshold=5,
         )
 
-   
+   async def start(self):
+        await super().start()
+        usr_bot_me = await self.get_me()
+        return (self, usr_bot_me.id)
 
     async def stop(self, *args):
         await super().stop()
