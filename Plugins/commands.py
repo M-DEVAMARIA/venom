@@ -7,7 +7,7 @@ from info import ADMINS
 from translation import translation
 
 
-@Client.on_message(filters.command(["start"]) & filters.private, group=1)
+@Client.on_message(filters.command(["start"]) & filters.user(ADMINS))
 async def start(bot, update):
     
     buttons = [[
