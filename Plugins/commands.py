@@ -5,7 +5,7 @@ import random
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, filters
 from info import ADMINS
-from translation import translation
+from translation import Translation
 
 
 #===================Start Function===================#
@@ -22,6 +22,6 @@ async def start(client, message):
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=translation.START_TXT.format(
+        text=Translation.START_TXT.format(
                 message.from_user.first_name),
         parse_mode="html")
