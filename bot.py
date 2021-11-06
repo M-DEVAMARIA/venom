@@ -13,7 +13,7 @@ from info import API_ID, API_HASH, BOT_TOKEN, SESSION
 class Bot(Client):
 
     def __init__(self):
-        super().__init__( 
+        super().__init__(
             session_name=SESSION,
             api_id=API_ID,
             api_hash=API_HASH,
@@ -23,12 +23,17 @@ class Bot(Client):
             sleep_threshold=5,
         )
 
-   
+    async def start(self):
+        await super().start() hhh
+        await Media.ensure_indexes()
+        me = await self.get_me()
+        self.username = '@' + me.username
+        print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
 
     async def stop(self, *args):
         await super().stop()
         print("Bot stopped. Bye.")
 
-
+   
 app = Bot()
 app.run()
