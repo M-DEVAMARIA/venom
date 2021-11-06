@@ -4,6 +4,8 @@ import random
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, filters
 from info import ADMINS
+from translation import translation
+
 
 @Client.on_message(filters.command(["start"]) & filters.private, group=1)
 async def start(bot, update):
