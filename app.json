@@ -14,8 +14,8 @@
       "index",
       "inline"
     ],
-    "website": "https://github.com/EvamariaTG/EvaMaria",
-    "repository": "https://github.com/EvamariaTG/EvaMaria",
+    "website": "https://github.com/M-DEVAMARIA/mdownbot",
+    "repository": "https://github.com/M-DEVAMARIA/mdownbot",
     "env": {
         "BOT_TOKEN": {
             "description": "Your bot token.",
