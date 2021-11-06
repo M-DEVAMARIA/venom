@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, filters
 from info import ADMINS
 from translation import Translation
-
+logger = logging.getLogger(__name__)
 
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
