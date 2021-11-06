@@ -27,7 +27,7 @@ class Bot(Client):
         await super().start()
         usr_bot_me = await self.get_me()
         return (self, usr_bot_me.id)
-        print(f"{mdown bot with for Pyrogram v{__version__} (Layer {layer}) started on .")
+        print(f"{ with for Pyrogram v{__version__} (Layer {layer}) started on .")
 
 
     async def stop(self, *args):
