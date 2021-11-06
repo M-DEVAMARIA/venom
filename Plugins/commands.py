@@ -22,6 +22,6 @@ async def start(client, message):
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=Translation.START_TXT.format(
+        text=translation.START_TXT.format(
                 message.from_user.first_name),
         parse_mode="html")
