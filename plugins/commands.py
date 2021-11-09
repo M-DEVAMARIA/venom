@@ -1,4 +1,6 @@
 import os
+#sys for restart
+import sys
 import asyncio
 import logging
 import random
@@ -38,3 +40,14 @@ async def bot_info(client, message):
         reply_markup=reply_markup,
         text=Translation.ABOUT_TXT,
         parse_mode="html")
+    
+ #==================restart Function====================#
+
+@Client.on_message(filters.private & filters.command(['restart']))
+async def restart(client, message):
+    msg = await message.reply_text(
+        text="<i>Trying to restarting.....</i>"
+    )
+    await asyncio.sleep(2)
+    await msg.edit("<i>Server restarted successfully ✅</i>")
+    os.execl(sys.executable, sys.executable, *sys.argv)
