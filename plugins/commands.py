@@ -28,16 +28,13 @@ async def start(client, message):
  #==================about Function====================#
 @Client.on_message(filters.command('about'))
 async def bot_info(bot, message):
-    buttons = [
-        [
+    buttons = [[
             InlineKeyboardButton('Update Channel', url='https://t.me/subin_works'),
             InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
-        ]
-        ]
-    
-     reply_markup = InlineKeyboardMarkup(buttons)
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=Translation.ABOUT_XT,
+        text=Translation.ABOUT_TXT,
         parse_mode="html")
