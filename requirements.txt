@@ -6,4 +6,4 @@ marshmallow==3.12.2
 umongo==3.0.0
 #sys checking 
 Dnspython
-pyromod
+
