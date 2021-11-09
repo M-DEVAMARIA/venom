@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 cache_time = 0 if ADMINS else CACHE_TIME
 
 
-@Client.on_inline_query(filters.user()
+@Client.on_inline_query()
 async def answer(bot, query):
     """Show search results for given inline query"""
 
