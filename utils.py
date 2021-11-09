@@ -9,7 +9,7 @@ from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -75,8 +75,12 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except:
         return []
+   
+    if USE_CAPTION_FILTER:
+        filter = {'$or': [{'file_name': regex}, {'caption': regex}]}
+    else:
+        filter = {'file_name': regex}
 
-    
     if file_type:
         filter['file_type'] = file_type
 
