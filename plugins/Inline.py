@@ -9,10 +9,10 @@ from utils import get_search_results
 from info import CACHE_TIME, ADMINS
 
 logger = logging.getLogger(__name__)
-cache_time = 0 if ADMINS else CACHE_TIME
+cache_time = 0 if AUTH_USERS else CACHE_TIME
 
 
-@Client.on_inline_query()
+@Client.on_inline_query(filters.user(AUTH_USERS) if AUTH_USERS else None)
 async def answer(bot, query):
     """Show search results for given inline query"""
 
