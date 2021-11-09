@@ -6,7 +6,7 @@ from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
 from utils import get_search_results
-from info import CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
+from info import CACHE_TIME
 
 logger = logging.getLogger(__name__)
 cache_time = 0 
