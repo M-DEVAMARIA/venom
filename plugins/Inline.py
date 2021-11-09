@@ -67,7 +67,7 @@ async def answer(bot, query):
 def get_reply_markup(username, query):
     buttons = [[
         InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
-        InlineKeyboardButton('Share bot', url=url),
+        InlineKeyboardButton('Share bot', url='https://t.me/MDmovieses'),
     ]]
     return InlineKeyboardMarkup(buttons)
 
