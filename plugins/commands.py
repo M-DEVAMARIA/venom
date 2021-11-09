@@ -27,7 +27,7 @@ async def start(client, message):
 
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
-async def bot_info(bot, message):
+async def bot_info(client, message):
     buttons = [[
             InlineKeyboardButton('Update Channel', url='https://t.me/subin_works'),
             InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
