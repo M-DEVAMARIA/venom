@@ -65,7 +65,6 @@ async def answer(bot, query):
 
 
 def get_reply_markup(username, query):
-    url = 't.me/share/url?url=' + quote(SHARE_BUTTON_TEXT.format(username=username))
     buttons = [[
         InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
         InlineKeyboardButton('Share bot', url=url),
@@ -85,15 +84,3 @@ def get_size(size):
     return "%.2f %s" % (size, units[i])
 
 
-async def is_subscribed(bot, query):
-    try:
-        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
-    except UserNotParticipant:
-        pass
-    except Exception as e:
-        logger.exception(e)
-    else:
-        if not user.status == 'kicked':
-            return True
-
-    return False
