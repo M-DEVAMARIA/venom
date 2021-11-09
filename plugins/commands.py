@@ -26,7 +26,7 @@ async def start(client, message):
         parse_mode="html")
 
  #==================about Function====================#
-@Client.on_message(filters.command('about'))
+@Client.on_message(filters.command(['about']))
 async def bot_info(bot, message):
     buttons = [[
             InlineKeyboardButton('Update Channel', url='https://t.me/subin_works'),
