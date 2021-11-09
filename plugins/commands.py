@@ -38,3 +38,5 @@ async def bot_info(client, message):
         reply_markup=reply_markup,
         text=Translation.ABOUT_TXT,
         parse_mode="html")
+    
+ #==================restart Function====================#
