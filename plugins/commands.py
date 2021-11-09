@@ -17,7 +17,7 @@ async def start(client, message):
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
         ],[
-        InlineKeyboardButton('💡 inline mode', switch_inline_query_current_chat),
+        InlineKeyboardButton('💡 inline mode', switch_inline_query_current_chat=''),
         InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
