@@ -9,7 +9,7 @@ from utils import get_search_results
 from info import CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
-cache_time = 0 if CACHE_TIME
+cache_time = 0 
 
 
 @Client.on_inline_query
