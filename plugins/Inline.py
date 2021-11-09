@@ -9,7 +9,7 @@ from utils import get_search_results
 from info import CACHE_TIME, ADMINS
 
 logger = logging.getLogger(__name__)
-cache_time = 0 
+cache_time = 0 if ADMINS else CACHE_TIME
 
 
 @Client.on_inline_query(filters.user(ADMINS) if ADMINS else None)
