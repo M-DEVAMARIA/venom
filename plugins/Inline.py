@@ -6,13 +6,13 @@ from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
 from utils import get_search_results
-from info import CACHE_TIME
+from info import CACHE_TIME, AUTH_USERS
 
 logger = logging.getLogger(__name__)
 cache_time = 0 
 
 
-@Client.on_inline_query
+@Client.on_inline_query(filters.user(AUTH_USERS) if AUTH_USERS else None)
 async def answer(bot, query):
     """Show search results for given inline query"""
 
