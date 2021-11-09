@@ -48,6 +48,6 @@ async def restart(client, message):
     msg = await message.reply_text(
         text="<i>Trying to restarting.....</i>"
     )
-    await asyncio.sleep(5)
+    await asyncio.sleep(2)
     await msg.edit("<i>Server restarted successfully ✅</i>")
     os.execl(sys.executable, sys.executable, *sys.argv)
