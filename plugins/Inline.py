@@ -16,7 +16,6 @@ cache_time = 0 if ADMINS else CACHE_TIME
 async def answer(bot, query):
     """Show search results for given inline query"""
 
-   
     results = []
     if '|' in query.query:
         string, file_type = query.query.split('|', maxsplit=1)
