@@ -49,7 +49,7 @@ async def remove_ban(self, id):
         )
         await self.col.update_one({"id": id}, {"$set": {"ban_status": ban_status}})
 
- async def ban_user(self, user_id, ban_duration, ban_reason):
+    async def ban_user(self, user_id, ban_duration, ban_reason):
         ban_status = dict(
             is_banned=True,
             ban_duration=ban_duration,
