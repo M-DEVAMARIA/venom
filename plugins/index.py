@@ -14,6 +14,17 @@ lock = asyncio.Lock()
 @Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
 async def index_files(bot, message):
     """Save channel or group files"""
+    if query.data.startswith('index_cancel'):
+        temp.CANCEL = True
+        return await query.answer("Cancelling Indexing")
+    _, raju, chat, lst_msg_id, from_user = query.data.split("#")
+    if raju == 'reject':
+        await query.message.delete()
+        await bot.send_message(int(from_user),
+                               f'Your Submission for indexing {chat} has been decliened by our moderators.',
+                               reply_to_message_id=int(lst_msg_id))
+        return
+    
     if lock.locked():
         await query.answer('Wait until previous process complete.')
     else:
