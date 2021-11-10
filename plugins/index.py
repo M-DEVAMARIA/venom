@@ -40,7 +40,7 @@ async def index_files(bot, message):
     await msg.edit(
         "Starting Indexing",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
+            [[InlineKeyboardButton('Cancel', url= f"https://t.me/Maxbotassbot?restart')]]
         )
     )
     
@@ -100,7 +100,7 @@ async def index_files_to_db(last_msg_id,chat_id, msg, bot):
                         logger.exception(e)
                 current += 1
                 if current % 20 == 0:
-                    can = [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
+                    can = [[InlineKeyboardButton('Cancel', url= f'https://t.me/Maxbotassbot/restart')]]
                     reply = InlineKeyboardMarkup(can)
                     await msg.edit_text(
                         text=f"Total messages fetched: <code>{current}</code>\nTotal messages saved: <code>{total_files}</code>\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media}</code>\nErrors Occured: <code>{errors}</code>",
