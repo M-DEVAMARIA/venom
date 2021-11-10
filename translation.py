@@ -5,10 +5,4 @@ class Translation(object):
     ABOUT_TXT = """ <b>CURRENTLY BUILDING </b> \n
 """
 
-# temp db for banned 
-class temp(object):
-    
-    ME = None
-    CURRENT=int(os.environ.get("SKIP", 2))
-    CANCEL = False 
-    U_NAME = None
+
