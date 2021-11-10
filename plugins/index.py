@@ -43,14 +43,11 @@ async def index_files(bot, message):
             [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
         )
     )
-    try:
-        chat = int(chat)
-    except:
-        chat = chat
-    await index_files_to_db(int(lst_msg_id), chat, msg, bot)
+    
+    await index_files_to_db(int(last_msg_id), chat, msg, bot)
 
 
-async def index_files_to_db(lst_msg_id, chat, msg, bot):
+async def index_files_to_db(last_msg_id, chat, msg, bot):
     total_files = 0
     duplicate = 0
     errors = 0
