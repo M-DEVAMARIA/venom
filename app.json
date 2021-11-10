@@ -29,7 +29,7 @@
             "description": "Get this value from https://my.telegram.org",
             "value": "" 
         },
-        "ADMINS": {
+        "DATABASE_URI": {
             "description": "Username or ID of Admin. Separate multiple Admins by space.",
             "value": ""
             }
