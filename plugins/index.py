@@ -44,10 +44,10 @@ async def index_files(bot, message):
         )
     )
     
-    await index_files_to_db(int(last_msg_id), msg, bot)
+    await index_files_to_db(int(last_msg_id),chat_id, msg, bot)
 
 
-async def index_files_to_db(last_msg_id, msg, bot):
+async def index_files_to_db(last_msg_id,chat_id, msg, bot):
     total_files = 0
     duplicate = 0
     errors = 0
