@@ -14,6 +14,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(bot, message):
+    chat_id = message.from_user.id
     await db.add_user(chat_id)
     await bot.send_message(
             LOG_CHANNEL,
