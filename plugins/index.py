@@ -29,7 +29,7 @@ async def index_files(bot, message):
             except Exception as e:
                 await last_msg.reply_text(f"This Is An Invalid Message, Either the channel is private and bot is not an admin in the forwarded chat, or you forwarded message as copy.\nError caused Due to <code>{e}</code>")
                 continue
-  msg = query.message
+    msg = query.message
 
     await query.answer('Processing...⏳', show_alert=True)
 
