@@ -55,7 +55,7 @@ async def index_files_to_db(last_msg_id, msg, bot):
     no_media = 0
     async with lock:
         try:
-            total = lst_msg_id + 1
+            total = last_msg_id + 1
             current = temp.CURRENT
             temp.CANCEL = False
             while current < total:
