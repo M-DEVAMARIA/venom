@@ -50,7 +50,7 @@ async def answer(bot, query):
 
     
         
-     if results:
+   if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
         if string:
             switch_pm_text += f" for {string}"
