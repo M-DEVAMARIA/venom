@@ -12,7 +12,7 @@ lock = asyncio.Lock()
 
 
 @Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
-async def index_files(bot, message):
+async def index_files(bot, message, query):
     """Save channel or group files"""
     if query.data.startswith('index_cancel'):
         temp.CANCEL = True
