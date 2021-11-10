@@ -63,7 +63,7 @@ async def index_files_to_db(last_msg_id, msg, bot):
                     await msg.edit("Succesfully Cancelled")
                     break
                 try:
-                    message = await bot.get_messages(chat_id=chat_id, message_ids=current, replies=0)
+                    message = await bot.get_messages(chat_id=chat, message_ids=current, replies=0)
                 except FloodWait as e:
                     await asyncio.sleep(e.x)
                     message = await bot.get_messages(
