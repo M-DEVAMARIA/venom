@@ -11,7 +11,7 @@ lock = asyncio.Lock()
 
 
 @Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
-async def index_files(bot, query):
+async def index_files(bot, query, message):
     """Save channel or group files"""
     if lock.locked():
         await query.answer('Wait until previous process complete.')
