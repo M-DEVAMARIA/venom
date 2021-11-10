@@ -1,6 +1,6 @@
 import logging
 import asyncio
-from pyrogram import Client, filter
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton 
 from pyrogram.errors import FloodWait
 from info import ADMINS
