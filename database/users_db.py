@@ -37,7 +37,7 @@ class Database:
 
 
     
-db=Database(DATABASE_URI, DATABASE_NAME)   
+   
 
 #____bannning code test for broadcast___#
     async def remove_ban(self, id):
@@ -72,3 +72,4 @@ db=Database(DATABASE_URI, DATABASE_NAME)
         banned_users = self.col.find({"ban_status.is_banned": True})
         return banned_users
 
+db=Database(DATABASE_URI, DATABASE_NAME)
