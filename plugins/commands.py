@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
-async def start(client, message):
+async def start(bot, message):
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
