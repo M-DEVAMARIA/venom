@@ -18,6 +18,14 @@ client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 instance = Instance.from_db(db)
 
+#temp db for index
+class temp(object):
+    
+    ME = None
+    CURRENT=int(os.environ.get("SKIP", 2))
+    CANCEL = False 
+    U_NAME = None
+
 
 @instance.register
 class Media(Document):
