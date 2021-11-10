@@ -10,7 +10,7 @@ class Database:
         self.grp = self.db.groups
         
 #_______new user its imprtant________#
-        def new_user(self, id, name):
+    def new_user(self, id, name):
         return dict(
             id = id,
             name = name,
