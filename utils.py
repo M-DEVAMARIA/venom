@@ -152,6 +152,7 @@ def unpack_new_file_id(new_file_id):
     return file_id, file_ref
 
 #broadcast messages
+from database.users_chats_db import db
 
 async def broadcast_messages(user_id, message):
     try:
