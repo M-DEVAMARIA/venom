@@ -17,3 +17,6 @@ class Database:
 #_________all users___________________#
     async def get_all_users(self):
         return self.col.find({})
+    
+    
+db=database(DATABASE_URL, DATABASE_NAME)    
