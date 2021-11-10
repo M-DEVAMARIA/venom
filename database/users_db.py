@@ -9,7 +9,7 @@ class Database:
         self.col = self.db.users
         self.grp = self.db.groups
         
-#______________new user its imprtant______________#
+#_______new user its imprtant________#
         def new_user(self, id, name):
         return dict(
             id = id,
@@ -30,5 +30,11 @@ class Database:
     async def get_all_users(self):
         return self.col.find({})
     
+    
+#________(account) delete user_________#
+    async def delete_user(self, user_id):
+        await self.col.delete_many({'id': int(user_id)})
+
+
     
 db=Database(DATABASE_URI, DATABASE_NAME)    
