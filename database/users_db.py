@@ -19,4 +19,4 @@ class Database:
         return self.col.find({})
     
     
-db=database(DATABASE_URL, DATABASE_NAME)    
+db=Database(DATABASE_URL, DATABASE_NAME)    
