@@ -10,7 +10,7 @@ from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-
+from database.users_db import db
 from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
 
 logger = logging.getLogger(__name__)
@@ -152,7 +152,7 @@ def unpack_new_file_id(new_file_id):
     return file_id, file_ref
 
 #broadcast messages
-from database.users_db import db
+
 
 async def broadcast_messages(user_id, message):
     try:
