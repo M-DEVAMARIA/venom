@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
-async def start(bot, message):
+async def start(client, message):
     await db.add_user(message.from_user.id, message.from_user.first_name)
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
@@ -24,7 +24,7 @@ async def start(bot, message):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     
-    await message.reply_text(
+    await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
         text=Translation.START_TXT,
