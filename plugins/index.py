@@ -9,7 +9,7 @@ from utils import save_file, temp
 import pyromod.listen
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
-
+import re
 
 @Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
 async def index_files(bot, message, query):
@@ -20,9 +20,7 @@ async def index_files(bot, message, query):
     _, raju, chat, lst_msg_id, from_user = query.data.split("#")
     if raju == 'reject':
         await query.message.delete()
-        await bot.send_message(int(from_user),
-                               f'Your Submission for indexing {chat} has been decliened by our moderators.',
-                               reply_to_message_id=int(lst_msg_id))
+        
         return
     
     if lock.locked():
