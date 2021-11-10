@@ -40,7 +40,7 @@ class Database:
 db=Database(DATABASE_URI, DATABASE_NAME)   
 
 #____bannning code test for broadcast___#
-async def remove_ban(self, id):
+    async def remove_ban(self, id):
         ban_status = dict(
             is_banned=False,
             ban_duration=0,
