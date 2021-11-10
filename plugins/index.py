@@ -48,7 +48,7 @@ async def index_files(bot, message):
     await msg.edit(
         "Starting Indexing",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton('Cancel', callback_data='https://t.me/MDMOVISES')]]
+            [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
         )
     )
     try:
@@ -111,7 +111,7 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
                         logger.exception(e)
                 current += 1
                 if current % 20 == 0:
-                    can = [[InlineKeyboardButton('Cancel', callback_data='https://t.me/MDMOVISES')]]
+                    can = [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
                     reply = InlineKeyboardMarkup(can)
                     await msg.edit_text(
                         text=f"Total messages fetched: <code>{current}</code>\nTotal messages saved: <code>{total_files}</code>\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media}</code>\nErrors Occured: <code>{errors}</code>",
