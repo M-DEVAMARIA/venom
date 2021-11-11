@@ -22,6 +22,11 @@ instance = Instance.from_db(db)
 
 #____________imdb database setup ______________#
 #copy from lucifermrngstarbot
+import os
+import PTN
+import requests
+import json 
+# its for test use delete it
 
 DATABASE_URI_2=os.environ.get('DATABASE_URI_2', DATABASE_URI)
 DATABASE_NAME_2=os.environ.get('DATABASE_NAME_2', DATABASE_NAME)
