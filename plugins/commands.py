@@ -6,13 +6,13 @@ import logging
 import random
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, filters
-from info import ADMINS, LOG_CHANNEL
+from info import ADMINS
 from translation import Translation
 logger = logging.getLogger(__name__)
 
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
-async def start(bot, message):
+async def start(client, message):
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
@@ -21,12 +21,7 @@ async def start(bot, message):
         InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await db.add_user(chat_id)
-        await bot.send_message(
-            LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-        )
-    await bot.send_message(
+    await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
         text=Translation.START_TXT,
