@@ -45,3 +45,4 @@ if FILE_CAPTION.strip() == "":
     CUSTOM_FILE_CAPTION=None
 else:
     CUSTOM_FILE_CAPTION=FILE_CAPTION
+AUTH_GROUPS = [int(admin) for admin in environ.get("AUTH_GROUPS", "").split()]
