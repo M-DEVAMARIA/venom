@@ -4,13 +4,12 @@ import sys
 import asyncio
 import logging
 import random
-from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, filters
-from info import ADMINS, BROADCAST_CHANNEL
+from info import ADMINS, LOG_CHANNEL
 from translation import Translation
 logger = logging.getLogger(__name__)
-LOG_CHANNEL = BROADCAST_CHANNEL
+
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(bot, message):
