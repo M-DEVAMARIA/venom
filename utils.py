@@ -20,7 +20,18 @@ client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 instance = Instance.from_db(db)
 
-#temp db for index
+#____________imdb database setup ______________#
+#copy from lucifermrngstarbot
+
+DATABASE_URI_2=os.environ.get('DATABASE_URI_2', DATABASE_URI)
+DATABASE_NAME_2=os.environ.get('DATABASE_NAME_2', DATABASE_NAME)
+COLLECTION_NAME_2="Posters"
+
+IClient = AsyncIOMotorClient(DATABASE_URI_2)
+imdbdb=client[DATABASE_NAME_2]
+imdb=Instance.from_db(imdbdb)
+
+#_____________temp db for index___________#
 class temp(object):
     
     ME = None
