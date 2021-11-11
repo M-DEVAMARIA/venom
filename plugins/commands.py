@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
+if not await db.is_user_exist(message.from_user.id, message.from_user.first_name):
+        data = await bot.get_me()
 async def start(client, message):
     await db.add_user(message.from_user.id, message.from_user.first_name)
     await client.send_message(
