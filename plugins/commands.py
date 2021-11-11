@@ -26,8 +26,8 @@ async def start(bot, message):
         await bot.send_message(
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-        
-    await message.reply_text(
+        )
+    await bot.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
         text=Translation.START_TXT,
