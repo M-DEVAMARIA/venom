@@ -80,8 +80,8 @@ async def stats(bot, update):
     text+=f"\nBot Funtion: <b><>Auto Filter & Manual Filters</b>"
 
     buttons = [[
-         InlineKeyboardButton("🔙 Back", url= f"https://t.me/mdmovies"),
-         InlineKeyboardButton("Close 🔐", url= f"https://t.me/mdmovieses")
+         InlineKeyboardButton("🔙 Back", url=f"https://t.me/mdmovies"),
+         InlineKeyboardButton("Close 🔐", url="https://t.me/mdmovieses")
          ]]    
     await update.message.edit_text(text, reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
 
