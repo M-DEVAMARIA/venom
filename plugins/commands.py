@@ -61,3 +61,41 @@ async def restart(client, message):
     await asyncio.sleep(2)
     await msg.edit("<i>Server restarted successfully ✅</i>")
     os.execl(sys.executable, sys.executable, *sys.argv)
+
+#_____________new feature____________#
+@DonLee_Robot.on_callback_query(filters.regex(r"about\((.+)\)"), group=2)
+async def cb_about(bot, update: CallbackQuery):
+    """
+    A Callback Funtion For Showing About Section In Bot Setting Menu
+    """
+    global VERIFY
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    
+    if user_id not in VERIFY.get(str(chat_id)):
+        return
+
+    text=f"<b><u>🤖Bot's Status</u></b>\n"
+    text+=f"\n🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>\n"
+    text+=f"\nBot Funtion: <b><>Auto Filter & Manual Filters</b>"
+
+    buttons = [[
+         InlineKeyboardButton("🔙 Back", callback_data="settings"),
+         InlineKeyboardButton("Close 🔐", callback_data="close")
+         ]]    
+    await update.message.edit_text(text, reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
+
+
+
+def time_formatter(seconds: float) -> str:
+    """ 
+    humanize time 
+    """
+    minutes, seconds = divmod(int(seconds),60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = ((str(days) + "d, ") if days else "") + \
+        ((str(hours) + "h, ") if hours else "") + \
+        ((str(minutes) + "m, ") if minutes else "") + \
+        ((str(seconds) + "s") if seconds else "")
+    return tmp
