@@ -30,11 +30,11 @@ async def start(client, message):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     
-    await message.send_photo(
+    await client.send_photo(
         photo=random.choice(PHOTO),
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=Translation.START_TXT,
+        caption=Translation.START_TXT,
         parse_mode="html")
 
  #==================about Function====================#
