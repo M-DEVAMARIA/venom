@@ -350,7 +350,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     f_caption = f"{title}"
                 buttons = [
                     [
-                        InlineKeyboardButton('🖥️ ***** 🖥️', url=f"***"
+                        InlineKeyboardButton('🖥️ ***** 🖥️', url=f"https://t.me/mdmovieses")
                     ]
                     ]
                 
