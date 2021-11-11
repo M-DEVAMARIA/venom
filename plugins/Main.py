@@ -11,7 +11,7 @@ from utils import (
    get_poster,
    Media
 )
-
+from .index import RATING, GENRES
 import random
 BUTTONS = {}
 BOT = {}
