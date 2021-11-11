@@ -62,9 +62,9 @@ async def restart(client, message):
     await msg.edit("<i>Server restarted successfully ✅</i>")
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-#qq feature____________#
-@Client.on_message(filters.private & filters.command(['stats']))
-async def stats(bot, update: CallbackQuery):
+#_____________new feature____________#
+@DonLee_Robot.on_callback_query(filters.regex(r"about\((.+)\)"), group=2)
+async def cb_about(bot, update: CallbackQuery):
     """
     A Callback Funtion For Showing About Section In Bot Setting Menu
     """
