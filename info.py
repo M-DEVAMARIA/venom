@@ -30,4 +30,4 @@ auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else auth_channel
 
 #broadcast db
-BROADCAST_CHANNEL = int(os.environ.get("BROADCAST_CHANNEL", "-1001553356176"))
+db =(DATABASE_URI, DATABASE_NAME)
