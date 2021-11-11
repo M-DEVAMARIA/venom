@@ -39,4 +39,9 @@ if OMDB_API_KEY.strip() == "":
     API_KEY=None
 else:
     API_KEY=OMDB_API_KEY
-
+    
+FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "")
+if FILE_CAPTION.strip() == "":
+    CUSTOM_FILE_CAPTION=None
+else:
+    CUSTOM_FILE_CAPTION=FILE_CAPTION
