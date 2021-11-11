@@ -4,13 +4,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram import Client, filters
 import re
 from pyrogram.errors import UserNotParticipant
-from utils import (
-   get_filter_results,
-   get_file_details,
-   is_subscribed,
-   get_poster,
-   Media
-)
+from utils import get_filter_results, get_file_details, is_subscribed, get_poster
 from .index import RATING, GENRES
 import random
 BUTTONS = {}
