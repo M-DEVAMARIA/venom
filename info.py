@@ -34,6 +34,7 @@ BROADCAST_CHANNEL = int(environ.get("BROADCAST_CHANNEL", -1001553356176))
 PHOTO = (environ.get("PHOTOS", "https://telegra.ph/file/f072e5c3045bd63fd7225.jpg https://telegra.ph/file/0fe4c0533eb36c81af7d7.jpg")).split()
 start_uptime = time.time()
 # for main filter.py
+BUTTON = environ.get("BUTTON",False)
 OMDB_API_KEY = environ.get("OMDB_API_KEY", "http://www.omdbapi.com/?i=tt3896198&apikey=4f08a979")
 if OMDB_API_KEY.strip() == "":
     API_KEY=None
