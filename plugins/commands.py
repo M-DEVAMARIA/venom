@@ -64,7 +64,7 @@ async def restart(client, message):
 
 #qq feature____________#
 @Client.on_message(filters.private & filters.command(['stats']))
-async def stats(bot, update):
+async def stats(bot, update: CallbackQuery):
     """
     A Callback Funtion For Showing About Section In Bot Setting Menu
     """
@@ -80,8 +80,8 @@ async def stats(bot, update):
     text+=f"\nBot Funtion: <b><>Auto Filter & Manual Filters</b>"
 
     buttons = [[
-         InlineKeyboardButton("🔙 Back", url=f"https://t.me/mdmovies"),
-         InlineKeyboardButton("Close 🔐", url="https://t.me/mdmovieses")
+         InlineKeyboardButton("🔙 Back", callback_data="settings"),
+         InlineKeyboardButton("Close 🔐", callback_data="close")
          ]]    
     await update.message.edit_text(text, reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
 
