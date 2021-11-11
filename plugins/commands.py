@@ -16,7 +16,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 async def start(client, message):
     chat_id = message.from_user.id
     if not await db.is_user_exist(message.from_user.id): 
-         await db.add_user(message.from_user.id)
+         await db.add_user(message.from_user.id, message.from_user.first_name)
          await client.send_message(
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @Maxbotassbot !!",
