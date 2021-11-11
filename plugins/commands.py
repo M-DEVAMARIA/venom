@@ -64,7 +64,7 @@ async def restart(client, message):
 
 #qq feature____________#
 @Client.on_message(filters.private & filters.command(['stats']))
-async def stats(Client, message):
+async def stats(bot, update):
     
 
     text=f"<b><u>🤖Bot's Status</u></b>\n"
@@ -75,13 +75,7 @@ async def stats(Client, message):
          InlineKeyboardButton("🔙 Back", url= f"https://t.me/mdmovies"),
          InlineKeyboardButton("Close 🔐", url= f"https://t.me/mdmovieses")
          ]]    
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await client.send_message(
-        chat_id=message.chat.id,
-        reply_markup=reply_markup,
-        text=🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>, hhh
     
-        parse_mode="html")
 
 
 def time_formatter(seconds: float) -> str:
