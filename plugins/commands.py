@@ -7,7 +7,7 @@ import random
 from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import Client, filters
-from info import ADMINS, BROADCAST_CHANNEL, PHOTO
+from info import ADMINS, BROADCAST_CHANNEL
 from translation import Translation
 logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
@@ -30,8 +30,7 @@ async def start(client, message):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     
-    await client.send_photo(
-        photo=random.choice(PHOTO),
+    await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
         text=Translation.START_TXT,
