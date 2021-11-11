@@ -31,3 +31,4 @@ AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_chan
 
 #broadcast db
 BROADCAST_CHANNEL = int(environ.get("BROADCAST_CHANNEL", -1001553356176))
+PHOTO = (environ.get("PHOTOS", "https://telegra.ph/file/f072e5c3045bd63fd7225.jpg https://telegra.ph/file/0fe4c0533eb36c81af7d7.jpg")).split()
