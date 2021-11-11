@@ -16,7 +16,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 async def start(client, message):
     if not await db.is_user_exist(message.from_user.id):
         bot = client 
-        data = await bot.get_me()
+        data = await client.get_me()
         BOT_USERNAME = data.username
     await db.add_user(message.from_user.id, message.from_user.first_name)
     await client.send_message(
