@@ -22,6 +22,7 @@ instance = Instance.from_db(db)
 
 #____________imdb database setup ______________#
 #copy from lucifermrngstarbot
+from pyrogram.errors import UserNotParticipant
 import os
 import PTN
 import requests
