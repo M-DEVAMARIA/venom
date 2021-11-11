@@ -192,7 +192,7 @@ async def broadcast_messages(user_id, message):
         return False, "Error"
     ########___________pm filter and imdb_________________########
     
-    async def get_filter_results(query):
+async def get_filter_results(query):
     query = query.strip()
     if not query:
         raw_pattern = '.'
