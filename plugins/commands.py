@@ -68,7 +68,12 @@ async def stats(bot, update):
     """
     A Callback Funtion For Showing About Section In Bot Setting Menu
     """
+    global VERIFY
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
     
+    if user_id not in VERIFY.get(str(chat_id)):
+        return
 
     text=f"<b><u>🤖Bot's Status</u></b>\n"
     text+=f"\n🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>\n"
