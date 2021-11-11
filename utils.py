@@ -174,4 +174,82 @@ async def broadcast_messages(user_id, message):
         return False, "Error"
     except Exception as e:
         return False, "Error"
-    ########____________________________########
+    ########___________pm filter and imdb_________________########
+    
+    async def get_filter_results(query):
+    query = query.strip()
+    if not query:
+        raw_pattern = '.'
+    elif ' ' not in query:
+        raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
+    else:
+        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]')
+    try:
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+    except:
+        return []
+    filter = {'file_name': regex}
+    total_results = await Media.count_documents(filter)
+    cursor = Media.find(filter)
+    cursor.sort('$natural', -1)
+    files = await cursor.to_list(length=int(total_results))
+    return files
+
+async def get_file_details(query):
+    filter = {'file_id': query}
+    cursor = Media.find(filter)
+    filedetails = await cursor.to_list(length=1)
+    return filedetails
+
+async def get_poster(movie):
+    extract = PTN.parse(movie)
+    try:
+        title=extract["title"]
+    except KeyError:
+        title=movie
+    try:
+        year=extract["year"]
+        year=int(year)
+    except KeyError:
+        year=None
+    if year:
+        filter = {'$and': [{'title': str(title).lower().strip()}, {'year': int(year)}]}
+    else:
+        filter = {'title': str(title).lower().strip()}
+    cursor = Poster.find(filter)
+    is_in_db = await cursor.to_list(length=1)
+    poster=None
+    if is_in_db:
+        for nyav in is_in_db:
+            poster=nyav.poster
+    else:
+        if year:
+            url=f'https://www.omdbapi.com/?s={title}&y={year}&apikey={API_KEY}'
+        else:
+            url=f'https://www.omdbapi.com/?s={title}&apikey={API_KEY}'
+        try:
+            n = requests.get(url)
+            a = json.loads(n.text)
+            if a["Response"] == 'True':
+                y = a.get("Search")[0]
+                v=y.get("Title").lower().strip()
+                poster = y.get("Poster")
+                year=y.get("Year")[:4]
+                id=y.get("imdbID")
+                await get_all(a.get("Search"))
+        except Exception as e:
+            logger.exception(e)
+            pass
+    return poster
+
+
+async def get_all(list):
+    for y in list:
+        v=y.get("Title").lower().strip()
+        poster = y.get("Poster")
+        year=y.get("Year")[:4]
+        id=y.get("imdbID")
+        await save_poster(id, v, year, poster)
+
+    
+    
