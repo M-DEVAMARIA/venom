@@ -13,14 +13,13 @@ logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
-async def start(client, message):
 if not await db.is_user_exist(message.from_user.id, message.from_user.first_name):
         data = await bot.get_me()
-        BOT_USERNAME = data.username
+async def start(client, message):
     await db.add_user(message.from_user.id, message.from_user.first_name)
     await client.send_message(
             LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started maxbot !!",
         )
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
