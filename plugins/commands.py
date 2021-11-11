@@ -1,5 +1,5 @@
 import os
-#sys for restart
+#sys for restart the bot
 import sys
 import asyncio
 import logging
