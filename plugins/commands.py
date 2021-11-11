@@ -64,7 +64,7 @@ async def restart(client, message):
 
 #qq feature____________#
 @Client.on_message(filters.private & filters.command(['stats']))
-async def stats(Client, message):
+async def stats(client, message):
     
 
     text=f"<b><u>🤖Bot's Status</u></b>\n"
