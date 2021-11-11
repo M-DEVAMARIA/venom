@@ -14,7 +14,8 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
-    if not await db.is_user_exist(message.from_user.id, message.from_user.first_name ): 
+    chat_id = message.from_user.id
+    if not await db.is_user_exist(message.from_user.id, message.from_user.first_name): 
          await db.add_user(message.from_user.id, message.from_user.first_name)
          await client.send_message(
             LOG_CHANNEL,
