@@ -79,7 +79,7 @@ async def stats(Client, message):
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>, hhh
+        text=🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>, hh
     
         parse_mode="html")
 
