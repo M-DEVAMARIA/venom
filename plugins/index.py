@@ -111,3 +111,12 @@ async def index_files_to_db(last_msg_id,chat_id, msg, bot):
         else:
             await msg.edit(f'Succesfully saved <code>{total_files}</code> to dataBase!\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media}</code>\nErrors Occured: <code>{errors}</code>')
       
+#________________________rating and genere save to database_________________________#
+RATING = ["5.1 | IMDB", "6.2 | IMDB", "7.3 | IMDB", "8.4 | IMDB", "9.5 | IMDB", ]
+GENRES = ["fun, fact",
+         "Thriller, Comedy",
+         "Drama, Comedy",
+         "Family, Drama",
+         "Action, Adventure",
+         "Film Noir",
+         "Documentary"]
