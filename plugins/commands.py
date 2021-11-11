@@ -14,7 +14,8 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(bot, message):
-    await db.add_user(message.from_user.id, message.from_user.first_name)
+    chat_id = message.from_user.id 
+    await db.add_user(chat_id) 
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
