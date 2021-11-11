@@ -9,6 +9,3 @@ requests
 parse-torrent-name
 #index
 pyromod
-#for check 
-requests
-bs4
