@@ -14,11 +14,6 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(bot, message):
-    await db.add_user(chat_id)
-        await bot.send_message(
-            LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-        )
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
@@ -27,7 +22,11 @@ async def start(bot, message):
         InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    
+    await db.add_user(chat_id)
+        await bot.send_message(
+            LOG_CHANNEL,
+            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+        )
     await message.reply_text(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
