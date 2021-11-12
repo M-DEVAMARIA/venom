@@ -94,7 +94,7 @@ async def start(bot, cmd):
         )
     else:
         await cmd.reply_text(
-           Translation.START_MSG,
+           Translation.START_TXT,
             parse_mode="Markdown",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
