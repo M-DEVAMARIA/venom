@@ -111,7 +111,7 @@ async def start(bot, cmd):
         chat_id=cmd.chat.id, 
         caption=Translation.START_TXT,
         parse_mode="html"
-        reply_markup=reply_markup(
+        reply_markup=InlineKeyboardMarkup(
            [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
