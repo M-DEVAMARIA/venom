@@ -110,7 +110,7 @@ async def start(bot, cmd):
         photo=random.choice(PHOTO),
         chat_id=cmd.chat.id, 
         caption=Translation.START_TXT,
-        parse_mode="html"
+        parse_mode="html",
         reply_markup=InlineKeyboardMarkup(
            [
                [
