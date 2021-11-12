@@ -113,7 +113,7 @@ async def start(bot, cmd):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     
-    await client.send_photo(
+    await bot.send_photo(
         photo=random.choice(PHOTO),
         chat_id=bot.chat.id,
         reply_markup=reply_markup,
