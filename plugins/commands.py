@@ -102,7 +102,7 @@ async def start(bot, cmd):
         ) 
     else: 
      chat_id = cmd.from_user.id
-if not await db.is_user_exist(cmd.from_user.id): 
+    if not await db.is_user_exist(cmd.from_user.id): 
      await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
      await bot.send_message(
           LOG_CHANNEL,
