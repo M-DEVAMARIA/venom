@@ -112,15 +112,18 @@ async def start(bot, cmd):
         caption=Translation.START_TXT,
         parse_mode="html"
         reply_markup=InlineKeyboardMarkup(
-           [[
-        InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
-        InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
-        ],[
-        InlineKeyboardButton('💡 inline mode', switch_inline_query_current_chat=''),
-        InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
-    ]]
+           [
+               [
+                     InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
+                     InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
+               ],
+               [
+                     InlineKeyboardButton('💡 inline mode', switch_inline_query_current_chat=''),
+                     InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
+              ]
+           ]
+      )
    )
-)
     
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
