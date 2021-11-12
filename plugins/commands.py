@@ -17,14 +17,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 
 @Client.on_message(filters.command("start"))
-async def start(bot, cmd):
-    chat_id = cmd.from_user.id
-    if not await db.is_user_exist(cmd.from_user.id): 
-         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
-         await bot.send_message(
-            LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @Maxbotassbot !!",
-        )
+async def start(bot, cmd): 
     usr_cmdall1 = cmd.text
     if usr_cmdall1.startswith("/start subinps"):
         if AUTH_CHANNEL:
@@ -108,7 +101,13 @@ async def start(bot, cmd):
             )
         ) 
     else: 
-    
+     chat_id = cmd.from_user.id
+if not await db.is_user_exist(cmd.from_user.id): 
+     await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
+     await bot.send_message(
+          LOG_CHANNEL,
+            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @Maxbotassbot !!",
+        )
      await cmd.reply_photo(
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT,
