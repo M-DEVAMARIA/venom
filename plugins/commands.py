@@ -10,6 +10,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyb
 from pyrogram import Client, filters
 from info import ADMINS, BROADCAST_CHANNEL, PHOTO, start_uptime, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
 from translation import Translation 
+from pyrogram import StopPropagation
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
@@ -125,7 +126,7 @@ async def start(bot, cmd):
            ]
        )
     )
-    
+    StopPropagation
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
 async def bot_info(client, message):
