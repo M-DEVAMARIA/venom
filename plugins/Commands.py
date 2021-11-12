@@ -2,7 +2,7 @@ import os
 import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, BROADCAST_CHANNEL
+from info import CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, BROADCAST_CHANNEL, PHOTO
 from translation import Translation 
 from database.users_db import db
 from utils import Media, get_file_details, get_size
@@ -102,10 +102,10 @@ async def start(bot, cmd):
             )
         )
     else:
-        await cmd.reply_text(
-           Translation.START_TXT,
-            parse_mode="Markdown",
-            disable_web_page_preview=True,
+        await cmd.reply_photo(
+        photo=random.choice(PHOTO), 
+        caption=Translation.START_TXT,
+        parse_mode="html",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
