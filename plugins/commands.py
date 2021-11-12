@@ -14,7 +14,7 @@ from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
-@Client.on_message(filters.command(['start']))
+@Client.on_message(filters.command("start"))
 async def start(bot, cmd):
     chat_id = cmd.from_user.id
     if not await db.is_user_exist(cmd.from_user.id): 
