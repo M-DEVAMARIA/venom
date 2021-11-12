@@ -126,7 +126,7 @@ if not await db.is_user_exist(cmd.from_user.id):
            ]
        )
     )
-    StopPropagation
+   
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
 async def bot_info(client, message):
