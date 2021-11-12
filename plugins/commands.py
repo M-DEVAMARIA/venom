@@ -104,7 +104,14 @@ async def start(bot, cmd):
                 ]
             )
         ) 
-    else:
+    else: 
+    
+    await bot.send_photo(
+        photo=random.choice(PHOTO),
+        chat_id=bot.chat.id,
+        reply_markup=reply_markup,
+        caption=Translation.START_TXT,
+        parse_mode="html")
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
@@ -113,14 +120,6 @@ async def start(bot, cmd):
         InlineKeyboardButton('String Session 🎻', url ='https://replit.com/@JijinR/PyroSessionString?v=1')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    
-    await bot.send_photo(
-        photo=random.choice(PHOTO),
-        chat_id=bot.chat.id,
-        reply_markup=reply_markup,
-        caption=Translation.START_TXT,
-        parse_mode="html")
-
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
 async def bot_info(client, message):
