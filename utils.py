@@ -27,6 +27,14 @@ IClient = AsyncIOMotorClient(DATABASE_URI_2)
 imdbdb=client[DATABASE_NAME_2]
 imdb=Instance.from_db(imdbdb)
 
+#______index.py_______#
+class temp(object):
+    
+    ME = None
+    CURRENT=int(os.environ.get("SKIP", 2))
+    CANCEL = False 
+    U_NAME = None
+    
 @instance.register
 class Media(Document):
     file_id = fields.StrField(attribute='_id')
