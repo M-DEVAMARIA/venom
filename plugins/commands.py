@@ -110,7 +110,7 @@ async def start(bot, cmd):
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT,
         parse_mode="Markdown",
-        disable_web_page_preview=False,
+        disable_web_page_preview
         reply_markup=InlineKeyboardMarkup(
            [
                [
