@@ -142,7 +142,7 @@ async def bot_info(client, message):
     
  #==================restart Function====================#
 
-@Client.on_message(filters.private & filters.command(['restart']))
+@Client.on_message(filters.command('restart')& filters.user(ADMINS))
 async def restart(client, message):
     msg = await message.reply_text(
         text="<i>Trying to restarting.....</i>"
@@ -152,7 +152,7 @@ async def restart(client, message):
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 #qq feature____________#
-@Client.on_message(filters.private & filters.command(['stats']))
+@Client.on_message(filters.command('stats'))
 async def stats(client, message):
     
 
