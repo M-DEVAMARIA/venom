@@ -26,7 +26,7 @@ async def start(bot, cmd):
         if AUTH_CHANNEL:
             invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
             try:
-                user = await client.get_chat_member(int(AUTH_CHANNEL), cmd.from_user.id)
+                user = await bot.get_chat_member(int(AUTH_CHANNEL), cmd.from_user.id)
                 if user.status == "kicked":
                     await client.send_message(
                         chat_id=cmd.from_user.id,
