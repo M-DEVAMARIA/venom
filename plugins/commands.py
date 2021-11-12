@@ -106,7 +106,7 @@ async def start(bot, cmd):
         ) 
     else: 
     
-    await bot.send_message(
+     await bot.send_message(
         photo=random.choice(PHOTO),
         chat_id=bot.chat.id,
         reply_markup=reply_markup,
