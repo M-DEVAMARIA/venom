@@ -15,6 +15,7 @@ from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
+
 @Client.on_message(filters.command("start"))
 async def start(bot, cmd):
     chat_id = cmd.from_user.id
@@ -111,7 +112,7 @@ async def start(bot, cmd):
      await cmd.reply_photo(
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT,
-        parse_mode="Markdown",
+        parse_mode="html",
  
         reply_markup=InlineKeyboardMarkup(
            [
