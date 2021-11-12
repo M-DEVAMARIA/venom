@@ -7,7 +7,7 @@ import random
 from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from pyrogram import Client, filters
-from info import ADMINS, BROADCAST_CHANNEL, PHOTO, start_uptime
+from info import ADMINS, BROADCAST_CHANNEL, PHOTO, start_uptime, AUTH_CHANNEL
 from translation import Translation 
 logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
