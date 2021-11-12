@@ -2,12 +2,13 @@ import os
 import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
+from info import CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, BROADCAST_CHANNEL
 from translation import Translation 
 from database.users_db import db
 from utils import Media, get_file_details, get_size
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
+LOG_CHANNEL = BROADCAST_CHANNEL
 
 @Client.on_message(filters.command("start"))
 async def start(bot, cmd):
