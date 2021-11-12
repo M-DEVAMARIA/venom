@@ -16,19 +16,19 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 async def start(bot, cmd):
     chat_id = cmd.from_user.id
     if not await db.is_user_exist(cmd.from_user.id): 
-         await db.add_user(cmd.from_user.id, message.from_user.first_name)
+         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
          await bot.send_message(
             LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @Maxbotassbot !!",
+            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @Maxbotassbot !!",
         )
- usr_cmdall1 = cmd.text
+    usr_cmdall1 = cmd.text
     if usr_cmdall1.startswith("/start subinps"):
         if AUTH_CHANNEL:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
+            invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
             try:
                 user = await bot.get_chat_member(int(AUTH_CHANNEL), cmd.from_user.id)
                 if user.status == "kicked":
-                    await client.send_message(
+                    await bot.send_message(
                         chat_id=cmd.from_user.id,
                         text="Sorry Sir, You are Banned to use me.",
                         parse_mode="markdown",
