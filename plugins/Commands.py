@@ -127,4 +127,63 @@ async def start(bot, cmd):
 
 
 
+ #==================about Function====================#
+@Client.on_message(filters.command(['about']))
+async def bot_info(client, message):
+    buttons = [[
+            InlineKeyboardButton('Update Channel', url='https://t.me/subin_works'),
+            InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await client.send_message(
+        chat_id=message.chat.id,
+        reply_markup=reply_markup,
+        text=Translation.ABOUT_TXT,
+        parse_mode="html")
+    
+ #==================restart Function====================#
+
+@Client.on_message(filters.command('restart')& filters.user(ADMINS))
+async def restart(client, message):
+    msg = await message.reply_text(
+        text="<i>Trying to restarting.....</i>"
+    )
+    await asyncio.sleep(2)
+    await msg.edit("<i>Server restarted successfully ✅</i>")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+
+#qq feature____________#
+@Client.on_message(filters.command('stats'))
+async def stats(client, message):
+    
+
+    text=f"<b><u>🤖Bot's Status</u></b>\n"
+    text+=f"\n🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>\n"
+    text+=f"\nBot Funtion: <b><>Auto Filter & Manual Filters</b>"
+
+    buttons = [[
+         InlineKeyboardButton("🔙 Back", url= f"https://t.me/mdmovies"),
+         InlineKeyboardButton("Close 🔐", url= f"https://t.me/mdmovieses")
+         ]]    
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await client.send_message(
+        chat_id=message.chat.id,
+        reply_markup=reply_markup,
+        text=f"🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>", 
+    
+        parse_mode="html")
+
+
+def time_formatter(seconds: float) -> str:
+    """ 
+    humanize time 
+    """
+    minutes, seconds = divmod(int(seconds),60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = ((str(days) + "d, ") if days else "") + \
+        ((str(hours) + "h, ") if hours else "") + \
+        ((str(minutes) + "m, ") if minutes else "") + \
+        ((str(seconds) + "s") if seconds else "")
+    return tmp
 
