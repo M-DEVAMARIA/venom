@@ -104,7 +104,7 @@ async def start(bot, cmd):
                 ]
             )
         ) 
-    return
+    else
     buttons = [[
         InlineKeyboardButton('📜 Support Group', url='https://t.me/DxHelpDesk'),
         InlineKeyboardButton('Update Channel ♻️', url='https://t.me/DX_Botz')
