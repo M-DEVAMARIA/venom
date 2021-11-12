@@ -107,8 +107,7 @@ async def start(bot, cmd):
     else: 
     
      await cmd.reply_photo(
-        photo=random.choice(PHOTO),
-        chat_id=cmd.chat.id, 
+        photo=random.choice(PHOTO), 
         caption=Translation.START_TXT,
         parse_mode="html",
         reply_markup=InlineKeyboardMarkup(
