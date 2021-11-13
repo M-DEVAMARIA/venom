@@ -395,7 +395,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text="hey user \n my name is venom i will send movies",
+            text="<b> hey user my name is venom i will send movies </b>",
             reply_markup=reply_markup,
             parse_mode='html'
 
