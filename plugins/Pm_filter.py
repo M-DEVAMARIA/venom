@@ -373,8 +373,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.delete()
         
 
-    elif query.data == "about":   
-        await query.message.edit_text(Translation.ABOUT_TXT.format(time_formatter(time.time() - start_uptime), reply_markup=InlineKeyboardMarkup(
+    elif query.data == "about": 
+        timefmt = time_formatter(time.time() - start_uptime
+        await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
                [
                    [
                          InlineKeyboardButton("📦 Source", callback_data="source"),
