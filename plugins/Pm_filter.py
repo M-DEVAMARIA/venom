@@ -3,7 +3,7 @@ from info import AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GR
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re, time
-from .Commands import time_formatter
+from .Commands import time
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from utils import get_filter_results, get_file_details, is_subscribed, get_poster
@@ -374,7 +374,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
 
     elif query.data == "about": 
-        timefmt = time_formatter(time.time() - start_uptime)
+        timefmt = time.time_formatter(time.time() - start_uptime)
         await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
                [
                    [
