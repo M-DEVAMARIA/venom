@@ -17,7 +17,7 @@ BOT = {}
 class Callback(object):
     
  @Client.on_callback_query()
- async def cb_handler(client, query):
+ async def cb_handler(client: Client, query: CallbackQuery):
 
      if query.data == "close":
          await query.message.delete()
