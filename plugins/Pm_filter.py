@@ -374,7 +374,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
 
     elif query.data == "about": 
-        timefmt = time_formatter(time.time() - start_uptime)
+        timefmt = query.from_user.mention,
         await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
                [[
                          InlineKeyboardButton("📦 Source", callback_data="source"),
@@ -399,17 +399,4 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
 
- time_formatter(seconds: float) -> str:
-    """ 
-    humanize time 
-    """
-    minutes, seconds = divmod(int(seconds),60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
-    tmp = ((str(days) + "d, ") if days else "") + \
-        ((str(hours) + "h, ") if hours else "") + \
-        ((str(minutes) + "m, ") if minutes else "") + \
-        ((str(seconds) + "s") if seconds else "")
-    return tmp
-
-   
+ 
