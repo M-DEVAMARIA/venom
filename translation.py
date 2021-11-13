@@ -3,6 +3,7 @@ class Translation(object):
 <b>Bot Maintained By: @mdadmin2 </b> \n 
 """
     ABOUT_TXT = """ <b>CURRENTLY BUILDING </b> \n
+🕐Bot's Uptime: <code>{}</code> \n
 """
 
 
