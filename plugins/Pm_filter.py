@@ -410,6 +410,6 @@ def time_formatter(seconds: float) -> str:
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=hey {query.from_user.mention}\n my name is venom i will send movies ,
+            text=hey \n my name is venom i will send movies ,
             reply_markup=reply_markup,
             parse_mode='html'
