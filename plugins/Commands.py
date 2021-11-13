@@ -121,7 +121,7 @@ async def start(bot, cmd):
                         InlineKeyboardButton("🤖 BOT UPDATES", callback_data='updates')
                         ],[
                         InlineKeyboardButton("😎About", callback_data="about"),
-                        InlineKeyboardButton('ℹ️HELP', callback_data='HELP')
+                        InlineKeyboardButton('ℹ️HELP', callback_data='help')
                     ]] 
                ) ) 
 
