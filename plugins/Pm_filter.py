@@ -371,7 +371,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.delete()
         
 
-    elif query.data == "about":   
+    elif query.data == "at":   
         await query.message.edit_text(Translation.START_TXT.format(API_KEY), reply_markup=InlineKeyboardMarkup(
                [
                    [
