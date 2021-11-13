@@ -12,3 +12,9 @@ class Translation(object):
 2. make sure that your channel does not contains cam rip, porn and fake files.
 3. Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
+    
+    STATUS_TXT = """★ Total files in db: <code>{}</code>
+★  users: <code>{}</code>
+★ ________: <b> _______ </b>
+★ Free storage: <code>{}</code> 𝙼𝚒𝙱"""
+
