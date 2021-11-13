@@ -174,9 +174,9 @@ async def stats(client, message):
     
         parse_mode="html")
 
-class time(object):
- def time_formatter(seconds: float) -> str:
-    """ 
+
+ time = def time_formatter(seconds: float) -> str:
+        """ 
     humanize time 
     """
     minutes, seconds = divmod(int(seconds),60)
