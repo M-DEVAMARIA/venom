@@ -389,7 +389,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
            )
        )
 
-     def time_formatter(seconds: float) -> str:
+    def time_formatter(seconds: float) -> str:
         """ 
         humanize time 
         """
