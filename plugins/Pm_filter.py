@@ -389,7 +389,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
            )
        )
 
-    def time_formatter(seconds: float) -> str:
+     def time_formatter(seconds: float) -> str:
         """ 
         humanize time 
         """
@@ -400,4 +400,3 @@ async def cb_handler(client: Client, query: CallbackQuery):
              ((str(hours) + "h, ") if hours else "") + \
              ((str(minutes) + "m, ") if minutes else "") + \
              ((str(seconds) + "s") if seconds else "")
-         return tmp
