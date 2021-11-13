@@ -2,7 +2,7 @@ import time
 from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from translation import Translation
-from info import start_uptime
+from info import start_uptime, API_KEY
 
 
 @Client.on_callback_query()
@@ -13,7 +13,7 @@ async def cb_handler(client, query):
         
 
     elif query.data == "about":   
-        await query.message.edit_text(Translation.START_TXT.format(BOT_USERNAME, DEV_USERNAME, DEV_NAME, BOT_USERNAME), reply_markup=InlineKeyboardMarkup(
+        await query.message.edit_text(Translation.START_TXT.format(API_KEY), reply_markup=InlineKeyboardMarkup(
                [
                    [
                          InlineKeyboardButton("📦 Source", callback_data="source"),
