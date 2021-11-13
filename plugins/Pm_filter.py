@@ -398,7 +398,7 @@ def time_formatter(seconds: float) -> str:
         ((str(hours) + "h, ") if hours else "") + \
         ((str(minutes) + "m, ") if minutes else "") + \
         ((str(seconds) + "s") if seconds else "")
-    return temp
+    return tmp
 
    elif query.data == "help":
         buttons = [[ 
