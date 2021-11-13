@@ -397,6 +397,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text="<b> hey user my name is venom i will send movies </b>\n",
             reply_markup=reply_markup,
-            parse_mode='html'
+            parse_mode='markdown'
 
  
