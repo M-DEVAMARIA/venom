@@ -175,7 +175,7 @@ async def stats(client, message):
         parse_mode="html")
 
 
- def time_formatter(seconds: float) -> str:
+def time_formatter(seconds: float) -> str:
     """ 
     humanize time 
     """
