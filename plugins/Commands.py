@@ -111,14 +111,14 @@ async def start(bot, cmd):
     else:
         await cmd.reply_photo(
         photo=random.choice(PHOTO), 
-        caption=Translation.START_TXT.format(chat_id),
+        caption=Translation.START_TXT.format(cmd.from_user.first_name),
         parse_mode="html",
             reply_markup=InlineKeyboardMarkup(
                 [[
                         InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url='http://t.me/md_filter_bot?startgroup=true'),
                         ],[
                         InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
-                        InlineKeyboardButton("🤖 UPDATES", callback_data='updates')
+                        InlineKeyboardButton("🤖 BOT UPDATES", callback_data='updates')
                         ],[
                         InlineKeyboardButton("😎About", callback_data="about"),
                         InlineKeyboardButton('ℹ️HELP', callback_data='HELP')
