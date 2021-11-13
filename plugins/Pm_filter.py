@@ -385,7 +385,19 @@ async def cb_handler(client: Client, query: CallbackQuery):
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
                    ]] 
                 ))
-       
+    elif query.data == "help":
+        buttons = [[ 
+            InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
+            InlineKeyboardButton('Extra Mods', callback_data='extra')
+            ],[
+            InlineKeyboardButton('🏠 Home', callback_data='start'),
+            InlineKeyboardButton('🔮 Status', callback_data='stats')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=hey my name is venom i will send movies ,
+            reply_markup=reply_markup,
+            parse_mode='html'
 
 def time_formatter(seconds: float) -> str:
     """ 
@@ -400,16 +412,4 @@ def time_formatter(seconds: float) -> str:
         ((str(seconds) + "s") if seconds else "")
     return tmp
 
-    elif query.data == "help":
-        buttons = [[ 
-            InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
-            InlineKeyboardButton('Extra Mods', callback_data='extra')
-            ],[
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔮 Status', callback_data='stats')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text=hey my name is venom i will send movies ,
-            reply_markup=reply_markup,
-            parse_mode='html'
+   
