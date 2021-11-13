@@ -35,5 +35,5 @@ class Callback(object):
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
                    ]
                ]
-           )
+           ),disable_web_page_preview=True
        )
