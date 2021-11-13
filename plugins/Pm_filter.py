@@ -400,7 +400,7 @@ def time_formatter(seconds: float) -> str:
         ((str(seconds) + "s") if seconds else "")
     return tmp
 
-   elif query.data == "help":
+    elif query.data == "help":
         buttons = [[ 
             InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
             InlineKeyboardButton('Extra Mods', callback_data='extra')
