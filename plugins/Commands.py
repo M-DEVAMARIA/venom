@@ -169,7 +169,7 @@ async def stats(client, message):
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=f"🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>"
+        text=f"🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>\n"
         text+=f"\nBot Funtion: <b><>Auto Filter & Manual Filters</b>",
 
         parse_mode="html")
