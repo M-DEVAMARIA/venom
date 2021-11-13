@@ -399,7 +399,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
 
-def time_formatter(seconds: float) -> str:
+ time_formatter(seconds: float) -> str:
     """ 
     humanize time 
     """
