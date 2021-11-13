@@ -14,6 +14,8 @@ import random
 BUTTONS = {}
 BOT = {}
 
+class Callback(object):
+    
 @Client.on_callback_query()
 async def cb_handler(client, query):
 
