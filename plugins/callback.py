@@ -16,21 +16,21 @@ BOT = {}
 
 class Callback(object):
     
-@Client.on_callback_query()
-async def cb_handler(client, query):
+ @Client.on_callback_query()
+ async def cb_handler(client, query):
 
-    if query.data == "close":
-        await query.message.delete()
+     if query.data == "close":
+         await query.message.delete()
         
 
-    elif query.data == "about":   
-        await query.message.edit_text(Translation.START_TXT.format(API_KEY), reply_markup=InlineKeyboardMarkup(
-               [
-                   [
+     elif query.data == "about":   
+         await query.message.edit_text(Translation.START_TXT.format(API_KEY), reply_markup=InlineKeyboardMarkup(
+                [
+                    [
                          InlineKeyboardButton("📦 Source", callback_data="source"),
                          InlineKeyboardButton("Dev 🤠", callback_data="devmuhammed")
-                   ],
-                   [
+                    ],
+                    [
                          InlineKeyboardButton("🏕️ Home", callback_data="start"),
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
                    ]
