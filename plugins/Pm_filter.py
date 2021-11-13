@@ -365,3 +365,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
+        
+ 
+    if query.data == "close":
+        await query.message.delete()
+        
+
+    elif query.data == "about":   
+        await query.message.edit_text(Translation.START_TXT.format(API_KEY), reply_markup=InlineKeyboardMarkup(
+               [
+                   [
+                         InlineKeyboardButton("📦 Source", callback_data="source"),
+                         InlineKeyboardButton("Dev 🤠", callback_data="devmuhammed")
+                   ],
+                   [
+                         InlineKeyboardButton("🏕️ Home", callback_data="start"),
+                         InlineKeyboardButton("Close 🗑️", callback_data="close")
+                   ]
+               ]
+           )
+       )
