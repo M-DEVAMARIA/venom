@@ -376,18 +376,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "about": 
         timefmt = time_formatter(time.time() - start_uptime)
         await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
-               [
-                   [
+               [[
                          InlineKeyboardButton("📦 Source", callback_data="source"),
-                         InlineKeyboardButton("Dev 🤠", callback_data="devmuhammed")
-                   ],
-                   [
+                         InlineKeyboardButton("Dev 🤠", callback_data="https://t.me/mdadmin2")
+                         ],
+                         [
                          InlineKeyboardButton("🏕️ Home", callback_data="start"),
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
-                   ]
-               ]
-           )
-       )
+                   ]] 
+                ))
+       
 
 def time_formatter(seconds: float) -> str:
     """ 
