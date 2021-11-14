@@ -281,3 +281,16 @@ def get_size(size):
         i += 1
         size /= 1024.0
     return "%.2f %s" % (size, units[i])
+
+def time_formatter(seconds: float) -> str:
+    """ 
+    humanize time 
+    """
+    minutes, seconds = divmod(int(seconds),60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = ((str(days) + "d, ") if days else "") + \
+        ((str(hours) + "h, ") if hours else "") + \
+        ((str(minutes) + "m, ") if minutes else "") + \
+        ((str(seconds) + "s") if seconds else "")
+    return tmp
