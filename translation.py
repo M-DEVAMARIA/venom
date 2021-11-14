@@ -3,7 +3,7 @@ class Translation(object):
 <b>Bot Maintained By: @mdadmin2 </b> \n 
 """
     ABOUT_TXT = """ <b>CURRENTLY BUILDING </b> \n
-🕐Bot's Uptime: <code>{}</code> \n bot : <a href="t.me/{}">venom Robot</a>\nCreator : <a href="t.me/MDADMI2N">"MDADMIN2"</a>\n
+🕐Bot's Uptime: <code>{}</code> \n bot : <a href="t.me/md_moviesees">venom Robot</a>\nCreator : <a href="t.me/MDADMI2N">"MDADMIN2"</a>\n
 <a href="https://t.me/MD_MOVIESES">Railway</a>\nLanguage : <a href="https://docs.pyrogram.org">Python3</a>\n📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>\n🗒️Version : <a href="t.mdad2min">1.0.0(beta)</a>\n
 """
 
