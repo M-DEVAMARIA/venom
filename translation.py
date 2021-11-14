@@ -8,8 +8,8 @@ MY NAME :<a href="t.me/md_moviesees">VENOM ROBOT</a>
 📡Hosted On:<a href="https://t.me/MD_MOVIESES">Railway</a>
 🗣️LANGUAGE :<a href="https://docs.pyrogram.org">Python3</a>
 📚LIBRARY :<a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
-🗒️Version :<a href="t.me/mdad2min">1.0.0(beta)</a>
-"""
+🗒️Version :<a href="t.me/mdad2min">1.0.0(beta)</a>"""
+
 
     AUTOFILTER_TXT = """ <b>Auto Filter</b>
 <b>NOTE:</b>
