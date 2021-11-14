@@ -373,7 +373,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if query.data == "close":
         await query.message.delete()
         
-
+    elif query.data == "start":
+        buttons = [[ 
+            InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url='http://t.me/md_filter_bot?startgroup=true'),
+            ],[
+            InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
+            InlineKeyboardButton("🤖 BOT UPDATES", callback_data='updates')
+            ],[
+            InlineKeyboardButton("😎About", callback_data="about"),
+            InlineKeyboardButton('ℹ️HELP', callback_data='help')
+         ]] 
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=Translaion.START_TXT.format(cmd.from_user.first_name),
+            reply_markup=reply_markup,
+            parse_mode='html'
+            )
+        
     elif query.data == "about": 
         timefmt = time_formatter(time.time() - start_uptime),
         await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
