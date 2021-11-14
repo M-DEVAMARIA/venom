@@ -2,7 +2,7 @@ class Translation(object):
     START_TXT = """ <b> HEY {}\n IAM A FILTER BOT CURRENTLY MY ADMIN  BUILDING ME !</b> \n
 <b>Bot Maintained By: @mdadmin2 </b> \n 
 """
-    ABOUT_TXT = """ <b>uptime : <code>{}</code> </>b\n📃Bot : <a href="t.me/md_movises">venom Robot</a>\n👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>\n📡Hosted On : <a href="https://t.me/md_movises">Railway</a>\n🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>\n📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>\n🗒️Version : <a href="t.me/md_movises">2.9.0</a>"""
+    ABOUT_TXT = """ <b>uptime :{}</b>\n📃Bot : <a href="t.me/md_movises">venom Robot</a>\n👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>\n📡Hosted On : <a href="https://t.me/md_movises">Railway</a>\n🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>\n📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>\n🗒️Version : <a href="t.me/md_movises">2.9.0</a>"""
 
 
 
