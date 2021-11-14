@@ -16,5 +16,5 @@ class Translation(object):
     STATUS_TXT = """★ Total files in db: <code>{}</code>
 ★  users: <code>{}</code>
 ★ total groups: <b> beta testing </b>
-★ used storage: <code>{}</code> 𝙼𝚒𝙱"""
+★ used storage: <code>{}</code> """
 
