@@ -462,9 +462,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
       )
         
-   elif query.data == "pages":
+    elif query.data == "pages":
        await query.answer()
-   elif query.data == "close":
+    elif query.data == "close":
           try:
             await query.message.reply_to_message.delete()
             await query.message.delete()
