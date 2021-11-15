@@ -4,7 +4,7 @@ import sys
 import asyncio, time
 import logging
 import random
-from utils import Media, get_file_details, get_size 
+from utils import Media, get_file_details, get_size,  start_uptime
 from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from pyrogram import Client, filters
@@ -174,15 +174,3 @@ async def stats(client, message):
         parse_mode="html")
 
 
-def time_formatter(seconds: float) -> str:
-    """ 
-    humanize time 
-    """
-    minutes, seconds = divmod(int(seconds),60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
-    tmp = ((str(days) + "d ") if days else "") + \
-        ((str(hours) + "h ") if hours else "") + \
-        ((str(minutes) + "m ") if minutes else "") + \
-        ((str(seconds) + "s") if seconds else "")
-    return tmp
