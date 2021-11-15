@@ -462,14 +462,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
       )
         
-        elif query.data == "pages":
-            await query.answer()
-        elif query.data == "close":
-            try:
-                await query.message.reply_to_message.delete()
-                await query.message.delete()
-            except:
-                await query.message.delete()
+   elif query.data == "pages":
+       await query.answer()
+   elif query.data == "close":
+          try:
+            await query.message.reply_to_message.delete()
+            await query.message.delete()
+    except:
+            await query.message.delete()
                 
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
