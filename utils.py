@@ -75,10 +75,10 @@ async def save_poster(imdb_id, title, year, url):
             await data.commit()
         except DuplicateKeyError:
             logger.warning("already saved in database")
-        return False, 0
+            return False, 0
         else:
             logger.info("Poster is saved in database")
-        return True, 1
+            return True, 1
 async def save_file(media):
     """Save file in database"""
 
