@@ -4,7 +4,7 @@ import sys
 import asyncio, time
 import logging
 import random
-from utils import Media, get_file_details, get_size,  start_uptime
+from utils import Media, get_file_details, get_size, time_formatter
 from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from pyrogram import Client, filters
