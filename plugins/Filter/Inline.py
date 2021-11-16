@@ -5,7 +5,7 @@ from pyrogram import Client, emoji, filters
 from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
-from utils import get_search_results, save_files
+from utils import get_search_results, save_file
 from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
