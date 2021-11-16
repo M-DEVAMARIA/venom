@@ -8,7 +8,7 @@ from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter
 from database.users_db import db
-from .index import RATING, GENRES
+from .inline import RATING, GENRES
 import random
 BUTTONS = {}
 BOT = {}
