@@ -24,9 +24,8 @@ async def start(bot, cmd):
         await bot.send_message(
             LOG_CHANNEL,
             f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) searched [{cmd.chat.title}] started @Maxbotassbot !!",
-        )
-        print(f"{cmd.first_name} with for Pyrogram v{18} (Layer {100}) started on {chat_id}.")
-
+        ) hh
+        h
     usr_cmdall1 = cmd.text
     if usr_cmdall1.startswith("/start subinps"):
         if AUTH_CHANNEL:
