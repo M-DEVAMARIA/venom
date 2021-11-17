@@ -122,8 +122,9 @@ async def start(bot, cmd):
                         InlineKeyboardButton("😎About", callback_data="about"),
                         InlineKeyboardButton('ℹ️HELP', callback_data='help')
                     ]] 
-               ) ) 
-                 StopPropagation
+               ) 
+          ) 
+          StopPropagation
 
 
  #==================about Function====================#
