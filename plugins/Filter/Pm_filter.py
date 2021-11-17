@@ -404,7 +404,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url='http://t.me/md_filter_bot?startgroup=true'),
             ],[
             InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
-            InlineKeyboardButton("🤖 BOT UPDATES", callback_data='updates')
+,            InlineKeyboardButton("🤖 BOT UPDATES", callback_data='updates')
             ],[
             InlineKeyboardButton("😎About", callback_data="about"),
             InlineKeyboardButton('ℹ️HELP', callback_data='help')
@@ -421,13 +421,18 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
                [[
                          InlineKeyboardButton("📦 Source", callback_data="source"),
-                         InlineKeyboardButton("Dev 🤠", callback_data="https://t.me/mdadmin2")
+                         InlineKeyboardButton("Dev 🤠", url="https://t.me/mdadmin2")
                          ],
                          [
                          InlineKeyboardButton("🏕️ Home", callback_data="start"),
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
                    ]] 
                 ))
+    elif query.data == 'source'
+    await query.message.edit_text(
+        text='<b> private source code are used in bot </b>',
+        parse_mode='html')
+        
     elif query.data == "help":
         buttons = [[ 
             InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
