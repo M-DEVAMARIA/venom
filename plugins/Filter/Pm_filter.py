@@ -56,7 +56,7 @@ async def filter(client, message):
         btn = []
         search = message.text
         leng = ("total_len")
-        PHOTO = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
+        google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
         imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
         files = await get_filter_results(query=search)
         if files:
@@ -69,7 +69,7 @@ async def filter(client, message):
         else:
             await client.reply_photo(
             chat_id=message.from_user.id, 
-            photo=random.choice(PHOTO), 
+            photo=google, 
             text=f"""
 👋Hey {message.from_user.mention}
 If this movie is not in our database you will not get that movie..
