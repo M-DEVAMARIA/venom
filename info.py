@@ -35,7 +35,7 @@ PHOTO = (environ.get("PHOTOS", "https://telegra.ph/file/695f80d49d3d1c854880a.jp
 start_uptime = time.time()
 # for main filter.py
 BUTTON = environ.get("BUTTON",False)
-OMDB_API_KEY = environ.get("OMDB_API_KEY", "http://www.omdbapi.com/?i=tt3896198&apikey=4f08a979")
+OMDB_API_KEY = environ.get("OMDB_API_KEY", "674a4381')
 if OMDB_API_KEY.strip() == "":
     API_KEY=None
 else:
