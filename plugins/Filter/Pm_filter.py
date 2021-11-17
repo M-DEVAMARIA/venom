@@ -67,7 +67,7 @@ async def filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
                     )
         else:
-            await message.reply_video(
+            spf = await message.reply_video(
         
             video=google, 
             caption=f"""
@@ -86,6 +86,8 @@ So you go to google and check the spelling of the name of the movie you want.
                 ),     
             parse_mode="html",
             reply_to_message_id=message.message_id)
+            await asyncio.sleep(30)
+            await spf.delete()
             return
 
         if not btn:
