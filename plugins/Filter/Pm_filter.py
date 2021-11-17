@@ -2,7 +2,7 @@
 from info import AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
-import re, time
+import re, time, asyncio
 
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
