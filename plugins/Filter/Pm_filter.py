@@ -67,10 +67,10 @@ async def filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
                     )
         else:
-            await message.reply_video(
+            await message.reply_photo(
         
-            video=google, 
-            text=f"""
+            photo=google, 
+            caption=f"""
 👋Hey {message.from_user.mention}
 If this movie is not in our database you will not get that movie..
 Otherwise, the spelling of the name of the requested movie may not be correct...
