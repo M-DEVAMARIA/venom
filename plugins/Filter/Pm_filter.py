@@ -90,7 +90,7 @@ async def filter(client, message):
                 poster=await get_poster(search)
             if poster:
                 hi = await message.reply_photo(photo=poster, caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
-                await asyncio.sleep(2)
+                await asyncio.sleep(60)
 
                 await hi.delete()
 
