@@ -123,7 +123,7 @@ async def start(bot, cmd):
                         InlineKeyboardButton('ℹ️HELP', callback_data='help')
                     ]] 
                ) ) 
-
+               StopPropagation
 
 
  #==================about Function====================#
