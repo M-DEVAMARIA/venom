@@ -68,7 +68,7 @@ async def filter(client, message):
                     )
         else:
             await message.reply_video(
-            chat
+        
             video=google, 
             text=f"""
 👋Hey {message.from_user.mention}
