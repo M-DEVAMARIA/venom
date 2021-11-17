@@ -173,5 +173,3 @@ async def stats(client, message):
         
 
         parse_mode="html")
-
-
