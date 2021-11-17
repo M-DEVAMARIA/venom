@@ -13,8 +13,8 @@ class Translation(object):
 3. Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
     
-    STATUS_TXT = """★ Total files in db: <code>{}</code>
-★  users: <code>{}</code>
-★ total groups: <b> beta testing </b>
-★ used storage: <code>{}</code> """
+    STATUS_TXT = """▶️ Total files in db: <code>{}</code>
+▶️  users: <code>{}</code>
+▶️ total groups: <b> beta testing </b>
+▶️ used storage: <code>{}</code> """
 
