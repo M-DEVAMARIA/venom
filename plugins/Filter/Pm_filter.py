@@ -92,7 +92,7 @@ async def filter(client, message):
                 hi = await message.reply_photo(photo=poster, caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
                 await asyncio.sleep(2)
 
-                  await hi.message.delete()
+                await hi.delete()
 
             else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
