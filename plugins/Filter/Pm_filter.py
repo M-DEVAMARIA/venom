@@ -79,7 +79,7 @@ So you go to google and check the spelling of the name of the movie you want.
             reply_markup=InlineKeyboardMarkup(
                       [[ 
 
-                         InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/)
+                         InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
                         ]]
                 ),     
             parse_mode="html",
