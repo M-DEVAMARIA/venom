@@ -124,7 +124,7 @@ async def start(bot, cmd):
                     ]] 
                ) 
           ) 
-          StopPropagation
+         
 
 
  #==================about Function====================#
