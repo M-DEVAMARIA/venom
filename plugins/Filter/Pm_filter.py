@@ -67,7 +67,8 @@ async def filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
                     )
         else:
-            await client.send_video(
+            await client.reply_video(
+            chat_id=message.from_user.id,
       
             video=google, 
             text=f"""
