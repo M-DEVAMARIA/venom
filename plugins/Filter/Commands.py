@@ -131,7 +131,7 @@ async def start(bot, cmd):
 @Client.on_message(filters.command(['about']))
 async def bot_info(client, message):
     buttons = [[
-            InlineKeyboardButton('Update Channel', callback_data="about"),
+            InlineKeyboardButton("🤖 BOT UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1"),
             InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
