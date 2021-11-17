@@ -67,8 +67,8 @@ async def filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
                     )
         else:
-            await client.send_message(
-            chat_id=message.from_user.id, 
+            await client.send_message( hhhhoh
+      
             photo=google, 
             text=f"""
 👋Hey {message.from_user.mention}
