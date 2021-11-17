@@ -69,7 +69,7 @@ async def filter(client, message):
         else:
             await client.send_message( hhhhoh
       
-            photo=google, 
+            video=google, 
             text=f"""
 👋Hey {message.from_user.mention}
 If this movie is not in our database you will not get that movie..
