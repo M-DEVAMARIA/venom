@@ -428,7 +428,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
                    ]] 
                 ))
-    elif query.data == 'source'
+    elif query.data == "source"
     await query.message.edit_text(
         text='<b> private source code are used in bot </b>',
         parse_mode='html')
