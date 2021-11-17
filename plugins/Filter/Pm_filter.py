@@ -66,7 +66,24 @@ async def filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
                     )
         else:
-            await client.send_message(chat_id=message.from_user.id, text='sorry that movie not in my database try ')
+            await client.send_message(
+            chat_id=message.from_user.id, 
+            text=f"""
+👋Hey {message.from_user.mention}
+If this movie is not in our database you will not get that movie..
+Otherwise, the spelling of the name of the requested movie may not be correct...
+So you go to google and check the spelling of the name of the movie you want.
+ഈ സിനിമ ഞങ്ങളുടെ ഡാറ്റാബേസിൽ ഇല്ലെങ്കിൽ നിങ്ങൾക്ക് ഈ സിനിമ ലഭിക്കില്ല
+അല്ലെങ്കിൽ, അഭ്യർത്ഥിച്ച സിനിമയുടെ പേരിന്റെ അക്ഷരവിന്യാസം ശരിയായിരിക്കില്ല ...
+അതിനാൽ നിങ്ങൾ ഗൂഗിളിൽ പോയി നിങ്ങൾക്ക് ആവശ്യമുള്ള സിനിമയുടെ പേരിന്റെ സ്പെല്ലിംഗ് പരിശോധിക്കുക""",
+            reply_markup=InlineKeyboardMarkup(
+                      [[ 
+
+                         InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
+                        ]]
+                ),     
+            parse_mode="html",
+            reply_to_message_id=message.message_id)
             return
 
         if not btn:
