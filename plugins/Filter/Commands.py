@@ -4,7 +4,7 @@ import sys
 import asyncio, time
 import logging
 import random
-from utils import Media, get_file_details, get_size, time_formatter
+from utils import Media, get_file_details, get_size, time_formatter, temp
 from database.users_db import db
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from pyrogram import Client, filters
@@ -131,7 +131,7 @@ async def start(bot, cmd):
         parse_mode="html",
             reply_markup=InlineKeyboardMarkup(
                 [[
-                        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url='http://t.me/md_filter_bot?startgroup=true'),
+                        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url='http://t.me/{temp.U_NAME}?startgroup=true'),
                         ],[
                         InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
                         InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
