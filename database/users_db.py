@@ -1,13 +1,13 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
-from info import DATABASE_NAME, DATABASE_URI
+from info import DATABASE_NAME, DATABASE_URI, DATABASE_NAME2
 
 class Database:
     
     def __init__(self, uri, database_name):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
-        self.col = self.db.users
+        self.col = self.db2.users
         self.grp = self.db.groups
 
 
@@ -128,3 +128,4 @@ class Database:
 
 
 db = Database(DATABASE_URI, DATABASE_NAME)
+db2= Database(DATABASE_URI, DATABASE_NAME2)
