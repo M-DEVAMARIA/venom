@@ -18,7 +18,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.command("start"))
 async def start(bot, cmd): 
-    if message.chat.type in ['group', 'supergroup']:
+    if .chat.type in ['group', 'supergroup']:
         buttons = [
             [
                 InlineKeyboardButton('🤖VENOM Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')
