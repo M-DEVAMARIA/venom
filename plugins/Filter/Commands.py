@@ -35,7 +35,7 @@ async def start(bot, cmd):
             await db.add_chat(cmd.chat.id, cmd.chat.title)
             await bot.send_message(
                 LOG_CHANNEL, 
-                f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.from_chat.id} members = [{total}] started @venom_moviebot !!",)
+                f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started @venom_moviebot !!",)
       
         return 
     if not await db.is_user_exist(cmd.from_user.id): 
