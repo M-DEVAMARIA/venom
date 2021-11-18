@@ -17,8 +17,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 
 #===================Start Function===================#
 @Client.on_message(filters.command("start"))
-async def start(bot, cmd):
-    chat_id = cmd.from_user.id
+async def start(bot, cmd): 
     if cmd.chat.type in ['group', 'supergroup']:
         buttons = [
             [
