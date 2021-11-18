@@ -18,7 +18,7 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 #===================Start Function===================#
 @Client.on_message(filters.command("start"))
 async def start(bot, cmd): 
-    if .chat.type in ['group', 'supergroup']:
+    if cmd.chat.type in ['group', 'supergroup']:
         buttons = [
             [
                 InlineKeyboardButton('🤖VENOM Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')
@@ -33,7 +33,7 @@ async def start(bot, cmd):
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
             await db.add_chat(cmd.chat.id, cmd.chat.title)
-            await bot.send_message(LOG_CHANNEL,f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.from_chat.id} members = [{total}] started @venom_moviebot !!",)
+            await bot.send_message(LOG_CHANNEL, f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.from_chat.id} members = [{total}] started @venom_moviebot !!",)
       
         return 
     if not await db.is_user_exist(cmd.from_user.id): 
