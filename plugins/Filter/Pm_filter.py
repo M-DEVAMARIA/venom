@@ -12,8 +12,6 @@ from .Inline import RATING, GENRES
 import random
 BUTTONS = {}
 BOT = {}
-imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
-        
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
     if message.text.startswith("/"):
@@ -147,7 +145,9 @@ async def group(client, message):
         return
     if 2 < len(message.text) < 50:    
         btn = []
-        search = message.text
+        search = message.text 
+        imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
+        
         nyva=BOT.get("username")
         if not nyva:
             botusername=await client.get_me()
