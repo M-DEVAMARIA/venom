@@ -19,6 +19,23 @@ LOG_CHANNEL = BROADCAST_CHANNEL
 @Client.on_message(filters.command("start"))
 async def start(bot, cmd):
     chat_id = cmd.from_user.id
+    if cmd.chat.type in ['group', 'supergroup']:
+        buttons = [
+            [
+                InlineKeyboardButton('🤖VENOM Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')
+            ],
+            [
+                InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/venom_moviebot?start=help"),
+            ]
+            ]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await cmd.reply(script.START_TXT.format(cmd.chat.title), reply_markup=reply_markup)
+        await asyncio.sleep(2) 
+        if not await db.get_chat(cmd.chat.id):
+            total=await bot.get_chat_members_count(cmd.chat.id)
+            await bot.send_message(LOG_CHANNEL,f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}](tg://user?id={cmd.from_user.id}) members = [{total}] started @venom_moviebot !!",)
+            await db.add_chat(cmd.chat.id, cmd.chat.title)
+        return 
     if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(
