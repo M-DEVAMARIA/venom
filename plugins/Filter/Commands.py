@@ -83,7 +83,7 @@ async def start(bot, cmd):
                 buttons = [
                     [
                         InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
-                        InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122')
+                        InlineKeyboardButton('More Bots', url='https://t.me/joinchat/EOI9s4lc00cyOTI1')
                     ]
                     ]
                 await bot.send_cached_media(
