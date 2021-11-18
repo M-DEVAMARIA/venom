@@ -7,7 +7,7 @@ class Database:
     def __init__(self, uri, database_name):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
-        self.col = self.db2.users
+        self.col = self.db.users
         self.grp = self.db.groups
 
 
@@ -128,4 +128,4 @@ class Database:
 
 
 db = Database(DATABASE_URI, DATABASE_NAME)
-db2= Database(DATABASE_URI, DATABASE_NAME2)
+db2= Database(DATAB
