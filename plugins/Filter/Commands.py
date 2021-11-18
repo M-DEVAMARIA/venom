@@ -1,4 +1,4 @@
-import os
+import os, re
 #sys for restart the bot
 import sys
 import asyncio, time
