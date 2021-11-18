@@ -125,14 +125,14 @@ async def start(bot, cmd):
             )
         )
     else:
-        temp.u_name = me.username
+        me = await self.get_me()
         await cmd.reply_photo(
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT.format(cmd.from_user.first_name),
         parse_mode="html",
             reply_markup=InlineKeyboardMarkup(
                 [[
-                        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{temp.u_name}?startgroup=true'),
+                        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{me.username}?startgroup=true'),
                         ],[
                         InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
                         InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
