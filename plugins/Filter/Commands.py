@@ -32,8 +32,9 @@ async def start(bot, cmd):
         await asyncio.sleep(2) 
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
-            await bot.send_message(LOG_CHANNEL,f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.from_user.id} members = [{total}] started @venom_moviebot !!",)
             await db.add_chat(cmd.chat.id, cmd.chat.title)
+            await bot.send_message(LOG_CHANNEL,f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.from_user.id} members = [{total}] started @venom_moviebot !!",)
+      
         return 
     if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
