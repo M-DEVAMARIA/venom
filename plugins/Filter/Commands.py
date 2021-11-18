@@ -126,6 +126,7 @@ async def start(bot, cmd):
         )
     else:
         me = await self.get_me()
+        self.username = '@' + me.username
         await cmd.reply_photo(
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT.format(cmd.from_user.first_name),
