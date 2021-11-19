@@ -1,5 +1,5 @@
 class Translation(object):
-    START_TXT = """ <i>HEY {}\nMy name is ༺VENOM༻ I will give movies in your group and my pm !</i> \n
+    START_TXT = """ <m>HEY {}\nMy name is ༺VENOM༻ I will give movies in your group and my pm !</m> \n
 <b>Bot Maintained By: @mdadmin2 </b> \n 
 """
     ABOUT_TXT = """ 
