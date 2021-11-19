@@ -11,12 +11,9 @@ logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 import re
 
-@Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
+@Client.on_message(filters.command(['index', 'indexfiles']))
 async def index_files(bot, message):
-    """Save channel or group files"""
-    
-        
-    
+    """Save channel or group files""" 
     if lock.locked():
         await query.answer('Wait until previous process complete.')
     else:
@@ -110,4 +107,3 @@ async def index_files_to_db(last_msg_id,chat_id, msg, bot):
             await msg.edit(f'Error: {e}')
         else:
             await msg.edit(f'Succesfully saved <code>{total_files}</code> to dataBase!\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media}</code>\nErrors Occured: <code>{errors}</code>')
-      

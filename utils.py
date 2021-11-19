@@ -2,17 +2,21 @@ import re
 import base64
 import logging
 from struct import pack
-#os for temp index only
-import os
-#---
+from pyrogram.errors import UserNotParticipant
 from pyrogram.file_id import FileId
 from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
+import os
+import PTN
+import requests
+import json
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL, API_KEY
 from database.users_db import db
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
-
+DATABASE_URI_2=os.environ.get('DATABASE_URI_2', DATABASE_URI)
+DATABASE_NAME_2=os.environ.get('DATABASE_NAME_2', DATABASE_NAME)
+COLLECTION_NAME_2="Posters"
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -20,15 +24,18 @@ client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 instance = Instance.from_db(db)
 
-#temp db for index
+IClient = AsyncIOMotorClient(DATABASE_URI_2)
+imdbdb=client[DATABASE_NAME_2]
+imdb=Instance.from_db(imdbdb)
+
+#______index.py_______#
 class temp(object):
     
     ME = None
     CURRENT=int(os.environ.get("SKIP", 2))
     CANCEL = False 
     U_NAME = None
-
-
+    
 @instance.register
 class Media(Document):
     file_id = fields.StrField(attribute='_id')
@@ -42,18 +49,47 @@ class Media(Document):
     class Meta:
         collection_name = COLLECTION_NAME
 
+@imdb.register
+class Poster(Document):
+    imdb_id = fields.StrField(attribute='_id')
+    title = fields.StrField()
+    poster = fields.StrField()
+    year= fields.IntField(allow_none=True)
 
+    class Meta:
+        collection_name = COLLECTION_NAME_2
+
+async def save_poster(imdb_id, title, year, url):
+    try:
+        data = Poster(
+            imdb_id=imdb_id,
+            title=title,
+            year=int(year),
+            poster=url
+        )
+    except ValidationError:
+        logger.exception('Error occurred while saving poster in database')
+        return False, 2
+    else:
+        try:
+            await data.commit()
+        except DuplicateKeyError:
+            logger.warning("already saved in database")
+            return False, 0
+        else:
+            logger.info("Poster is saved in database")
+            return True, 1
 async def save_file(media):
     """Save file in database"""
 
     # TODO: Find better way to get same file_id for same media to avoid duplicates
     file_id, file_ref = unpack_new_file_id(media.file_id)
-    file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
+
     try:
         file = Media(
             file_id=file_id,
             file_ref=file_ref,
-            file_name=file_name,
+            file_name=media.file_name,
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
@@ -65,14 +101,12 @@ async def save_file(media):
     else:
         try:
             await file.commit()
-        except DuplicateKeyError:      
+        except DuplicateKeyError:
             logger.warning(media.file_name + " is already saved in database")
-            return False, 0
+            return False, 0 
         else:
             logger.info(media.file_name + " is saved in database")
             return True, 1
-
-
 
 async def get_search_results(query, file_type=None, max_results=10, offset=0):
     """For given query return (results, next_offset)"""
@@ -83,13 +117,13 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
     elif ' ' not in query:
         raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
     else:
-        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_\(\)]')
+        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]')
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except:
         return []
-   
+
     if USE_CAPTION_FILTER:
         filter = {'$or': [{'file_name': regex}, {'caption': regex}]}
     else:
@@ -113,6 +147,118 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
     files = await cursor.to_list(length=max_results)
 
     return files, next_offset
+
+
+async def get_filter_results(query):
+    query = query.strip()
+    if not query:
+        raw_pattern = '.'
+    elif ' ' not in query:
+        raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
+    else:
+        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]')
+    try:
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+    except:
+        return []
+    filter = {'file_name': regex}
+    total_results = await Media.count_documents(filter)
+    cursor = Media.find(filter)
+    cursor.sort('$natural', -1)
+    files = await cursor.to_list(length=int(total_results))
+    return files
+
+async def get_file_details(query):
+    filter = {'file_id': query}
+    cursor = Media.find(filter)
+    filedetails = await cursor.to_list(length=1)
+    return filedetails
+
+
+async def is_subscribed(bot, query):
+    try:
+        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        logger.exception(e)
+    else:
+        if not user.status == 'kicked':
+            return True
+
+    return False
+
+async def get_poster(movie):
+    extract = PTN.parse(movie)
+    try:
+        title=extract["title"]
+    except KeyError:
+        title=movie
+    try:
+        year=extract["year"]
+        year=int(year)
+    except KeyError:
+        year=None
+    if year:
+        filter = {'$and': [{'title': str(title).lower().strip()}, {'year': int(year)}]}
+    else:
+        filter = {'title': str(title).lower().strip()}
+    cursor = Poster.find(filter)
+    is_in_db = await cursor.to_list(length=1)
+    poster=None
+    if is_in_db:
+        for nyav in is_in_db:
+            poster=nyav.poster
+    else:
+        if year:
+            url=f'https://www.omdbapi.com/?s={title}&y={year}&apikey={API_KEY}'
+        else:
+            url=f'https://www.omdbapi.com/?s={title}&apikey={API_KEY}'
+        try:
+            n = requests.get(url)
+            a = json.loads(n.text)
+            if a["Response"] == 'True':
+                y = a.get("Search")[0]
+                v=y.get("Title").lower().strip()
+                poster = y.get("Poster")
+                year=y.get("Year")[:4]
+                id=y.get("imdbID")
+                await get_all(a.get("Search"))
+        except Exception as e:
+            logger.exception(e)
+            pass
+    return poster
+
+
+async def get_all(list):
+    for y in list:
+        v=y.get("Title").lower().strip()
+        poster = y.get("Poster")
+        year=y.get("Year")[:4]
+        id=y.get("imdbID")
+        await save_poster(id, v, year, poster)
+        
+        
+async def broadcast_messages(user_id, message):
+    try:
+        await message.copy(chat_id=user_id)
+        return True, "Succes"
+    except FloodWait as e:
+        await asyncio.sleep(e.x)
+        return await broadcast_messages(user_id, message)
+    except InputUserDeactivated:
+        await db.delete_user(int(user_id))
+        logging.info(f"{user_id}-Removed from Database, since deleted account.")
+        return False, "Deleted"
+    except UserIsBlocked:
+        logging.info(f"{user_id} -Blocked the bot.")
+        return False, "Blocked"
+    except PeerIdInvalid:
+        await db.delete_user(int(user_id))
+        logging.info(f"{user_id} - PeerIdInvalid")
+        return False, "Error"
+    except Exception as e:
+        return False, "Error"
 
 
 def encode_file_id(s: bytes) -> str:
@@ -151,27 +297,28 @@ def unpack_new_file_id(new_file_id):
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
 
-#broadcast messages
 
+def get_size(size):
+    """Get size in readable format"""
 
-async def broadcast_messages(user_id, message):
-    try:
-        await message.copy(chat_id=user_id)
-        return True, "Succes"
-    except FloodWait as e:
-        await asyncio.sleep(e.x)
-        return await broadcast_messages(user_id, message)
-    except InputUserDeactivated:
-        await db.delete_user(int(user_id))
-        logging.info(f"{user_id}-Removed from Database, since deleted account.")
-        return False, "Deleted"
-    except UserIsBlocked:
-        logging.info(f"{user_id} -Blocked the bot.")
-        return False, "Blocked"
-    except PeerIdInvalid:
-        await db.delete_user(int(user_id))
-        logging.info(f"{user_id} - PeerIdInvalid")
-        return False, "Error"
-    except Exception as e:
-        return False, "Error"
-    ########____________________________########
+    units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
+    size = float(size)
+    i = 0
+    while size >= 1024.0 and i < len(units):
+        i += 1
+        size /= 1024.0
+    return "%.2f %s" % (size, units[i])
+
+def time_formatter(seconds: float) -> str:
+    """ 
+    humanize time 
+    """
+    minutes, seconds = divmod(int(seconds),60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = ((str(days) + "d, ") if days else "") + \
+        ((str(hours) + "h, ") if hours else "") + \
+        ((str(minutes) + "m, ") if minutes else "") + \
+        ((str(seconds) + "s") if seconds else "")
+    return tmp
+

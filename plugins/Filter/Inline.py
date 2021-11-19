@@ -5,7 +5,7 @@ from pyrogram import Client, emoji, filters
 from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
-from utils import get_search_results
+from utils import get_search_results, save_file
 from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
@@ -103,3 +103,20 @@ async def is_subscribed(bot, query):
             return True
 
     return False
+#________________________rating and genere save to database_________________________#
+
+RATING = ["5.1 | IMDB", "6.2 | IMDB", "7.3 | IMDB", "8.4 | IMDB", "9.5 | IMDB", ]
+
+GENRES = ["fun, fact",
+
+         "Thriller, Comedy",
+
+         "Drama, Comedy",
+
+         "Family, Drama",
+
+         "Action, Adventure",
+
+         "Film Noir",
+
+         "Documentary"]
