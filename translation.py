@@ -6,7 +6,7 @@ class Translation(object):
 ╔═╦═╗╔═╗╔═╦╗╔═╗╔══╗ 
 ╚╗║╔╝║╩╣║║║║║╬║║║║║
 ─╚═╝─╚═╝╚╩═╝╚═╝╚╩╩╝ 
- ╭━━━━━━━━━━━━━━━➣ 
+  ╭━━━━━━━━━━━━━━━➣ 
 ║┣⪼<b>uptime :{}</b> 
 ║┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
 ║┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
@@ -14,7 +14,7 @@ class Translation(object):
 ║┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
 ║┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
 ║┣⪼🗒️Version : <a href="t.me/md_movises">2.9.0</a>
- ╰━━━━━━━━━━━━━━━➣
+  ╰━━━━━━━━━━━━━━━➣
 """
 
 
