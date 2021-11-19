@@ -13,7 +13,7 @@ class Translation(object):
 ║┣⪼📡Hosted On : <a href="https://t.me/md_movises">Railway</a>
 ║┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
 ║┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
-║┣⪼🗒️Version : <a href="t.me/md_movises">2.9.0</a>
+║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.0</a>
    ╰━━━━━━━━━━━━━━━➣
 """
 
