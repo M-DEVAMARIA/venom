@@ -485,7 +485,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         monsize = await db.get_db_size() 
         monsize = get_size(monsize)
         await query.message.edit_text(
-            text=Translation.STATUS_TXT.format(total, users,monsize),
+            text=Translation.STATUS_TXT.format(total, users, chats, monsize),
             reply_markup=reply_markup,
             parse_mode='html'
         )
@@ -505,7 +505,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         monsize = get_size(monsize)
         free = get_size(free)
         await query.message.edit_text(
-            text=Translation.STATUS_TXT.format(total, users, monsize),
+            text=Translation.STATUS_TXT.format(total, users, chats, monsize),
             reply_markup=reply_markup,
             parse_mode='html'
       )
