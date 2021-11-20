@@ -353,14 +353,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         InlineKeyboardButton('Update Channel', url='https://t.me/joinchat/EOI9s4lc00cyOTI1')
                     ]
                     ] 
+                await query.answer('Check https://t.me/joinchat/uT0DmntMfvI4Y2Nl, I have sent files in that group',show_alert = True)
                 await client.send_cached_media(
                     chat_id="-1001677770042",
                     file_id=file_id,
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
-                await query.answer('Check https://t.me/joinchat/uT0DmntMfvI4Y2Nl, I have sent files in that group',show_alert = True)
-
+                
           
         elif query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
