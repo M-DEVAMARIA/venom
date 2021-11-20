@@ -4,7 +4,7 @@ import logging
 from struct import pack
 from pyrogram.errors import UserNotParticipant
 from pyrogram.file_id import FileId
-from pymongo.errors import DuplicateKeyError
+from pymongo.errors import DuplicateKeyError, FloodWait
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
