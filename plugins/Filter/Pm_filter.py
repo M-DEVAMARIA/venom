@@ -354,7 +354,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     ]
                     ]
                 
-                      await client.send_cached_media(
+                await client.send_cached_media(
                     chat_id="-1001677770042",
                     file_id=file_id,
                     caption=f_caption,
