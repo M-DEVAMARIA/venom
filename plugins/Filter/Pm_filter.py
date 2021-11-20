@@ -352,8 +352,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         InlineKeyboardButton('More Bots', url='https://t.me/joinchat/EOI9s4lc00cyOTI1'),
                         InlineKeyboardButton('Update Channel', url='https://t.me/joinchat/EOI9s4lc00cyOTI1')
                     ]
-                    ]
-                
+                    ] 
                 await client.send_cached_media(
                     chat_id="-1001677770042",
                     file_id=file_id,
