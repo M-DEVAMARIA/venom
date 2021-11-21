@@ -108,7 +108,7 @@ async def save_file(media):
             logger.info(media.file_name + " is saved in database")
             return True, 1
 
-async def get_search_results(query, file_type=None, max_results=10, offset=0):
+async def get_search_results(query, file_type=None, max_results=20, offset=0):
     """For given query return (results, next_offset)"""
 
     query = query.strip()
