@@ -2,9 +2,9 @@ import re
 import base64
 import logging
 from struct import pack
-from pyrogram.errors import UserNotParticipant
+from pyrogram.errors import UserNotParticipant, FloodWait
 from pyrogram.file_id import FileId
-from pymongo.errors import DuplicateKeyError, FloodWait
+from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
