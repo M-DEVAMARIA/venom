@@ -458,7 +458,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.reply_video(
             video='https://telegra.ph/file/fe9b257274b17e9487dbb.mp4',
-            text='comming soon',
+            caption='comming soon',
             reply_markup=reply_markup,
             parse_mode='html')
         
