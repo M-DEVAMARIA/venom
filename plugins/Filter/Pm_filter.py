@@ -452,7 +452,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         parse_mode='html')
     
     elif query.data == "use":
-       await client.message.edit_photo(
+       await query.message.reply_photo(
         photo='https://telegra.ph/file/73f8639b548d6ace160df.jpg',
         parse_mode='html')
         
