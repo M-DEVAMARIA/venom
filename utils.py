@@ -25,7 +25,7 @@ client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 instance = Instance.from_db(db)
 
-
+from typing import Union
 from imdb import IMDb
 imdb = IMDb() 
 
