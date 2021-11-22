@@ -260,6 +260,7 @@ async def broadcast_messages(user_id, message):
     except Exception as e:
         return False, "Error"
     #________spellcheck future__________#
+from bs4 import BeautifulSoup
 async def search_gagala(text):
     usr_agent = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
