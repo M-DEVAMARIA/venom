@@ -14,7 +14,7 @@ bs4
 imdbpy
 
 #for song#YTDL
-
+aiohttp[speedups]
 youtube_dl
 aiofiles
 youtube_search_python
