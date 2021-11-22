@@ -454,6 +454,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "use":
        await query.message.reply_photo(
         photo='https://telegra.ph/file/73f8639b548d6ace160df.jpg',
+        text='comming soon',
         parse_mode='html')
         
     elif query.data == "help":
@@ -462,7 +463,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('Extra Mods', callback_data='extra')
             ],[
             InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('📊 Status', callback_data="stats")
+            InlineKeyboardButton('📈 Status', callback_data="stats")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
