@@ -230,9 +230,9 @@ async def get_poster(query, bulk=False, id=False, file=None):
     else:
         date = "N/A"
     plot = "" 
-        plot = movie.get('plot')
-        if plot and len(plot) > 0:
-            plot = plot[0]
+         plot = movie.get('plot')
+         if plot and len(plot) > 0:
+             plot = plot[0]
     return {
         'title': movie.get('title'),
         'votes': movie.get('votes'),
