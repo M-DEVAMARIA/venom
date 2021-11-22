@@ -12,3 +12,9 @@ pyromod
 requests
 bs4
 imdbpy
+
+#for song#YTDL
+
+youtube_dl
+aiofiles
+youtube_search_python
