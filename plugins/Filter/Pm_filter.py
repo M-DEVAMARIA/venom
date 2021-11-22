@@ -451,7 +451,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         text='<b> private source code are used in bot </b>',
         parse_mode='html')
     
-    elif query.data == "source":
+    elif query.data == "use":
        await query.message.edit_photo(
         photo='https://telegra.ph/file/73f8639b548d6ace160df.jpg',
         parse_mode='html')
