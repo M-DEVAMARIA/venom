@@ -2,7 +2,14 @@ import re, time
 from os import environ
 
 id_pattern = re.compile(r'^.\d+$')
-
+def is_enabled(value, default):
+    if value.lower() in ["true", "yes", "1", "enable", "y"]:
+        return True
+    elif value.lower() in ["false", "no", "0", "disable", "n"]:
+        return False
+    else:
+        return default
+    
 # Bot information 
 API_ID = int(environ['API_ID'])
 API_HASH = environ['API_HASH']
@@ -22,7 +29,7 @@ DATABASE_NAME2 = environ.get('DATABASE_NAME2', 'users')
 # bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
-
+SPELL_CHECK_REPLY = is_enabled(environ.get("SPELL_CHECK_REPLY", "True"), True)
 #force sub & restrict users
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
