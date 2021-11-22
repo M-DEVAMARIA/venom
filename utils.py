@@ -27,11 +27,9 @@ instance = Instance.from_db(db)
 IClient = AsyncIOMotorClient(DATABASE_URI_2)
 imdbdb=client[DATABASE_NAME_2]
 imdb=Instance.from_db(imdbdb)
+from imdb import IMDb
+imdb = IMDb() 
 
-#__________spell check test inly_____)#
-BTN_URL_REGEX = re.compile(
-    r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
-)
 
 #______index.py_______#
 class temp(object):
@@ -193,46 +191,80 @@ async def is_subscribed(bot, query):
 
     return False
 
-async def get_poster(movie):
-    extract = PTN.parse(movie)
-    try:
-        title=extract["title"]
-    except KeyError:
-        title=movie
-    try:
-        year=extract["year"]
-        year=int(year)
-    except KeyError:
-        year=None
-    if year:
-        filter = {'$and': [{'title': str(title).lower().strip()}, {'year': int(year)}]}
-    else:
-        filter = {'title': str(title).lower().strip()}
-    cursor = Poster.find(filter)
-    is_in_db = await cursor.to_list(length=1)
-    poster=None
-    if is_in_db:
-        for nyav in is_in_db:
-            poster=nyav.poster
-    else:
+
+async def get_poster(query, bulk=False, id=False, file=None):
+    if not id:
+        # https://t.me/GetTGLink/4183
+        query = (query.strip()).lower()
+        title = query
+        year = re.findall(r'[1-2]\d{3}$', query, re.IGNORECASE)
         if year:
-            url=f'https://www.omdbapi.com/?s={title}&y={year}&apikey={API_KEY}'
+            year = list_to_str(year[:1])
+            title = (query.replace(year, "")).strip()
+        elif file is not None:
+            year = re.findall(r'[1-2]\d{3}', file, re.IGNORECASE)
+            if year:
+                year = list_to_str(year[:1]) 
         else:
-            url=f'https://www.omdbapi.com/?s={title}&apikey={API_KEY}'
-        try:
-            n = requests.get(url)
-            a = json.loads(n.text)
-            if a["Response"] == 'True':
-                y = a.get("Search")[0]
-                v=y.get("Title").lower().strip()
-                poster = y.get("Poster")
-                year=y.get("Year")[:4]
-                id=y.get("imdbID")
-                await get_all(a.get("Search"))
-        except Exception as e:
-            logger.exception(e)
-            pass
-    return poster
+            year = None
+        movieid = imdb.search_movie(title.lower(), results=10)
+        if not movieid:
+            return None
+        if year:
+            filtered=list(filter(lambda k: str(k.get('year')) == str(year), movieid))
+            if not filtered:
+                filtered = movieid
+        else:
+            filtered = movieid
+        movieid=list(filter(lambda k: k.get('kind') in ['movie', 'tv series'], filtered))
+        if not movieid:
+            movieid = filtered
+        if bulk:
+            return movieid
+        movieid = movieid[0].movieID
+    else:
+        movieid = int(query)
+    movie = imdb.get_movie(movieid)
+    if movie.get("original air date"):
+        date = movie["original air date"]
+    elif movie.get("year"):
+        date = movie.get("year")
+    else:
+        date = "N/A"
+    plot = "" 
+        plot = movie.get('plot')
+        if plot and len(plot) > 0:
+            plot = plot[0]
+    return {
+        'title': movie.get('title'),
+        'votes': movie.get('votes'),
+        "aka": list_to_str(movie.get("akas")),
+        "seasons": movie.get("number of seasons"),
+        "box_office": movie.get('box office'),
+        'localized_title': movie.get('localized title'),
+        'kind': movie.get("kind"),
+        "imdb_id": f"tt{movie.get('imdbID')}",
+        "cast": list_to_str(movie.get("cast")),
+        "runtime": list_to_str(movie.get("runtimes")),
+        "countries": list_to_str(movie.get("countries")),
+        "certificates": list_to_str(movie.get("certificates")),
+        "languages": list_to_str(movie.get("languages")),
+        "director": list_to_str(movie.get("director")),
+        "writer":list_to_str(movie.get("writer")),
+        "producer":list_to_str(movie.get("producer")),
+        "composer":list_to_str(movie.get("composer")) ,
+        "cinematographer":list_to_str(movie.get("cinematographer")),
+        "music_team": list_to_str(movie.get("music department")),
+        "distributors": list_to_str(movie.get("distributors")),
+        'release_date': date,
+        'year': movie.get('year'),
+        'genres': list_to_str(movie.get("genres")),
+        'poster': movie.get('full-size cover url'),
+        'plot': plot,
+        'rating': str(movie.get("rating")),
+        'url':f'https://www.imdb.com/title/tt{movieid}'
+    }
+
 
 
 async def get_all(list):
