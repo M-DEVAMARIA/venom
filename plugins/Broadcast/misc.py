@@ -12,7 +12,7 @@ async def bot_info(client, message):
         text=Translation.ABOUT_TXT,
         parse_mode="html")
 
-"@Client.on_message(filters.command('id'))
+@Client.on_message(filters.command('id'))
 async def showid(client, message):
     chat_type = message.chat.type
     if chat_type == "private":
