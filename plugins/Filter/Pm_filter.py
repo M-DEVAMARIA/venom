@@ -162,7 +162,7 @@ async def group(client, message):
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
         else:
-            sgf =await client.send_message(
+            sgf = await client.send_message(
             chat_id = message.chat.id,
             text=f"""
 👋Hey {message.from_user.mention}
