@@ -301,7 +301,11 @@ async def search_gagala(text):
     titles = soup.find_all( 'h3' )
     return [title.getText() for title in titles]
 #__________#
-
+def list_to_str(k):
+    if not k:
+        return "N/A"
+    elif len(k) == 1:
+        return str(k[0])
 
 def encode_file_id(s: bytes) -> str:
     r = b""
