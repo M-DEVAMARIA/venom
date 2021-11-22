@@ -163,7 +163,7 @@ async def group(client, message):
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
                     )
         else: 
-            await advantage_spell_chok(msg)
+            await advantage_spell_chok(message)
      
                
             return
