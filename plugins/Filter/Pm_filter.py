@@ -453,12 +453,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
     
     elif query.data == "use":
         buttons = [[
-            InlineKeyboardButton('🚶Back', callback_data='start')
+            InlineKeyboardButton('🚶close', callback_data='close')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.reply_video(
             video='https://telegra.ph/file/fe9b257274b17e9487dbb.mp4',
-            caption='comming soon',
+            caption='tutorial will comming soon \n\n you dont know anything please contact @mdadmin2',
             reply_markup=reply_markup,
             parse_mode='html')
         
