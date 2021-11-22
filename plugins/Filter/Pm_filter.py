@@ -71,7 +71,7 @@ async def filter(client, message):
         
             video=google, 
             caption=f"""
-hey, m
+👋Hey {message.from_user.mention}
 If this movie is not in our database you will not get that movie..
 Otherwise, the spelling of the name of the requested movie may not be correct...
 So you go to google and check the spelling of the name of the movie you want.
@@ -166,7 +166,7 @@ async def group(client, message):
             sgf = await client.send_message(
             chat_id = message.chat.id,
             text=f"""
-👋Hey {message.from_user.mention}
+👋Hey 
 If this movie is not in our database you will not get that movie..
 Otherwise, the spelling of the name of the requested movie may not be correct...
 So you go to google and check the spelling of the name of the movie you want.
