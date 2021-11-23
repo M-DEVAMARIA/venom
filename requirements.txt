@@ -19,4 +19,4 @@ aiohttp[speedups]
 youtube_dl
 aiofiles
 youtube_search_python
-YTDL
+yt_dlp
