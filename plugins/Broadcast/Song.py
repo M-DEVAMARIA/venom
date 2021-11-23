@@ -9,7 +9,8 @@ import youtube_dl
 from youtube_search import YoutubeSearch
 import requests
 from pyrogram.types import Message
-
+from pytube import YouTube
+from youtubesearchpython import VideosSearch
 #________arq__________#
 import requests
 
@@ -38,7 +39,7 @@ def get_arg(message):
 async def song(client, message):
     chat_id = message.chat.id
     user_id = message.from_user["id"]
-    add_chat_to_db(str(chat_id))
+ 
     args = get_arg(message) + " " + "song"
     if args.startswith(" "):
         await message.reply("Enter a song name. Check /help")
