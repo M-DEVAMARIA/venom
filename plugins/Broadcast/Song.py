@@ -17,6 +17,8 @@ from pyrogram.types import Message
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 
+#________arq__________#
+import requests
 
 dl_limit = 0
 
