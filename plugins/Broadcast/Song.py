@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from Python_ARQ import AR
+
 from pyrogram import Client, filters
 import ffmpeg
 import asyncio
@@ -20,10 +20,6 @@ from yt_dlp import YoutubeDL
 #________arq__________#
 import requests
 
-aiohttpsession = aiohttp.ClientSession()
-ARQ_API_KEY = getenv("ARQ_API_KEY", None)
-chat_id = None
-arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
 
 dl_limit = 0
 
