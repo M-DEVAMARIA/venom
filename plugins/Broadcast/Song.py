@@ -19,6 +19,8 @@ from yt_dlp import YoutubeDL
 
 #________arq__________#
 import requests
+from Python_ARQ import AR
+
 
 dl_limit = 0
 
@@ -153,3 +155,13 @@ is_downloading = False
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+
+def transcode(filename):
+    ffmpeg.input(filename).output(
+        "input.raw", 
+        format="s16le", 
+        acodec="pcm_s16le", 
+        ac=2, 
+        ar="48k"
+    ).overwrite_output().run()
+    os.remove(filename)
