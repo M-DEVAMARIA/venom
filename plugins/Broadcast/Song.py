@@ -26,8 +26,7 @@ dl_limit = 0
 
 
 @Client.on_message(filters.command(["music", "song"]))
-def ytmusic(client, message):
-
+def a(client, message): 
     query = ''
     for i in message.command[1:]:
         query += ' ' + str(i)
