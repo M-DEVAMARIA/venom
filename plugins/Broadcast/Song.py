@@ -15,7 +15,7 @@ from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 
 
-
+dl_limit = 0
 
 
 @Client.on_message(filters.command(["music", "song"]))
