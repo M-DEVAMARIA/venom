@@ -110,10 +110,8 @@ So you go to google and check the spelling of the name of the movie you want.
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
             poster=None
             imdb = await get_poster(search, file=(files[0]).file_name)
-                hi = await message.reply_photo(photo=imdb.get('poster'), caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
-                await asyncio.sleep(60)
-
-                await hi.delete()
+                await message.reply_photo(photo=imdb.get('poster'), caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
+               
 
             else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
