@@ -40,9 +40,7 @@ async def ytmusic(client, message: Message):
             "Daisy's server busy due to too many downloads, try again after sometime."
         )
         return
-    pablo = await client.send_message(
-        message.chat.id, f"`Getting {urlissed} From Youtube Servers. Please Wait.`"
-    )
+   
     query = ''
     for i in message.command[1:]:
         query += ' ' + str(i)
