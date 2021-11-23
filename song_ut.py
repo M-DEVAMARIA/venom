@@ -8,7 +8,7 @@ import ffmpeg
 import requests
 import wget
 
-ARQ_API_KEY = getenv("ARQ_API_KEY", None)
+ARQ_API_KEY = environ.get("ARQ_API_KEY", None)
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
