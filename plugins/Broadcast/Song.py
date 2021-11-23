@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from bot import Bot
+from bot import Bot(client)
 from pyrogram import Client, filters
 import ffmpeg
 import asyncio
