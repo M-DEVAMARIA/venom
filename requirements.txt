@@ -21,3 +21,4 @@ aiofiles
 youtube_search_python
 yt_dlp
 ffmpeg-python
+future
