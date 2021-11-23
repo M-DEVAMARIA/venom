@@ -1,3 +1,10 @@
+
+import asyncio
+import os
+import time
+from random import randint
+from urllib.parse import urlparse
+from utils import get_text
 import aiofiles
 import aiohttp
 import wget
