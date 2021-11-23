@@ -38,5 +38,4 @@ class Bot(Client):
         print("Bot stopped. Bye.")
 
    
-app = Bot()
-app.run()
+
