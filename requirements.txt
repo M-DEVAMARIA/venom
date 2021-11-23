@@ -25,3 +25,6 @@ future
 python-arq
 python-dotenv
 youtube_search
+#
+pytube
+youtube-search-python
