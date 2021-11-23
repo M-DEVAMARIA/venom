@@ -12,7 +12,7 @@ import requests
 #________arq__________#
 import requests
 
-
+Client = bot
 dl_limit = 0
 
 
