@@ -14,6 +14,7 @@ bs4
 imdbpy
 
 #for song#YTDL
+wget #this not important delaye after check song.py
 aiohttp[speedups]
 youtube_dl
 aiofiles
