@@ -1,5 +1,5 @@
 import os
-from os import enviorn
+from os import environ
 from Python_ARQ import ARQ
 from pyrogram import Client
 import aiofiles
