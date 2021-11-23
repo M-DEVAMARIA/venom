@@ -24,3 +24,4 @@ ffmpeg
 future
 python-arq
 python-dotenv
+youtube_search
