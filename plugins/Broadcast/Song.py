@@ -5,18 +5,9 @@ import ffmpeg
 import asyncio
 import os
 import time
-from random import randint
-from urllib.parse import urlparse
-from utils import get_text
-import aiofiles
-import aiohttp
-import wget
-import yt_dlp as youtube_dl
-from pyrogram import filters
-from pyrogram.types import Message
-from youtubesearchpython import SearchVideos
-from yt_dlp import YoutubeDL
-from song_ut import arq
+import youtube_dl
+from youtube_search import YoutubeSearch
+import requests
 
 #________arq__________#
 import requests
