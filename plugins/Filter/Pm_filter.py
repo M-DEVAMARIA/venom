@@ -115,10 +115,11 @@ So you go to google and check the spelling of the name of the movie you want.
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
         query = search
+        year = {poster.get('year')}
         cap = f"""↪️ Requested: {query}
 🎞️ Title: {search}
 🎭 Genres: {random.choice(GENRES)}
-📆 Year: {poster.get('year')}
+📆 Year:  {year}
 🌟 Rating:  {random.choice(RATING)}
 🗃️ Total Files : unavailable
 📑 Total Page : 1/1
