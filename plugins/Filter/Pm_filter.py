@@ -62,7 +62,7 @@ async def filter(client, message):
         leng = ("total_len")
         google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
     
-        cap = f"""<b>Query: {query}</b> \n‌‌‌‌IMDb Data:\n\n
+        cap = f"""<b>Query:</b>\n‌‌‌‌IMDb Data:\n\n
         🏷 Title: <a href={url}>{title}</a>\n
         🎭 Genres: {genres}\n
         📆 Year: <a href={url}/releaseinfo>{year}</a>\n
