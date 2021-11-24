@@ -70,7 +70,7 @@ async def filter(client, message):
                                    poster = imdb['poster'],
                                    **locals()
                                 )
-        else:
+    else:
             cap =f"sorry no imdb found"
         imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
         files = await get_filter_results(query=search)
