@@ -124,37 +124,16 @@ So you go to google and check the spelling of the name of the movie you want.
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
     imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
     if imdb:
-        cap = IMDB_TEMPLATE.format(
-            query = search,
-            title = imdb['title'],
-            votes = imdb['votes'],
-            aka = imdb["aka"],
-            seasons = imdb["seasons"],
-            box_office = imdb['box_office'],
-            localized_title = imdb['localized_title'],
-            kind = imdb['kind'],
-            imdb_id = imdb["imdb_id"],
-            cast = imdb["cast"],
-            runtime = imdb["runtime"],
-            countries = imdb["countries"],
-            certificates = imdb["certificates"],
-            languages = imdb["languages"],
-            director = imdb["director"],
-            writer = imdb["writer"],
-            producer = imdb["producer"],
-            composer = imdb["composer"],
-            cinematographer = imdb["cinematographer"],
-            music_team = imdb["music_team"],
-            distributors = imdb["distributors"],
-            release_date = imdb['release_date'],
-            year = imdb['year'],
-            genres = imdb['genres'],
-            poster = imdb['poster'],
-            plot = imdb['plot'],
-            rating = imdb['rating'],
-            url = imdb['url'],
-            **locals()
-        )
+        cap = f"""↪️ Requested: {query}
+🎞️ Title: <a href={imdb['url']}>{imdb.get('title')}
+🎭 Genres: {imdb.get('genres')}
+📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>
+🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10
+🗃️ Total Files : {(len_results)}
+📑 Total Page : 1/{len_result if len_result < max_pages else max_pages}
+👤 Requested By : {update.from_user.mention}
+🖋 StoryLine: <code>{imdb.get('plot')} </code>"""
+        
     else:
         cap = f"Here is what i found for your query {search}"
         if imdb and imdb.get('poster'):
