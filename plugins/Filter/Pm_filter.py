@@ -116,14 +116,14 @@ So you go to google and check the spelling of the name of the movie you want.
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
         query = search
         
-        cap = f"""↪️ Requested: {query}
+        cap = f"""
 🎞️ Title: {search}
 🎭 Genres: {random.choice(GENRES)}
 📆 Ye
 🌟 Rating:  {random.choice(RATING)}
 🗃️ Total Files : unavailable
 📑 Total Page : 1/1
-👤 Requested By : {message.from_user.mention}
+👤  By : 
 🖋 StoryLine: unavailable"""
         
     
@@ -132,7 +132,7 @@ So you go to google and check the spelling of the name of the movie you want.
             poster=await get_poster(search)
         if poster:
             
-                await message.reply_photo(photo=poster.get('poster'), caption=f"🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year:{poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a>\n🗃️ TotalFiles : unavailable📑 Total Page : 1/1", reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get('poster'), caption=f"↪️ Requested: {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a>\n🗃️ TotalFiles : none\n📑 Total Page : 1/1\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
 
 
         else:
