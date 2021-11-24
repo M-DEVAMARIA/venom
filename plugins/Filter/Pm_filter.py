@@ -119,7 +119,7 @@ So you go to google and check the spelling of the name of the movie you want.
         cap = f"""↪️ Requested: {query}
 🎞️ Title: {search}
 🎭 Genres: {random.choice(GENRES)}
-📆 Year:  {year}
+📆 Ye
 🌟 Rating:  {random.choice(RATING)}
 🗃️ Total Files : unavailable
 📑 Total Page : 1/1
