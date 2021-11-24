@@ -156,9 +156,8 @@ So you go to google and check the spelling of the name of the movie you want.
         cap = f"Here is what i found for your query {search}"
     if imdb and imdb.get('poster'): 
                 await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-               
 
-            else:
+    else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
             return
 
