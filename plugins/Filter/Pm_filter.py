@@ -64,15 +64,7 @@ async def filter(client, message):
         search = message.text
         leng = ("total_len")
         google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
-        url = "https//www.imdb.com"
-        query = search
-    if imdb:
-        title = imdb['title']
-        capt = f"""<b>Query: {query} </b>\n‌‌‌‌IMDb Data:\n\n
-        🏷 Title: <a href={url}>{title}</a>\n
-        🎭 Genres: {genres}\n
-        📆 Year: <a href={url}/releaseinfo>{year}</a>\n
-        🌟 Rating: <a href={url}/ratings>{rating}</a> / 10"""
+        
         files = await get_filter_results(query=search)
         if files:
             for file in files:
