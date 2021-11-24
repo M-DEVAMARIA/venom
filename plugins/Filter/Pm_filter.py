@@ -13,7 +13,7 @@ import random
 BUTTONS = {}
 BOT = {}
 SPELL_CHECK = {}
-      if imdb:
+      
         imdb = IMDB_TEMPLATE.format(
             query = search,
             title = imdb['title'],
@@ -45,8 +45,8 @@ SPELL_CHECK = {}
             url = imdb['url'],
             **locals()
         )
-    else:
-    return
+    
+    
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
     if message.text.startswith("/"):
