@@ -159,7 +159,7 @@ So you go to google and check the spelling of the name of the movie you want.
 
     else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
-            return
+    return
 
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
