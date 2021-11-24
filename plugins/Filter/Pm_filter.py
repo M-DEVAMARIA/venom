@@ -5,6 +5,7 @@ from pyrogram import Client, filters
 import re, time, asyncio
 import re
 import ast
+import pyrogram
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
@@ -155,7 +156,8 @@ So you go to google and check the spelling of the name of the movie you want.
         )
     else:
         cap = f"Here is what i found for your query {search}"
-        if imdb and imdb.get('poster'): 
+        if imdb and imdb.get('poster'):
+            try:
                 await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
 
         else:
