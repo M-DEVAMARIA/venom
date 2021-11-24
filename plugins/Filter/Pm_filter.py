@@ -131,8 +131,8 @@ So you go to google and check the spelling of the name of the movie you want.
         if API_KEY:
             poster=await get_poster(search)
         if poster:
-            year = {poster.get('year')}
-                await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+            
+                await message.reply_photo(photo=poster.get('poster'), caption=f"🎞️ Title: {search}\n🎭 Genres:{random.choice(GENRES)}\n📆 Year:{poster.get('year')}\n🌟Rating: {random.choice(RATING)}\n🗃️ TotalFiles : unavailable📑 Total Page : 1/1", reply_markup=InlineKeyboardMarkup(buttons))
 
 
         else:
