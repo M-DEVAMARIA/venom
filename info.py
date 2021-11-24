@@ -26,7 +26,7 @@ DATABASE_URI = environ.get('DATABASE_URI', 'mongodb+srv://M_dautofilterv3:M_daut
 DATABASE_NAME = environ.get('DATABASE_NAME', 'Md_movies')
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 DATABASE_NAME2 = environ.get('DATABASE_NAME2', 'users')
-# bot settings
+# bot settingsIMDB = is_enabled((environ.get('IMDB', "True")), True)
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
 SPELL_CHECK_REPLY = is_enabled(environ.get("SPELL_CHECK_REPLY", "True"), True)
