@@ -61,6 +61,7 @@ async def filter(client, message):
         search = message.text
         leng = ("total_len")
         google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
+    if imdb:
         cap = IMDB_TEMPLATE.format(query = search,
                                    rating = imdb['rating'],
                                    title = imdb['title'],
@@ -68,7 +69,9 @@ async def filter(client, message):
                                    genres = imdb['genres'],
                                    poster = imdb['poster'],
                                    **locals()
-                                  )
+                                )
+        else:
+            cap =f"sorry no imdb found"
         imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
         files = await get_filter_results(query=search)
         if files:
