@@ -66,7 +66,7 @@ async def filter(client, message):
                                    title = imdb['title'],
                                    year = imdb['year'],
                                    genres = imdb['genres'],
-                                   poster = imdb['poster'])
+                                   poster = imdb['poster'],)
         imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
         files = await get_filter_results(query=search)
         if files:
