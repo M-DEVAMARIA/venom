@@ -63,6 +63,8 @@ async def filter(client, message):
         google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
         url = "https//www.imdb.com"
         query = search
+    if imdb:
+        title = imdb['title']
         cap = f"""<b>Query: {query} </b>\n‌‌‌‌IMDb Data:\n\n
         🏷 Title: <a href={url}>{title}</a>\n
         🎭 Genres: {genres}\n
