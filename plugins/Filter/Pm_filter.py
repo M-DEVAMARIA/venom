@@ -126,8 +126,10 @@ So you go to google and check the spelling of the name of the movie you want.
 🖋 StoryLine: unavailable"""
         
     
-        imdb = await get_poster(search)
-        if imdb and imdb.get('poster'):
+        poster=None
+        if API_KEY:
+            poster=await get_poster(search)
+        if poster:
             
                 await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
 
