@@ -114,17 +114,6 @@ So you go to google and check the spelling of the name of the movie you want.
             )
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-        query = search
-        
-        cap = f"""
-🎞️ Title: {search}
-🎭 Genres: {random.choice(GENRES)}
-📆 Ye
-🌟 Rating:  {random.choice(RATING)}
-🗃️ Total Files : unavailable
-📑 Total Page : 1/1
-👤  By : 
-🖋 StoryLine: unavailable"""
         
     
         poster=None
@@ -132,7 +121,7 @@ So you go to google and check the spelling of the name of the movie you want.
             poster=await get_poster(search)
         if poster:
             
-                await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a>/10\n📑 Total Page : 1/1\n🗃️ TotalFiles : None\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n📑 Total Page : <code>1 / 1</code>\n🗃️ TotalFiles : None\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
 
 
         else:
@@ -154,7 +143,7 @@ So you go to google and check the spelling of the name of the movie you want.
         if API_KEY:
             poster=await get_poster(search)
         if poster:
-            await message.reply_photo(photo=poster, caption=f"**↪️ Requested:** {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a>/10\n📑 Total Page : 1/{data['total']}\n🗃️ TotalFiles : None\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_photo(photo=poster, caption=f"**↪️ Requested:** {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n📑 Total Page : 1 / {data['total']}\n🗃️ TotalFiles : None\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
 
         else:
             await message.reply_text(f"sorry no imdb found", reply_markup=InlineKeyboardMarkup(buttons))
@@ -228,7 +217,7 @@ async def group(client, message):
         if API_KEY:
             poster=await get_poster(search)
         if poster:
-            await message.reply_photo(photo=poster, caption=f"**↪️ Requested:** {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a>/10\n📑 Total Page : 1/{data['total']}\n🗃️ TotalFiles : None\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_photo(photo=poster, caption=f"**↪️ Requested:** {query}\n\n🎞️ Title: {search}\n🎭 Genres: {poster.get('genres')}\n📆 Year: {poster.get('year')}\n🌟Rating: <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n📑 Total Page : <code>1 / {data['total']}</code>\n🗃️ TotalFiles : None\n👤requested by: {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text(caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
 
