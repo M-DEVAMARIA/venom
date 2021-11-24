@@ -1,5 +1,5 @@
 #Kanged From @TroJanZheX
-from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime
+from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re, time, asyncio
@@ -61,6 +61,7 @@ async def filter(client, message):
         search = message.text
         leng = ("total_len")
         google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
+    imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
     if imdb:
         cap = IMDB_TEMPLATE.format(query = search,
                                    rating = imdb['rating'],
