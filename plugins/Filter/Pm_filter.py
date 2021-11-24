@@ -61,7 +61,7 @@ async def filter(client, message):
         search = message.text
         leng = ("total_len")
         google = "https://telegra.ph/file/5c6a4fea12bd4a42d690d.mp4"
-        url = imdb['url']
+        url = "https//www.imdb.com"
         query = search
         cap = f"""<b>Query: {query} </b>\n‌‌‌‌IMDb Data:\n\n
         🏷 Title: <a href={url}>{title}</a>\n
