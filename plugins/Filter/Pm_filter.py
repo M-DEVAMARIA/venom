@@ -114,9 +114,7 @@ So you go to google and check the spelling of the name of the movie you want.
             )
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-    query = search
-    imdb = await get_poster(search)
-    if imdb and imdb.get('poster'):
+        query = search
         cap = f"""↪️ Requested: {query}
 🎞️ Title: <a href={imdb['url']}>{imdb.get('title')}
 🎭 Genres: {imdb.get('genres')}
@@ -127,8 +125,8 @@ So you go to google and check the spelling of the name of the movie you want.
 👤 Requested By : {message.from_user.mention}
 🖋 StoryLine: <code>{imdb.get('year')} </code>"""
         
-    else:
-        cap = f"Here is what i found for your query {search}"
+    
+        imdb = await get_poster(search)
         if imdb and imdb.get('poster'):
             
                 await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
