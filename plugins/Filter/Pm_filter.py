@@ -122,8 +122,8 @@ So you go to google and check the spelling of the name of the movie you want.
 🎭 Genres: {imdb.get('genres')}
 📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>
 🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10
-🗃️ Total Files : {(len_results)}
-📑 Total Page : 1/{len_result if len_result < max_pages else max_pages}
+🗃️ Total Files : unavailable
+📑 Total Page : 1/1
 👤 Requested By : {update.from_user.mention}
 🖋 StoryLine: <code>{imdb.get('year')} </code>"""
         
