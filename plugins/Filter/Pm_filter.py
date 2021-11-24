@@ -108,6 +108,7 @@ So you go to google and check the spelling of the name of the movie you want.
                 "buttons" : btns
             }
         else:
+            query = search
             buttons = btn
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
@@ -157,7 +158,7 @@ async def group(client, message):
         search = message.text 
         leng = ("total_len")
         imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
-        
+        query = search
         nyva=BOT.get("username")
         if not nyva:
             botusername=await client.get_me()
