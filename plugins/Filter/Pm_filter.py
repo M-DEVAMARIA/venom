@@ -114,6 +114,7 @@ So you go to google and check the spelling of the name of the movie you want.
             )
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
+    query = search
     imdb = await get_poster(search)
     if imdb and imdb.get('poster'):
         cap = f"""↪️ Requested: {query}
