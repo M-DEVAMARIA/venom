@@ -132,7 +132,7 @@ So you go to google and check the spelling of the name of the movie you want.
 🗃️ Total Files : {(len_results)}
 📑 Total Page : 1/{len_result if len_result < max_pages else max_pages}
 👤 Requested By : {update.from_user.mention}
-🖋 StoryLine: <code>{imdb.get('plot')} </code>"""
+🖋 StoryLine: <code>{imdb.get('year')} </code>"""
         
     else:
         cap = f"Here is what i found for your query {search}"
