@@ -116,13 +116,13 @@ So you go to google and check the spelling of the name of the movie you want.
             imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
             if imdb:
                 cap = IMDB_TEMPLATE.format(query = search,
-                                   rating = imdb['rating'],
-                                   title = imdb['title'],
-                                   year = imdb['year'],
-                                   genres = imdb['genres'],
-                                   poster = imdb['poster'],
-                                   **locals()
-                                )
+                    rating = imdb['rating'],
+                    title = imdb['title'],
+                    year = imdb['year'],
+                    genres = imdb['genres'],
+                    poster = imdb['poster'],
+                    **locals()
+                )
             else:
                 cap = f"sorry no imdb found"
             
