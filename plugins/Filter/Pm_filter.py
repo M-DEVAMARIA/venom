@@ -13,7 +13,7 @@ import random
 BUTTONS = {}
 BOT = {}
 SPELL_CHECK = {}
-     if imdb:
+      if imdb:
         imdb = IMDB_TEMPLATE.format(
             query = search,
             title = imdb['title'],
