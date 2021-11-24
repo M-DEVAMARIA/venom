@@ -124,7 +124,7 @@ So you go to google and check the spelling of the name of the movie you want.
 🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10
 🗃️ Total Files : unavailable
 📑 Total Page : 1/1
-👤 Requested By : {update.from_user.mention}
+👤 Requested By : {message.from_user.mention}
 🖋 StoryLine: <code>{imdb.get('year')} </code>"""
         
     else:
