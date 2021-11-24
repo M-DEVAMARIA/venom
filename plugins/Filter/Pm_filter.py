@@ -65,7 +65,7 @@ async def filter(client, message):
         query = search
     if imdb:
         title = imdb['title']
-        cap = f"""<b>Query: {query} </b>\n‌‌‌‌IMDb Data:\n\n
+        capt = f"""<b>Query: {query} </b>\n‌‌‌‌IMDb Data:\n\n
         🏷 Title: <a href={url}>{title}</a>\n
         🎭 Genres: {genres}\n
         📆 Year: <a href={url}/releaseinfo>{year}</a>\n
@@ -119,11 +119,42 @@ So you go to google and check the spelling of the name of the movie you want.
             )
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-            poster=None
-            imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
-            
-            
-            if imdb and imdb.get('poster'):
+    imdb = await get_poster(search, file=(files[0]).file_name) if IMDB else None
+    if imdb:
+        cap = IMDB_TEMPLATE.format(
+            query = search,
+            title = imdb['title'],
+            votes = imdb['votes'],
+            aka = imdb["aka"],
+            seasons = imdb["seasons"],
+            box_office = imdb['box_office'],
+            localized_title = imdb['localized_title'],
+            kind = imdb['kind'],
+            imdb_id = imdb["imdb_id"],
+            cast = imdb["cast"],
+            runtime = imdb["runtime"],
+            countries = imdb["countries"],
+            certificates = imdb["certificates"],
+            languages = imdb["languages"],
+            director = imdb["director"],
+            writer = imdb["writer"],
+            producer = imdb["producer"],
+            composer = imdb["composer"],
+            cinematographer = imdb["cinematographer"],
+            music_team = imdb["music_team"],
+            distributors = imdb["distributors"],
+            release_date = imdb['release_date'],
+            year = imdb['year'],
+            genres = imdb['genres'],
+            poster = imdb['poster'],
+            plot = imdb['plot'],
+            rating = imdb['rating'],
+            url = imdb['url'],
+            **locals()
+        )
+    else:
+        cap = f"Here is what i found for your query {search}"
+    if imdb and imdb.get('poster'): 
                 await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
                
 
