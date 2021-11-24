@@ -129,7 +129,23 @@ So you go to google and check the spelling of the name of the movie you want.
         imdb = await get_poster(search)
         if imdb and imdb.get('poster'):
             
-                await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get('poster'), caption=  f"""↪️ Requested: {query}
+
+🎞️ Title: <a href={imdb['url']}>{imdb.get('title')}
+
+🎭 Genres: {imdb.get('genres')}
+
+📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>
+
+🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10
+
+🗃️ Total Files : unavailable
+
+📑 Total Page : 1/1
+
+👤 Requested By : {message.from_user.mention}
+
+🖋 StoryLine: <code>{imdb.get('year')} </code>""", reply_markup=InlineKeyboardMarkup(buttons))
 
         else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
