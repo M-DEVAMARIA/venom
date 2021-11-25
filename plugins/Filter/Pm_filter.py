@@ -172,7 +172,19 @@ async def group(client, message):
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
                     )
         else: 
-            await advantage_spell_chok(message)
+            spf = await message.reply_text(
+            text=f"Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name..."
+            reply_markup=InlineKeyboardMarkup(
+                      [[ 
+
+                         InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
+                        ]]
+                ),     
+            parse_mode="html",
+            reply_to_message_id=message.message_id)
+            await asyncio.sleep(10)
+            await spf.delete()
+            
      
                
             return
