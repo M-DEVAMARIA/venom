@@ -173,7 +173,7 @@ async def group(client, message):
                     )
         else: 
             spf = await message.reply_text(
-            text=f"Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name..."
+            text=f"Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...",
             reply_markup=InlineKeyboardMarkup(
                       [[ 
 
