@@ -495,10 +495,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "help":
         buttons = [[ 
             InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
+            InlinekeyboardButton('manualFilter', callback_data='manual')
+            ],[
+            InlinekeyboardButton('🎵 SONGS', callback_data='ajakah'),
             InlineKeyboardButton('Extra Mods', callback_data='extra')
             ],[
             InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('📈 Status', callback_data="stats")
+            InlineKeyboardButton('📄 Status', callback_data="stats")
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
