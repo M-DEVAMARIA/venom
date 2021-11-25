@@ -197,7 +197,7 @@ async def group(client, message):
             if API_KEY:
                 poster=await get_poster(search)
             if poster:
-                await message.reply_photo(photo=poster.get('poster'), caption=f"↪️ Requested: {query}\n*🎬 Title:* {search}\n*🎭 Genres:* {poster.get('genres')}\n*📆 Year:* <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n*🌟Rating:* <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n*📑 Total Page :* <code>1*to*1</code>\n*🗃️ TotalFiles :* None\n*👤requested by:* {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get('poster'), caption=f"↪️ Requested: {query}\n*🎬 Title:* {search}\n*🎭 Genres:* {poster.get('genres')}\n*📆 Year:* <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n*🌟Rating:* <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n*📑 Total Page :* <code>1*to*1</code>\n*🗃️ TotalFiles :* None\n*👤requested in:* {message.chat.mention}", reply_markup=InlineKeyboardMarkup(buttons))
             else:
                 await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
             return
@@ -217,7 +217,7 @@ async def group(client, message):
         if API_KEY:
             poster=await get_poster(search)
         if poster:
-            await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n*🎬 Title:* {search}\n*🎭 Genres:* {poster.get('genres')}\n*📆 Year:* <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n*🌟Rating:* <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n*📑 Total Page :* <code>1 to {data['total']}</code>\n*🗃️ TotalFiles :* None\n*👤requested by:* {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n*🎬 Title:* {search}\n*🎭 Genres:* {poster.get('genres')}\n*📆 Year:* <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n*🌟Rating:* <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n*📑 Total Page :* <code>1 to {data['total']}</code>\n*🗃️ TotalFiles :* None\n*👤requested in:* {message.chat.mention}", reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text(caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
 
