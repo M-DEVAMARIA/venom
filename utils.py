@@ -31,7 +31,9 @@ from typing import Union
 from imdb import IMDb
 imdb = IMDb() 
 
-
+BTN_URL_REGEX = re.compile(
+    r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
+)
 #______index.py_______#
 class temp(object):
     
