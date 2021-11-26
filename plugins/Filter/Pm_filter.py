@@ -509,7 +509,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
             )
-
+ 
     elif query.data == "autofilter":
         buttons = [[
             InlineKeyboardButton('⇚Back', callback_data='help')
@@ -530,7 +530,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
         )
-        
+    elif query.data == "song":
+        buttons = [[
+            InlineKeyboardButton('⇚Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=Translation.SONG_TXT,
+            reply_markup=reply_markup,
+            parse_mode='html'
+        )  
     elif query.data == "stats":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
