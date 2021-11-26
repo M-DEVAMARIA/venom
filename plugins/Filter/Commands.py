@@ -6,7 +6,7 @@ import logging
 import random
 from utils import Media, get_file_details, get_size, time_formatter, temp
 from database.users_db import db
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from pyrogram import Client, filters
 from info import ADMINS, BROADCAST_CHANNEL, PHOTO, start_uptime, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
 from translation import Translation 
