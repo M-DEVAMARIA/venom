@@ -37,4 +37,4 @@ class Translation(object):
 
 A Module To Download Songs From Youtube
 
-/song {song name} - <code>Download song from youtube</code>
+/song {song name} - <code>Download song from youtube</code>"""
