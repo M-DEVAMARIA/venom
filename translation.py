@@ -32,3 +32,9 @@ class Translation(object):
 ➭ total groups: <code>{}</code>
 ➭ used storage: <code>{}</code> """
 
+    STATUS_TXT = """
+🎧 Song Downloader
+
+A Module To Download Songs From Youtube
+
+/song {song name} - <code>Download song from youtube</code>
