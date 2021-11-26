@@ -26,7 +26,7 @@ class Translation(object):
 3. Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
     
-    STATUS_TXT = """
+    SONG_TXT = """
 ➭ Total files in db: <code>{}</code>
 ➭ users: <code>{}</code>
 ➭ total groups: <code>{}</code>
