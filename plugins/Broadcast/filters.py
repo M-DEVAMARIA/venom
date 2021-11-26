@@ -1,6 +1,6 @@
 import io
 from pyrogram import filters, Client
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup
 from database.filters_db import(
    add_filter,
    get_filters,
