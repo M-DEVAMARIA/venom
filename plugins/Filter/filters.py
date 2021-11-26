@@ -273,7 +273,7 @@ async def delallconfirm(client, message):
  #____________________________________________________connection_________4____________________________________#
 from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.connections_mdb import add_connection, all_connections, if_active, delete_connection
+from database.connection_db import add_connection, all_connections, if_active, delete_connection
 from info import ADMINS
 import logging
 logger = logging.getLogger(__name__)
