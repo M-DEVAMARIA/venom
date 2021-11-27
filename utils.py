@@ -230,7 +230,11 @@ async def get_poster(query, bulk=False, id=False, file=None):
         date = movie.get("year")
     else:
         date = "N/A"
-    
+    plot = movie.get('plot')
+    if plot and len(plot) > 0:
+        plot = plot[0]
+    if plot and len(plot) > 800:
+        plot = plot[0:800] + "..."
     return {
         'title': movie.get('title'),
         'votes': movie.get('votes'),
@@ -256,7 +260,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
         'year': movie.get('year'),
         'genres': list_to_str(movie.get("genres")),
         'poster': movie.get('full-size cover url'),
-        
+        'plot': plot,
         'rating': str(movie.get("rating")),
         'url':f'https://www.imdb.com/title/tt{movieid}'
     }
