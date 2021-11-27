@@ -17,8 +17,11 @@ import random
 BUTTONS = {}
 BOT = {}
 SPELL_CHECK = {}
-      
-        
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.ERROR)
+
+
     
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
@@ -233,6 +236,10 @@ async def group(client, message):
             await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to {data['total']}</code>\n**🗃️ TotalFiles :** None\n**👤requested in:** {message.chat.title}", reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text(caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
+                except Exception as e:
+                    logger.exception(e)
+                break 
+
         else:
         await give_filter(client, message)   
 
