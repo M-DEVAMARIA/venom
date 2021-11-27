@@ -1,11 +1,11 @@
 import os
 from pyrogram import Client, filter
-from database.filters_mdb import(
+from database.filters_db import(
    del_all,
    find_filter,
    get_filters,
 )
-from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
+from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
 import pyrogram
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
