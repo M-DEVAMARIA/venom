@@ -32,7 +32,7 @@ from imdb import IMDb
 imdb = IMDb() 
 
 BTN_URL_REGEX = re.compile(
-    r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
+    r"(\[([^\[]+?)\]\((url|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
 )
 BANNED = {}
 SMART_OPEN = '“'
