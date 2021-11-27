@@ -6,6 +6,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram
+from plugins.Broadcast.callback import give_filter
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
