@@ -196,92 +196,8 @@ async def give_filter(client,message):
     else:
         await group(client, message)   
 
-async def group(client, message):
-    if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-        return
-    if 2 < len(message.text) < 50:    
-        btn = []
-        search = message.text 
-        leng = ("total_len")
-        query = search
-        nyva=BOT.get("username")
-        if not nyva:
-            botusername=await client.get_me()
-            nyva=botusername.username
-            BOT["username"]=nyva
-        files = await get_filter_results(query=search)
-        if files:
-            for file in files:
-                file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}] {file.file_name}"
-                btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
-                    )
-        else: 
-            spf = await message.reply_text(
-            text=f"Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...",
-            reply_markup=InlineKeyboardMarkup(
-                      [[ 
-
-                         InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
-                        ]]
-                ),     
-            parse_mode="html",
-            reply_to_message_id=message.message_id)
-            await asyncio.sleep(10)
-            await spf.delete()
-            
-     
-               
-            return
-        if not btn:
-            return
-
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message.message_id}"
-            BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
-            }
-        else:
-            buttons = btn
-            buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
-            )
-            if BUTTON:
-                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-            poster=None
-            if API_KEY:
-                poster=await get_poster(search)
-            if poster:
-                await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1**to**1</code>\n**🗃️ TotalFiles :** None\n**👤requested in:** {message.chat.title}", reply_markup=InlineKeyboardMarkup(buttons))
-            else:
-                await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-            return
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⫸ ",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        if BUTTON:
-            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-        poster=None
-        if API_KEY:
-            poster=await get_poster(search)
-        if poster:
-            await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to {data['total']}</code>\n**🗃️ TotalFiles :** None\n**👤requested in:** {message.chat.title}", reply_markup=InlineKeyboardMarkup(buttons))
-        else:
-            await message.reply_text(caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
-    
-
-
-    
+      
+           
 def get_size(size):
     """Get size in readable format"""
 
@@ -626,6 +542,90 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
       )
+        
+async def group(client, message):
+    if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+        return
+    if 2 < len(message.text) < 50:    
+        btn = []
+        search = message.text 
+        leng = ("total_len")
+        query = search
+        nyva=BOT.get("username")
+        if not nyva:
+            botusername=await client.get_me()
+            nyva=botusername.username
+            BOT["username"]=nyva
+        files = await get_filter_results(query=search)
+        if files:
+            for file in files:
+                file_id = file.file_id
+                filename = f"[{get_size(file.file_size)}] {file.file_name}"
+                btn.append(
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=subinps_-_-_-_{file_id}")]
+                    )
+        else: 
+            spf = await message.reply_text(
+            text=f"Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...",
+            reply_markup=InlineKeyboardMarkup(
+                      [[ 
+
+                         InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
+                        ]]
+                ),     
+            parse_mode="html",
+            reply_to_message_id=message.message_id)
+            await asyncio.sleep(10)
+            await spf.delete()
+            
+     
+               
+            return
+        if not btn:
+            return
+
+        if len(btn) > 10: 
+            btns = list(split_list(btn, 10)) 
+            keyword = f"{message.chat.id}-{message.message_id}"
+            BUTTONS[keyword] = {
+                "total" : len(btns),
+                "buttons" : btns
+            }
+        else:
+            buttons = btn
+            buttons.append(
+                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+            )
+            if BUTTON:
+                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
+            poster=None
+            if API_KEY:
+                poster=await get_poster(search)
+            if poster:
+                await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1**to**1</code>\n**🗃️ TotalFiles :** None\n**👤requested in:** {message.chat.title}", reply_markup=InlineKeyboardMarkup(buttons))
+            else:
+                await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+            return
+
+        data = BUTTONS[keyword]
+        buttons = data['buttons'][0].copy()
+
+        buttons.append(
+            [InlineKeyboardButton(text="NEXT ⫸ ",callback_data=f"next_0_{keyword}")]
+        )    
+        buttons.append(
+            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+        )
+        if BUTTON:
+            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
+        poster=None
+        if API_KEY:
+            poster=await get_poster(search)
+        if poster:
+            await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to {data['total']}</code>\n**🗃️ TotalFiles :** None\n**👤requested in:** {message.chat.title}", reply_markup=InlineKeyboardMarkup(buttons))
+        else:
+            await message.reply_text(caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
+    
         
 async def advantage_spell_chok(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
