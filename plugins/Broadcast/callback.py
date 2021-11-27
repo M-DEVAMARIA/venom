@@ -1,5 +1,5 @@
 import os
-from pyrogram import Client, filter
+from pyrogram import Client, filters
 from database.filters_db import(
    del_all,
    find_filter,
