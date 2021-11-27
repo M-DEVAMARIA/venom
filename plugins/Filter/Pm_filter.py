@@ -203,7 +203,6 @@ async def group(client, message):
         btn = []
         search = message.text 
         leng = ("total_len")
-        imdb = f"**🗂️ Title:** {search}\n🗃️ Total Files : {leng}\n**⭐ Rating:** {random.choice(RATING)}\n**🎭 Genre:** {random.choice(GENRES)}\n**📤 Uploaded by {message.chat.title}**" 
         query = search
         nyva=BOT.get("username")
         if not nyva:
