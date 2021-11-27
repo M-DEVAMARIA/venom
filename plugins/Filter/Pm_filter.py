@@ -233,6 +233,8 @@ async def group(client, message):
             await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to {data['total']}</code>\n**🗃️ TotalFiles :** None\n**👤requested in:** {message.chat.title}", reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text(caption=imdb, reply_markup=InlineKeyboardMarkup(buttons))
+else:
+        await give_filter(client, message)   
 
     
 def get_size(size):
@@ -322,9 +324,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
-    else:
-        await give_filter(client, message)   
-
+    
                 return
 
 
