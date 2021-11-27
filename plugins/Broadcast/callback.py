@@ -10,7 +10,7 @@ import pyrogram
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 import re
 
-@Client.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
+
 async def give_filter(client,message):
     group_id = message.chat.id
     name = message.text
