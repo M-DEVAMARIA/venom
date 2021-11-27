@@ -1,12 +1,14 @@
 import os
-from pyrogram import Client, filters
+from pyrogram import Client, filter
 from database.filters_mdb import(
    del_all,
    find_filter,
    get_filters,
 )
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
 import pyrogram
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+
 
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
