@@ -240,8 +240,8 @@ async def group(client, message):
             logger.exception(e)
             break 
 
-        else:
-            await give_filter(client, message)   
+     else:
+          await give_filter(client, message)   
 
     
 def get_size(size):
