@@ -3,6 +3,7 @@ from pyrogram import Client, filters
 from telegraph import upload_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 @Client.on_message(filters.media & filters.private)
 async def telegraph_upload(bot, update):
