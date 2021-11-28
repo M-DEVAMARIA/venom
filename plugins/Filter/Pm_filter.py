@@ -641,8 +641,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
             InlineKeyboardButton('manualFilter', callback_data='manual')
             ],[
-            InlineKeyboardButton('SONGS', callback_data='song'),
-            InlineKeyboardButton('telegraph', callback_data='extra'),
+            InlineKeyboardButton('Songs', callback_data='song'),
+            InlineKeyboardButton('Telegraph', callback_data='telegraph'),
             InlineKeyboardButton('Extra Mods', callback_data='extra')
             ],[
             InlineKeyboardButton('🏠 Home', callback_data='start'),
