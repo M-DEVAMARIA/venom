@@ -57,7 +57,7 @@ async def telegraph_upload(bot, update):
         )
     )
 
-@Client.on_message(filters.private & filters.text)
+@Client.on_message(filters.private  & filters.command("covid"))
 async def reply_info(bot, update):
     reply_markup = BUTTONS
     await update.reply_text(
