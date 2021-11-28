@@ -38,3 +38,11 @@ class Translation(object):
 A Module To Download Songs From Youtube
 
 /song {song name} - <code>Download song from youtube</code>"""
+    TELPH_TXT = """
+Telegraph 
+
+<b>Note:</b>
+
+send media under 5mb then bot will send telegraph link """
+    
+any bug reprt 
