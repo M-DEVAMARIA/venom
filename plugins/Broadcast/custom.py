@@ -7,11 +7,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 @Client.on_message(filters.media & filters.private)
 async def telegraph_upload(bot, update):
-    
-    except Exception as error:
-            print(error)
-            await update.reply_text(text="Something wrong. Contact <a href='https://telegram.me/TheFayas'>Developer</a>.", disable_web_page_preview=True)
-            return
+l
     medianame = "./DOWNLOADS/" + "FayasNoushad/FnTelegraphBot"
     text = await update.reply_text(
         text="<code>Downloading to My Server ...</code>",
