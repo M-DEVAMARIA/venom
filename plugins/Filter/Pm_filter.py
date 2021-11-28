@@ -152,7 +152,7 @@ So you go to google and check the spelling of the name of the movie you want.
             await message.reply_text(f"sorry no imdb found", reply_markup=InlineKeyboardMarkup(buttons))
 
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
-async def give_filter(client,message):
+async def give_filter(client, message):
     group_id = message.chat.id
     name = message.text
 
