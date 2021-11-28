@@ -12,12 +12,13 @@ pyromod
 requests
 bs4
 imdbpy
-
+telegraph
+aiofiles
 #for song#YTDL
 wget #this not important delaye after check song.py
 aiohttp[speedups]
 youtube_dl
-aiofiles
+
 youtube_search_python
 yt_dlp
 ffmpeg
