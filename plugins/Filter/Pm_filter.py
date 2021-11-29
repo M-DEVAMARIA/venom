@@ -642,7 +642,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[ 
             InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
             InlineKeyboardButton('manualFilter', callback_data='manual'),
-            InlineKeyboardButton('Connection', callback_data='manual')
+            InlineKeyboardButton('Connection', callback_data='connection')
             ],[
             InlineKeyboardButton('Songs', callback_data='song'),
             InlineKeyboardButton('Telegraph', callback_data='telegraph'),
@@ -698,6 +698,26 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
         )  
+    elif query.data == "connection":
+        buttons = [[
+            InlineKeyboardButton('⇚Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=Translation.CONNECTION_TXT,
+            reply_markup=reply_markup,
+            parse_mode='html'
+        ) 
+    elif query.data == "manual":
+        buttons = [[
+            InlineKeyboardButton('⇚Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=Translation.CONNECTION_TXT,
+            reply_markup=reply_markup,
+            parse_mode='html'
+        ) 
     elif query.data == "stats":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
