@@ -26,8 +26,24 @@ class Translation(object):
 3. Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
     
+    MANUALFILTER_TXT = """
+Help: <b>Filters</b>
+
+- Filter is the feature were users can set automated replies for a particular keyword and venom will respond whenever a keyword is found the message
+
+NOTE:
+1. Venom should have admin privillage.
+2. only admins can add filters in a chat.
+3. alert buttons have a limit of 64 characters.
+
+Commands and Usage:
+• /filter - add a filter in chat
+• /filters - list all the filters of a chat
+• /del - delete a specific filter in chat
+• /delall - delete the whole filters in a chat (chat owner only)"""
+    
     CONNECTION_TXT = """
-Help: Connections
+Help: <b>Connections</b>
 
 - Used to connect bot to PM for managing filters 
 - it helps to avoid spamming in groups.
