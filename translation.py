@@ -76,4 +76,9 @@ Telegraph
 
 send media under 5mb then bot will send telegraph link """
     
-
+    PIN_TXT ="""<b>PIN MODULE</b>
+<b>Pin :</b>
+<b>All The Pin Related Commands Can Be Found Here; Keep Your Chat Up To Date On The Latest News With A Simple Pinned Message!</b>
+<b>📚 Commands & Usage:</b>\n
+◉ /Pin :- Pin The Message You Replied To Message To Send A Notification To Group Members
+◉ /Unpin :- Unpin The Current Pinned Message. If Used As A Reply, Unpins The Replied To Message"""
