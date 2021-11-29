@@ -1,4 +1,6 @@
 #_________mdbotz___________________#
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 CALCULATE_TEXT = "Made by @FayasNoushad"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
