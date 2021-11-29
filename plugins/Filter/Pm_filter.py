@@ -772,7 +772,29 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
       )
-        
+   
+async def cb_data(bot, update):
+        data = update.data
+        try:
+            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
+            message_text = '' if CALCULATE_TEXT in message_text else message_text
+            if data == "=":
+                text = float(eval(message_text))
+            elif data == "DEL":
+                text = message_text[:-1]
+            elif data == "AC":
+                text = ""
+            else:
+                text = message_text + data
+            await update.message.edit_text(
+                text=f"{text}\n\n{CALCULATE_TEXT}",
+                disable_web_page_preview=True,
+                reply_markup=CALCULATE_BUTTONS
+            )
+        except Exception as error:
+            print(error)
+
+            
 async def group(client, message):
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
