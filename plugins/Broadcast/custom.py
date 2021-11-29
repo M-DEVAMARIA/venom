@@ -1,4 +1,5 @@
 import os
+from pyrogram.types import Message
 from pyrogram import Client, filters
 from telegraph import upload_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -96,7 +97,8 @@ Made by @FayasNoushad"""
         return covid_info
     except Exception as error:
         return error
-    
+
+*-------------------#pin---------------------*
 @Client.on_message(filters.command(["pin"])
 async def pin(_, message: Message):
     if not message.reply_to_message:
