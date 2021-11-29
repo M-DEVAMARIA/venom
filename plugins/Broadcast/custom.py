@@ -98,7 +98,7 @@ Made by @FayasNoushad"""
     except Exception as error:
         return error
 
-*-------------------#pin---------------------*
+#-------------------pin---------------------#
 @Client.on_message(filters.command(["pin"])
 async def pin(_, message: Message):
     if not message.reply_to_message:
