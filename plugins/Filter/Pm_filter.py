@@ -658,7 +658,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
             )
  
-    elif query.data == "autofilter":
+    elif query.data == "extra":
         buttons = [[
             InlineKeyboardButton('covid', callback_data='covid'),
             InlineKeyboardButton('Extra mods', callback_data='extra')
@@ -668,17 +668,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text=Translation.AUTOFILTER_TXT,
+            text="extra mods are not available\n avilable soon...",
             reply_markup=reply_markup,
             parse_mode='html'
         )
-    elif query.data == "extra":
+    elif query.data == "autofilter":
         buttons = [[
             InlineKeyboardButton('⇚Back', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text="extra mods are not available\n avilable soon...",
+            text=Translation.AUTOFILTER_TXT,
             reply_markup=reply_markup,
             parse_mode='html'
         )
