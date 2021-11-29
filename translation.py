@@ -26,6 +26,21 @@ class Translation(object):
 3. Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
     
+    CONNECTION_TXT = """
+Help: Connections
+
+- Used to connect bot to PM for managing filters 
+- it helps to avoid spamming in groups.
+
+NOTE:
+1. Only chat admins can add a connection.
+2. Send /connect for connecting me to venom PM
+
+Commands and Usage:
+• /connect  - connect a particular chat to Venom PM
+• /disconnect  - disconnect from a chat
+• /connections - <i>list all your connections</i>
+   
     STATUS_TXT = """
 ➭ Total files in db: <code>{}</code>
 ➭ users: <code>{}</code>
