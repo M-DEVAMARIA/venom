@@ -575,7 +575,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ttl = await client.get_chat(int(groupid))
                 title = ttl.title
                 active = await if_active(str(userid), str(groupid))
-                act = " - ACTIVE" if active else ""
+                act = "✅" if active else ""
                 buttons.append(
                     [
                         InlineKeyboardButton(
@@ -596,10 +596,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true'),
             ],[
             InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
-           InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
+            InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
             ],[
             InlineKeyboardButton("😎About", callback_data="about"),
             InlineKeyboardButton('ℹ️HELP', callback_data='help')
+            ],[
+            InlineKeyboardButton('how to use me ❔', callback_data='use')
          ]] 
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
