@@ -660,7 +660,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
  
     elif query.data == "autofilter":
         buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
+            InlineKeyboardButton('covid', callback_data='covid'),
+            InlineKeyboardButton('Extra mods', callback_data='extra')
+            ],[
+            InlineKeyboardButton('pin', callback_data='pin'),
+            InlineKeyboardButton('Home', callback_data='help'),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
