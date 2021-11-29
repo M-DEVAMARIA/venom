@@ -704,7 +704,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
         )  
-
+     
+    elif query.data == "pin":
+        buttons = [[
+            InlineKeyboardButton('⇚Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=Translation.PIN_TXT,
+            reply_markup=reply_markup,
+            parse_mode='html'
+        )  
     elif query.data == "connection":
         buttons = [[
             InlineKeyboardButton('⇚Back', callback_data='help')
@@ -742,16 +752,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
         )
-    elif query.data == "pin":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text=Translation.PIN_TXT
-            reply_markup=reply_markup,
-            parse_mode='html'
-        )         
+ 
     elif query.data == "rfrsh":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
