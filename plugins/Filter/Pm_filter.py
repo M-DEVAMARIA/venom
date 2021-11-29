@@ -6,6 +6,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
+from custom import CALCULATE_TEXT, CALCULATE_BUTTONS
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
