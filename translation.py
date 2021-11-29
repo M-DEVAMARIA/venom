@@ -39,7 +39,7 @@ NOTE:
 Commands and Usage:
 • /connect  - connect a particular chat to Venom PM
 • /disconnect  - disconnect from a chat
-• /connections - <i>list all your connections</i>
+• /connections - <i>list all your connections</i> """
    
     STATUS_TXT = """
 ➭ Total files in db: <code>{}</code>
