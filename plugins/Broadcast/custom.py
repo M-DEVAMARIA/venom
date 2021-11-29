@@ -2,6 +2,7 @@ import os
 from pyrogram.types import Message
 from pyrogram import Client, filters
 from telegraph import upload_file
+from pyrogram.types import *
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import requests
 from requests.utils import requote_uri
