@@ -711,7 +711,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ) 
     elif query.data == "covid":
         await query.message.edit_text(
-            text=Translation.MISC_TXT,
+            text=Translation.COVID_TXT,
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
