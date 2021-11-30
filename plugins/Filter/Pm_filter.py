@@ -665,9 +665,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('Extra mods', callback_data='extra')
             ],[
             InlineKeyboardButton('pin', callback_data='pin'),
-            InlineKeyboardButton('misc', callback_data='help')
+            InlineKeyboardButton('misc', callback_data='misc')
             ],[
-            InlineKeyboardButton('back', callback_data='help'),
+            InlineKeyboardButton('back', callback_data='extra'),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -713,6 +713,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=Translation.PIN_TXT,
+            reply_markup=reply_markup,
+            parse_mode='html'
+        )  
+    
+    elif query.data == "misc":
+        buttons = [[
+            InlineKeyboardButton('⇚Back', callback_data='help')
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await query.message.edit_text(
+            text=Translation.MISC_TXT,
             reply_markup=reply_markup,
             parse_mode='html'
         )  
