@@ -6,14 +6,15 @@ from pyrogram.types import *
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import requests
 from requests.utils import requote_uri
+from utils import temp
 API = "https://api.sumanjay.cf/covid/?country="
-BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/FayasNoushad')]])
+BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 @Client.on_message(filters.media & filters.private)
 async def telegraph_upload(bot, update):
 
-    medianame = "./DOWNLOADS/" + "FayasNoushad/FnTelegraphBot"
+    medianame = "./DOWNLOADS/" + "venom/telegraph"
     text = await update.reply_text(
         text="<code>Downloading to My Server ...</code>",
         disable_web_page_preview=True
@@ -50,10 +51,7 @@ async def telegraph_upload(bot, update):
                     InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url=https://telegra.ph{response[0]}")
                 ],
                 [  
-                    InlineKeyboardButton(text="⚙ Join Updates Channel ⚙", url="https://telegram.me/FayasNoushad")
-                ],
-                [
-                    InlineKeyboardButton('🖥️ Deploy Video 🖥️', url='https://youtu.be/c-GfUfriP50')
+                    InlineKeyboardButton(text="Join venom Updates Channel ", url="https://t.me/venombotupdates")
                 ]
             ]
         )
@@ -95,7 +93,7 @@ Last Update : `{last_update}`
 Latitude : `{latitude}`
 Longitude : `{longitude}`
 Recovered : `{recovered}`
-Made by @FayasNoushad"""
+searched by {temp.U_NAME}"""
         return covid_info
     except Exception as error:
         return error
@@ -116,7 +114,7 @@ async def unpin(_, message: Message):
 
 #_________________calculator_________________#
 from plugins.Filter.Pm_filter import cb_data
-CALCULATE_TEXT = "Made by @FayasNoushad"
+CALCULATE_TEXT = "search in {temp.U_NAME}"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="DEL"),
