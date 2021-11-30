@@ -652,7 +652,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('Extra Mods', callback_data='extra')
             ],[
             InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔮 Status', callback_data="stats")
+            InlineKeyboardButton('🔮 Status', callback_data="stats"),
+            InlineKeyboardButton('NEXT ➪', callback_data='extramod')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -663,13 +664,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
  
     elif query.data == "extra":
         buttons = [[
-            InlineKeyboardButton('covid', callback_data='covid'),
-            InlineKeyboardButton('Extra mods', callback_data='extramod')
+            InlineKeyboardButton('COVID', callback_data='covid'),
+            InlineKeyboardButton('COUNTRY', callback_data='cal'),
+            InlineKeyboardButton('EXTRA', callback_data='extramod')
             ],[
-            InlineKeyboardButton('pin', callback_data='pin'),
-            InlineKeyboardButton('misc', callback_data='misc')
+            InlineKeyboardButton('PIN', callback_data='pin'),
+            InlineKeyboardButton('MISC', callback_data='misc'),
+            InlineKeyboardButton('IMDB', callback_data='extramod')
             ],[
-            InlineKeyboardButton('back', callback_data='help'),
+            InlineKeyboardButton('⇚ back', callback_data='help'),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
