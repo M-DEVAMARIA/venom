@@ -61,6 +61,7 @@ async def song(client, message):
     audio = yt.streams.filter(only_audio=True).first()
     thumb_name = f'thumb{message.message_id}.jpg' 
     thumb = requests.get(thumbnail, allow_redirects=True)
+    open(thumb_name, 'wb').write(thumb.content)
     try:
         
         download = audio.download(filename=f"{str(user_id)}")
