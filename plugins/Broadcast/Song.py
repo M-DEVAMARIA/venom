@@ -57,11 +57,15 @@ async def song(client, message):
             time.sleep(1)
         results = YoutubeSearch(args, max_results=1).to_dict()
         count += 1
+    title = results[0]["title"]
+    duration = results[0]["duration"]
+    views = results[0]["views"]
     thumbnail = results[0]["thumbnails"][0]
     audio = yt.streams.filter(only_audio=True).first()
     thumb_name = f'thumb{message.message_id}.jpg' 
     thumb = requests.get(thumbnail, allow_redirects=True)
     open(thumb_name, 'wb').write(thumb.content)
+    cap =f" 🎧 Title : {title}\n⏳ duration : {duration}\n👁‍🗨 views : {views}"
     try:
         
         download = audio.download(filename=f"{str(user_id)}")
@@ -76,6 +80,7 @@ async def song(client, message):
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
         title=str(yt.title),
+        caption=cap
         thumb=thumb_name,
         performer=str(yt.author),
         reply_to_message_id=message.message_id,
