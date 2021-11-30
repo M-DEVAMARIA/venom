@@ -134,10 +134,10 @@ async def start(bot, cmd):
                         InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
                         InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
                         ],[
-                        InlineKeyboardButton("😎About", callback_data="about"),
-                        InlineKeyboardButton('ℹ️HELP', callback_data='help')
+                        InlineKeyboardButton("😎 About", callback_data="about"),
+                        InlineKeyboardButton('ℹ️ HELP', callback_data='help')
                         ],[
-                        InlineKeyboardButton('how to use me ❔', callback_data='use')
+                        InlineKeyboardButton('how to use me ❔', callback_data='user')
                     ]] 
                ) 
           ) 
@@ -148,8 +148,7 @@ async def start(bot, cmd):
 @Client.on_message(filters.command(['about']))
 async def bot_info(client, message):
     buttons = [[
-            InlineKeyboardButton("🤖 BOT UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1"),
-            InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
+            InlineKeyboardButton("🤖 Venom UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
