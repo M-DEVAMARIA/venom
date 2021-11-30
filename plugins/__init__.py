@@ -30,5 +30,5 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton("+", callback_data="+"),
         ]]
     )
-class button(object):
+
 CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
