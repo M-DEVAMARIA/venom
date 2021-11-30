@@ -602,7 +602,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
             ],[
             InlineKeyboardButton("😎About", callback_data="about"),
-            InlineKeyboardButton('ℹ️HELP', callback_data='help')
+            InlineKeyboardButton('ℹHELP', callback_data='help')
             ],[
             InlineKeyboardButton('how to use me ❔', callback_data='use')
          ]] 
