@@ -6,7 +6,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS
+from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, button
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
@@ -349,20 +349,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         print(e)
                         f_caption=f_caption
                 if f_caption is None:
-                    f_caption = f"{files.file_name}"
-                buttons = [
-                    [
-                        InlineKeyboardButton('More Bots', url='https://t.me/joinchat/EOI9s4lc00cyOTI1'),
-                        InlineKeyboardButton('Update Channel', url='https://t.me/joinchat/EOI9s4lc00cyOTI1')
-                    ]
-                    ]
-                
+                    f_caption = f"{files.file_name}" 
                 await query.answer()
                 await client.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons)
+                    reply_markup=button.CAPTION,
                     )
         elif query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
@@ -381,20 +374,20 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         print(e)
                         f_caption=f_caption
                 if f_caption is None:
-                    f_caption = f"{title}"
+                    f_caption = f"{title}" hhh
                 buttons = [
                     [
                         InlineKeyboardButton('More Bots', url='https://t.me/joinchat/EOI9s4lc00cyOTI1'),
                         InlineKeyboardButton('bot updates', url='https://t.me/joinchat/EOI9s4lc00cyOTI1')
                     ]
                     ]
-                
+                hhhhhh
                 await query.answer()
                 await client.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons)
+                    reply_markup=button.CAPTION
                     )
     elif query.data == "pages":
        await query.answer()
