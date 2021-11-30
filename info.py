@@ -39,7 +39,7 @@ AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_chan
 
 #broadcast db
 BROADCAST_CHANNEL = int(environ.get("BROADCAST_CHANNEL", -1001553356176))
-PHOTO = (environ.get("PHOTOS", "https://telegra.ph/file/0eee5d50b93ca32ef90cb.jpg https://telegra.ph/file/5be9302d601f31de6987c.jpg https://telegra.ph/file/695f80d49d3d1c854880a.jpg https://telegra.ph/file/068e8dbd8024340fa003c.jpg https://telegra.ph/file/d0aa3ce797458642782d6.jpg https://telegra.ph/file/2c1835c35522fea3ee110.jpg https://telegra.ph/file/b005f398d96344f4e9a08.jpg https://telegra.ph/file/43d0782de5d7ef269faed.jpg https://telegra.ph/file/8f990e11a9bfc24e35a8c.jpg")).split()
+PHOTO = (environ.get("PHOTOS", "https://telegra.ph/file/0ea48259dee162a3f1af5.jpg https://telegra.ph/file/521928a593ee7f6317148.jpg https://telegra.ph/file/2de25e9b92952e71a38fe.jpg https://telegra.ph/file/43e0475c64c6e62620cde.jpg https://telegra.ph/file/8b19847ac853a1acd6fad.jpg https://telegra.ph/file/695f80d49d3d1c854880a.jpg https://telegra.ph/file/068e8dbd8024340fa003c.jpg https://telegra.ph/file/d0aa3ce797458642782d6.jpg https://telegra.ph/file/2c1835c35522fea3ee110.jpg https://telegra.ph/file/b005f398d96344f4e9a08.jpg https://telegra.ph/file/43d0782de5d7ef269faed.jpg https://telegra.ph/file/8f990e11a9bfc24e35a8c.jpg")).split()
 start_uptime = time.time()
 # for main filter.py
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", "<b>Query: {query}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10")
