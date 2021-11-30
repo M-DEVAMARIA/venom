@@ -4,6 +4,7 @@ import sys
 import asyncio, time
 import logging
 import random
+from plugins.__init__ import CAPTION
 from utils import Media, get_file_details, get_size, time_formatter, temp
 from database.users_db import db
 from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
@@ -35,14 +36,14 @@ async def start(bot, cmd):
             await db.add_chat(cmd.chat.id, cmd.chat.title)
             await bot.send_message(
                 LOG_CHANNEL, 
-                f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started @venom_moviebot !!",)
+                f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started {temp.U_NAME} !!",)
       
         return 
     if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(
             LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) searched [{cmd.chat.title}] started @Maxbotassbot !!",
+            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started {temp.U_NAME} !!",
         ) 
     usr_cmdall1 = cmd.text
     if usr_cmdall1.startswith("/start subinps"):
@@ -98,18 +99,12 @@ async def start(bot, cmd):
                         print(e)
                         f_caption=f_caption
                 if f_caption is None:
-                    f_caption = f"{files.file_name}"
-                buttons = [
-                    [
-                        InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
-                        InlineKeyboardButton('More Bots', url='https://t.me/joinchat/EOI9s4lc00cyOTI1')
-                    ]
-                    ]
+                    f_caption = f"{files.file_name}" 
                 await bot.send_cached_media(
                     chat_id=cmd.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons)
+                    reply_markup=CAPTION
                     )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
