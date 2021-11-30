@@ -80,7 +80,13 @@ Telegraph
 <b>Note:</b>
 
 send media under 5mb then bot will send telegraph link """
+    COVID_TXT = """ <b> 🌏 covid information </b>
+  
+A module to find all country covid informations.
     
+<b>🗣️ Available commands </b>\n
+▪️/covid :- <code> reply to country name </code> """
+
     PIN_TXT ="""<b>PIN MODULE</b>
 <b>Pin :</b>
 <b>All The Pin Related Commands Can Be Found Here; Keep Your Chat Up To Date On The Latest News With A Simple Pinned Message!</b>
