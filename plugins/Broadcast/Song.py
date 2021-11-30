@@ -52,6 +52,8 @@ async def song(client, message):
     yt = YouTube(video_link)
     audio = yt.streams.filter(only_audio=True).first()
     try:
+        thumb_name = f'thumb{message.message_id}.jpg' 
+        thumb = requests.get(thumbnail, allow_redirects=True)
         download = audio.download(filename=f"{str(user_id)}")
     except Exception as ex:
         await status.edit("Failed to download song 😶")
@@ -64,6 +66,7 @@ async def song(client, message):
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
         title=str(yt.title),
+        thumb=thumb_name,
         performer=str(yt.author),
         reply_to_message_id=message.message_id,
     )
