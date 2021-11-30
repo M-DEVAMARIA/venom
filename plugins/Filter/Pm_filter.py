@@ -20,8 +20,8 @@ SPELL_CHECK = {}
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
-BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('back', callback_data="help")]])
-BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('back', callback_data="extra")]])
+BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
 
 
     
@@ -664,12 +664,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "extra":
         buttons = [[
             InlineKeyboardButton('covid', callback_data='covid'),
-            InlineKeyboardButton('Extra mods', callback_data='extra')
+            InlineKeyboardButton('Extra mods', callback_data='extramod')
             ],[
             InlineKeyboardButton('pin', callback_data='pin'),
             InlineKeyboardButton('misc', callback_data='misc')
             ],[
-            InlineKeyboardButton('back', callback_data='extra'),
+            InlineKeyboardButton('back', callback_data='help'),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -708,7 +708,19 @@ async def cb_handler(client: Client, query: CallbackQuery):
             text=Translation.MISC_TXT,
             reply_markup=BUTTONS2,
             parse_mode='html'
-        )  
+        ) 
+    elif query.data == "covid":
+        await query.message.edit_text(
+            text=Translation.MISC_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        ) 
+    elif query.data == "extramod":
+        await query.message.edit_text(
+            text=Translation.MISC_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        ) 
     elif query.data == "connection": 
         await query.message.edit_text(
             text=Translation.CONNECTION_TXT,
