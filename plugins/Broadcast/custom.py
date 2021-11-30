@@ -64,7 +64,7 @@ async def reply_info(bot, message):
     reply_markup = BUTTONS
     b_msg = message.reply_to_message
     await message.reply_to_message.reply_text(
-        text=covid_info(message.text)),
+        text=covid_info(message.text),
         disable_web_page_preview=True,
         quote=True,
         
