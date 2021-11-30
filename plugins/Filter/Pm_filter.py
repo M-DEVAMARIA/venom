@@ -639,17 +639,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "help":
         buttons = [[ 
-            InlineKeyboardButton('Auto Filter', callback_data='autofilter'),
-            InlineKeyboardButton('manualFilter', callback_data='manual'),
-            InlineKeyboardButton('Connection', callback_data='connection')
+            InlineKeyboardButton('AUTO FILTER', callback_data='autofilter'),
+            InlineKeyboardButton('MANUAL FILTER', callback_data='manual'),
+            InlineKeyboardButton('CONNECTION', callback_data='connection')
             ],[
-            InlineKeyboardButton('Songs', callback_data='song'),
-            InlineKeyboardButton('Telegraph', callback_data='telegraph'),
-            InlineKeyboardButton('Extra Mods', callback_data='extra')
+            InlineKeyboardButton('SONGS', callback_data='song'),
+            InlineKeyboardButton('TELEGRAPH', callback_data='telegraph'),
+            InlineKeyboardButton('CALCULATOR', callback_data='cal')
             ],[
             InlineKeyboardButton('🏠 Home', callback_data='start'),
             InlineKeyboardButton('🔮 Status', callback_data="stats"),
-            InlineKeyboardButton('NEXT ➪', callback_data='extramod')
+            InlineKeyboardButton('NEXT ➪', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -666,7 +666,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
             InlineKeyboardButton('PIN', callback_data='pin'),
             InlineKeyboardButton('MISC', callback_data='misc'),
-            InlineKeyboardButton('IMDB', callback_data='extramod')
+            InlineKeyboardButton('IMDB', callback_data='imdb')
             ],[
             InlineKeyboardButton('⇚ back', callback_data='help'),
         ]]
