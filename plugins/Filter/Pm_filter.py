@@ -677,34 +677,22 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
         )
-    elif query.data == "autofilter":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "autofilter": 
         await query.message.edit_text(
             text=Translation.AUTOFILTER_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS,
             parse_mode='html'
         )
-    elif query.data == "song":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "song": 
         await query.message.edit_text(
             text=Translation.SONG_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS,
             parse_mode='html'
         )  
-    elif query.data == "telegraph":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "telegraph": 
         await query.message.edit_text(
             text=Translation.TELPH_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS,
             parse_mode='html'
         )  
      
