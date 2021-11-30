@@ -62,7 +62,12 @@ Commands and Usage:
 ➭ users: <code>{}</code>
 ➭ total groups: <code>{}</code>
 ➭ used storage: <code>{}</code> """
+    MISC_TXT = """Help: <b>Extra Modules</b>
+<b>NOTE:</b>
 
+<b>Commands and Usage:</b>
+• /id - <code>get id of a specifed user.</code>
+• /info  - <code>get information about a user.</code>"""
     SONG_TXT = """
 🎧 Song Downloader
 
