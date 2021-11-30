@@ -633,8 +633,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('TELEGRAPH', callback_data='telegraph'),
             InlineKeyboardButton('CALCULATOR', callback_data='cal')
             ],[
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔮 Status', callback_data="stats"),
+            InlineKeyboardButton('🏠 HOME', callback_data='start'),
+            InlineKeyboardButton('🔮 STATUS', callback_data="stats"),
             InlineKeyboardButton('NEXT ➪', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -700,6 +700,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
+    elif query.data == "imdb":
+        await query.message.edit_text(
+            text=Translation.MISC_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        ) 
     elif query.data == "extramod":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
@@ -721,7 +727,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "stats":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help'),
+            InlineKeyboardButton('⇚ Back', callback_data='help'),
             InlineKeyboardButton('↻ refresh', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -801,7 +807,7 @@ async def group(client, message):
                     )
         else: 
             spf = await message.reply_text(
-            text=f"Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...",
+            text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
             reply_markup=InlineKeyboardMarkup(
                       [[ 
 
