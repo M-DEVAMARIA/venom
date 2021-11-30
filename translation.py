@@ -23,7 +23,7 @@ class Translation(object):
 
 1. Make me the admim of your channel if it's private .
 2. make sure that your channel does not contains cam rip, porn and fake files.
-3. Forward the last message to me with quotes.
+3. send /index then Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
     
     MANUALFILTER_TXT = """
@@ -37,10 +37,10 @@ NOTE:
 3. alert buttons have a limit of 64 characters.
 
 Commands and Usage:
-• /filter - add a filter in chat
-• /filters - list all the filters of a chat
-• /del - delete a specific filter in chat
-• /delall - delete the whole filters in a chat (chat owner only)"""
+• /filter - <code>add a filter in chat</code>
+• /filters - <code>list all the filters of a chat</code>
+• /del - <code>delete a specific filter in chat</code>
+• /delall - <code>delete the whole filters in a chat (chat owner only)</code>"""
     
     CONNECTION_TXT = """
 Help: <b>Connections</b>
@@ -50,12 +50,12 @@ Help: <b>Connections</b>
 
 NOTE:
 1. Only chat admins can add a connection.
-2. Send /connect for connecting me to venom PM
+2. Send /connect for connecting Venom to your PM
 
 Commands and Usage:
-• /connect  - connect a particular chat to Venom PM
-• /disconnect  - disconnect from a chat
-• /connections - <i>list all your connections</i> """
+• /connect  - <code>connect a particular chat to Venom PM</code>
+• /disconnect  - <code>disconnect from a chat</code>
+• /connections - <code>list all your connections</code> """
    
     STATUS_TXT = """
 ➭ Total files in db: <code>{}</code>
@@ -73,13 +73,13 @@ Commands and Usage:
 
 A Module To Download Songs From Youtube
 
-/song {song name} - <code>Download song from youtube</code>"""
+/song <code>{song name}</code> - <code>Download song from youtube</code>"""
     TELPH_TXT = """
-Telegraph 
+<b>Telegraph</b>
 
 <b>Note:</b>
 
-send media under 5mb then bot will send telegraph link """
+</code>send media under 5mb then bot will send telegraph link</code> """
     COVID_TXT = """ <b> 🌏 covid information </b>
   
 A module to find all country covid informations.
@@ -88,8 +88,8 @@ A module to find all country covid informations.
 ▪️/covid :- <code> reply to country name </code> """
 
     PIN_TXT ="""<b>PIN MODULE</b>
-<b>Pin :</b>
-<b>All The Pin Related Commands Can Be Found Here; Keep Your Chat Up To Date On The Latest News With A Simple Pinned Message!</b>
+<b>Pin :</b>\n
+<b>All The Pin Related Commands Can Be Found Here; Keep Your Chat Up To Date On The Latest News With A Simple Pinned Message!</b>\n
 <b>📚 Commands & Usage:</b>\n
-◉ /Pin :- Pin The Message You Replied To Message To Send A Notification To Group Members
-◉ /Unpin :- Unpin The Current Pinned Message. If Used As A Reply, Unpins The Replied To Message"""
+◉ /Pin :- <code>Pin The Message You Replied To Message To Send A Notification To Group Members</code>
+◉ /Unpin :- <code>Unpin The Current Pinned Message. If Used As A Reply, Unpins The Replied To Message</code>"""
