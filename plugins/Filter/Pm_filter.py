@@ -696,45 +696,29 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
         )  
      
-    elif query.data == "pin":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "pin": 
         await query.message.edit_text(
             text=Translation.PIN_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )  
     
     elif query.data == "misc":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=Translation.MISC_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )  
-    elif query.data == "connection":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "connection": 
         await query.message.edit_text(
             text=Translation.CONNECTION_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS,
             parse_mode='html'
         ) 
-    elif query.data == "manual":
-        buttons = [[
-            InlineKeyboardButton('⇚Back', callback_data='help')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "manual": 
         await query.message.edit_text(
             text=Translation.MANUALFILTER_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "stats":
