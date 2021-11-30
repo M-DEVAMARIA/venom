@@ -57,7 +57,7 @@ async def song(client, message):
         download = audio.download(filename=f"{str(user_id)}")
     except Exception as ex:
         await status.edit("Failed to download song 😶")
-        LOGGER.error(ex)
+        
         return ""
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
