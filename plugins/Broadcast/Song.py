@@ -52,11 +52,11 @@ async def song(client, message):
     yt = YouTube(video_link)
     results = []
     count = 0
-        while len(results) == 0 and count < 6:
-            if count>0:
-                time.sleep(1)
-            results = YoutubeSearch(query, max_results=1).to_dict()
-            count += 1
+    while len(results) == 0 and count < 6:
+        if count>0:
+            time.sleep(1)
+        results = YoutubeSearch(query, max_results=1).to_dict()
+        count += 1
     thumbnail = results[0]["thumbnails"][0]
     audio = yt.streams.filter(only_audio=True).first()
     thumb_name = f'thumb{message.message_id}.jpg' 
