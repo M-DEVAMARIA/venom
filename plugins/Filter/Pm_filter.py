@@ -127,7 +127,7 @@ So you go to google and check the spelling of the name of the movie you want.
             poster=await get_poster(search)
         if poster: hhhjb
             
-                await message.reply_photo(photo=poster.get('poster'), caption=f"nome", reply_markup=InlineKeyboardMarkup(btn))
+                await message.reply_photo(photo=poster.get('poster'), caption=f"nome", reply_markup=InlineKeyboardMarkup(buttons))
         
         else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
