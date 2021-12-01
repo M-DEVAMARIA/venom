@@ -126,10 +126,10 @@ So you go to google and check the spelling of the name of the movie you want.
             if API_KEY:
                 poster=await get_poster(search)
             if poster:
-                await message.reply_photo(photo=poster.get("poster"), caption= f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get("poster"), caption= f"<b>Here is What I F↪️ Requested: {search}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to 1</code>\n**🗃️ TotalFiles :** None\n**👤requested by:** none", reply_markup=InlineKeyboardMarkup(buttons))
 
             else:
-                await message.reply_photo(photo=poster, caption= f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster, caption=f"your query {search}", reply_markup=InKeyboardMarkup(buttons))
             return
 
 
@@ -150,7 +150,7 @@ So you go to google and check the spelling of the name of the movie you want.
         if API_KEY:
                 poster=await get_poster(search)
         if poster:
-            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_photo(photo=poster.get("poster"),caption= f"↪️ Requested: {search}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to 1</code>\n**🗃️ TotalFiles :** None\n**👤requested by:** {none}", reply_markup=InlineKeyboardMarkup(buttons))
 
         else:
             await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
