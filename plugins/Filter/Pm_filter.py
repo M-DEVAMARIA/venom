@@ -128,7 +128,7 @@ So you go to google and check the spelling of the name of the movie you want.
             poster=await get_poster(search)
         if poster:
             
-                await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to 1</code>\n**🗃️ TotalFiles :** None\n**👤requested by:** {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get('poster'), caption=f"**↪️ Requested:** {query}\n\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to 1</code>\n**🗃️ TotalFiles :** None\n**👤requested by:** {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
 
         else:
                 await message.reply_text(imdb, reply_markup=InlineKeyboardMarkup(buttons))
@@ -149,7 +149,7 @@ So you go to google and check the spelling of the name of the movie you want.
         if API_KEY:
             poster=await get_poster(search)
         if poster:
-            await message.reply_photo(photo=poster, caption=f"↪️ Requested: {search}\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to 1</code>\n**🗃️ TotalFiles :** None\n**👤requested by:** {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_photo(photo=poster, caption=f"↪️ Requested: {search}\n\n**🎬 Title:** {poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**📑 Total Page :** <code>1 to 1</code>\n**🗃️ TotalFiles :** None\n**👤requested by:** {message.from_user.mention}", reply_markup=InlineKeyboardMarkup(buttons))
 
         else:
             await message.reply_text(f"sorry no imdb found", reply_markup=InlineKeyboardMarkup(buttons))
@@ -587,8 +587,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
             InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
             ],[
-            InlineKeyboardButton("😎About", callback_data="about"),
-            InlineKeyboardButton('ℹHELP', callback_data='help')
+            InlineKeyboardButton("😎 About", callback_data="about"),
+            InlineKeyboardButton('ℹ HELP', callback_data='help')
             ],[
             InlineKeyboardButton('how to use me ❔', callback_data='user')
          ]] 
