@@ -4,7 +4,7 @@ import sys
 import asyncio, time
 import logging
 import random
-from plugins.__init__ import CAPTION
+from plugins.__init__ import CAPTION, CALCULATE TEXT, CALCULATO BUTTONS
 from utils import Media, get_file_details, get_size, time_formatter, temp
 from database.users_db import db
 from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
@@ -225,5 +225,13 @@ async def report(bot, message):
         if success:
             await message.reply_text("**Reported to Admins!**")
 
-
+#________________________________calculator____________________#
+@Client.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
+async def calculate(bot, update):
+    await update.reply_text(
+        text=CALCULATE_TEXT,
+        reply_markup=CALCULATE_BUTTONS,
+        disable_web_page_preview=True,
+        quote=True
+    )
        
