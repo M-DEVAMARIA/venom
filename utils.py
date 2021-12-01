@@ -224,6 +224,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
     else:
         movieid = int(query)
     movie = imdb.get_movie(movieid)
+    genres = ", ".join(movie.get("genres")) if movie.get("genres") else None
     if movie.get("original air date"):
         date = movie["original air date"]
     elif movie.get("year"):
@@ -258,7 +259,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
         "distributors": list_to_str(movie.get("distributors")),
         'release_date': date,
         'year': movie.get('year'),
-        'genres': list_to_str(movie.get("genres")),
+        'genres': genres,
         'poster': movie.get('full-size cover url'),
         'plot': plot,
         'rating': str(movie.get("rating")),
