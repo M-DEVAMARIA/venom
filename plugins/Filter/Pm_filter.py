@@ -761,7 +761,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
       )
-   
+@Client.on_callback_query()
 async def cb_data(bot, update):
         data = update.data
         try:
