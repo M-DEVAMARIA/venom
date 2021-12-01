@@ -122,8 +122,8 @@ So you go to google and check the spelling of the name of the movie you want.
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
         
-        poster=None
-        if API_KEY:
+            poster=None
+            if API_KEY:
                 poster=await get_poster(search)
             if poster:
                 await message.reply_photo(photo=poster, caption=f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
