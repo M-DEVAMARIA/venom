@@ -125,6 +125,7 @@ So you go to google and check the spelling of the name of the movie you want.
         poster=None
         if API_KEY:
             poster=await get_poster(search)
+            buttons = btn
         if poster: 
             
                 await message.reply_photo(photo=poster.get('poster'), caption=f"nome", reply_markup=InlineKeyboardMarkup(buttons))
