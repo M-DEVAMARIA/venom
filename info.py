@@ -37,7 +37,7 @@ AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else auth_channel
 
-#broadcast db
+#broadcast Db
 BROADCAST_CHANNEL = int(environ.get("BROADCAST_CHANNEL", -1001553356176))
 PHOTO = (environ.get("PHOTOS", "https://telegra.ph/file/0ea48259dee162a3f1af5.jpg https://telegra.ph/file/521928a593ee7f6317148.jpg https://telegra.ph/file/2de25e9b92952e71a38fe.jpg https://telegra.ph/file/43e0475c64c6e62620cde.jpg https://telegra.ph/file/8b19847ac853a1acd6fad.jpg https://telegra.ph/file/695f80d49d3d1c854880a.jpg https://telegra.ph/file/068e8dbd8024340fa003c.jpg https://telegra.ph/file/d0aa3ce797458642782d6.jpg https://telegra.ph/file/2c1835c35522fea3ee110.jpg https://telegra.ph/file/b005f398d96344f4e9a08.jpg https://telegra.ph/file/43d0782de5d7ef269faed.jpg https://telegra.ph/file/8f990e11a9bfc24e35a8c.jpg")).split()
 start_uptime = time.time()
