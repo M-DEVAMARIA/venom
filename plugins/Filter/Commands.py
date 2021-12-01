@@ -4,7 +4,7 @@ import sys
 import asyncio, time
 import logging
 import random
-from plugins.__init__ import CAPTION, CALCULATE TEXT, CALCULATO BUTTONS
+from plugins.__init__ import CAPTION, CALCULATE TEXT, CALCULATE BUTTONS
 from utils import Media, get_file_details, get_size, time_formatter, temp
 from database.users_db import db
 from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
