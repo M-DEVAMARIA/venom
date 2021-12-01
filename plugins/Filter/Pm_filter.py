@@ -20,7 +20,7 @@ SPELL_CHECK = {}
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
-BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
 
 
@@ -665,19 +665,19 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "autofilter": 
         await query.message.edit_text(
             text=Translation.AUTOFILTER_TXT,
-            reply_markup=BUTTONS,
+            reply_markup=BUTTONS1,
             parse_mode='html'
         )
     elif query.data == "song": 
         await query.message.edit_text(
             text=Translation.SONG_TXT,
-            reply_markup=BUTTONS,
+            reply_markup=BUTTONS1,
             parse_mode='html'
         )  
     elif query.data == "telegraph": 
         await query.message.edit_text(
             text=Translation.TELPH_TXT,
-            reply_markup=BUTTONS,
+            reply_markup=BUTTONS1,
             parse_mode='html'
         )  
      
@@ -721,7 +721,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "manual": 
         await query.message.edit_text(
             text=Translation.MANUALFILTER_TXT,
-            reply_markup=BUTTONS,
+            reply_markup=BUTTONS1,
             parse_mode='html'
         ) 
     elif query.data == "stats":
