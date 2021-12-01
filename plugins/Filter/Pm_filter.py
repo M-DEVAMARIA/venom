@@ -633,13 +633,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('TELEGRAPH', callback_data='telegraph'),
             InlineKeyboardButton('CALCULATOR', callback_data='cal')
             ],[
-            InlineKeyboardButton('🏠 HOME', callback_data='start'),
+            InlineKeyboardButton('⇚ BACK', callback_data='start'),
             InlineKeyboardButton('🔮 STATUS', callback_data="stats"),
             InlineKeyboardButton('NEXT ➪', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text="<b> hey user my name is venom i will send movies </b>\n",
+            text="<b>ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ..  </b>\n",
             reply_markup=reply_markup,
             parse_mode='html'
             )
@@ -658,7 +658,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
-            text="extra mods are not available\n avilable soon...",
+            text="ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ...",
             reply_markup=reply_markup,
             parse_mode='html'
         )
