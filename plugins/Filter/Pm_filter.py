@@ -22,12 +22,12 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
-IMDB_TEMPLATEF = 
+IMDB_TEMPLATEF = f"
 title = poster.get('title'),
 url = poster['url'],
 year = poster['year'], 
 genres = poster['genres'],
-**locals()
+**locals()"
 
     
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
