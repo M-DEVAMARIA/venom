@@ -1,5 +1,5 @@
 #Kanged From @TroJanZheX
-from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB
+from info import AUTH_CHANNEL, IMDB_TEMPLATE, IMDB_TEMPLATEF, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re, time, asyncio
@@ -126,7 +126,7 @@ So you go to google and check the spelling of the name of the movie you want.
             if API_KEY:
                 poster=await get_poster(search)
             if poster:
-                cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'])
+                cap = IMDB_TEMPLATE.format(IMDB_TEMPLATEF)
                 await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
 
             else:
