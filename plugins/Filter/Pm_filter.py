@@ -28,7 +28,7 @@ title = poster.get('title'),
 url = poster['url'],
 year = poster['year'], 
 genres = poster['genres'],
-**locals()")
+**locals())
 
     
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
