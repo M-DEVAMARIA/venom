@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
-BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
 
 
     
