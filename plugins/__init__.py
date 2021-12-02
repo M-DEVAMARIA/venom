@@ -33,7 +33,7 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
 
 CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 
-FORMAT =    query = search,
+FORMAT = f" query = search,
             title = poster['title'],
             votes = poster['votes'],
             aka = imdb["aka"],
@@ -61,4 +61,4 @@ FORMAT =    query = search,
             plot = poster['plot'],
             rating = imdb['rating'],
             url = imdb['url'],
-            **locals()
+            **locals()"
