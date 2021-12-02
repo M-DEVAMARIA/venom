@@ -34,9 +34,7 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
 CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 
 
-FORMAT= IMDB_TEMPLATE.format(
-
-            h,
+FORMAT= IMDB_TEMPLATE.format( 
 
             title = imdb['title'],
 
