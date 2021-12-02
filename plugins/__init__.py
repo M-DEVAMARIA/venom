@@ -1,6 +1,6 @@
 #_________mdbotz___________________#
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from info import IMDB_TEMPLATE
 CALCULATE_TEXT = "Made by @FayasNoushad"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
@@ -33,32 +33,65 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
 
 CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 
-FORMAT = f" query = search,
-            title = poster['title'],
-            votes = poster['votes'],
+
+FORMAT= IMDB_TEMPLATE.format(
+
+            query = search,
+
+            title = imdb['title'],
+
+            votes = imdb['votes'],
+
             aka = imdb["aka"],
+
             seasons = imdb["seasons"],
+
             box_office = imdb['box_office'],
+
             localized_title = imdb['localized_title'],
+
             kind = imdb['kind'],
+
             imdb_id = imdb["imdb_id"],
+
             cast = imdb["cast"],
+
             runtime = imdb["runtime"],
+
             countries = imdb["countries"],
+
             certificates = imdb["certificates"],
+
             languages = imdb["languages"],
+
             director = imdb["director"],
+
             writer = imdb["writer"],
+
             producer = imdb["producer"],
+
             composer = imdb["composer"],
+
             cinematographer = imdb["cinematographer"],
+
             music_team = imdb["music_team"],
+
             distributors = imdb["distributors"],
+
             release_date = imdb['release_date'],
+
             year = imdb['year'],
-            genres = poster['genres'],
+
+            genres = imdb['genres'],
+
             poster = imdb['poster'],
-            plot = poster['plot'],
+
+            plot = imdb['plot'],
+
             rating = imdb['rating'],
+
             url = imdb['url'],
-            **locals()"
+
+            **locals()
+
+        )
