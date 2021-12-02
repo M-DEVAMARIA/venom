@@ -22,12 +22,13 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
-IMDB_TEMPLATEF = f"
+IMDB_TEMPLATEF = IMDB_TEMPLATE.format(
+
 title = poster.get('title'),
 url = poster['url'],
 year = poster['year'], 
 genres = poster['genres'],
-**locals()"
+**locals()")
 
     
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
@@ -131,7 +132,7 @@ So you go to google and check the spelling of the name of the movie you want.
             if API_KEY:
                 poster=await get_poster(search)
             if poster:
-                cap = IMDB_TEMPLATE.format(IMDB_TEMPLATEF)
+                cap = IMDB_TEMPLATEF
                 await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
 
             else:
