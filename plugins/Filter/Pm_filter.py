@@ -6,7 +6,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION
+from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, FORMAT
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
@@ -126,7 +126,7 @@ So you go to google and check the spelling of the name of the movie you want.
             if API_KEY:
                 poster=await get_poster(search)
             if poster:
-                await message.reply_photo(photo=poster.get("poster"), caption=IMDB_TEMPLATE, reply_markup=InlineKeyboardMarkup(buttons))
+                await message.reply_photo(photo=poster.get("poster"), caption=IMDB_TEMPLATE.format(FORMAT), reply_markup=InlineKeyboardMarkup(buttons))
 
             else:
                 await message.reply_photo(photo=poster, caption=f"your query {search}", reply_markup=InKeyboardMarkup(buttons))
