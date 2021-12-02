@@ -35,62 +35,7 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
 CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 
 
-FORMAT= IMDB_TEMPLATE.format( 
 
-            title = imdb['title'],
-
-            votes = imdb['votes'],
-
-            aka = imdb["aka"],
-
-            seasons = imdb["seasons"],
-
-            box_office = imdb['box_office'],
-
-            localized_title = imdb['localized_title'],
-
-            kind = imdb['kind'],
-
-            imdb_id = imdb["imdb_id"],
-
-            cast = imdb["cast"],
-
-            runtime = imdb["runtime"],
-
-            countries = imdb["countries"],
-
-            certificates = imdb["certificates"],
-
-            languages = imdb["languages"],
-
-            director = imdb["director"],
-
-            writer = imdb["writer"],
-
-            producer = imdb["producer"],
-
-            composer = imdb["composer"],
-
-            cinematographer = imdb["cinematographer"],
-
-            music_team = imdb["music_team"],
-
-            distributors = imdb["distributors"],
-
-            release_date = imdb['release_date'],
-
-            year = imdb['year'],
-
-            genres = imdb['genres'],
-
-            poster = imdb['poster'],
-
-            plot = imdb['plot'],
-
-            rating = imdb['rating'],
-
-            url = imdb['url'],
-
-            **locals()
-
-        )
+            
+            
+            
