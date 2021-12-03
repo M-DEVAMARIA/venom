@@ -120,7 +120,7 @@ import wikipedia
 async def wiki(bot, message):
     srch = message.reply_to_message
     if not srch:
-        return await message.reply_text (f "`Give some text to search on wikipedia !`")
+        return await message.reply_text ("`Give some text to search on wikipedia !`")
     msg = await message.reply_text( f"`Searching {srch} on wikipedia..`")
     try:
         mk = wikipedia.summary(srch)
