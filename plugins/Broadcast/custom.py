@@ -116,7 +116,7 @@ import wikipedia
 
 
 
-@Client_cmd(pattern="wiki ?(.*)")
+@Client.on_message(filters.command("wiki"))
 async def wiki(e):
     srch = e.pattern_match.group(1)
     if not srch:
