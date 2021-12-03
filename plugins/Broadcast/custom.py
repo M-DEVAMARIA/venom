@@ -121,7 +121,7 @@ async def wiki(bot, message):
     srch = message.reply_to_message
     if not srch:
         return await message.reply_text (e, "`Give some text to search on wikipedia !`")
-    msg = await await message(e, f"`Searching {srch} on wikipedia..`")
+    msg = await message.reply_text(e, f"`Searching {srch} on wikipedia..`")
     try:
         mk = wikipedia.summary(srch)
         te = f"**Search Query :** {srch}\n\n**Results :** {mk}"
