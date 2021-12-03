@@ -116,9 +116,9 @@ import wikipedia
 
 
 
-@Client.on_message(filters.command("wiki"))
+@Client.on_message(filters.reply & filters.command("wiki"))
 async def wiki(e):
-    srch = e.pattern_match.group(1)
+    srch = message.reply_to_message
     if not srch:
         return await eor(e, "`Give some text to search on wikipedia !`")
     msg = await eor(e, f"`Searching {srch} on wikipedia..`")
@@ -128,4 +128,5 @@ async def wiki(e):
         await msg.edit(te)
     except Exception as e:
         await msg.edit(f"**ERROR** : {str(e)}")
+    b_msg = message.reply_to_message
 
