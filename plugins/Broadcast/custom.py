@@ -117,7 +117,7 @@ import wikipedia
 
 
 @Client.on_message(filters.reply & filters.command("wiki"))
-async def wiki(e):
+async def wiki(bot, message):
     srch = message.reply_to_message
     if not srch:
         return await eor(e, "`Give some text to search on wikipedia !`")
