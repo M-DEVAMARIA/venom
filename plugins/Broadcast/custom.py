@@ -57,12 +57,12 @@ async def telegraph_upload(bot, update):
         )
     )
 
-@Client.on_message(filters.reply & filters.command("covid"))
+@Client.on_message(filters.command("covid"))
 async def reply_info(bot, message):
     reply_markup = BUTTONS
-    b_msg = message.reply_to_message
-    await message.reply_to_message.reply_text(
-        text=covid_info(b_msg.text),
+    b_msg = message.text.split(None, 1)[1]
+    await message.reply_text(
+        text=covid_info(b_msg),
         disable_web_page_preview=True,
         quote=True,
         
@@ -93,7 +93,7 @@ Last Update : `{last_update}`
 Latitude : `{latitude}`
 Longitude : `{longitude}`
 Recovered : `{recovered}`
-searched by {temp.U_NAME}"""
+searched by @{temp.U_NAME}"""
         return covid_info
     except Exception as error:
         return error
