@@ -59,11 +59,12 @@ async def batch(c, m):
 
     await message.edit(text=url)
   
-@Client.on_callback_query(filters.regex('^done$'))
-async def done_cb(c, m):
-    BATCH.remove(m.from_user.id)
-    c.cancel_listener(m.from_user.id)
-    await m.message.delete()
+
+async def decode(base64_string):
+    base64_bytes = base64_string.encode("ascii")
+    string_bytes = base64.b64decode(base64_bytes) 
+    string = string_bytes.decode("ascii")
+    return string
 
 async def encode_string(string):
     string_bytes = string.encode("ascii")
@@ -71,10 +72,10 @@ async def encode_string(string):
     base64_string = base64_bytes.decode("ascii")
     return base64_string
 
+@Client.on_callback_query(filters.regex('^done$'))
+async def done_cb(c, m):
+    BATCH.remove(m.from_user.id)
+    c.cancel_listener(m.from_user.id)
+    await m.message.delete()
 
-async def decode(base64_string):
-    base64_bytes = base64_string.encode("ascii")
-    string_bytes = base64.b64decode(base64_bytes) 
-    string = string_bytes.decode("ascii")
-    return string
 
