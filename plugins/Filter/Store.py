@@ -6,9 +6,10 @@ from pyrogram.errors import ListenerCanceled
 import asyncio
 from info import AUTH_USERS
 
-DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID"'-100')
+DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
+BATCH = []
 
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
