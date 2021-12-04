@@ -58,8 +58,13 @@ async def batch(c, m):
     url = f"https://t.me/{bot.username}?start={base64_string}"
 
     await message.edit(text=url)
-    
-    
+  
+@Client.on_callback_query(filters.regex('^done$'))
+async def done_cb(c, m):
+    BATCH.remove(m.from_user.id)
+    c.cancel_listener(m.from_user.id)
+    await m.message.delete()
+
 async def encode_string(string):
     string_bytes = string.encode("ascii")
     base64_bytes = base64.b64encode(string_bytes)
