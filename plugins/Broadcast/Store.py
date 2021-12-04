@@ -11,7 +11,7 @@ IS_PRIVATE = os.environ.get("IS_PRIVATE",False)
 
 BATCH = []
 
-@Client.on_message(filters.command('batch'))
+@Client.on_message(filters.command('batch') & filters.incoming)
 async def batch(c, m):
     """ This is for batch command"""
     if IS_PRIVATE:
