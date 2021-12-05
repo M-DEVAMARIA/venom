@@ -276,3 +276,8 @@ async def calculate(bot, update):
         quote=True
     )
        
+async def decode(base64_string):
+    base64_bytes = base64_string.encode("ascii")
+    string_bytes = base64.b64decode(base64_bytes) 
+    string = string_bytes.decode("ascii")
+    return string
