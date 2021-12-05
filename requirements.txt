@@ -20,6 +20,11 @@ wget #this not important delaye after check song.py
 aiohttp[speedups]
 youtube_dl
 
+#______for file store check___________
+psycopg2-binary
+
+sqlalchemy==1.3.23
+#__________
 
 youtube_search_python
 yt_dlp
