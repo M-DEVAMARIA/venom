@@ -78,8 +78,7 @@ async def start(bot, cmd):
         await msg.copy(cmd.from_user.id, caption=caption)
 
 
-    else: # sending start message
-    
+        
 
     if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
