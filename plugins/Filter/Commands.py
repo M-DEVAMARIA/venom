@@ -47,7 +47,7 @@ async def start(bot, cmd):
 
         if 'batch_' in cmds.command[1]:
             await send_msg.delete()
-            cmds, chat_id, message = cmd.command[1].split('_')
+            cmds, chat_id, message = cmds.command[1].split('_')
             string = await bot.get_messages(int(chat_id), int(message)) if not DB_CHANNEL_ID else await bot.get_messages(int(DB_CHANNEL_ID), int(message))
 
             if string.empty:
@@ -65,7 +65,7 @@ async def start(bot, cmd):
                 await asyncio.sleep(1)
             return
 
-        chat_id, msg_id = cmd.command[1].split('_')
+        chat_id, msg_id = cmds.command[1].split('_')
         msg = await bot.get_messages(int(chat_id), int(msg_id)) if not DB_CHANNEL_ID else await bot.get_messages(int(DB_CHANNEL_ID), int(msg_id))
 
         if msg.empty:
