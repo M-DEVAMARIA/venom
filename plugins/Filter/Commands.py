@@ -39,9 +39,9 @@ async def start(bot, cmd):
                 f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started {temp.U_NAME} !!",)
       
         return 
-    if len(m.command) > 1: # sending the stored file
+    if len(cmd.command) > 1: # sending the stored file
         try:
-            cmds.command[1] = await decode(m.command[1])
+            cmds.command[1] = await decode(cmd.command[1])
         except:
             pass
 
