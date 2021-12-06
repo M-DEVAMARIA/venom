@@ -152,7 +152,7 @@ async def gstart(bot, cmd):
           ) 
 #===================file store start =================#
 @Client.on_message(filters.command(['start']))
-async def start(c, m, cb=F):
+async def start(c, m):
     if len(m.command) > 1: # sending the stored file
         try:
             m.command[1] = await decode(m.command[1])
