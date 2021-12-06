@@ -192,8 +192,7 @@ async def start(c, m, cb=False):
         except:
             pass
 
-        if 'batch_' in m.command[1]:
-            await send_msg.delete()
+        if 'batch_' in m.command[1]: 
             cmd, chat_id, message = m.command[1].split('_')
             string = await c.get_messages(int(chat_id), int(message)) if not DB_CHANNEL_ID else await c.get_messages(int(DB_CHANNEL_ID), int(message))
 
@@ -220,7 +219,6 @@ async def start(c, m, cb=False):
         
         caption = f"{msg.caption.markdown}\n\n\n" if msg.caption else ""
         
-        await send_msg.delete()
         await msg.copy(m.from_user.id, caption=caption)
         
         
