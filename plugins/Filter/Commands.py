@@ -15,6 +15,9 @@ from translation import Translation
 from pyrogram import StopPropagation
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
+logging.getLogger().setLevel(logging.ERROR)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
 LOG_CHANNEL = BROADCAST_CHANNEL
 OWNER_ID = ADMINS
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
