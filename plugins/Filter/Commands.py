@@ -22,7 +22,7 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
 #===================Start Function===================#
-@Client.on_message(filters.command("staret"))
+@Client.on_message(filters.command("start"))
 async def start(bot, cmd): 
     if cmd.chat.type in ['group', 'supergroup']:
         buttons = [
@@ -149,7 +149,7 @@ async def start(bot, cmd):
           ) 
 #===================file store start =================#
 @Client.on_message(filters.command(['start']))
-async def start(c, m, cb=False):
+async def storedfilestart(c, m, cb=False):
     if len(m.command) > 1: # sending the stored file
         try:
             m.command[1] = await decode(m.command[1])
