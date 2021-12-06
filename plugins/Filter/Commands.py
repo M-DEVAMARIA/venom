@@ -19,7 +19,7 @@ logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 LOG_CHANNEL = BROADCAST_CHANNEL
-OWNER_ID = ADMINS
+OWNER_ID = "1411070838"
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
