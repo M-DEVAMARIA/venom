@@ -1,4 +1,5 @@
 import os, re
+import base64
 #sys for restart the bot
 import sys
 import asyncio, time
