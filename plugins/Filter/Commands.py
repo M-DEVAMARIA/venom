@@ -16,7 +16,7 @@ from pyrogram import StopPropagation
 from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 LOG_CHANNEL = BROADCAST_CHANNEL
-
+OWNER_ID = ADMINS
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
