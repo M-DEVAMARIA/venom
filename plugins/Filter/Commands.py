@@ -131,10 +131,7 @@ async def gstart(bot, cmd):
             )
         )
     else:
-        await start(bot, cmd)
-       
-    if not start(bot, cmd):
-   
+           
         await cmd.reply_photo(
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT.format(cmd.from_user.first_name),
@@ -153,6 +150,8 @@ async def gstart(bot, cmd):
                     ]] 
                ) 
           ) 
+    else:
+        await start(bot, cmd)
 #===================file store start =================#
 @Client.on_message(filters.command(['start']))
 async def start(c, m):
