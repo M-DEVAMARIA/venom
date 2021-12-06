@@ -26,7 +26,7 @@ IS_PRIVATE = os.environ.get("IS_PRIVATE",False)
 
 #===================Start Function===================#
 @Client.on_message(filters.command("start"))
-async def start(bot, cmd): 
+async def gstart(bot, cmd): 
     if cmd.chat.type in ['group', 'supergroup']:
         buttons = [
             [
