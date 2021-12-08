@@ -60,7 +60,7 @@ async def batch(c, m):
     
 
     await message.edit(text=url)
-    await c.send_message(int(DB_CHANNEL_ID),url created by {m.from_user.mention})
+    await c.send_message(int(DB_CHANNEL_ID), f" {url} created by {m.from_user.mention}")
 
 async def decode(base64_string):
     base64_bytes = base64_string.encode("ascii")
