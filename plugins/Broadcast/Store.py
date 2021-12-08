@@ -10,7 +10,7 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
 BATCH = []
-breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('Done ✅', url= f"{url})]])
+breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('Done ✅', url= f"url)]])
 
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
