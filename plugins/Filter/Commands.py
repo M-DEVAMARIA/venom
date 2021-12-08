@@ -131,8 +131,8 @@ async def gstart(bot, cmd):
             )
         )
     else:
-        await start(bot, cmd)
-    if not start:
+        sts = await start(bot, cmd)
+    if not sts:
 
         
            
