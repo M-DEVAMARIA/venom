@@ -194,9 +194,7 @@ async def start(c, m):
         caption = f"{msg.caption.markdown}\n\n\n" if msg.caption else ""
         
         await msg.copy(m.from_user.id, caption=caption)
-        else:
-            await bot_info(client:bot, message)
-        
+    
 
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
