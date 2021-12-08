@@ -131,10 +131,10 @@ async def gstart(bot, cmd):
             )
         )
     else: 
-    
-    if stsb:
         sts = await start(bot, cmd)
-    else:
+
+    if sts:
+          
     
         
     
