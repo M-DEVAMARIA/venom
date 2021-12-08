@@ -133,7 +133,7 @@ async def gstart(bot, cmd):
     else:
         await start(bot, cmd)
     return
-       else:
+    else:
 
         
            
