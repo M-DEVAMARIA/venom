@@ -10,7 +10,7 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
 BATCH = []
-breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('Done ✅', url= f"{url}")]])
+
 
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
@@ -57,7 +57,7 @@ async def batch(c, m):
     send = await c.send_message(m.from_user.id, string_base64) if not DB_CHANNEL_ID else await c.send_message(int(DB_CHANNEL_ID), string_base64)
     base64_string = await encode_string(f"batch_{m.chat.id}_{send.message_id}")
     url = f"https://t.me/{bot.username}?start={base64_string}"
-    
+    breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('open', url= f"{url}")]])
     
 
     await message.edit(text=url)
