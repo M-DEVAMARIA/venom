@@ -132,9 +132,10 @@ async def gstart(bot, cmd):
         )
     else: 
         sts = await start(bot, cmd)
-    return
+    
+    
+        
     if not sts:
-
         
            
         await cmd.reply_photo(
