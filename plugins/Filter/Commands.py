@@ -169,7 +169,7 @@ async def start(c, m):
             string = await c.get_messages(int(chat_id), int(message)) if not DB_CHANNEL_ID else await c.get_messages(int(DB_CHANNEL_ID), int(message))
         else:
 
-            await bot_info(client:bot, message) 
+            await bot_info(c, m) 
             if string.empty:
                 owner = await c.get_users(int(OWNER_ID))
                 return await m.reply_text(f"🥴 Sorry bro your file was deleted by file owner or bot owner\n\nFor more help contact my owner 👉 {owner.mention(style='md')}")
