@@ -130,10 +130,10 @@ async def gstart(bot, cmd):
                 ]
             )
         )
-    try:
+    else:
         await start(bot, cmd)
     return
-    else:
+       else:
 
         
            
@@ -155,7 +155,7 @@ async def gstart(bot, cmd):
                     ]] 
                ) 
           ) 
-    
+    return
 #===================file store start =================#
 @Client.on_message(filters.command(['start']))
 async def start(c, m):
