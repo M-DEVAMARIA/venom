@@ -10,6 +10,7 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
 BATCH = []
+breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('Done ✅', url= f"{url})]])
 
 @Client.on_message(filters.command('batch') & filters.private & filters.incoming)
 async def batch(c, m):
@@ -60,7 +61,7 @@ async def batch(c, m):
     
 
     await message.edit(text=url)
-    await c.send_message(int(DB_CHANNEL_ID), f" {url} created by {m.from_user.mention}")
+    await c.send_message(int(DB_CHANNEL_ID),reply_markup=breply_markup, f" {url} created by {m.from_user.mention}")
 
 async def decode(base64_string):
     base64_bytes = base64_string.encode("ascii")
