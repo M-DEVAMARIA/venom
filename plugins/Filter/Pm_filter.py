@@ -6,7 +6,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION
+from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
@@ -585,19 +585,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
         
-    elif query.data == "start":
-        buttons = [[ 
-            InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true'),
-            ],[
-            InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
-            InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
-            ],[
-            InlineKeyboardButton("😎 About", callback_data="about"),
-            InlineKeyboardButton('ℹ HELP', callback_data='help')
-            ],[
-            InlineKeyboardButton('how to use me ❔', callback_data='user')
-         ]] 
-        reply_markup = InlineKeyboardMarkup(buttons)
+    elif query.data == "start": 
+        reply_markup = START_BTN
         await query.message.edit_text(
             text=Translation.START_TXT.format(query.from_user.first_name),
             reply_markup=reply_markup,
