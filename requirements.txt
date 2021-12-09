@@ -24,7 +24,9 @@ youtube_dl
 psycopg2-binary
 
 sqlalchemy==1.3.23
-#__________
+#__________for tts____________
+googletrans==3.1.0a0
+gTTS
 
 youtube_search_python
 yt_dlp
