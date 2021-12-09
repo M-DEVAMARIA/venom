@@ -5,7 +5,7 @@ import sys
 import asyncio, time
 import logging
 import random
-from plugins.__init__ import CAPTION, CALCULATE_TEXT, CALCULATE_BUTTONS
+from plugins.__init__ import CAPTION, CALCULATE_TEXT, CALCULATE_BUTTONS, START_BTN
 from utils import Media, get_file_details, get_size, time_formatter, temp
 from database.users_db import db
 from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
@@ -133,32 +133,14 @@ async def gstart(bot, cmd):
     else: 
         sts = await start(bot, cmd)
 
-    if not sts:
-          
-    
-        
-    
-        
+    if not sts: 
            
         await cmd.reply_photo(
         photo=random.choice(PHOTO), 
         caption=Translation.START_TXT.format(cmd.from_user.first_name),
         parse_mode="html",
-            reply_markup=InlineKeyboardMarkup(
-                [[
-                        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true'),
-                        ],[
-                        InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
-                        InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
-                        ],[
-                        InlineKeyboardButton("😎 About", callback_data="about"),
-                        InlineKeyboardButton('ℹ️ HELP', callback_data='help')
-                        ],[
-                        InlineKeyboardButton('how to use me ❔', callback_data='user')
-                    ]] 
-               ) 
-          ) 
-    
+        reply_markup= START_BTN)
+        
 #===================file store start =================#
 @Client.on_message(filters.command(['start']))
 async def start(c, m):
