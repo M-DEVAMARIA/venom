@@ -2,6 +2,21 @@
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from info import IMDB_TEMPLATE
 import imdb
+
+START_BTN = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true'),
+        ],[
+        InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
+        InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
+        ],[
+        InlineKeyboardButton("😎 About", callback_data="about"),
+        InlineKeyboardButton('ℹ️ HELP', callback_data='help')
+        ],[
+        InlineKeyboardButton('Features' ❔', callback_data='user')
+        ]] 
+        ) 
+           
 CALCULATE_TEXT = "Made by @FayasNoushad"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
