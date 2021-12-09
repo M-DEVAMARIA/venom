@@ -57,6 +57,7 @@ async def batch(c, m):
     send = await c.send_message(m.from_user.id, string_base64) if not DB_CHANNEL_ID else await c.send_message(int(DB_CHANNEL_ID), string_base64)
     base64_string = await encode_string(f"batch_{m.chat.id}_{send.message_id}")
     url = f"https://t.me/{bot.username}?start={base64_string}"
+    txt = link
     breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('open', url= f"{url}")]])
     share =InlineKeyboardMarkup([[InlineKeyboardButton('share link ', url=f"tg://share?url={txt}File%20Link%20👉%20{url}")]])
 
