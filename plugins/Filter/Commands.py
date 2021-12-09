@@ -263,7 +263,7 @@ async def report(bot, message):
             await message.reply_text("**Reported to Admins!**")
 
 #________________________________calculator____________________#
-@Client.on_message(filters.private & filters.command(["calc", "calculate", "calculator"]))
+@Client.on_message(filters.command(["calc", "calculate", "calculator"]))
 async def calculate(bot, update):
     await update.reply_text(
         text=CALCULATE_TEXT,
