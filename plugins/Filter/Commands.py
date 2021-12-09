@@ -44,7 +44,7 @@ async def gstart(bot, cmd):
             await db.add_chat(cmd.chat.id, cmd.chat.title)
             await bot.send_message(
                 LOG_CHANNEL, 
-                f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started {temp.U_NAME} !!",)
+                f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started @{temp.U_NAME} !!",)
       
         return 
     
@@ -52,7 +52,7 @@ async def gstart(bot, cmd):
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(
             LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started {temp.U_NAME} !!",
+            f"#NEWUSER: \n\nNew User [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id}) started @{temp.U_NAME} !!",
         ) 
     usr_cmdall1 = cmd.text
     if usr_cmdall1.startswith("/start subinps"):
