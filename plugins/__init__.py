@@ -13,7 +13,7 @@ START_BTN = InlineKeyboardMarkup(
         InlineKeyboardButton("😎 About", callback_data="about"),
         InlineKeyboardButton('ℹ️ HELP', callback_data='help')
         ],[
-        InlineKeyboardButton('Features' ❔', callback_data='user')
+        InlineKeyboardButton('Features ❔', callback_data='user')
         ]] 
         ) 
            
