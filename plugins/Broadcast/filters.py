@@ -395,7 +395,7 @@ async def connections(client,message):
             ttl = await client.get_chat(int(groupid))
             title = ttl.title
             active = await if_active(str(userid), str(groupid))
-            act = " - ACTIVE" if active else ""
+            act = "✔️" if active else ""
             buttons.append(
                 [
                     InlineKeyboardButton(
