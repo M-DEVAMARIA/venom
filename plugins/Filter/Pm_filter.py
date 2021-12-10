@@ -650,7 +650,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
             InlineKeyboardButton('⇚ back', callback_data='help'),
             InlineKeyboardButton('JSON', callback_data='json'),
-            InlineKeyboardButton('TTS', callback_data='TTS')
+            InlineKeyboardButton('TTS', callback_data='tts')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -702,12 +702,25 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
+    elif query.data == "json":
+        await query.message.edit_text(
+            text=Translation.MISC_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        ) 
+    elif query.data == "tts":
+        await query.message.edit_text(
+            text=Translation.MISC_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        ) 
     elif query.data == "extramod":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
+    
     elif query.data == "connection": 
         await query.message.edit_text(
             text=Translation.CONNECTION_TXT,
