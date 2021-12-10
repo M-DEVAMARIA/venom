@@ -625,10 +625,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
             InlineKeyboardButton('SONGS', callback_data='song'),
             InlineKeyboardButton('TELEGRAPH', callback_data='telegraph'),
-            InlineKeyboardButton('CALCULATOR', callback_data='cal')
+            InlineKeyboardButton('BATCH', callback_data='cal')
             ],[
             InlineKeyboardButton('⇚ BACK', callback_data='start'),
-            InlineKeyboardButton('🔮 STATUS', callback_data="stats"),
+            InlineKeyboardButton('STATUS', callback_data="stats"),
             InlineKeyboardButton('NEXT ➪', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -649,6 +649,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('IMDB', callback_data='imdb')
             ],[
             InlineKeyboardButton('⇚ back', callback_data='help'),
+            InlineKeyboardButton('JSON', callback_data='json')
+            InlineKeyboardButton('TTS', callback_data='TTS')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
