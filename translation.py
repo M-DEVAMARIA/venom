@@ -98,3 +98,5 @@ A module to find all country covid informations.
 /json - <code>reply to message which you want get json | നിങ്ങൾക്ക് json ലഭിക്കാൻ ആഗ്രഹിക്കുന്ന സന്ദേശത്തിന് മറുപടി നൽകുക</code>"""
     
     STORE_TXT = """<b>Batch module</b>\n\nThis module is for store one or more files or message using venom. You can get stored message or file by a special link given by bot\n\n📚 Command\n\n/batch -  <code>command for store files or message</code>"""
+    TTS_TXT = """<b>🗣 TEXT To Speech</b>\n\nA Module To Convert TEXT To Voice With Language Support\n\n<b>📚Commands:</b>\n\n◉ /tts :- <code>Reply To Any TEXT Message  To Convert as audio</code>"""
+    
