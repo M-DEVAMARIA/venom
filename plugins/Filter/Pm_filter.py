@@ -620,15 +620,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "help":
         buttons = [[ 
             InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
-            InlineKeyboardButton('MANUAL FILTER', callback_data='manual'),
-            InlineKeyboardButton('CONNECTION', callback_data='connection')
+            InlineKeyboardButton('ᴹᴬᴺᵁᴬᴸ ᶠᴵᴸᵀᴱᴿ', callback_data='manual'),
+            InlineKeyboardButton('ᴄᴏɴɴᴇᴄᴛɪᴏɴ', callback_data='connection')
             ],[
-            InlineKeyboardButton('SONGS', callback_data='song'),
-            InlineKeyboardButton('TELEGRAPH', callback_data='telegraph'),
+            InlineKeyboardButton('ˢᵒⁿᵍ', callback_data='song'),
+            InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
             InlineKeyboardButton('ʙᴀᴛᴄʜ', callback_data='batch')
             ],[
-            InlineKeyboardButton('⇚ BACK', callback_data='start'),
-            InlineKeyboardButton('STATUS', callback_data="stats"),
+            InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
+            InlineKeyboardButton('ˢᵗᵃᵗᵘˢ', callback_data="stats"),
             InlineKeyboardButton('NEXT ➪', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -640,16 +640,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
  
     elif query.data == "extra":
         buttons = [[
-            InlineKeyboardButton('COVID', callback_data='covid'),
-            InlineKeyboardButton('COUNTRY', callback_data='cal'),
-            InlineKeyboardButton('EXTRA', callback_data='extramod')
+            InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid'),
+            InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
+            InlineKeyboardButton('ᴱˣᵗʳᵃ', callback_data='extramod')
             ],[
-            InlineKeyboardButton('PIN', callback_data='pin'),
-            InlineKeyboardButton('MISC', callback_data='misc'),
+            InlineKeyboardButton('ᴘɪɴ', callback_data='pin'),
+            InlineKeyboardButton('mísc', callback_data='misc'),
             InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imdb')
             ],[
-            InlineKeyboardButton('⇚ back', callback_data='help'),
-            InlineKeyboardButton('JSON', callback_data='json'),
+            InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='help'),
+            InlineKeyboardButton('jѕon', callback_data='json'),
             InlineKeyboardButton('TTS', callback_data='tts')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
