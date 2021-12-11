@@ -730,7 +730,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "connection": 
         await query.message.edit_text(
             text=Translation.CONNECTION_TXT,
-            reply_markup=BUTTONS,
+            reply_markup=BUTTONS1,
             parse_mode='html'
         ) 
     elif query.data == "manual": 
