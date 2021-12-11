@@ -1,12 +1,11 @@
 import os 
-from os import environ
 from pyrogram import filters, Client
 from translation import Translation 
 from utils import get_poster
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from info import IMDB_TEMPLATE
 
-IMDB_TEMPLATE2 = environ.get("IMDB_TEMPLATE", "none")
+
 @Client.on_message(filters.command(['info']))
 async def bot_info(client, message):
     
@@ -64,6 +63,6 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
         ]
             
     if poster:
-        cap = IMDB_TEMPLATE2.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"],  countries = poster["countries"], release_date = poster['release_date'],**locals())
-        await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
+        cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"],  countries = poster["countries"], release_date = poster['release_date'],**locals())
+        await query.message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
 
