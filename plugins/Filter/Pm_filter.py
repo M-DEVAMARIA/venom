@@ -1,5 +1,5 @@
 #Kanged From @TroJanZheX
-from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB
+from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB, P_TTI_SHOW_OFF
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re, time, asyncio
@@ -355,6 +355,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         f_caption=f_caption
                 if f_caption is None:
                     f_caption = f"{files.file_name}" 
+                try:
+                    if AUTH_CHANNEL and not await is_subscribed(client, query):
+                        await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
+                        return
+                   elif P_TTI_SHOW_OFF:
+                   await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
+                   return
+                else:
                 await query.answer()
                 await client.send_cached_media(
                     chat_id=query.from_user.id,
