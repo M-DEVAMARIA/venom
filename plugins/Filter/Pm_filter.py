@@ -623,12 +623,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('ᴹᴬᴺᵁᴬᴸ ᶠᴵᴸᵀᴱᴿ', callback_data='manual'),
             InlineKeyboardButton('ᴄᴏɴɴᴇᴄᴛɪᴏɴ', callback_data='connection')
             ],[
-            InlineKeyboardButton('ˢᵒⁿᵍ', callback_data='song'),
+            InlineKeyboardButton('song', callback_data='song'),
             InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
             InlineKeyboardButton('ʙᴀᴛᴄʜ', callback_data='batch')
             ],[
             InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
-            InlineKeyboardButton('ˢᵗᵃᵗᵘˢ', callback_data="stats"),
+            InlineKeyboardButton('stαtus', callback_data="stats"),
             InlineKeyboardButton('NEXT ➪', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
