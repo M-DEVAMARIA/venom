@@ -670,6 +670,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS1,
             parse_mode='html'
         )  
+    elif query.data == "batch": 
+        await query.message.edit_text(
+            text=Translation.STORE_TXT,
+            reply_markup=BUTTONS1,
+            parse_mode='html'
+        )  
     elif query.data == "telegraph": 
         await query.message.edit_text(
             text=Translation.TELPH_TXT,
