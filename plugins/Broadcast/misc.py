@@ -64,5 +64,5 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
   
     if poster:
         cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"],  countries = poster["countries"], release_date = poster['release_date'],**locals())
-        await query.message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup())
+        await query.message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(btn))
 
