@@ -25,3 +25,37 @@ async def showid(client, message):
             f"<b>➲ First Name:</b> {first}\n<b>➲ Last Name:</b> {last}\n<b>➲ Username:</b> {username}\n<b>➲ Telegram ID:</b> <code>{user_id}</code>\n<b>➲ Data Centre:</b> <code>{dc_id}</code>",
             quote=True
         )#/EvaMaria/blob/master/plugins/misc.py#:~:text=setLevel(logging.ERROR)-,%40Client.on_message(filters.command(%27id%27)),),-elif%20chat_type%20in    
+@Client.on_message(filters.command(["imdb", 'search']))
+async def imdb_search(client, message):
+    if ' ' in message.text:
+        k = await message.reply('Searching ImDB')
+        r, title = message.text.split(None, 1)
+        movies = await get_poster(title, bulk=True)
+        if not movies:
+            return await message.reply("No results Found")
+        btn = [
+            [
+                InlineKeyboardButton(
+                    text=f"{movie.get('title')} - {movie.get('year')}",
+                    callback_data=f"imdb#{movie.movieID}",
+                )
+            ]
+            for movie in movies
+        ]
+        await k.edit('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
+    else:
+        await message.reply('Give me a movie / series Name')
+     
+@Client.on_callback_query(filters.regex('^imdb'))
+async def imdb_callback(bot: Client, query: CallbackQuery):
+    i, movie = query.data.split('#')
+    imdb = await get_poster(query=movie, id=True)
+    btn = [
+            [
+                InlineKeyboardButton(
+                    text=f"{imdb.get('title')}",
+                    url=imdb['url'],
+                )
+            ]
+        ]
+ 
