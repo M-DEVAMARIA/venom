@@ -27,6 +27,7 @@ DATABASE_NAME = environ.get('DATABASE_NAME', 'Md_movies')
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 DATABASE_NAME2 = environ.get('DATABASE_NAME2', 'users')
 # bot settings
+P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
 IMDB = is_enabled((environ.get('IMDB', "True")), True)
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
