@@ -646,7 +646,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
             InlineKeyboardButton('ᴘɪɴ', callback_data='pin'),
             InlineKeyboardButton('mísc', callback_data='misc'),
-            InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imdbs')
+            InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imbs')
             ],[
             InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='help'),
             InlineKeyboardButton('jѕon', callback_data='json'),
@@ -703,7 +703,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
-    elif query.data == "imdbs": #dont change imdbs it cause error in misc imdb|search
+    elif query.data == "imbs": #dont change imbs it cause error in misc imdb|search
         await query.message.edit_text(
             text=Translation.IMDB_TXT,
             reply_markup=BUTTONS2,
