@@ -93,3 +93,6 @@ A module to find all country covid informations.
 <b>📚 Commands & Usage:</b>\n
 ◉ /Pin :- <code>Pin The Message You Replied To Message To Send A Notification To Group Members</code>
 ◉ /Unpin :- <code>Unpin The Current Pinned Message. If Used As A Reply, Unpins The Replied To Message</code>"""
+
+    JSON_TXT = """<b>JSON module:</b>\n𝖡𝗈𝗍 𝗋𝖾𝗍𝗎𝗋𝗇𝗌 𝗃𝗌𝗈𝗇 𝖿𝗈𝗋 𝖺𝗅𝗅 𝗋𝖾𝗉𝗅𝗂𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾𝗌 with /json.\n𝖥𝖾𝖺𝗍𝗎𝗋𝖾𝗌:\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 𝖤𝖽𝗂𝗍𝗍𝗂𝗇𝗀 JSON\n𝖯𝗆 𝖲𝗎𝗉𝗉𝗈𝗋𝗍\n𝖦𝗋𝗈𝗎𝗉 𝖲𝗎𝗉𝗉𝗈𝗋𝗍\n <b>commands:</b>\n
+/js or /showjson or /json"""
