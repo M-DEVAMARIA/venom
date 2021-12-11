@@ -716,7 +716,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ) 
     elif query.data == "tts":
         await query.message.edit_text(
-            text=Translation.MISC_TXT,
+            text=Translation.TTS_TXT,
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
