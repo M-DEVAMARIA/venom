@@ -57,7 +57,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
             [
                 InlineKeyboardButton(
                     text=f"{poster.get('title')}",
-                    url=imdb['url'],
+                    url=poster['url'],
                 )
             ]
         ]
