@@ -96,3 +96,5 @@ A module to find all country covid informations.
 
     JSON_TXT = """<b>JSON module:</b>\n\n𝖡𝗈𝗍 𝗋𝖾𝗍𝗎𝗋𝗇𝗌 𝗃𝗌𝗈𝗇 𝖿𝗈𝗋 𝖺𝗅𝗅 𝗋𝖾𝗉𝗅𝗂𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾𝗌 with /json.\n\n𝖥𝖾𝖺𝗍𝗎𝗋𝖾𝗌:\n𝖬𝖾𝗌𝗌𝖺𝗀𝖾 𝖤𝖽𝗂𝗍𝗍𝗂𝗇𝗀 JSON\n𝖯𝗆 𝖲𝗎𝗉𝗉𝗈𝗋𝗍\n𝖦𝗋𝗈𝗎𝗉 𝖲𝗎𝗉𝗉𝗈𝗋𝗍\n <b>📕 Commands:</b>\n\n
 /json - <code>reply to message which you want get json | നിങ്ങൾക്ക് json ലഭിക്കാൻ ആഗ്രഹിക്കുന്ന സന്ദേശത്തിന് മറുപടി നൽകുക</code>"""
+    
+    STORE_TXT = """<b>Batch module</b>\n\nThis module is for store one or more files or message using venom. You can get stored message or file by a special link given by bot\n\n📚 Command\n\n/batch -  <code>command for store files or message</code>"""
