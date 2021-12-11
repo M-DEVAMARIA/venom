@@ -669,6 +669,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             text=Translation.SONG_TXT,
             reply_markup=BUTTONS1,
             parse_mode='html'
+        )
+    elif query.data == "IMDB_TXT": 
+        await query.message.edit_text(
+            text=Translation.STORE_TXT,
+            reply_markup=BUTTONS1,
+            parse_mode='html'
         )  
     elif query.data == "batch": 
         await query.message.edit_text(
