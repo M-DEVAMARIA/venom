@@ -1,6 +1,7 @@
 import os
 from pyrogram import filters, Client
-from translation import Translation
+from translation import Translation 
+from utils import get_poster
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from info import IMDB_TEMPLATE
 
