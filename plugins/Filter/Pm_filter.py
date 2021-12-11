@@ -160,7 +160,7 @@ So you go to google and check the spelling of the name of the movie you want.
 
 
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
-async def give_filter(client, message):
+async def give_filter(client, message): 
     group_id = message.chat.id
     name = message.text
 
@@ -619,13 +619,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "help":
         buttons = [[ 
-            InlineKeyboardButton('AUTO FILTER', callback_data='autofilter'),
+            InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
             InlineKeyboardButton('MANUAL FILTER', callback_data='manual'),
             InlineKeyboardButton('CONNECTION', callback_data='connection')
             ],[
             InlineKeyboardButton('SONGS', callback_data='song'),
             InlineKeyboardButton('TELEGRAPH', callback_data='telegraph'),
-            InlineKeyboardButton('BATCH', callback_data='batch')
+            InlineKeyboardButton('ʙᴀᴛᴄʜ', callback_data='batch')
             ],[
             InlineKeyboardButton('⇚ BACK', callback_data='start'),
             InlineKeyboardButton('STATUS', callback_data="stats"),
@@ -646,7 +646,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ],[
             InlineKeyboardButton('PIN', callback_data='pin'),
             InlineKeyboardButton('MISC', callback_data='misc'),
-            InlineKeyboardButton('IMDB', callback_data='imdb')
+            InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imdb')
             ],[
             InlineKeyboardButton('⇚ back', callback_data='help'),
             InlineKeyboardButton('JSON', callback_data='json'),
