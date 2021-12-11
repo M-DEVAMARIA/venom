@@ -11,8 +11,8 @@ START_BTN = InlineKeyboardMarkup(
         InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
         InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
         ],[
-        InlineKeyboardButton("About", callback_data="about"),
-        InlineKeyboardButton('HELP', callback_data='help')
+        InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="about"),
+        InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')
         ],[
         InlineKeyboardButton('Features ❔', callback_data='user')
         ]] 
