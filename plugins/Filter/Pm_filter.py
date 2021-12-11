@@ -704,7 +704,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ) 
     elif query.data == "json":
         await query.message.edit_text(
-            text=Translation.MISC_TXT,
+            text=Translation.JSON_TXT,
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
