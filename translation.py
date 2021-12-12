@@ -10,7 +10,7 @@ class Translation(object):
 ╚╗║╔╝║╩╣║║║║║╬║║║║║
 ─╚═╝─╚═╝╚╩═╝╚═╝╚╩╩╝ 
    ╭━━━━━━━━━━━━━━━➣ 
-║┣⪼<b>uptime :{}</b> 
+║┣⪼<b>🕛uptime :{}</b> 
 ║┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
 ║┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
 ║┣⪼📡Hosted On : <a href="https://t.me/md_movises">Railway</a>
