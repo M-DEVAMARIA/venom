@@ -61,8 +61,8 @@ async def batch(c, m):
     breply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('open', url= f"{url}")]])
     share =InlineKeyboardMarkup([[InlineKeyboardButton('🔁 share link 🔁 ', url=f"tg://share?url={txt}File%20Link%20👉%20{url}")]])
 
-    await message.edit(text= f"**your link**\n\n{url}",reply_markup = share)
-    await c.send_message(int(DB_CHANNEL_ID), f" {url}\n 👦 created by {m.from_user.mention}",reply_markup=breply_markup)
+    await message.edit(text= f"**your link :-**\n\n{url}",reply_markup = share)
+    await c.send_message(int(DB_CHANNEL_ID), f" {url}\n\n 👦 created by {m.from_user.mention}",reply_markup=breply_markup)
 
 async def decode(base64_string):
     base64_bytes = base64_string.encode("ascii")
