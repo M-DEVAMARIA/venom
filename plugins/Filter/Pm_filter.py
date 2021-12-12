@@ -343,7 +343,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith("subinps"):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
-            for files in filedetails:
+        for files in filedetails:
             title = files.file_name
             size=get_size(files.file_size)
             f_caption=files.caption
