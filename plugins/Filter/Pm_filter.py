@@ -356,8 +356,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 if f_caption is None:
                     f_caption = f"{files.file_name}" 
                 if P_TTI_SHOW_OFF:
-                await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
-                return
+                  await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
+                  return
                 else:
                     await query.answer()
                     await client.send_cached_media(
