@@ -77,7 +77,7 @@ async def filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
                     )
         else:
             spf = await message.reply_video(
@@ -394,7 +394,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     
                  
 
-    if query.data == "pages":
+    elif query.data == "pages":
        await query.answer()
     elif query.data == "close":
           try:
