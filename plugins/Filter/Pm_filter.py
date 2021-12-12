@@ -403,7 +403,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     
                  
 
-    elif query.data == "pages":
+    if query.data == "pages":
        await query.answer()
     elif query.data == "close":
           try:
