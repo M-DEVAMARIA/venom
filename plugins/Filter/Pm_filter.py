@@ -344,33 +344,33 @@ async def cb_handler(client: Client, query: CallbackQuery):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
-                title = files.file_name
-                size=get_size(files.file_size)
-                f_caption=files.caption
-                if CUSTOM_FILE_CAPTION:
-                    try:
-                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
-                    except Exception as e:
-                        print(e)
-                        f_caption=f_caption
-                if f_caption is None:
-                    f_caption = f"{files.file_name}" 
+            title = files.file_name
+            size=get_size(files.file_size)
+            f_caption=files.caption
+            if CUSTOM_FILE_CAPTION:
                 try:
-                    if AUTH_CHANNEL and not await is_subscribed(client, query):
-                        await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
-                        return
-                    elif P_TTI_SHOW_OFF:
-                        await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
-                        return
-                    else:
+                    f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                except Exception as e:
+                print(e)
+                f_caption=f_caption
+            if f_caption is None:
+                f_caption = f"{files.file_name}" 
+            try:
+                if AUTH_CHANNEL and not await is_subscribed(client, query):
+                    await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
+                    return
+                elif P_TTI_SHOW_OFF:
+                    await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
+                    return
+                else:
                         
-                        await client.send_cached_media(
-                            chat_id=query.from_user.id,
-                            file_id=file_id,
-                            caption=f_caption,
-                            reply_markup=CAPTION,
-                            )
-                        await query.answer('sending...', show_alert = true)
+                    await client.send_cached_media(
+                         chat_id=query.from_user.id,
+                         file_id=file_id,
+                         caption=f_caption,
+                         reply_markup=CAPTION,
+                         )
+                     await query.answer('sending...', show_alert = true)
         elif query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
