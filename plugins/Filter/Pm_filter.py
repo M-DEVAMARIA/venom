@@ -355,13 +355,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         f_caption=f_caption
                 if f_caption is None:
                     f_caption = f"{files.file_name}" 
-                await query.answer()
-                await client.send_cached_media(
-                    chat_id=query.from_user.id,
-                    file_id=file_id,
-                    caption=f_caption,
-                    reply_markup=CAPTION,
-                    )
+                if P_TTI_SHOW_OFF:
+                await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
+                return
+                else:
+                    await query.answer()
+                    await client.send_cached_media(
+                        chat_id=query.from_user.id,
+                        file_id=file_id,
+                        caption=f_caption,
+                        reply_markup=CAPTION,
+                        )
         elif query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
