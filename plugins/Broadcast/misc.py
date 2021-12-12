@@ -62,7 +62,6 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
             ]
         ]
   
-    if poster:
-        
+    if poster:.  
         await query.message.reply_photo(photo=poster.get("poster"), caption= f"**🎬 Title:**{poster.get('title')}\n**🎭 Genres:** {poster.get('genres')}\n**📆 Year:** <a href={poster['url']}/releaseinfo>{poster.get('year')}</a>\n**🌟Rating:** <a href={poster['url']}/ratings>{poster.get('rating')}</a> / 10\n**" , reply_markup=InlineKeyboardMarkup(btn))
-
+    await query.message.delete()
