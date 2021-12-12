@@ -206,7 +206,7 @@ async def restart(client, message):
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 #qq feature____________#
-@Client.on_message(filters.command('stats'))
+@Client.on_message(filters.command('stats') & filters.user(ADMINS))
 async def stats(client, message):
     
 
