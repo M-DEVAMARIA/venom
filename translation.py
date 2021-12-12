@@ -1,7 +1,10 @@
 class Translation(object):
-    START_TXT = """ <m>HEY {}\nMy name is ༺VENOM༻ I will give movies in your group and my pm !</m> \n
-<b>Bot Maintained By: @mdadmin2 </b> \n 
-"""
+    START_TXT = """ <b>HEY, {}</b>
+
+<code>I am a autofilter + manual + filestore bot I will give movies in your group and my PM ! Also I can store files</code>
+
+<b>maintained by : @mdadmin2</b>"""
+
     ABOUT_TXT = """ 
 ╔═╦═╗╔═╗╔═╦╗╔═╗╔══╗ 
 ╚╗║╔╝║╩╣║║║║║╬║║║║║
