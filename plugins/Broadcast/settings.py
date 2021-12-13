@@ -11,6 +11,7 @@ db = Database()
 
 @Client.on_message(filters.command(['settings'])& filters.group, group=1)
 async def bot_info(client, message):
+    query_data = message.data
     chat_id = re.findall(r"config\((.+)\)", query_data)[0]
     buttons = [[
             InlineKeyboardButton("open settings", callback_data=f"inPM({pm_file_chat}|{chat_id})")
