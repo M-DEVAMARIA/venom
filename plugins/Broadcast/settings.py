@@ -6,7 +6,7 @@ from pyrogram.errors import ButtonDataInvalid, FloodWait
 from database.Settings_db import Database 
 
 db = Database()
-
+VERIFY = {}
 
 
 @Client.on_message(filters.command(['settings']))
