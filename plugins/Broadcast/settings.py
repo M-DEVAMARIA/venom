@@ -4,7 +4,8 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait
 from database.Settings_db import Database 
-from plugins import VERIFY
+from plugins import VERIFY 
+from info import ADMINS
 db = Database()
 
 
@@ -46,7 +47,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     
-    if user_id not in VERIFY.get(str(chat_id)):
+    if user_id not in ADMINS.get(str(chat_id)):
         return
 
     value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
@@ -105,7 +106,7 @@ async def cb_set(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     
-    if user_id not in VERIFY.get(str(chat_id)):
+    if user_id not in ADMINS.get(str(chat_id)):
         return
 
     action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", query_data)[0].split("|", 3)
