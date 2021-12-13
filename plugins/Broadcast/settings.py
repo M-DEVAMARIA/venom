@@ -2,7 +2,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait
-from Settings_db import Database 
+from database.Settings_db import Database 
 
 db = Database()
 
