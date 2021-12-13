@@ -42,9 +42,9 @@ async def gstart(bot, cmd):
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
             channel_id = cmd.chat.id
-            chat_id = cmd.chat.id
+            group_id = cmd.chat.id
             channel_name = cmd.chat.title
-            await dbs.add_chat(chat_id, channel_id,channel_name)
+            await dbs.add_chat(group_id, channel_id,channel_name)
             await recacher(chat_id, True, True, bot, update)
             await bot.send_message(
                 LOG_CHANNEL, 
