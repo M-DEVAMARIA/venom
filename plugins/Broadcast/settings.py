@@ -31,8 +31,7 @@ async def bot_info(bot, update: CallbackQuery):
             InlineKeyboardButton("open settings", callback_data=f"inPM({pm_file_chat}|{chat_id})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await update.message.edit_text(
-        chat_id=update.message.chat.id,
+    await update.message.edit_text( 
         reply_markup=reply_markup,
         text="hi, how are you ",
         parse_mode="html")
