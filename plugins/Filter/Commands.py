@@ -17,11 +17,11 @@ from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
+from database.Settings_db import Database
 LOG_CHANNEL = BROADCAST_CHANNEL
 OWNER_ID = "1411070838"
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
-
+dbs = Database
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
 #===================Start Function===================#
@@ -39,9 +39,9 @@ async def gstart(bot, cmd):
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply(Translation.START_TXT.format(cmd.chat.title), reply_markup=reply_markup)
         await asyncio.sleep(2) 
-        if not await db.get_chat(cmd.chat.id):
+        if not await dbs.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
-            await db.add_chat(cmd.chat.id, cmd.chat.title)
+            await dbs.add_chat(cmd.chat.id, cmd.chat.title)
             await bot.send_message(
                 LOG_CHANNEL, 
                 f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started @{temp.U_NAME} !!",)
