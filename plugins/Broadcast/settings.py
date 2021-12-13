@@ -4,9 +4,9 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait
 from database.Settings_db import Database 
-
+from plugins import VERIFY
 db = Database()
-VERIFY = {}
+
 
 
 @Client.on_message(filters.command(['settings']))
