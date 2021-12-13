@@ -116,13 +116,13 @@ class Database:
         """
         A funtion to add/update a chat document when a new chat is connected
         """
-        new = self.new_chat(id, title)
-        update_d = {"$push" : {"chat_ids" : {"id": id, "title" : title}}}
-        prev = await self.col.find_one({'_id':group_id})
+        new = self.new_chat(id)
+        update_d = {"$push" : {"chat_ids" : {"id": id}}}
+        prev = await self.col.find_one({'id':id})
         
         if prev:
             await self.col.update_one({'id':id}, update_d)
-            await self.update_active(id, title)
+            await self.update_active(id)
             await self.refresh_cache(id)
             
             return True
@@ -130,7 +130,7 @@ class Database:
         self.cache[str(id)] = new
         
         await self.col.insert_one(new)
-        await self.add_active(id, title)
+        await self.add_active(id)
         await self.refresh_cache(id)
         
         return True
