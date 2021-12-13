@@ -9,7 +9,7 @@ db = Database()
 
 
 
-@Client.on_message(filters.command(['settings'])& filters.group, group=1)
+@Client.on_message(filters.command(['settings']))
 async def bot_info(client, message):
     chat_id = message.chat.id
     buttons = [[
