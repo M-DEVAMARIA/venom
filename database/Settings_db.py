@@ -23,21 +23,18 @@ class Database:
         await self.fcol.create_index([("file_name", "text")])
 
 
-    def new_chat(self, group_id, channel_id, title):
+    def new_chat(self, id, title):
         """
         Create a document in db if the chat is new
         """
         try:
-            group_id, channel_id = int(group_id), int(channel_id)
+             id = int(id)
         except:
             pass
         
         return dict(
-            _id = group_id,
-            chat_ids = [{
-                "chat_id": channel_id,
-                "chat_name": title
-                }],
+            id = id,
+            title = title,
             types = dict(
                 audio=False,
                 document=True,
