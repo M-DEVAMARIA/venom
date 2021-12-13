@@ -10,7 +10,7 @@ db = Database()
 
 
 @Client.on_message(filters.command(['settings']))
-async def bot_info(client, message):
+async def botsetting_info(client, message):
     chat_id = message.chat.id
     buttons = [[
             InlineKeyboardButton("open settings", callback_data=f"open({chat_id})")
