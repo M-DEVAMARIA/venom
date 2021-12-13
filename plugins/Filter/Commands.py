@@ -41,9 +41,8 @@ async def gstart(bot, cmd):
         await asyncio.sleep(2) 
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
-            chat.id = channel_id
-            chat.title = channel_name
-            await dbs.add_chat(cmd.chat.id, cmd.chat.title)
+            
+            await dbs.add_chat(cmd.chat.channel_id, cmd.chat.channel_name)
             await bot.send_message(
                 LOG_CHANNEL, 
                 f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started @{temp.U_NAME} !!",)
