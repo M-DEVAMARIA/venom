@@ -41,7 +41,7 @@ async def gstart(bot, cmd):
         await asyncio.sleep(2) 
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
-            channel_id = cmd.chat.id
+            chat_id, channel_id = cmd.chat.id
             channel_name = cmd.chat.title
             await dbs.add_chat(chat_id, channel_id, channel_name)
             await bot.send_message(
