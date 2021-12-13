@@ -112,7 +112,7 @@ class Database:
             return self.new_chat(None, None, None)
 
         
-    async def add_chat(self, group_id: int, channel_id: int, title):
+    async def add_chat(self, id, title):
         """
         A funtion to add/update a chat document when a new chat is connected
         """
