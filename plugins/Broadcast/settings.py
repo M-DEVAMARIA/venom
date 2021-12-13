@@ -32,7 +32,7 @@ async def bot_info(bot, update: CallbackQuery):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text(
-        chat_id=update.chat.id,
+        chat_id=update.message.chat.id,
         reply_markup=reply_markup,
         text="hi, how are you ",
         parse_mode="html")
