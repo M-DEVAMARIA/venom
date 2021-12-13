@@ -12,5 +12,5 @@ async def bot_info(client, message):
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text=Translation.ABOUT_TXT,
+        text="hi, how are you ",
         parse_mode="html")
