@@ -4,6 +4,8 @@ from info import IMDB_TEMPLATE
 from utils import temp
 import imdb
 
+VERIFY = {}
+
 START_BTN = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true'),
