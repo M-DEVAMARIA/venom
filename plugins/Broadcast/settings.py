@@ -11,14 +11,26 @@ db = Database()
 
 @Client.on_message(filters.command(['settings'])& filters.group, group=1)
 async def bot_info(client, message):
-    query_data = message.data
+    chat_id = message.chat.id
+    buttons = [[
+            InlineKeyboardButton("open settings", callback_data=f"open({chat_id})")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await client.send_message(
+        chat_id=message.chat.id,
+        reply_markup=reply_markup,
+        text="hi, how are you ",
+        parse_mode="html")
+@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
+async def bot_info(bot, update: CallbackQuery):
+    query_data = update.data
     chat_id = re.findall(r"config\((.+)\)", query_data)[0]
     buttons = [[
             InlineKeyboardButton("open settings", callback_data=f"inPM({pm_file_chat}|{chat_id})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await client.send_message(
-        chat_id=message.chat.id,
+    await update.message.edit_text(
+        chat_id=update.chat.id,
         reply_markup=reply_markup,
         text="hi, how are you ",
         parse_mode="html")
