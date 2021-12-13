@@ -39,7 +39,7 @@ async def gstart(bot, cmd):
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply(Translation.START_TXT.format(cmd.chat.title), reply_markup=reply_markup)
         await asyncio.sleep(2) 
-        if not await dbs.get_chat(cmd.chat.id):
+        if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
             await dbs.add_chat(cmd.chat.id, cmd.chat.title)
             await bot.send_message(
