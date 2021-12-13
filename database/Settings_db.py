@@ -23,7 +23,7 @@ class Database:
         await self.fcol.create_index([("file_name", "text")])
 
 
-    def new_chat(self, id, title):
+    def new_chat(self, id):
         """
         Create a document in db if the chat is new
         """
@@ -34,7 +34,7 @@ class Database:
         
         return dict(
             id = id,
-            title = title,
+            
             types = dict(
                 audio=False,
                 document=True,
