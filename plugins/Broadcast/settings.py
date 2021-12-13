@@ -24,7 +24,7 @@ async def botsetting_info(client, message):
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(bot, update: CallbackQuery):
     query_data = update.data
-    chat_id = re.findall(r"config\((.+)\)", query_data)[0]
+    chat_id = update.message.chat.id
     buttons = [[
             InlineKeyboardButton("open settings", callback_data=f"inPM({pm_file_chat}|{chat_id})")
     ]]
