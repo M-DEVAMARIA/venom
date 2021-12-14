@@ -2,7 +2,8 @@
 import re
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.errors import ButtonDataInvalid, FloodWait
+from pyrogram.errors import ButtonDataInvalid, FloodWait 
+from database.users_db import db
 from database.Settings_db import Database 
 from plugins import VERIFY 
 from info import ADMINS
