@@ -137,16 +137,16 @@ class Database:
 
 #=====================stng====================
 
-    async def update_configs(self, id: int, configs):
+    async def update_configs(self, chat: int, configs):
         """
         A Funtion to update a chat's configs in db
         """
-        prev = await self.grp.find_one({"id": id})
+        prev = await self.grp.find_one({"chat": id})
 
         if prev:
             try:
                 await self.grp.update_one(prev, {"$set":{"configs": configs}})
-                await self.refresh_cache(id)
+                await self.refresh_cache(chat)
                 return True
             
             except Exception as e:
@@ -166,7 +166,7 @@ class Database:
         prev = await self.grp.find_one({"id": id})
         
         if prev:
-            self.cache[str(group_id)] = prev
+            self.cache[str(id)] = prev
         return True 
     
 db = Database(DATABASE_URI, DATABASE_NAME)
