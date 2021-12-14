@@ -38,8 +38,8 @@ class Database:
                 max_per_page=10,
                 pm_fchat=True,
                 show_invite_link=True
-        ),
-     )
+            )
+        )
     
     async def add_user(self, id, name):
         user = self.new_user(id, name)
