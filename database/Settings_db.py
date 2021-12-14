@@ -112,27 +112,13 @@ class Database:
             return self.new_chat(None, None, None)
 
         
-    async def add_chat(self, id, title):
+    async def add_chat(self, chat, title):
         """
         A funtion to add/update a chat document when a new chat is connected
         """
-        new = self.new_chat(id)
-        update_d = {"$push" : {"chat_ids" : {"id": id, "chat_name" : title}}}
-                                           
-        prev = await self.col.find_one({'id':id})
-        
-        if prev:
-            await self.col.update_one({'id':id}, update_d)
-            await self.update_active(id, title)
-            await self.refresh_cache(id)
-            
-            return True
-        
-        self.cache[str(id)] = new
-        
-        await self.col.insert_one(new)
-        await self.add_active(id, title)
-        await self.refresh_cache(id)
+        chat = self.new_group(chat, title)
+
+        await self.grp.insert_one(chat)
         
         return True
 
