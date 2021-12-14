@@ -23,7 +23,7 @@ class Database:
         await self.fcol.create_index([("file_name", "text")])
 
 
-    def new_chat(self, id):
+    def new_chat(self, id, tittle):
         """
         Create a document in db if the chat is new
         """
@@ -34,7 +34,7 @@ class Database:
         
         return dict(
             id = id,
-            
+            title = title
             types = dict(
                 audio=False,
                 document=True,
@@ -117,12 +117,13 @@ class Database:
         A funtion to add/update a chat document when a new chat is connected
         """
         new = self.new_chat(id)
-        update_d = {"$push" : {"chat_ids" : {"id": id}}}
+        update_d = {"$push" : {"chat_ids" : {"id": id, "chat_name" : title}}}
+                                           
         prev = await self.col.find_one({'id':id})
         
         if prev:
             await self.col.update_one({'id':id}, update_d)
-            await self.update_active(id)
+            await self.update_active(id, title)
             await self.refresh_cache(id)
             
             return True
@@ -130,7 +131,7 @@ class Database:
         self.cache[str(id)] = new
         
         await self.col.insert_one(new)
-        await self.add_active(id)
+        await self.add_active(id, title)
         await self.refresh_cache(id)
         
         return True
