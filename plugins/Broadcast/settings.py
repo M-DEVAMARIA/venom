@@ -7,7 +7,7 @@ from database.users_db import db
 from database.Settings_db import Database 
 from plugins import VERIFY 
 from info import ADMINS
-db = Database()
+#db = Database()
 
 
 
