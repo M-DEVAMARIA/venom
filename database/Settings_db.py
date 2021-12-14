@@ -118,7 +118,7 @@ class Database:
         """
         chat = self.new_group(chat, title)
 
-        await self.grp.insert_one(chat)
+        await self.col.insert_one(chat)
         
         return True
 
