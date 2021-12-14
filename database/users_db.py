@@ -97,6 +97,7 @@ class Database:
     async def add_chat(self, chat, title):
         chat = self.new_group(chat, title)
         await self.grp.insert_one(chat)
+        await self.refresh_cache(group_id)
     
 
     async def get_chat(self, chat):
