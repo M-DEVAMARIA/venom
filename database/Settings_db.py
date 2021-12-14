@@ -34,7 +34,7 @@ class Database:
         
         return dict(
             id = id,
-            title = title
+            title = title,
             types = dict(
                 audio=False,
                 document=True,
