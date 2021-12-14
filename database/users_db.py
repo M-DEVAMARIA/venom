@@ -141,11 +141,11 @@ class Database:
         """
         A Funtion to update a chat's configs in db
         """
-        prev = await self.col.find_one({"id": id})
+        prev = await self.grp.find_one({"id": id})
 
         if prev:
             try:
-                await self.col.update_one(prev, {"$set":{"configs": configs}})
+                await self.grp.update_one(prev, {"$set":{"configs": configs}})
                 await self.refresh_cache(id)
                 return True
             
@@ -154,6 +154,7 @@ class Database:
                 return False
         print("You Should First Connect To A Chat To Use This")
         return False 
+    
     async def refresh_cache(self, id: int):
         """
         A Funtion to refresh a chat's chase data
@@ -162,7 +163,7 @@ class Database:
         if self.cache.get(str(id)):
             self.cache.pop(str(id))
         
-        prev = await self.col.find_one({"id": id})
+        prev = await self.grp.find_one({"id": id})
         
         if prev:
             self.cache[str(group_id)] = prev
