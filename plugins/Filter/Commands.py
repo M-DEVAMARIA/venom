@@ -44,8 +44,8 @@ async def gstart(bot, cmd):
             channel_id = cmd.chat.id
             group_id = cmd.chat.id
             title = cmd.chat.title
-            await dbs.add_chat(cmd.chat.id, title)
-            await recacher(chat_id, title, True, bot, update)
+            await dbs.add_chat(cmd.chat.title, cmd.chat.id)
+       
             await bot.send_message(
                 LOG_CHANNEL, 
                 f"#NEWGROUP: \n\nNew group =  [{cmd.chat.title}] id={cmd.chat.id} members = [{total}] started @{temp.U_NAME} !!",)
