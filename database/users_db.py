@@ -9,7 +9,8 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
         self.grp = self.db.groups
-
+  
+        self.cache = {}
 
     def new_user(self, id, name):
         return dict(
@@ -134,6 +135,38 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
+#=====================stng====================
 
+    async def update_configs(self, id: int, configs):
+        """
+        A Funtion to update a chat's configs in db
+        """
+        prev = await self.col.find_one({"id": id})
+
+        if prev:
+            try:
+                await self.col.update_one(prev, {"$set":{"configs": configs}})
+                await self.refresh_cache(id)
+                return True
+            
+            except Exception as e:
+                print (e)
+                return False
+        print("You Should First Connect To A Chat To Use This")
+        return False 
+    async def refresh_cache(self, id: int):
+        """
+        A Funtion to refresh a chat's chase data
+        in case of update in db
+        """
+        if self.cache.get(str(id)):
+            self.cache.pop(str(id))
+        
+        prev = await self.col.find_one({"id": id})
+        
+        if prev:
+            self.cache[str(group_id)] = prev
+        return True 
+    
 db = Database(DATABASE_URI, DATABASE_NAME)
 
