@@ -17,11 +17,11 @@ from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-from database.Settings_db import Database
+#from database.Settings_db import Database
 LOG_CHANNEL = BROADCAST_CHANNEL
 OWNER_ID = "1411070838"
 DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
-dbs = Database
+#dbs = Database
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
 
 #===================Start Function===================#
