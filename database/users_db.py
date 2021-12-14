@@ -100,7 +100,7 @@ class Database:
         await self.refresh_cache(chat)
     
 
-    async def get_chat(self, chat):
+    async def get_chat(self, chat: int):
         chat = await self.grp.find_one({'id':int(chat)})
         if not chat:
             return False
