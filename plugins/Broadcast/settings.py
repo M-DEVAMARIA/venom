@@ -27,10 +27,11 @@ async def botsetting_info(client, message):
 async def bot_info(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
+    t = "hi"
     #settings = await db.get_chat(int(chat))
     #pm_file_chat  = settings["configs"].get("pm_fchat", False)
     buttons = [[
-            InlineKeyboardButton("open settings", callback_data=f"inPM({chat})")
+            InlineKeyboardButton("open settings", callback_data=f"inPM({t}|{chat})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
