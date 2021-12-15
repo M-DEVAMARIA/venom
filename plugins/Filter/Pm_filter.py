@@ -816,6 +816,8 @@ async def group(client, message):
         leng = ("total_len")
         query = search
         nyva=BOT.get("username")
+        configs = await db.find_chat(group_id)
+        pm_file_chat = configs["configs"]["pm_fchat"] 
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -825,7 +827,7 @@ async def group(client, message):
             for file in files:
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
-            if BUTTON:
+            if pm_file_chat:
                     btn.append(
                              [InlineKeyboardButton(text=f"{filename}", callback_data=f"subinps#{file_id}")]
                              )
