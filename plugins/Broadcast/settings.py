@@ -166,7 +166,7 @@ async def cb_set(bot, update: CallbackQuery):
         show_invite_link=show_invite_link
     )
     
-    append_db = await db.update_configs(chat_id, new)
+    append_db = await db.update_configs(chat, new)
     
     if not append_db:
         text="Something Wrong Please Check Bot Log For More Information...."
