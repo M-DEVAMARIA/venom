@@ -77,8 +77,15 @@ async def cb_pm_file(bot, update: CallbackQuery):
             [
                 InlineKeyboardButton
                     (
-                        "Enable ✅", callback_data=f"set(inPM|True|{chat_id}|{value})"
+                        "enable ✔️", callback_data=f"set(inPM|True|{chat_id}|{value})"
                     )
+            ],
+            [
+                InlineKeyboardButton
+                    (
+                        "Disable ❎", callback_data=f"set(inPM|False|{chat_id}|{value})"
+                    )
+            
             ],
             [
                 InlineKeyboardButton
