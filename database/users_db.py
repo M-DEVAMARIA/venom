@@ -142,7 +142,7 @@ class Database:
         """
         A Funtion to update a chat's configs in db
         """
-        prev = await self.grp.find_one({"chat": id})
+        prev = await self.grp.find_one({"id": chat})
 
         if prev:
             try:
