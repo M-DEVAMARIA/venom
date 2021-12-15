@@ -105,7 +105,7 @@ async def cb_set(bot, update: CallbackQuery):
     """
     global VERIFY
     query_data = update.data
-    chat_id = update.message.chat.id
+    chat = update.message.chat.id
     user_id = update.from_user.id
     
     if user_id not in ADMINS :
@@ -122,7 +122,7 @@ async def cb_set(bot, update: CallbackQuery):
         await update.answer("New Value Cannot Be Old Value...Please Choose Different Value...!!!", show_alert=True)
         return
     
-    prev = await db.get_chat(chat_id)
+    prev = await db.get_chat(chat)
 
     accuracy = float(prev["configs"].get("accuracy", 0.80))
     max_pages = int(prev["configs"].get("max_pages"))
