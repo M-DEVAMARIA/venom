@@ -825,14 +825,14 @@ async def group(client, message):
             for file in files:
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
-        if BUTTON:
-                btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", callback_data=f"subinps#{file_id}")]
-                    )
-        else:
-           btn.append(
-                    [InlineKeyboardButton(text='4', callback_data=f"subinps#{file_id}")]
-                    )
+            if BUTTON:
+                    btn.append(
+                             [InlineKeyboardButton(text=f"{filename}", callback_data=f"subinps#{file_id}")]
+                             )
+            else:
+               btn.append(
+                        [InlineKeyboardButton(text='4', callback_data=f"subinps#{file_id}")]
+                        )
         if not files: 
             spf = await message.reply_text(
             text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
