@@ -83,7 +83,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
             [
                 InlineKeyboardButton
                     (
-                        "Back 🔙", callback_data=f"config({chat_id})"
+                        "Back 🔙", callback_data=f"open({chat_id})"
                     )
             ]
         ]
