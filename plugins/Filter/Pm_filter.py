@@ -828,7 +828,7 @@ async def group(client, message):
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", callback_data=f"subinps#{file_id}")]
                     )
-        if not files 
+        if not files: 
             spf = await message.reply_text(
             text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
             reply_markup=InlineKeyboardMarkup(
