@@ -122,7 +122,7 @@ async def cb_set(bot, update: CallbackQuery):
         await update.answer("New Value Cannot Be Old Value...Please Choose Different Value...!!!", show_alert=True)
         return
     
-    prev = await db.get_chat(chat)
+    prev = await db.find_chat(chat)
 
     accuracy = float(prev["configs"].get("accuracy", 0.80))
     max_pages = int(prev["configs"].get("max_pages"))
