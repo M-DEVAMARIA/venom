@@ -36,7 +36,7 @@ class Database:
                 max_pages=5,
                 max_results=50,
                 max_per_page=10,
-                pm_fchat=True,
+                pm_fchat=False,
                 show_invite_link=True
             )
         )
