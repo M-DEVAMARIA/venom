@@ -178,7 +178,7 @@ class Database:
         if connections is not None:
             return connections
 
-        connections = await self.col.find_one({'_id': chat})
+        connections = await self.grp.find_one({'_id': chat})
         
         if connections:
             self.cache[str(chat)] = connections
