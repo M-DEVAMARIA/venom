@@ -169,6 +169,23 @@ class Database:
         if prev:
             self.cache[str(id)] = prev
         return True 
-    
+    async def find_chat(self, chat: int):
+        """
+        A funtion to fetch a group's settings
+        """
+        connections = self.cache.get(str(chat))
+        
+        if connections is not None:
+            return connections
+
+        connections = await self.col.find_one({'_id': chat})
+        
+        if connections:
+            self.cache[str(chat)] = connections
+
+            return connections
+        else: 
+            return self.new_group(None, None)
+        
 db = Database(DATABASE_URI, DATABASE_NAME)
 
