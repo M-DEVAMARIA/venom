@@ -816,7 +816,8 @@ async def group(client, message):
         leng = ("total_len")
         query = search
         nyva=BOT.get("username")
-        configs = await db.find_chat(group_id)
+        chat = message.chat.id
+        configs = await db.find_chat(chat)
         pm_file_chat = configs["configs"]["pm_fchat"] 
         if not nyva:
             botusername=await client.get_me()
