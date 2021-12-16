@@ -137,7 +137,7 @@ async def gstart(bot, cmd):
     else: 
         stts = await start(bot, cmd)
 
-    if not stts: 
+    if stts == False: 
            
         return await cmd.reply_photo(
         photo=random.choice(PHOTO), 
