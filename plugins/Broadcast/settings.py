@@ -28,10 +28,10 @@ async def bot_info(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
     t = "hi"
-    #settings = await db.get_chat(int(chat))
-    #pm_file_chat  = settings["configs"].get("pm_fchat", False)
+    settings = await db.find_chat(int(chat))
+    pm_file_chat  = settings["configs"].get("pm_fchat", False)
     buttons = [[
-            InlineKeyboardButton("BUTTON ", callback_data=f"inPM({t}|{chat})")
+            InlineKeyboardButton("BUTTON ", callback_data=f"inPM({pm_file_chat}|{chat})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
@@ -105,6 +105,64 @@ async def cb_pm_file(bot, update: CallbackQuery):
         parse_mode="html"
     )
     
+@Client.on_callback_query(filters.regex(r"show_invites\((.+)\)"), group=2)
+async def cb_show_invites(bot, update: CallbackQuery):
+    """
+    A Callback Funtion For Enabling Or Diabling Invite Link Buttons
+    """
+    global VERIFY
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    
+    if user_id not in ADMINS:
+        return
+
+    value, chat_id = re.findall(r"show_invites\((.+)\)", query_data)[0].split("|", 1)
+    
+    value = True if value=="True" else False
+    
+    if value:
+        buttons= [
+            [
+                InlineKeyboardButton
+                    (
+                        "Disable ❌", callback_data=f"set(showInv|False|{chat_id}|{value})"
+                    )
+            ],
+            [
+                InlineKeyboardButton
+                    (
+                        "Back 🔙", callback_data=f"config({chat_id})"
+                    )
+            ]
+        ]
+    
+    else:
+        buttons =[
+            [
+                InlineKeyboardButton
+                    (
+                        "Enable ✔", callback_data=f"set(showInv|True|{chat_id}|{value})"
+                    )
+            ],
+            [
+                InlineKeyboardButton
+                    (
+                        "Back 🔙", callback_data=f"open({chat_id})"
+                    )
+            ]
+        ]
+    
+    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    
+    reply_markup=InlineKeyboardMarkup(buttons)
+    
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     """
