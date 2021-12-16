@@ -49,7 +49,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     
-    if user_id not in ADMINS :
+    if user_id not in ADMINS.get(str(chat_id)): :
         return
 
     value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
