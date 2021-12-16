@@ -15,13 +15,13 @@ from info import ADMINS
 async def botsetting_info(client, message):
     chat_id = message.chat.id
     buttons = [[
-            InlineKeyboardButton("open settings", callback_data=f"open({chat_id})")
+            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text="hi, how are you ",
+        text="settings here you can coustimise venom ",
         parse_mode="html")
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(bot, update: CallbackQuery):
@@ -61,13 +61,13 @@ async def cb_pm_file(bot, update: CallbackQuery):
             [
                 InlineKeyboardButton
                     (
-                        "Disable ❎", callback_data=f"set(inPM|False|{chat_id}|{value})"
+                        "DOUBLE ✔️", callback_data=f"set(inPM|False|{chat_id}|{value})"
                     )
             ],
             [
                 InlineKeyboardButton
                     (
-                        "Back 🔙", callback_data=f"config({chat_id})"
+                        "Back 🔙", callback_data=f"open({chat_id})"
                     )
             ]
         ]
@@ -77,16 +77,10 @@ async def cb_pm_file(bot, update: CallbackQuery):
             [
                 InlineKeyboardButton
                     (
-                        "enable ✔️", callback_data=f"set(inPM|True|{chat_id}|{value})"
+                        "SINGLE  ✔️", callback_data=f"set(inPM|True|{chat_id}|{value})"
                     )
             ],
-            [
-                InlineKeyboardButton
-                    (
-                        "Disable ❎", callback_data=f"set(inPM|False|{chat_id}|{value})"
-                    )
             
-            ],
             [
                 InlineKeyboardButton
                     (
@@ -237,7 +231,7 @@ async def cb_set(bot, update: CallbackQuery):
         [
             InlineKeyboardButton
                 (
-                    "Back 🔙", callback_data=f"config({chat_id})"
+                    "Back 🔙", callback_data=f"open({chat_id})"
                 ),
             
             InlineKeyboardButton
