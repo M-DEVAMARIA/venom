@@ -146,7 +146,7 @@ async def gstart(bot, cmd):
         reply_markup= START_BTN)
         
 #===================file store start =================#
-@Client.on_message(filters.command(['start']))
+#@Client.on_message(filters.command(['start']))
 async def start(c, m):
     if len(m.command) > 1: # sending the stored file
         try:
