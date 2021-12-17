@@ -30,8 +30,11 @@ async def bot_info(bot, update: CallbackQuery):
     t = "hi"
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
+    imdb  = settings["configs"].get("imDb", False)
     buttons = [[
-            InlineKeyboardButton("BUTTON ", callback_data=f"inPM({pm_file_chat}|{chat})")
+            InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
+            ],[
+            InlineKeyboardButton("IMDB ", callback_data=f"imddb({imdb}|{chat})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
@@ -99,7 +102,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
         parse_mode="html"
     )
     
-@Client.on_callback_query(filters.regex(r"show_invites\((.+)\)"), group=2)
+@Client.on_callback_query(filters.regex(r"imddb\((.+)\)"), group=2)
 async def cb_show_invites(bot, update: CallbackQuery):
     """
     A Callback Funtion For Enabling Or Diabling Invite Link Buttons
@@ -121,13 +124,13 @@ async def cb_show_invites(bot, update: CallbackQuery):
             [
                 InlineKeyboardButton
                     (
-                        "Disable ❌", callback_data=f"set(showInv|False|{chat_id}|{value})"
+                        " OFF ❌", callback_data=f"set(imddb|False|{chat_id}|{value})"
                     )
             ],
             [
                 InlineKeyboardButton
                     (
-                        "Back 🔙", callback_data=f"config({chat_id})"
+                        "Back 🔙", callback_data=f"open({chat_id})"
                     )
             ]
         ]
@@ -137,7 +140,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
             [
                 InlineKeyboardButton
                     (
-                        "Enable ✔", callback_data=f"set(showInv|True|{chat_id}|{value})"
+                        "ON ✔", callback_data=f"set(imddb|True|{chat_id}|{value})"
                     )
             ],
             [
@@ -188,7 +191,7 @@ async def cb_set(bot, update: CallbackQuery):
     max_results = int(prev["configs"].get("max_results"))
     max_per_page = int(prev["configs"].get("max_per_page"))
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
-    show_invite_link = True if prev["configs"].get("show_invite_link") == (True or "True") else False
+    imdb = True if prev["configs"].get("imDb") == (True or "True") else False
     
     if action == "accuracy": # Scophisticated way 😂🤣
         accuracy = val
@@ -202,8 +205,8 @@ async def cb_set(bot, update: CallbackQuery):
     elif action == "per_page":
         max_per_page = int(val)
 
-    elif action =="showInv":
-        show_invite_link = True if val=="True" else False
+    elif action =="imddb":
+        imDb = True if val=="True" else False
 
     elif action == "inPM":
         pm_file_chat = True if val=="True" else False
@@ -215,7 +218,7 @@ async def cb_set(bot, update: CallbackQuery):
         max_results=max_results,
         max_per_page=max_per_page,
         pm_fchat=pm_file_chat,
-        show_invite_link=show_invite_link
+        imDb=imDb
     )
     
     append_db = await db.update_configs(chat, new)
