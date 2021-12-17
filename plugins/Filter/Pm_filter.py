@@ -826,6 +826,7 @@ async def group(client, message, spoll=False):
         chat = message.chat.id
         configs = await db.find_chat(chat)
         pm_file_chat = configs["configs"]["pm_fchat"] 
+        imdb = configs["configs"]["imdb"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -883,12 +884,10 @@ async def group(client, message, spoll=False):
             )
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-            poster=None
-            if API_KEY:
-                poster=await get_poster(search)
-            if poster:
-                cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"], countries = poster["countries"], release_date = poster['release_date'],**locals())
-                await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+            
+            if imdb:
+                cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+                await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
             else:
                 await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
             return
