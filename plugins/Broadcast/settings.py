@@ -206,7 +206,7 @@ async def cb_set(bot, update: CallbackQuery):
         max_per_page = int(val)
 
     elif action =="imddb":
-        imDb = True if val=="True" else False
+        imdb = True if val=="True" else False
 
     elif action == "inPM":
         pm_file_chat = True if val=="True" else False
