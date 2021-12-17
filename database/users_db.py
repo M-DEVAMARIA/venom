@@ -37,7 +37,7 @@ class Database:
                 max_results=50,
                 max_per_page=10,
                 pm_fchat=True,
-                imdb=True
+                imDb=True
             )
         )
     
