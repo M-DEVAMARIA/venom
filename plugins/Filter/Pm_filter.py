@@ -826,7 +826,7 @@ async def group(client, message, spoll=False):
         chat = message.chat.id
         configs = await db.find_chat(chat)
         pm_file_chat = configs["configs"]["pm_fchat"] 
-        imdb = configs["configs"]["imdb"]
+        imdb = configs["configs"]["imDb"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
