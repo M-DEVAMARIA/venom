@@ -826,7 +826,7 @@ async def group(client, message, spoll=False):
         chat = message.chat.id
         configs = await db.find_chat(chat)
         pm_file_chat = configs["configs"]["pm_fchat"] 
-        imdb = configs["configs"]["imDb"]
+        imdbg = configs["configs"]["imDb"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -884,7 +884,7 @@ async def group(client, message, spoll=False):
             )
             if BUTTON:
                 buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-            
+                imdb = await get_poster(search) if imdbg else None
             if imdb:
                 cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
                 await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
