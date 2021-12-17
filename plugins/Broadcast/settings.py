@@ -218,7 +218,7 @@ async def cb_set(bot, update: CallbackQuery):
         max_results=max_results,
         max_per_page=max_per_page,
         pm_fchat=pm_file_chat,
-        imDb=imDb
+        imDb=imdb
     )
     
     append_db = await db.update_configs(chat, new)
