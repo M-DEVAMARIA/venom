@@ -666,9 +666,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
         )
     elif query.data == "autofilter": 
+        buttons = [[
+
+            InlineKeyboardButton('back', callback_data='help'),
+
+            InlineKeyboardButton('index', callback_data=f'index')
+            ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=Translation.AUTOFILTER_TXT,
-            reply_markup=BUTTONS1,
+            reply_markup=reply_markup,
             parse_mode='html'
         )
     elif query.data == "song": 
