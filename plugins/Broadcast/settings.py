@@ -181,7 +181,7 @@ async def cb_set(bot, update: CallbackQuery):
     imdb = True if prev["configs"].get("imDb") == (True or "True") else False
     
     if action == "spell": # Scophisticated way 😂🤣
-        spellchecK= True if val=="True" else False
+        spellCheck= True if val=="True" else False
     
     elif action == "pages":
         max_pages = int(val)
