@@ -200,7 +200,7 @@ async def cb_set(bot, update: CallbackQuery):
         
 
     new = dict(
-        spellcheck=spellchecK,
+        spellcheck=spellChecK,
         max_pages=max_pages,
         max_results=max_results,
         max_per_page=max_per_page,
