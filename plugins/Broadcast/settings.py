@@ -31,7 +31,7 @@ async def bot_info(bot, update: CallbackQuery):
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False)
-    cap = "single" if pm_file_chat else cap = "DOUBLE"
+    cap = "single" if pm_file_chat else "DOUBLE"
     buttons = [[
             InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
             ],[
