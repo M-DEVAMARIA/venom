@@ -32,6 +32,7 @@ async def bot_info(bot, update: CallbackQuery):
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False)
     cap = "single" if pm_file_chat else "DOUBLE"
+    imd = "ON" if imdb else "OFF"
     buttons = [[
             InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
             ],[
@@ -40,7 +41,7 @@ async def bot_info(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
         reply_markup=reply_markup,
-        text= f"settings:-\n\n button - {cap}",
+        text= f"settings:-\n\n button - {cap}\nIMDB - {imd}",
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
