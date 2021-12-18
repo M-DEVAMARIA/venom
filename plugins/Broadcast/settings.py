@@ -62,37 +62,18 @@ async def cb_pm_file(bot, update: CallbackQuery):
     value = True if value=="True" else False
     
     if value:
-        buttons= [
-            [
-                InlineKeyboardButton
-                    (
-                        "DOUBLE ✔️", callback_data=f"set(inPM|False|{chat_id}|{value})"
-                    )
-            ],
-            [
-                InlineKeyboardButton
-                    (
-                        "Back 🔙", callback_data=f"open({chat_id})"
-                    )
-            ]
-        ]
-    
+        buttons= [[
+                InlineKeyboardButton("DOUBLE ✔️", callback_data=f"set(inPM|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]] 
     else:
-        buttons =[
-            [
-                InlineKeyboardButton
-                    (
-                        "SINGLE  ✔️", callback_data=f"set(inPM|True|{chat_id}|{value})"
-                    )
-            ],
-            
-            [
-                InlineKeyboardButton
-                    (
-                        "Back 🔙", callback_data=f"open({chat_id})"
-                    )
-            ]
-        ]
+        buttons=[[
+                InlineKeyboardButton("SINGLE  ✔️", callback_data=f"set(inPM|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+                    
     
     text=f"<i>This Config Will Help You To Enable/Disable File Transfer Through Bot PM Without Redirecting Them To Channel....</i>"
     
