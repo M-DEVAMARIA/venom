@@ -46,10 +46,7 @@ async def bot_info(bot, update: CallbackQuery):
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def cb_pm_file(bot, update: CallbackQuery):
-    """
-    A Callback Funtion For Enabling Or Diabling File Transfer Through Bot PM
-    """
-    global VERIFY
+    # button mode callback function
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
@@ -59,8 +56,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
 
     value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
 
-    value = True if value=="True" else False
-    
+    value = True if value=="True" else False 
     if value:
         buttons= [[
                 InlineKeyboardButton("DOUBLE ✔️", callback_data=f"set(inPM|False|{chat_id}|{value})")
@@ -73,12 +69,9 @@ async def cb_pm_file(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
-                    
-    
-    text=f"<i>This Config Will Help You To Enable/Disable File Transfer Through Bot PM Without Redirecting Them To Channel....</i>"
-    
-    reply_markup=InlineKeyboardMarkup(buttons)
-    
+           
+    text=f"<i>This Config Will Help You To Enable/Disable File Transfer Through Bot PM Without Redirecting Them To Channel....</i>" 
+    reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
         reply_markup=reply_markup,
@@ -87,10 +80,7 @@ async def cb_pm_file(bot, update: CallbackQuery):
     
 @Client.on_callback_query(filters.regex(r"imddb\((.+)\)"), group=2)
 async def cb_show_invites(bot, update: CallbackQuery):
-    """
-    A Callback Funtion For Enabling Or Diabling Invite Link Buttons
-    """
-    global VERIFY
+    #imdb on / off calback function
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
@@ -101,43 +91,21 @@ async def cb_show_invites(bot, update: CallbackQuery):
     value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
-    
     if value:
-        buttons= [
-            [
-                InlineKeyboardButton
-                    (
-                        " OFF ❌", callback_data=f"set(imddb|False|{chat_id}|{value})"
-                    )
-            ],
-            [
-                InlineKeyboardButton
-                    (
-                        "Back 🔙", callback_data=f"open({chat_id})"
-                    )
-            ]
-        ]
-    
+        buttons= [[
+                InlineKeyboardButton(" OFF ❌", callback_data=f"set(imddb|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
     else:
-        buttons =[
-            [
-                InlineKeyboardButton
-                    (
-                        "ON ✔", callback_data=f"set(imddb|True|{chat_id}|{value})"
-                    )
-            ],
-            [
-                InlineKeyboardButton
-                    (
-                        "Back 🔙", callback_data=f"open({chat_id})"
-                    )
-            ]
-        ]
-    
+        buttons =[[
+                InlineKeyboardButton("ON ✔", callback_data=f"set(imddb|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+                    
     text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
-    
-    reply_markup=InlineKeyboardMarkup(buttons)
-    
+    reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
         reply_markup=reply_markup,
