@@ -31,12 +31,15 @@ async def bot_info(bot, update: CallbackQuery):
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False)
+    spell  = settings["configs"].get("imDb", False)
     cap = "single" if pm_file_chat else "DOUBLE"
     imd = "ON" if imdb else "OFF"
     buttons = [[
             InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
             ],[
             InlineKeyboardButton("IMDB ", callback_data=f"imddb({imdb}|{chat})")
+            ],[
+            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{chat})")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
@@ -170,15 +173,15 @@ async def cb_set(bot, update: CallbackQuery):
     
     prev = await db.find_chat(chat)
 
-    accuracy = float(prev["configs"].get("accuracy", 0.80))
+    spellCheck = float(prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
     max_per_page = int(prev["configs"].get("max_per_page"))
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
     imdb = True if prev["configs"].get("imDb") == (True or "True") else False
     
-    if action == "accuracy": # Scophisticated way 😂🤣
-        accuracy = val
+    if action == "spell": # Scophisticated way 😂🤣
+        spellchecK= True if val=="True" else False
     
     elif action == "pages":
         max_pages = int(val)
@@ -197,7 +200,7 @@ async def cb_set(bot, update: CallbackQuery):
         
 
     new = dict(
-        accuracy=accuracy,
+        spellcheck=spellchecK,
         max_pages=max_pages,
         max_results=max_results,
         max_per_page=max_per_page,
