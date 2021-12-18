@@ -827,6 +827,7 @@ async def group(client, message, spoll=False):
         configs = await db.find_chat(chat)
         pm_file_chat = configs["configs"]["pm_fchat"] 
         imdbg = configs["configs"]["imDb"]
+        spcheck = configs["configs"]["spellcheck"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -849,24 +850,23 @@ async def group(client, message, spoll=False):
                         ),
                    ]]
         if not files: 
-             await advantage_spell_chok(message)
-             return
-           # spf = await message.reply_text(
-         #   text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
-           # reply_markup=InlineKeyboardMarkup(
-              #        [[ 
+             if spellcheck:
+                 spf = await message.reply_text(
+                 text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
+                 reply_markup=InlineKeyboardMarkup(
+                           [[ 
 
-             #            InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
-            #            ]]
-            #    ),     
-         #   parse_mode="html",
-          #  reply_to_message_id=message.message_id)
-         #   await asyncio.sleep(10)
-           # await spf.delete()
-            
+                            InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
+                           ]]
+                       ),     
+                 parse_mode="html",
+                 reply_to_message_id=message.message_id)
+                 await asyncio.sleep(10)
+                 await spf.delete()
+                 return
      
                
-           # return
+           
         if not btn:
             return
 
