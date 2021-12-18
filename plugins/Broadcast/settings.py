@@ -111,6 +111,39 @@ async def cb_show_invites(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
+@Client.on_callback_query(filters.regex(r"spell\((.+)\)"), group=2)
+async def cb_show_invites(bot, update: CallbackQuery):
+    #imdb on / off calback function
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    
+    if user_id not in ADMINS:
+        return
+
+    value, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
+    
+    value = True if value=="True" else False
+    if value:
+        buttons= [[
+                InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+    else:
+        buttons =[[
+                InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+                    
+    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     """
