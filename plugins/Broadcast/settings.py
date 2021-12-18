@@ -173,7 +173,7 @@ async def cb_set(bot, update: CallbackQuery):
     
     prev = await db.find_chat(chat)
 
-    spellCheck = float(prev["configs"].get("spellcheck") == (True or "True") else False
+    spellCheck = True if prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
     max_per_page = int(prev["configs"].get("max_per_page"))
