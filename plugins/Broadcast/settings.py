@@ -31,7 +31,7 @@ async def bot_info(bot, update: CallbackQuery):
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False)
-    spell  = settings["configs"].get("imDb", False)
+    spell  = settings["configs"].get("spellcheck", False)
     cap = "single" if pm_file_chat else "DOUBLE"
     imd = "ON" if imdb else "OFF"
     buttons = [[
