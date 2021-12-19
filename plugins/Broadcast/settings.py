@@ -33,10 +33,10 @@ async def bot_info(bot, update: CallbackQuery):
     imdb  = settings["configs"].get("imDb", False)
     spell  = settings["configs"].get("spellcheck", False)
     autof  = settings["configs"].get("autofilter", False)
-    cap = "single" if pm_file_chat else "DOUBLE"
-    imd = "ON" if imdb else "OFF"
-    spellc = "ON" if spell else "OFF"
-    autoc = "ON" if autof else "OFF"
+    cap = "single" if pm_file_chat else "Double"
+    imd = "ON ✔️" if imdb else "OFF ✖️"
+    spellc = "ON ✔️" if spell else "OFF ✖️"
+    autoc = "ON ✔️" if autof else "OFF ✖️"
     
     buttons = [[
             InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
@@ -51,7 +51,7 @@ async def bot_info(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
         reply_markup=reply_markup,
-        text= f"<b>coustime your</b> {update.message.chat.title} <b>settings</b>\n\nCurrent settings:\n\n⪼Button: {cap}\n\n⪼Imdb: {imd}\n\n⪼Spelling mode: {spellc}\n\n⪼AutoFilter- {autoc}",
+        text= f"<b>coustime your</b> {update.message.chat.title} <b>settings</b>\n\nCurrent settings:\n\n⪼Button: {cap}\n\n⪼Imdb: {imd}\n\n⪼Spelling mode: {spellc}\n\n⪼AutoFilter: {autoc}",
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
