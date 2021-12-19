@@ -39,14 +39,11 @@ async def bot_info(bot, update: CallbackQuery):
     autoc = "ON ✔️" if autof else "OFF ✖️"
     
     buttons = [[
-            InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
-            ],[
+            InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})"),
             InlineKeyboardButton("IMDB ", callback_data=f"imddb({imdb}|{chat})")
             ],[
-            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{chat})")
-            ],[
+            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{chat})"),
             InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})")
-            
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
