@@ -35,7 +35,7 @@ class Database:
                 spellcheck=True,
                 max_pages=5,
                 max_results=50,
-                max_per_page=10,
+                autofilter=True,
                 pm_fchat=True,
                 imDb=True
             )
