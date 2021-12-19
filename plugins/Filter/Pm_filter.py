@@ -833,6 +833,7 @@ async def group(client, message, spoll=False):
             nyva=botusername.username
             BOT["username"]=nyva
         files = await get_filter_results(query=search)
+    if imdbg:
         if files:
             for file in files:
                 file_id = file.file_id
