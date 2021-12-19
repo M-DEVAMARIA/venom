@@ -32,19 +32,26 @@ async def bot_info(bot, update: CallbackQuery):
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False)
     spell  = settings["configs"].get("spellcheck", False)
+    autof  = settings["configs"].get("autofilter", False)
     cap = "single" if pm_file_chat else "DOUBLE"
     imd = "ON" if imdb else "OFF"
+    spellc = "ON" if spellcheck else "OFF"
+    autoc = "ON" if autofilter else "OFF"
+    
     buttons = [[
             InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
             ],[
             InlineKeyboardButton("IMDB ", callback_data=f"imddb({imdb}|{chat})")
             ],[
             InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{chat})")
+            ],[
+            InlineKeyboardButton("auto filter", callback_data=f"auto({autofilter}|{chat})")
+            
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
         reply_markup=reply_markup,
-        text= f"settings:-\n\n button - {cap}\nIMDB - {imd}",
+        text= f"settings:-\n\n button - {cap}\nIMDB - {imd}\nspelling - {spellc}\nautofilter- {autoc}",
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
@@ -147,6 +154,39 @@ async def cb_show_invites(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
+@Client.on_callback_query(filters.regex(r"auto\((.+)\)"), group=2)
+async def auto_filter(bot, update: CallbackQuery):
+    #imdb on / off calback function
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    
+    if user_id not in ADMINS:
+        return
+
+    value, chat_id = re.findall(r"auto\((.+)\)", query_data)[0].split("|", 1)
+    
+    value = True if value=="True" else False
+    if value:
+        buttons= [[
+                InlineKeyboardButton(" OFF ❌", callback_data=f"set(auto|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+    else:
+        buttons =[[
+                InlineKeyboardButton("ON ✔", callback_data=f"set(auto|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+                    
+    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     """
@@ -176,7 +216,7 @@ async def cb_set(bot, update: CallbackQuery):
     spellCheck = True if prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
-    max_per_page = int(prev["configs"].get("max_per_page"))
+    auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
     imdb = True if prev["configs"].get("imDb") == (True or "True") else False
     
@@ -189,8 +229,8 @@ async def cb_set(bot, update: CallbackQuery):
     elif action == "results":
         max_results = int(val)
         
-    elif action == "per_page":
-        max_per_page = int(val)
+    elif action == "auto":
+        auto_Filter = True if val=="True" else False
 
     elif action =="imddb":
         imdb = True if val=="True" else False
@@ -203,7 +243,7 @@ async def cb_set(bot, update: CallbackQuery):
         spellcheck=spellCheck,
         max_pages=max_pages,
         max_results=max_results,
-        max_per_page=max_per_page,
+        autofilter=auto_Filter,
         pm_fchat=pm_file_chat,
         imDb=imdb
     )
