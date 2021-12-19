@@ -51,7 +51,7 @@ async def bot_info(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
         reply_markup=reply_markup,
-        text= f"**coustime your** {update.message.chat.title} **settings**\n\nCurrent settings B\n\n⪼Button: {cap}\n\n⪼Imdb: {imd}\n\n⪼Spelling mode: {spellc}\n\n⪼AutoFilter- {autoc}",
+        text= f"<b>coustime your</b> {update.message.chat.title} <b>settings</b>\n\nCurrent settings:\n\n⪼Button: {cap}\n\n⪼Imdb: {imd}\n\n⪼Spelling mode: {spellc}\n\n⪼AutoFilter- {autoc}",
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
