@@ -919,6 +919,7 @@ async def auto_filter(client, msg, spoll=False):
             return
         if 2 < len(message.text) < 100:
             search = message.text
+            chat = message.chat.id
             configs = await db.find_chat(chat)
             spcheck = configs["configs"]["spellcheck"]
             files, offset, total_results = await get_filter_results(search.lower(), offset=0, filter=True)
