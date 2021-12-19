@@ -43,7 +43,7 @@ async def verupikkals(bot, message):
     await sts.edit(f"Broadcast Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
 
         
-@Client.on_message(filters.command("gbroadcast") & filters.user(ADMINS)
+@Client.on_message(filters.command("gbroadcast") & filters.user(ADMINS))
 async def chatverupikkals(bot, message):
     users = await db.get_all_chats() 
     user =  int(users)          
