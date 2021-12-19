@@ -851,19 +851,20 @@ async def group(client, message, spoll=False):
                    ]]
         if not files: 
              if spcheck:
-                 spf = await message.reply_text(
-                 text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
-                 reply_markup=InlineKeyboardMarkup(
-                           [[ 
+                 return await advantage_spell_chok(message)
+                 #spf = await message.reply_text(
+                 #text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
+                 #reply_markup=InlineKeyboardMarkup(
+                          # [[ 
 
-                            InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
-                           ]]
-                       ),     
-                 parse_mode="html",
-                 reply_to_message_id=message.message_id)
-                 await asyncio.sleep(10)
-                 await spf.delete()
-                 return
+                          #  InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
+                          # ]]
+                   #    ),     
+               #  parse_mode="html",
+               #  reply_to_message_id=message.message_id)
+               #  await asyncio.sleep(10)
+               #  await spf.delete()
+                # return
      
                
            
