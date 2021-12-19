@@ -48,7 +48,7 @@ async def bot_info(bot, update: CallbackQuery):
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
-async def cb_pm_file(bot, update: CallbackQuery):
+async def buttons(bot, update: CallbackQuery):
     # button mode callback function
     query_data = update.data
     chat_id = update.message.chat.id
@@ -82,8 +82,8 @@ async def cb_pm_file(bot, update: CallbackQuery):
     )
     
 @Client.on_callback_query(filters.regex(r"imddb\((.+)\)"), group=2)
-async def cb_show_invites(bot, update: CallbackQuery):
-    #imdb on / off calback function
+async def imdb_mode(bot, update: CallbackQuery):
+    #imdb on / off calbackalback function
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
