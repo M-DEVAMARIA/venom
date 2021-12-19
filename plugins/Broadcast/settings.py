@@ -45,7 +45,7 @@ async def bot_info(bot, update: CallbackQuery):
             ],[
             InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{chat})")
             ],[
-            InlineKeyboardButton("auto filter", callback_data=f"auto({autofilter}|{chat})")
+            InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})")
             
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
