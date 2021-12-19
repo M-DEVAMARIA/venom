@@ -35,8 +35,8 @@ async def bot_info(bot, update: CallbackQuery):
     autof  = settings["configs"].get("autofilter", False)
     cap = "single" if pm_file_chat else "DOUBLE"
     imd = "ON" if imdb else "OFF"
-    spellc = "ON" if spellcheck else "OFF"
-    autoc = "ON" if autofilter else "OFF"
+    spellc = "ON" if spell else "OFF"
+    autoc = "ON" if autof else "OFF"
     
     buttons = [[
             InlineKeyboardButton("BUTTON MODE ", callback_data=f"inPM({pm_file_chat}|{chat})")
