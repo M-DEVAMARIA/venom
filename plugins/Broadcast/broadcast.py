@@ -46,7 +46,7 @@ async def verupikkals(bot, message):
 @Client.on_message(filters.command("gbroadcast") & filters.user(ADMINS))
 async def chatverupikkals(bot, message):
     users = await db.get_all_chats() 
-    user =  int(users)          
+    user =  int(users['id'])          
     new = dict(
         spellcheck=True,
         max_pages=True,
