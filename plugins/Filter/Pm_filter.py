@@ -922,7 +922,7 @@ async def auto_filter(client, msg, spoll=False):
             chat = message.chat.id
             configs = await db.find_chat(chat)
             spcheck = configs["configs"]["spellcheck"]
-            files, offset, total_results = await get_filter_results(search)
+            files = await get_filter_results(search)
             if not files:
                 if spcheck:
                     return await advantage_spell_chok(msg)
