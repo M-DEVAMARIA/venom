@@ -853,7 +853,7 @@ async def group(client, message, spoll=False):
              if spcheck:
                  #return await advantage_spell_chok(message)
                  spf = await message.reply_text(
-                 text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
+                 text=f"<code>Sorry {chat},\n I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
                  reply_markup=InlineKeyboardMarkup(
                            [[ 
 
