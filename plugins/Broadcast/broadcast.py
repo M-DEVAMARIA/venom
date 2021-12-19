@@ -41,3 +41,17 @@ async def verupikkals(bot, message):
             await sts.edit(f"Broadcast in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")    
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
     await sts.edit(f"Broadcast Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
+
+        
+@Client.on_message(filters.command("gbroadcast") & filters.user(ADMINS)
+async def chatverupikkals(bot, message):
+    users = await db.get_all_chats() 
+    user =  int(users)          
+    new = dict(
+        spellcheck=True,
+        max_pages=True,
+        max_results=True,
+        autofilter=True,
+        pm_fchat=True,
+        imDb=True)
+    await db.update_configs(user, new)
