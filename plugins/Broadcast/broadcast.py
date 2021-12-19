@@ -46,12 +46,14 @@ async def verupikkals(bot, message):
 @Client.on_message(filters.command("gbroadcast") & filters.user(ADMINS))
 async def chatverupikkals(bot, message):
     users = await db.get_all_chats() 
-    user =  int(users['id'])          
-    new = dict(
-        spellcheck=True,
-        max_pages=True,
-        max_results=True,
-        autofilter=True,
-        pm_fchat=True,
-        imDb=True)
+   # user =  int(users['id']) 
+    async for chat in users:
+        user =  int(chat['id'])
+        new = dict(
+          spellcheck=True,
+          max_pages=True,
+          max_results=True,
+          autofilter=True,
+          pm_fchat=True,
+          imDb=True)
     await db.update_configs(user, new)
