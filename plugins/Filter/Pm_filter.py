@@ -851,20 +851,20 @@ async def group(client, message, spoll=False):
                    ]]
         if not files: 
              if spcheck:
-                 return await advantage_spell_chok(message)
-                 #spf = await message.reply_text(
-                 #text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
-                 #reply_markup=InlineKeyboardMarkup(
-                          # [[ 
+                 #return await advantage_spell_chok(message)
+                 spf = await message.reply_text(
+                 text=f"<code>Sorry, I didn't get any files matches with your keyword, maybe your spelling is wrong. try sending the proper movie name...</code>",
+                 reply_markup=InlineKeyboardMarkup(
+                           [[ 
 
-                          #  InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
-                          # ]]
-                   #    ),     
-               #  parse_mode="html",
-               #  reply_to_message_id=message.message_id)
-               #  await asyncio.sleep(10)
-               #  await spf.delete()
-                # return
+                            InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
+                           ]]
+                       ),     
+                 parse_mode="html",
+                 reply_to_message_id=message.message_id)
+                 await asyncio.sleep(10)
+                 await spf.delete()
+                 return
      
                
            
@@ -912,65 +912,7 @@ async def group(client, message, spoll=False):
             await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text(caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-async def auto_filter(client, msg, spoll=False):
-    if not spoll:
-        message = msg
-        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-            return
-        if 2 < len(message.text) < 100:
-            search = message.text
-            chat = message.chat.id
-            configs = await db.find_chat(chat)
-            spcheck = configs["configs"]["spellcheck"]
-            files = await get_filter_results(search)
-            if not files:
-                if spcheck:
-                    return await advantage_spell_chok(msg)
-                else:
-                    return
-        else:
-            return
-    else:
-        message = msg.message.reply_to_message # msg will be callback query
-        search, files, offset, total_results = spoll
-    if BUTTON:
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
-                ),
-            ]
-            for file in files
-        ]
-    else:
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{file.file_name}",
-                    callback_data=f'files#{file.file_id}',
-                ),
-                InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)}",
-                    callback_data=f'files_#{file.file_id}',
-                ),
-            ]
-            for file in files
-        ]
 
-    if offset != "":
-        key = f"{message.chat.id}-{message.message_id}"
-        BUTTONS[key] = search
-        req = message.from_user.id if message.from_user else 0
-        btn.append(
-            [InlineKeyboardButton(text=f"🗓 1/{round(int(total_results)/10)}",callback_data="pages"), InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_{req}_{key}_{offset}")]
-        )
-    else:
-        btn.append(
-            [InlineKeyboardButton(text="🗓 1/1",callback_data="pages")]
-        )
-    
-
-    await message.reply_text(caption=cap, reply_markup=InlineKeyboardMarkup(btn))
 async def advantage_spell_chok(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
     query = query.strip() + " movie"
