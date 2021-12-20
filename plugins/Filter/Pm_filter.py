@@ -834,6 +834,8 @@ async def group(client, message, spoll=False):
             nyva=botusername.username
             BOT["username"]=nyva
         files = await get_filter_results(query=search)
+        if not pm_file_chat:
+            await message.reply_text(text= "error occurred")
     if autoftr:
         if files:
             for file in files:
