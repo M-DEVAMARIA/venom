@@ -57,3 +57,18 @@ async def chatverupikkals(bot, message):
           pm_fchat=True,
           imDb=True)
     await db.update_configs(user, new)
+
+@Client.on_message(filters.command("/refresh") & filters.user(ADMINS))
+async def refresh(bot, message):
+    users = await db.get_all_chats() 
+    user = message.message.chat.id 
+   # async for chat in users:
+      #  user =  int(chat['id'])
+        new = dict(
+          spellcheck=True,
+          max_pages=True,
+          max_results=True,
+          autofilter=True,
+          pm_fchat=True,
+          imDb=True)
+    await db.update_configs(user, new)
