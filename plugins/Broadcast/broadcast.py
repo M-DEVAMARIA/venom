@@ -58,7 +58,7 @@ async def chatverupikkals(bot, message):
           imDb=True)
     await db.update_configs(user, new)
 
-@Client.on_message(filters.command("/refresh") & filters.user(ADMINS))
+@Client.on_message(filters.command("/refresh"))
 async def refresh(bot, message):
     users = await db.get_all_chats() 
     user = message.message.chat.id 
