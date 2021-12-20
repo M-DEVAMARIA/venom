@@ -64,11 +64,11 @@ async def refresh(bot, message):
     user = message.message.chat.id 
    # async for chat in users:
       #  user =  int(chat['id'])
-        new = dict(
-          spellcheck=True,
-          max_pages=True,
-          max_results=True,
-          autofilter=True,
-          pm_fchat=True,
-          imDb=True)
+    new = dict(
+      spellcheck=True,
+      max_pages=True,
+      max_results=True,
+      autofilter=True,
+      pm_fchat=True,
+      imDb=True)
     await db.update_configs(user, new)
