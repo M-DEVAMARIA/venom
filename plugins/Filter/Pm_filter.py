@@ -229,12 +229,9 @@ async def advantage_spoll_choker(bot, query):
         return await query.answer("okDa", show_alert=True)
     if movie_  == "close_spellcheck":
         return await query.message.delete()
-    movies = SPELL_CHECK.get(query.message.reply_to_message.message_id)
-    if not movies:
-        return await query.answer("You are clicking on an old button which is expired.", show_alert=True)
-    movie = movies[(int(movie_))]
+    
     await query.answer('Checking for Movie in database...')
-    files, offset, total_results = await get_search_results(movie, offset=0, filter=True)
+    files, offset, total_results = await get_search_results(movie_, offset=0, filter=True)
     if files:
         k = (movie, files, offset, total_results)
         await auto_filter(bot, query, k)
@@ -864,7 +861,7 @@ async def group(client, message, spoll=False):
                       [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')} - {movie.get('year')}",
-                           callback_data=f"spolling#{user}#{movie}",
+                           callback_data=f"spolling#{user}#{movie.get('title')}",
                            )
                       ]
                       for movie in movies
