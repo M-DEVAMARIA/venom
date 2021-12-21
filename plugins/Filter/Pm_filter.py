@@ -855,7 +855,7 @@ async def group(client, message, spoll=False):
                    ]]
         if not files: 
              if spcheck:
-                 await advantage_spell_chok(message)
+                 await advantage_spell_chek(message)
                  spf = await message.reply_text(
                  text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
                  reply_markup=InlineKeyboardMarkup(
