@@ -919,6 +919,7 @@ async def group(client, message, spoll=False):
 async def advantage_spell_chek(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|send|snd|movie(s)?|new|latest|br((o|u)h?)*|^h(e)?(l)*(o)*|mal(ayalam)?|tamil|file|that|give|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle)", "", msg.text) # plis contribute some common words 
     query = query.strip()
+    gs_parsed = []
     if not query:
         k = await msg.reply("No valid movie name given")
         await asyncio.sleep(8)
@@ -926,8 +927,8 @@ async def advantage_spell_chek(msg):
         return
     user = msg.from_user.id if msg.from_user else 0
     movielist = []
-    imdb_s = await get_poster(query, bulk=True)
-    gs_parsed = list(dict.fromkeys(query)) # removing duplicates https://stackoverflow.com/a/7961425
+    #imdb_s = await get_poster(query, bulk=True)
+    gs_parsed = list(dict.fromkeys(gs_parsed)) # removing duplicates https://stackoverflow.com/a/7961425
     if len(gs_parsed) > 3:
         gs_parsed = gs_parsed[:3]
     if gs_parsed:
