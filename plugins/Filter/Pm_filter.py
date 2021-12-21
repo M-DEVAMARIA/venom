@@ -233,7 +233,7 @@ async def advantage_spoll_choker(bot, query):
     await query.answer('Checking for Movie in database...')
     files = await get_filter_results(movie_)
     if files:
-        k = (movie_)
+        k = (movie_, files)
         await group(bot, query, k)
     else:
         k = await query.message.edit('This Movie Not Found In DataBase')
