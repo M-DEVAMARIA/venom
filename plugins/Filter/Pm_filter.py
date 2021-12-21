@@ -867,7 +867,7 @@ async def group(client, message, spoll=False):
                            callback_data=f"spolling#{user}#{movie}",
                            )
                       ]
-                      for movie in enumerate (movies)
+                      for movie in movies
                   ]
                   await message.reply_text('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                   spf = await message.reply_text(
