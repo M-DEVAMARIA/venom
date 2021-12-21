@@ -925,6 +925,7 @@ async def advantage_spell_chek(msg):
         await k.delete()
         return
     user = msg.from_user.id if msg.from_user else 0
+    movielist = []
     imdb_s = await get_poster(query, bulk=True)
     gs_parsed = list(dict.fromkeys(query)) # removing duplicates https://stackoverflow.com/a/7961425
     if len(gs_parsed) > 3:
