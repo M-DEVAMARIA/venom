@@ -855,7 +855,20 @@ async def group(client, message, spoll=False):
                    ]]
         if not files: 
              if spcheck:
-                 await advantage_spell_chek(message)
+                 #await advantage_spell_chek(message)
+                  movies = await get_poster(search, bulk=True)
+                  if not movies:
+                      return await message.reply("No results Found")
+                  btn = [
+                      [
+                           InlineKeyboardButton(
+                           text=f"{movie.get('title')} - {movie.get('year')}",
+                           callback_data=f"imdb#{movie.movieID}",
+                           )
+                      ]
+                      for movie in movies
+                  ]
+                 await message.reply_text('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                  spf = await message.reply_text(
                  text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
                  reply_markup=InlineKeyboardMarkup(
