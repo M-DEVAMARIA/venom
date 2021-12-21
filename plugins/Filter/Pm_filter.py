@@ -926,19 +926,16 @@ async def advantage_spell_chek(msg):
         return
     user = msg.from_user.id if msg.from_user else 0
     imdb_s = await get_poster(query, bulk=True)
-    movielist = [movie.get('title')for movie in imdb_s ]
-    splitted = query.split()
-    if len(splitted) > 10:
-        k = await msg.reply("Are you telling the story of some movie??")
-        await asyncio.sleep(8)
-        await k.delete()
-        return
-    if len(splitted) > 1:
-        movielist += splitted
-        if len(splitted) % 2 == 0:
-            movielist += [f"{ko[1]} {splitted[ko[0] + 1]}"  for ko in enumerate(splitted) if ko[0] % 2 == 0]
-        elif splitted[:-1]:
-            movielist += [f"{ko[1]} {splitted[:-1][ko[0] + 1]}"  for ko in enumerate(splitted[:-1]) if ko[0] % 2 == 0]
+    gs_parsed = list(dict.fromkeys(gs_parsed)) # removing duplicates https://stackoverflow.com/a/7961425
+    if len(gs_parsed) > 3:
+        gs_parsed = gs_parsed[:3]
+    if gs_parsed:
+        for mov in gs_parsed:
+            imdb_s = await get_poster(mov.strip(), bulk=True) # searching each keyword in imdb
+            if imdb_s:
+                movielist += [movie.get('title') for movie in imdb_s]
+    movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
+    movielist = list(dict.fromkeys(movielist)) # removing duplicates
     SPELL_CHECK[msg.message_id] = movielist
     btn = [[
                 InlineKeyboardButton(
