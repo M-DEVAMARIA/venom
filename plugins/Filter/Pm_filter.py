@@ -918,7 +918,7 @@ async def group(client, message, spoll=False):
             await message.reply_text(caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
 async def advantage_spell_chek(msg):
   #  query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|send|snd|movie(s)?|new|latest|br((o|u)h?)*|^h(e)?(l)*(o)*|mal(ayalam)?|tamil|file|that|give|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle)", "", msg.text) # plis contribute some common words 
-    query = re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", msg.text)
+    query = re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", msg.text,flags=re.IGNORECASE)
  #   query = query.strip()
     gs_parsed = []
     if not query:
