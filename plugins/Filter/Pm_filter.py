@@ -863,10 +863,10 @@ async def group(client, message, spoll=False):
                       [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')} - {movie.get('year')}",
-                           callback_data=f"imdb#{movie.movieID}",
+                           callback_data=f"spolling#{chat}#{k}",
                            )
                       ]
-                      for movie in movies
+                      for k, movie in movies
                   ]
                   await message.reply_text('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                   spf = await message.reply_text(
