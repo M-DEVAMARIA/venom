@@ -855,6 +855,7 @@ async def group(client, message, spoll=False):
                    ]]
         if not files: 
              if spcheck:
+                  user = message.from_user.id 
                  #await advantage_spell_chek(message)
                   movies = await get_poster(search, bulk=True)
                   if not movies:
@@ -863,10 +864,10 @@ async def group(client, message, spoll=False):
                       [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')} - {movie.get('year')}",
-                           callback_data=f"spolling#{chat}#{k}",
+                           callback_data=f"spolling#{user}#{movie}",
                            )
                       ]
-                      for k, movie in movies
+                      for movie in movies
                   ]
                   await message.reply_text('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                   spf = await message.reply_text(
