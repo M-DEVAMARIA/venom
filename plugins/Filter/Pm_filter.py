@@ -234,7 +234,7 @@ async def advantage_spoll_choker(bot, query):
     files = await get_filter_results(movie_)
     if files:
         k = (movie_, files)
-        await group(bot, query, k)
+        await group(bot, query)
     else:
         k = await query.message.edit('This Movie Not Found In DataBase')
         await asyncio.sleep(10)
