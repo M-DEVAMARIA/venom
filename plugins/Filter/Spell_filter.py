@@ -6,7 +6,6 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram import Client, filters
 from utils import is_subscribed, get_poster, search_gagala, temp,Media, get_file_details, get_search_results, get_filter_results, get_file_details
 from info import BUTTON, IMDB_TEMPLATE
-from plugins.Filter.Pm_filter import SPELL_CHECK
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
