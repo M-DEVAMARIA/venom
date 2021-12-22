@@ -24,9 +24,9 @@ async def advantage_spoll_choker(bot, query):
         return await query.answer("okDa", show_alert=True)
     if movie_  == "close_spellcheck":
         return await query.message.delete()
-    
+    b = [movie_.get('title')
     await query.answer('Checking for Movie in database...')
-    files = await get_filter_results(movie_)
+    files = await get_filter_results(b)
     if not files:
         return await query.answer("not in not in my database", show_alert=True)
     message = query.message.reply_to_message or query.message
