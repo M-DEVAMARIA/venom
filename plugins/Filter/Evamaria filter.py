@@ -27,6 +27,8 @@ async def advantage_spoll_choker(bot, query):
     
     await query.answer('Checking for Movie in database...')
     files = await get_filter_results(movie_)
+    if not files:
+        return await query.answer("not in not in my database", show_alert=True)
     message = query.message.reply_to_message or query.message
     if files:
         k = (movie_, files) 
@@ -38,7 +40,7 @@ async def advantage_spoll_choker(bot, query):
             ]
             for file in files
         ]
-    await query.message.reply_text(text = f"<b>Here is What I Found In My Database For Your Query {search} ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+    await query.message.reply_text(text = f"<b>Here is What I Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
      
 
 
