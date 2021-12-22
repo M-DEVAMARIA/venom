@@ -856,8 +856,7 @@ async def group(client, message, spoll=False):
                   user = message.from_user.id 
                  #await advantage_spell_chek(message)
                   movies = await get_poster(search, bulk=True)
-                  movielist = [movie.get('title') for movie in movies]
-                  
+                  movieslist = [movie.get('title') for movie in movies]
                   if not movies:
                       return await message.reply("No results Found")
                   
@@ -868,9 +867,9 @@ async def group(client, message, spoll=False):
                            callback_data=f"spolling#{user}#{k}",
                            )
                       ]
-                      for k,movie in enumerate(movielist)
+                      for k,movie in enumerate(movieslist)
                   ]
-                  await message.reply_text('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
+                  await message.reply_text(f'Here is what i found {movies} on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                   spf = await message.reply_text(
                   text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
                   reply_markup=InlineKeyboardMarkup(
