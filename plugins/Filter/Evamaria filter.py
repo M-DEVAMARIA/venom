@@ -15,9 +15,25 @@ BUTTONS = {}
 SPELL_CHECK = {}
 
 #@Client.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
-async def give_filter(client,message):
-        await auto_filter(client, message)   
-
+#async def give_filter(client,message):
+        #await auto_filter(client, message)   
+@Client.on_callback_query(filters.regex(r"^spolling"))
+async def advantage_spoll_choker(bot, query):
+    _, user, movie_ = query.data.split('#')
+    if int(user) != 0 and query.from_user.id != int(user):
+        return await query.answer("okDa", show_alert=True)
+    if movie_  == "close_spellcheck":
+        return await query.message.delete()
+    
+    await query.answer('Checking for Movie in database...')
+    files = await get_filter_results(movie_)
+    if files:
+        k = (movie_, files)
+        await group(bot, query.message)
+    else:
+        k = await query.message.edit('This Movie Not Found In DataBase')
+        await asyncio.sleep(10)
+        await k.delete()
 
 async def auto_filter(client, msg, spoll=False):
     if not spoll:
