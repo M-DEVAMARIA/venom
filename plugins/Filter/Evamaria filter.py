@@ -42,7 +42,7 @@ async def advantage_spoll_choker(bot, query):
             [InlineKeyboardButton(text="🗓 1/1",callback_data="pages")]
         )
     
-       await query.message.reply(f"<b>Here is What I Found In My Database For Your Query {search} ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+           await query.message.reply_text(text = f"<b>Here is What I Found In My Database For Your Query {search} ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
      
 
 
