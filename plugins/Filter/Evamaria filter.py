@@ -27,7 +27,7 @@ async def advantage_spoll_choker(bot, query):
     
     await query.answer('Checking for Movie in database...')
     files = await get_filter_results(movie_)
-    
+    message = query.message.reply_to_message or query.message
     if files:
         k = (movie_, files) 
         buttons = [
