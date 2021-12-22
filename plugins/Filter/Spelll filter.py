@@ -27,7 +27,7 @@ async def advantage_spoll_choker(bot, query):
     movies = SPELL_CHECK.get(query.message.reply_to_message.message_id)
     b = movie_
     await query.answer('Checking for Movie in database...')
-    files = await get_filter_results(b)
+    files = await get_filter_results(movie_)
     if not files:
         return await query.answer("not in not in my database", show_alert=True)
     message = query.message.reply_to_message or query.message
