@@ -856,6 +856,7 @@ async def group(client, message, spoll=False):
                  #await advantage_spell_chek(message)
                   movies = await get_poster(search, bulk=True)
                   movieslist = [movie.get('title') for movie in movies]
+                  SPELL_CHECK[message.message_id] = movielist
                   if not movies:
                       return await message.reply("No results Found")
                   btn = [
