@@ -859,7 +859,7 @@ async def group(client, message, spoll=False):
                   
                   if not movies:
                       return await message.reply("No results Found")
-                  SPELL_CHECK[message.message_id] = movielist
+                  
                   btn = [
                       [
                            InlineKeyboardButton(
