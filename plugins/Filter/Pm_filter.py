@@ -874,7 +874,7 @@ async def group(client, message, spoll=False):
                       [
                            InlineKeyboardButton(
                            text=movie.strip(),
-                           callback_data=f"spolling#{user}#{k.movieID}",
+                           callback_data=f"spolling#{user}#{movie.movieID}",
                            )
                       ]
                       for k,movie in enumerate(movieslist)
