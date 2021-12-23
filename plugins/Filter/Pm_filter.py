@@ -222,7 +222,7 @@ def split_list(l, n):
         yield l[i:i + n]          
 
 
-#@Client.on_callback_query(filters.regex(r"^spolling"))
+@Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
@@ -232,13 +232,22 @@ async def advantage_spoll_choker(bot, query):
     
     await query.answer('Checking for Movie in database...')
     files = await get_filter_results(movie_)
+    if not files:
+        return await query.answer("not in not in my database", show_alert=True)
+    message = query.message.reply_to_message or query.message
     if files:
-        k = (movie_, files)
-        await group(bot, query.message)
-    else:
-        k = await query.message.edit('This Movie Not Found In DataBase')
-        await asyncio.sleep(10)
-        await k.delete()
+        k = (movie_, files) 
+        buttons = [
+            [
+                InlineKeyboardButton(
+                    text=f"{file.file_size} {file.file_name}", callback_data=f'files#{file.file_id}'
+                ),
+            ]
+            for file in files
+        ]
+    return await query.message.reply_text(text = f"<b>Here is What I Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+     
+
 
         
 @Client.on_callback_query()
