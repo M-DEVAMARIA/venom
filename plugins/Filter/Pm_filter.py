@@ -235,7 +235,7 @@ async def advantage_spoll_choker(bot, query):
     b = db['title']#check
     files = await get_filter_results(b)
     if not files:
-        return await query.message.reply_text(text = " nothing found with {b}")
+        return await query.message.reply_text(text = f" nothing found with {b}")
     message = query.message.reply_to_message or query.message
     if files:
         k = (movie_, files) 
@@ -880,6 +880,7 @@ async def group(client, message, spoll=False):
                       ]
                       for movie in movies
                   ]
+                  btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
                   await message.reply_text(f'Here is what i found {movies} on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                   spf = await message.reply_text(
                   text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
