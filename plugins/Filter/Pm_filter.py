@@ -248,7 +248,8 @@ async def advantage_spoll_choker(bot, query):
             for file in files
         ]
     return await query.message.reply_text(text = f"<b>Here is What I {b} Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-     
+    else:
+        await query.message.reply_text(text = " nothing found")
 
 
         
