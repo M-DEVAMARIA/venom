@@ -231,7 +231,8 @@ async def advantage_spoll_choker(bot, query):
         return await query.message.delete()
     
     await query.answer('Checking for Movie in database...')
-    b = movie_('title')#check
+    db = await get_poster(query=movie_, id=True)
+    b = db('title')#check
     files = await get_filter_results(b)
     if not files:
         return await query.answer("not in not in my database", show_alert=True)
@@ -873,7 +874,7 @@ async def group(client, message, spoll=False):
                       [
                            InlineKeyboardButton(
                            text=movie.strip(),
-                           callback_data=f"spolling#{user}#{k}",
+                           callback_data=f"spolling#{user}#{k.movieID}",
                            )
                       ]
                       for k,movie in enumerate(movieslist)
