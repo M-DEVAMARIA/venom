@@ -13,7 +13,7 @@ from database.connection_db import active_connection, all_connections, delete_co
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
 from database.users_db import db 
 from database.filters_db import del_all, find_filter, get_filters 
-import random,
+import random
 BUTTONS = {}
 BOT = {}
 SPELL_CHECK = {}
