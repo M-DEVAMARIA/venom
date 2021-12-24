@@ -237,6 +237,7 @@ async def advantage_spoll_choker(bot, query):
     if not files:
         return await query.message.reply_text(text = f" nothing found with {b}")
     message = query.message.reply_to_message or query.message
+    btn = []
     if files:
         k = (movie_, files) 
         buttons = [
@@ -247,6 +248,20 @@ async def advantage_spoll_choker(bot, query):
             ]
             for file in files
         ]
+    if len(btn) > 10: 
+        btns = list(split_list(btn, 10)) 
+        keyword = f"{query.message.chat.id}-{query.message.message_id}"
+        BUTTONS[keyword] = {
+            "total" : len(btns),
+            "buttons" : btns
+            }
+        buttons.append(
+            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+        )
+    else:
+        buttons.append(
+                [InlineKeyboardButton(text="📄 Pages 1⃣/1",callback_data="pages")]
+            )
     await query.answer()
     await query.message.reply_text(text = f"<b>Here is What I {b} Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
       
