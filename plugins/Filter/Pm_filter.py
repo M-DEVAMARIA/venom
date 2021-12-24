@@ -242,12 +242,12 @@ async def advantage_spoll_choker(bot, query):
         buttons = [
             [
                 InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)} {file.file_name}", callback_data=f"subinps#{file.file_id}"
+                    text=f"{get_size(file.file_size)} {file.file_name",url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file.file_id}"
                 ),
             ]
             for file in files
         ]
-    await query.answer(url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file.file_id}")
+    await query.answer()
     await query.message.reply_text(text = f"<b>Here is What I {b} Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
       
        
