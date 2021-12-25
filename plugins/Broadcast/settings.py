@@ -42,7 +42,7 @@ async def bot_info(bot, update: CallbackQuery):
     buttons = [[
             
             InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})"),
-            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{advance}{chat})")
+            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
@@ -130,7 +130,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     if user_id not in ADMINS:
         return
 
-    value, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
+    value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
@@ -138,8 +138,8 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})"),
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("advance", callback_data=f"set(advance|True|{chat_id}|{value})"),
-                InlineKeyboardButton("normal", callback_data=f"set(advance|False|{chat_id}|{value})")
+                InlineKeyboardButton("advance", callback_data=f"set(advance|True|{chat_id}|{values})"),
+                InlineKeyboardButton("normal", callback_data=f"set(advance|False|{chat_id}|{values})")
                 ],[
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
@@ -208,7 +208,7 @@ async def cb_set(bot, update: CallbackQuery):
     try:
         val, chat_id, curr_val = float(val), int(chat_id), float(curr_val)
     except:
-        chat_id = int(chat) #please check it in any error
+        chat_id = int(chat_id) #please check it in any error
     
     if val == curr_val:
         await update.answer("New Value Cannot Be Old Value...Please Choose Different Value...!!!", show_alert=True)
