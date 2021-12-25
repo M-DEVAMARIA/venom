@@ -130,7 +130,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     if user_id not in ADMINS:
         return
 
-    value, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
+    value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
@@ -138,8 +138,8 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})"),
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("advance", callback_data=f"set(advance|True|{chat_id}|{value})"),
-                InlineKeyboardButton("normal", callback_data=f"set(advance|False|{chat_id}|{value})")
+                InlineKeyboardButton("advance", callback_data=f"set(advance|True|{chat_id}|{values})"),
+                InlineKeyboardButton("normal", callback_data=f"set(advance|False|{chat_id}|{values})")
                 ],[
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
