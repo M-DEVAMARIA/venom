@@ -130,7 +130,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     if user_id not in ADMINS:
         return
 
-    value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
+    value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
     
     value = True if value=="True" else False
     if value:
