@@ -250,7 +250,7 @@ async def advantage_spoll_choker(bot, query):
         ]
     if len(btn) > 5: 
         btns = list(split_list(btn, 5)) 
-        keyword = f"{query.message.chat.id}-{query.message.message_id}"
+        keyword = f"{query.chat.id}-{query.message_id}"
         BUTTONS[keyword] = {
             "total" : len(btns),
             "buttons" : btns
