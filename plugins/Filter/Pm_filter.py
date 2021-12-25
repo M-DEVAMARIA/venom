@@ -248,8 +248,10 @@ async def advantage_spoll_choker(bot, query):
             ]
             for file in files
         ]
-    if len(btn) > 5: 
-        btns = list(split_list(btn, 5)) 
+    if not btn:
+    return
+    if len(btn) > 15: 
+        btns = list(split_list(btn, 15)) 
         keyword = f"{query.chat.id}-{query.message_id}"
         BUTTONS[keyword] = {
             "total" : len(btns),
@@ -258,7 +260,7 @@ async def advantage_spoll_choker(bot, query):
         data = BUTTONS[keyword] 
         buttons = data['buttons'][0].copy()
         buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+            [InlineKeyboardButton(text=f"📃 Pages 10/{data['total']}",callback_data="pages")]
         )
     else:
         
