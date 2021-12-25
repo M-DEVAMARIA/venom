@@ -208,7 +208,7 @@ async def cb_set(bot, update: CallbackQuery):
     try:
         val, chat_id, curr_val = float(val), int(chat_id), float(curr_val)
     except:
-        chat_id = int(chat_id)
+        chat_id = int(chat) #please check it in any error
     
     if val == curr_val:
         await update.answer("New Value Cannot Be Old Value...Please Choose Different Value...!!!", show_alert=True)
