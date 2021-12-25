@@ -30,7 +30,7 @@ async def bot_info(bot, update: CallbackQuery):
     t = "hi"
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
-    imdb  = settings["configs"].get("imDb", False)
+    imdb  = settings["configs"].get("imDb", False) 
     spell  = settings["configs"].get("spellcheck", False)
     advance  = settings["configs"].get("advance", False)
     autof  = settings["configs"].get("autofilter", False)
@@ -42,7 +42,7 @@ async def bot_info(bot, update: CallbackQuery):
     buttons = [[
             
             InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})"),
-            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
+            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{advance}{chat})")
             ],[
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
@@ -130,7 +130,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     if user_id not in ADMINS:
         return
 
-    value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
+    value, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
