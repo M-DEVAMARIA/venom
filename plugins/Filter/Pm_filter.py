@@ -239,7 +239,7 @@ async def advantage_spoll_choker(bot, query):
     message = query.message.reply_to_message or query.message
     btn = []
     if files:
-        await group(bot, query, file)
+        await group(bot, query, files)
         k = (movie_, files) 
         buttons = [
             [
