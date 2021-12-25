@@ -226,7 +226,7 @@ def split_list(l, n):
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("okDa", show_alert=True)
+        return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
         return await query.message.delete()
     
@@ -255,12 +255,13 @@ async def advantage_spoll_choker(bot, query):
             "total" : len(btns),
             "buttons" : btns
             }
+        data = BUTTONS[keyword] 
+        buttons = data['buttons'][0].copy()
         buttons.append(
             [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
         )
     else:
-        data = BUTTONS[keyword] 
-        buttons = data['buttons'][0].copy()
+        
         if buttons:
             buttons.append(
                 [InlineKeyboardButton(text="📄 Pages 1/1",callback_data="pages")]
