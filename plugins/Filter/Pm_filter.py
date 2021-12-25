@@ -249,7 +249,7 @@ async def advantage_spoll_choker(bot, query):
             for file in files
         ]
     if not btn:
-    return
+        return
     if len(btn) > 15: 
         btns = list(split_list(btn, 15)) 
         keyword = f"{query.chat.id}-{query.message_id}"
