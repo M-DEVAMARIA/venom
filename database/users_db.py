@@ -37,6 +37,7 @@ class Database:
                 max_results=50,
                 autofilter=True,
                 pm_fchat=True,
+                advance=True,
                 imDb=True
             )
         )
