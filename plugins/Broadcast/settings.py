@@ -134,7 +134,11 @@ async def cb_show_invites(bot, update: CallbackQuery):
     value = True if value=="True" else False
     if value:
         buttons= [[
+                InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})")
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("advance", callback_data=f"set(advance|True|{chat_id}|{value})")
+                InlineKeyboardButton("normal", callback_data=f"set(advance|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
@@ -217,6 +221,7 @@ async def cb_set(bot, update: CallbackQuery):
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
     imdb = True if prev["configs"].get("imDb") == (True or "True") else False
+    advancespl = True if prev["configs"].get("advance") == (True or "True") else False
     
     if action == "spell": # Scophisticated way 😂🤣
         spellCheck= True if val=="True" else False
@@ -234,7 +239,9 @@ async def cb_set(bot, update: CallbackQuery):
         imdb = True if val=="True" else False
 
     elif action == "inPM":
-        pm_file_chat = True if val=="True" else False
+        pm_file_chat = True if val=="True" else False  
+    elif action == "advance":
+        advance = True if val=="True" else False
         
 
     new = dict(
@@ -243,7 +250,9 @@ async def cb_set(bot, update: CallbackQuery):
         max_results=max_results,
         autofilter=auto_Filter,
         pm_fchat=pm_file_chat,
+        advance=advance
         imDb=imdb
+        
     )
     
     append_db = await db.update_configs(chat, new)
