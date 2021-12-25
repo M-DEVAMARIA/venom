@@ -242,7 +242,7 @@ async def cb_set(bot, update: CallbackQuery):
     elif action == "inPM":
         pm_file_chat = True if val=="True" else False  
     elif action == "advance":
-        advance = True if val=="True" else False
+        advancespl = True if val=="True" else False
         
 
     new = dict(
@@ -251,7 +251,7 @@ async def cb_set(bot, update: CallbackQuery):
         max_results=max_results,
         autofilter=auto_Filter,
         pm_fchat=pm_file_chat,
-        advance=advance,
+        advance=advancespl,
         imDb=imdb
         
     )
