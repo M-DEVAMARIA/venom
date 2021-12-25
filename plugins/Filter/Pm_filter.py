@@ -847,7 +847,7 @@ async def cb_data(bot, update):
             print(error)
 
             
-async def group(client, message)
+async def group(client, message):
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
     if 2 < len(message.text) < 50:    
