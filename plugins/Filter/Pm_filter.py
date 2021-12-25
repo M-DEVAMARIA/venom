@@ -239,7 +239,6 @@ async def advantage_spoll_choker(bot, query):
     message = query.message.reply_to_message or query.message
     btn = []
     if files:
-        await group(bot, query, files)
         k = (movie_, files) 
         buttons = [
             [
@@ -848,8 +847,7 @@ async def cb_data(bot, update):
             print(error)
 
             
-async def group(client, message, spoll=False):
-    message = message.message.reply_to_message
+async def group(client, message)
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
     if 2 < len(message.text) < 50:    
