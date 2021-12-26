@@ -902,31 +902,31 @@ async def group(client, message):
                   movies = await get_poster(search, bulk=True)
                   movieslist = [movie.get('title') for movie in movies]
                   if advance: 
-                  btn = [
-                      [
+                    btn = [
+                       [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')}",
                            callback_data=f"spolling#{user}#{movie.movieID}",
                            )
-                      ]
-                      for movie in movies
-                  ]
-                  btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
-                  await message.reply_text(f'Here is what i found {movies} on IMDb', reply_markup=InlineKeyboardMarkup(btn))
+                        ]
+                        for movie in movies
+                    ]
+                    btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
+                    return await message.reply_text(f'Here is what i found {movies} on IMDb', reply_markup=InlineKeyboardMarkup(btn))
                   if not advance:
-                  spf = await message.reply_text(
-                  text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
-                  reply_markup=InlineKeyboardMarkup(
+                    spf = await message.reply_text(
+                    text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
+                    reply_markup=InlineKeyboardMarkup(
                            [[ 
 
                             InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
                            ]]
                        ),     
-                  parse_mode="html",
-                  reply_to_message_id=message.message_id)
-                  await asyncio.sleep(10)
-                  await spf.delete()
-                  return
+                    parse_mode="html",
+                    reply_to_message_id=message.message_id)
+                    await asyncio.sleep(10)
+                    await spf.delete()
+                    return
      
                
            
