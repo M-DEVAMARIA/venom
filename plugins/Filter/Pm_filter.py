@@ -245,7 +245,7 @@ async def advantage_spoll_choker(bot, query):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)} {file.file_name}", url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file.file_id}"
+                    text=f"{get_size(file.file_size)} {file.file_name}", callback_data=f"subinps#{file.file_id}"
                 ),
             ]
             for file in files
