@@ -272,7 +272,8 @@ async def givess_filter(bot,message):
    
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
-    
+    if BUTTONS:
+     
         if query.data.startswith("next"):
             ident, index, keyword = query.data.split("_")
             try:
