@@ -65,7 +65,8 @@ async def buttons(bot, update: CallbackQuery):
 
     value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
 
-    value = True if value=="True" else False 
+    value = True if value=="True" else False
+    
     if value:
         buttons= [[
                 InlineKeyboardButton("DOUBLE ✔️", callback_data=f"set(inPM|False|{chat_id}|{value})")
@@ -132,14 +133,16 @@ async def cb_show_invites(bot, update: CallbackQuery):
 
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
     
-    value = True if value=="True" else False
+    value = True if value=="True" else False 
+    act = "✅" if values else ""
+    acts = "" if values else "✅"
     if value:
         buttons= [[
                 InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})"),
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("advance", callback_data=f"set(advance|True|{chat_id}|{values})"),
-                InlineKeyboardButton("normal", callback_data=f"set(advance|False|{chat_id}|{values})")
+                InlineKeyboardButton(f"advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
+                InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})")
                 ],[
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
