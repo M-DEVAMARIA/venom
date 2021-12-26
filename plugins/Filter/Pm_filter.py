@@ -266,8 +266,9 @@ async def advantage_spoll_choker(bot, query):
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-
-    
+@Client.on_callback_query(filters.regex(r"^spolling"))
+    await advantage_spoll_choker(bot, query)
+   
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
     clicked = query.from_user.id
@@ -955,7 +956,7 @@ async def group(client, message):
             await message.reply_text(caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
 
                 
-@Client.on_callback_query(filters.regex(r"^spolling"))
+#@Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spooll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
