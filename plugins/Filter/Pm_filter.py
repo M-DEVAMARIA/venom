@@ -270,7 +270,7 @@ async def advantage_spoll_choker(bot, query):
         imdb = await get_poster(b)
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-           await message.reply_photo(photo=poster.get("poster"),caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
+           await message.reply_photo(photo=imdb.get("poster"),caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
 
     
 @Client.on_callback_query()
