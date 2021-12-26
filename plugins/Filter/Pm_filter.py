@@ -222,7 +222,7 @@ def split_list(l, n):
         yield l[i:i + n]          
 
 
-@Client.on_callback_query(filters.regex(r"^spolling"))
+#@Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
@@ -953,41 +953,52 @@ async def group(client, message):
             await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text(caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-async def advantage_spell_chek(msg):
-  #  query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|send|snd|movie(s)?|new|latest|br((o|u)h?)*|^h(e)?(l)*(o)*|mal(ayalam)?|tamil|file|that|give|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle)", "", msg.text) # plis contribute some common words 
-    query = re.sub(r"((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)","", msg.text,flags=re.IGNORECASE)
-    query = query.strip() + "movie"
-    gs_parsed = []
-    if not query:
-        k = await msg.reply("No valid movie name given")
-        await asyncio.sleep(8)
-        await k.delete()
-        return
-    user = msg.from_user.id if msg.from_user else 0
-    movielist = []
-    #imdb_s = await get_poster(query, bulk=True)
-    gs_parsed = list(dict.fromkeys(query)) # removing duplicates https://stackoverflow.com/a/7961425
-    if len(gs_parsed) > 3:
-        gs_parsed = gs_parsed[:3]
-    if gs_parsed:
-        for mov in gs_parsed:
-            imdb_s = await get_poster(mov.strip(), bulk=True) # searching each keyword in imdb
-            if imdb_s:
-                movielist += [movie.get('title') for movie in imdb_s]
-    movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
-    movielist = list(dict.fromkeys(movielist)) # removing duplicates
-    SPELL_CHECK[msg.message_id] = movielist
-    btn = [[
-                InlineKeyboardButton(
-                    text=movie.strip(),
-                    callback_data=f"spolling#{user}#{k}",
-                )
-            ] for k, movie in enumerate(movielist)]
-    btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply('I cant find anything related to that\nDid you mean any one of these?', reply_markup=InlineKeyboardMarkup(btn))
 
-
-
+                
+@Client.on_callback_query(filters.regex(r"^spolling"))
+async def advantage_spooll_choker(bot, query):
+    _, user, movie_ = query.data.split('#')
+    if int(user) != 0 and query.from_user.id != int(user):
+        return await query.answer("This not for you", show_alert=True)
+    if movie_  == "close_spellcheck":
+        return await query.message.delete()
+    
+    await query.answer('Checking for Movie in database...')
+    db = await get_poster(query=movie_, id=True)
+    b = db['title']#check
+    files = await get_filter_results(b)
+    if not files:
+        return await query.message.reply_text(text = f" nothing found with {b}")
+    message = query.message.reply_to_message or query.message
+    btn = []
+    if files:
+        for file in files:
+          file_id = file.file_id
+          filename = f"[{get_size(file.file_size)}] {file.file_name}"
+          btn.append(
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
+                    )
+        if len(btn) > 10: 
+            btns = list(split_list(btn, 10)) 
+            keyword = f"{message.chat.id}-{message.message_id}"
+            BUTTONS[keyword] = {
+                "total" : len(btns),
+                "buttons" : btns
+            }
+            data = BUTTONS[keyword]
+            buttons = data['buttons'][0].copy()
+            buttons.append(
+            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+            )    
+        else:
+            buttons = btn
+            buttons.append(
+                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+            )
+        imdb = db
+        if imdb:
+           cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+           await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
 
 async def advantage_spell_chok(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
