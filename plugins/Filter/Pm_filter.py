@@ -870,6 +870,7 @@ async def group(client, message):
         imdbg = configs["configs"]["imDb"]
         spcheck = configs["configs"]["spellcheck"]
         autoftr = configs["configs"]["autofilter"]
+        advance = configs["configs"]["advance"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -900,9 +901,7 @@ async def group(client, message):
                  #await advantage_spell_chek(message)
                   movies = await get_poster(search, bulk=True)
                   movieslist = [movie.get('title') for movie in movies]
-                  if not movies:
-                      return await message.reply("No results Found")
-                  
+                  if advance: 
                   btn = [
                       [
                            InlineKeyboardButton(
@@ -914,6 +913,7 @@ async def group(client, message):
                   ]
                   btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
                   await message.reply_text(f'Here is what i found {movies} on IMDb', reply_markup=InlineKeyboardMarkup(btn))
+                  if not advance:
                   spf = await message.reply_text(
                   text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
                   reply_markup=InlineKeyboardMarkup(
