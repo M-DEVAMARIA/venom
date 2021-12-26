@@ -241,7 +241,7 @@ async def advantage_spoll_choker(bot, query):
     if files:
         btn = []
         k = (movie_, files) 
-       buttons = btn 
+        buttons = btn 
         buttons = [
             [
                 InlineKeyboardButton(
