@@ -431,11 +431,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.message.delete()
           except:
             await query.message.delete()
-                
-    else:
-        await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
         
- 
     if query.data == "close":
         await query.message.delete()
 
