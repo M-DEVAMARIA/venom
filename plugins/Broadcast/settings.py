@@ -134,8 +134,8 @@ async def cb_show_invites(bot, update: CallbackQuery):
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
     
     value = True if value=="True" else False 
-    act = "✅" if values else ""
-    acts = "" if values else "✅"
+    act = "✅" if values=="True" else ""
+    acts = "" if values=="True" else "✅"
     if value:
         buttons= [[
                 InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})"),
