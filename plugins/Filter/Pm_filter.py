@@ -260,7 +260,7 @@ async def advantage_spoll_choker(bot, query):
             data = BUTTONS[keyword]
             buttons = data['buttons'][0].copy()
             buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),[InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
             )    
         else:
             buttons = btn
