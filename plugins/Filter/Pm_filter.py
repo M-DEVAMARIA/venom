@@ -1001,7 +1001,7 @@ async def advantage_spooll_choker(bot, query):
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-       await query.answer(f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
+           await query.answer(f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
 async def advantage_spell_chok(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
     query = query.strip() + " movie"
