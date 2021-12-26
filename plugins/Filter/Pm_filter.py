@@ -250,41 +250,35 @@ async def advantage_spoll_choker(bot, query):
             ]
             for file in files
         ]
-    
-    if len(btn) > 15: 
-        btns = list(split_list(btn, 15)) 
-        keyword = f"{query.message.chat.id}-{query.message.message_id}"
-        BUTTONS[keyword] = {
-            "total" : len(btns),
-            "buttons" : btns
+        if len(btn) > 10: 
+            btns = list(split_list(btn, 10)) 
+            keyword = f"{message.chat.id}-{message.message_id}"
+            BUTTONS[keyword] = {
+                "total" : len(btns),
+                "buttons" : btns
             }
-        data = BUTTONS[keyword] 
+        else:
+            buttons = btn
+            buttons.append(
+                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+            )
+            if API_KEY:
+                await message.reply_text("check", reply_markup=InlineKeyboardMarkup(buttons))
+            return
+
+        data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
-        
+
         buttons.append(
             [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
         )    
         buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 10/{data['total']}",callback_data="pages")]
+            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
         )
-    else:
-        
-        if buttons:
-            buttons.append(
-                [InlineKeyboardButton(text="📄 Pages 1/1",callback_data="pages")]
-             
-              )
-        else: 
-           buttons.append(
-               [InlineKeyboardButton(text="📄 Pages 2/1",callback_data="pages")]
-           )    
-        await query.answer()
-        await query.message.reply_text(text = f"<b>Here is What I {b} Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-      
-       
+        if API_KEY:
+            await message.reply_text("check", reply_markup=InlineKeyboardMarkup(buttons))
 
-
-        
+    
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
     clicked = query.from_user.id
