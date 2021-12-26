@@ -222,7 +222,7 @@ def split_list(l, n):
         yield l[i:i + n]          
 
 
-#@Client.on_callback_query(filters.regex(r"^spolling"))
+@Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
@@ -243,7 +243,7 @@ async def advantage_spoll_choker(bot, query):
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
           btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"^spcheck#{file_id}")]
                     )
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
@@ -266,10 +266,34 @@ async def advantage_spoll_choker(bot, query):
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-@Client.on_callback_query(filters.regex(r"^spolling"))
-async def givess_filter(bot,message):
-    await advantage_spooll_choker(bot, message)
-   
+@Client.on_callback_query(filters.regex(r"^spcheck"))
+async def givess_filter(bot,query):
+  
+            ident, file_id = query.data.split("#")
+            filedetails = await get_file_details(file_id)
+            for files in filedetails:
+                title = files.file_name
+                size=get_size(files.file_size)
+                f_caption=files.caption
+                if CUSTOM_FILE_CAPTION:
+                    try:
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                    except Exception as e:
+                        print(e)
+                        f_caption=f_caption
+                if f_caption is None:
+                    f_caption = f"{files.file_name}" 
+                if P_TTI_SHOW_OFF:
+                  await query.answer(url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
+                  return
+                else:
+                    await query.answer()
+                    await client.send_cached_media(
+                        chat_id=query.from_user.id,
+                        file_id=file_id,
+                        caption=f_caption,
+                        reply_markup=CAPTION,
+                        )
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
     if BUTTONS:
