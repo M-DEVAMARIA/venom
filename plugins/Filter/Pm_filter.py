@@ -271,7 +271,7 @@ async def givess_filter(bot,query):
   
             ident, file_id,user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
-            return await query.answer("This not for you", show_alert=True)
+                return await query.answer("This not for you", show_alert=True)
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
