@@ -978,7 +978,7 @@ async def advantage_spooll_choker(bot, query):
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
           btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")]
                     )
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
