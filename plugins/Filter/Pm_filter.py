@@ -257,26 +257,17 @@ async def advantage_spoll_choker(bot, query):
                 "total" : len(btns),
                 "buttons" : btns
             }
+            data = BUTTONS[keyword]
+            buttons = data['buttons'][0].copy()
+            buttons.append(
+            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),[InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+            )    
         else:
             buttons = btn
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
-            if API_KEY:
-                await message.reply_text("check", reply_markup=InlineKeyboardMarkup(buttons))
-            return
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        if API_KEY:
-            await message.reply_text("check", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.reply_text("check", reply_markup=InlineKeyboardMarkup(buttons))
 
     
 @Client.on_callback_query()
