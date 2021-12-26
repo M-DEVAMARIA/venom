@@ -229,7 +229,7 @@ async def advantage_spoll_choker(bot, query):
         return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
         return await query.message.delete()
-    
+    own = query.from_user.id
     await query.answer('Checking for Movie in database...')
     db = await get_poster(query=movie_, id=True)
     b = db['title']#check
@@ -243,7 +243,7 @@ async def advantage_spoll_choker(bot, query):
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
           btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"^spcheck#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"^spcheck#{file_id}#{own}")]
                     )
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
@@ -269,7 +269,9 @@ async def advantage_spoll_choker(bot, query):
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(bot,query):
   
-            ident, file_id = query.data.split("#")
+            ident, file_id,user = query.data.split("#")
+            if int(user) != 0 and query.from_user.id != int(user): 
+            return await query.answer("This not for you", show_alert=True)
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
