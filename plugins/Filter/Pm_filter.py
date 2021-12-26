@@ -240,8 +240,8 @@ async def advantage_spoll_choker(bot, query):
     btn = []
     if files:
        for file in files 
-        file_id = file.file_id
-        filename = f"[{get_size(file.file_size)}] {file.file_name}"
+          file_id = file.file_id
+          filename = f"[{get_size(file.file_size)}] {file.file_name}"
         btn = [
             [
                 InlineKeyboardButton(
