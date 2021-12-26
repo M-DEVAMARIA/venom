@@ -266,8 +266,9 @@ async def advantage_spoll_choker(bot, query):
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           await query.answer()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
-async def givess_filter(bot,query):
+async def givess_filter(bot, query):
   
             ident, file_id,user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
