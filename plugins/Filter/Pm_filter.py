@@ -243,7 +243,7 @@ async def advantage_spoll_choker(bot, query):
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
           btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
                     )
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
