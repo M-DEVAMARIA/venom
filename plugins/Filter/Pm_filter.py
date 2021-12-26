@@ -242,7 +242,7 @@ async def advantage_spoll_choker(bot, query):
         btn = []
         k = (movie_, files) 
         buttons = btn 
-        buttons = [
+        btn = [
             [
                 InlineKeyboardButton(
                     text=f"{get_size(file.file_size)} {file.file_name}", url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file.file_id}"
