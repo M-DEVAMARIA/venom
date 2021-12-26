@@ -242,13 +242,9 @@ async def advantage_spoll_choker(bot, query):
         for file in files 
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
-          btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{filename}, callback_data=f"subinps#{file_id}"
-                ),
-            ]
-          ]
+          btn.append(
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}")]
+                    )
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
             keyword = f"{message.chat.id}-{message.message_id}"
