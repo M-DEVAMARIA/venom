@@ -267,8 +267,8 @@ async def advantage_spoll_choker(bot, query):
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
 @Client.on_callback_query(filters.regex(r"^spolling"))
-async def givess_filter(client,message):
-    await advantage_spoll_choker(bot, query)
+async def givess_filter(bot,message):
+    await advantage_spoll_choker(bot, message)
    
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
