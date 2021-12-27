@@ -39,7 +39,7 @@ class Database:
                 pm_fchat=True,
                 advance=True,
                 imDb=True
-            )
+            ),
         )
     def updatec(self, id):
         return dict(
