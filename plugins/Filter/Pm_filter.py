@@ -301,7 +301,7 @@ async def givess_filter(client: Client, query):
 async def cb_handler(client: Client, query: CallbackQuery):
     clicked = query.from_user.id
     try:
-        typed = query.message.reply_to_message.from_user.id
+        typed = query.message.reply_to_message.from_user.id or query.data.split("_")[4]
     except:
         typed = query.from_user.id or query.data.split("_")[4]
         pass 
