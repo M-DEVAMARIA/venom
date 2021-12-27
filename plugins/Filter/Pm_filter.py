@@ -393,7 +393,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         typed = query.message.reply_to_message.from_user.id
     except:
         typed = query.from_user.id
-        pass
+        pass 
+    if not (clicked == typed):
+        return await query.answer("ask your own movie",show_alert=True)
     if (clicked == typed):
 
         if query.data.startswith("subinps"):
