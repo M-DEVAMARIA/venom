@@ -112,10 +112,10 @@ class Database:
         await self.grp.insert_one(chat)
         await self.refresh_cache(chat)
         
-    async def update(self,id):
+    async def update(self, id, configs):
         ch = self.updatec(id)
-        await self.grp.insert_one(ch)
-        await self.refresh_cache(ch)
+        c = await self.grp.insert_one({'id': int(id)'configs': configs}}
+        await self.refresh_cache(c)
     
 
     async def get_chat(self, chat: int):
