@@ -268,7 +268,7 @@ async def advantage_spoll_choker(bot, query):
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
            await query.answer()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
-async def givess_filter(bot, query):
+async def givess_filter(client: Client, query):
   
             ident, file_id,user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
