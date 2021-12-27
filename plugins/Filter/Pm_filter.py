@@ -388,7 +388,15 @@ async def backfilter(client: Client, query):
 
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
-        elif query.data.startswith("subinps"):
+    clicked = query.from_user.id
+    try:
+        typed = query.message.reply_to_message.from_user.id
+    except:
+        typed = query.from_user.id
+        pass
+    if (clicked == typed):
+
+        if query.data.startswith("subinps"):
             ident, file_id,user = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
