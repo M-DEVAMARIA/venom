@@ -243,7 +243,7 @@ async def advantage_spoll_choker(bot, query):
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
           btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}#{own}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")]
                     )
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
@@ -304,7 +304,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         typed = query.message.reply_to_message.from_user.id
     except:
         typed = query.from_user.id
-        pass
+        pass 
+    if not (clicked == typed):
+        return await query.answer("This not for you", show_alert=True)
     if (clicked == typed):
      
         if query.data.startswith("next"):
