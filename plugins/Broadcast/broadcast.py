@@ -73,7 +73,7 @@ async def refresh(bot, message):
       imDb=True)
     append_db = await db.update_configs(user, new)
         
-    if not append_db:
+    if append_db:
         await db.update(user, new)
         text="Something Wrong Please Check Bot Log For More Information...."
 
