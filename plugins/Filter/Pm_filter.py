@@ -255,7 +255,7 @@ async def advantage_spoll_choker(bot, query):
             data = BUTTONS[keyword]
             buttons = data['buttons'][0].copy()
             buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}_user"),InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
             )    
         else:
             buttons = btn
@@ -297,20 +297,12 @@ async def givess_filter(client: Client, query):
                         caption=f_caption,
                         reply_markup=CAPTION,
                         )
-@Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
-    clicked = query.from_user.id
-    try:
-        typed = query.message.reply_to_message.from_user.id or query.data.split("_")[4]
-    except:
-        typed = query.from_user.id or query.data.split("_")[4]
-        pass 
-    if not (clicked == typed):
-        return await query.answer("This not for you", show_alert=True)
-    if (clicked == typed):
+@Client.on_callback_query(filters.regex(r"^next"))
+async def nextfilter(client: Client, query):
+    
      
-        if query.data.startswith("next"):
-            ident, index, keyword,user = query.data.split("_")
+       
+            ident, index, keyword = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
@@ -351,8 +343,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     
                 return
 
-
-        elif query.data.startswith("back"):
+@Client.on_callback_query(filters.regex(r"^back"))                         
+async def backfilter(client: Client, query):
             ident, index, keyword = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
@@ -394,7 +386,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 return
         
 
-
+@Client.on_callback_query()
+async def cb_handler(client: Client, query: CallbackQuery):
         elif query.data.startswith("subinps"):
             ident, file_id,user = query.data.split("#")
             filedetails = await get_file_details(file_id)
