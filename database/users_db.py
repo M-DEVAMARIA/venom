@@ -41,7 +41,19 @@ class Database:
                 imDb=True
             )
         )
-    
+    def updatec(self, id):
+        return dict(
+            configs = dict(
+                spellcheck=True,
+                max_pages=5,
+                max_results=50,
+                autofilter=True,
+                pm_fchat=True,
+                advance=True,
+                imDb=True
+            )
+        )
+            
     async def add_user(self, id, name):
         user = self.new_user(id, name)
         await self.col.insert_one(user)
@@ -99,6 +111,11 @@ class Database:
         chat = self.new_group(chat, title)
         await self.grp.insert_one(chat)
         await self.refresh_cache(chat)
+        
+    async def update(self,id):
+        ch = self.updatec(id)
+        await self.grp.insert_one(ch)
+        await self.refresh_cache(ch)
     
 
     async def get_chat(self, chat: int):
