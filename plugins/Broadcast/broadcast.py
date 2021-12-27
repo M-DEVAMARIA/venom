@@ -61,7 +61,7 @@ async def chatverupikkals(bot, message):
 @Client.on_message(filters.command("/refresh"))
 async def refresh(bot, message):
     users = await db.get_all_chats() 
-    user = message.message.chat.id 
+    user = message.chat.id 
    # async for chat in users:
       #  user =  int(chat['id'])
     new = dict(
