@@ -270,7 +270,7 @@ async def advantage_spoll_choker(bot, query):
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
-            ident, file_id,user = query.data.split("#")
+            ident, file_id = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
                 return await query.answer("This not for you", show_alert=True)
             filedetails = await get_file_details(file_id)
@@ -891,7 +891,7 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if not configs :
             await message.reply_text(text= "error occurred")
-    if autoftr:
+    #if autoftr:
         if files:
             for file in files:
                 file_id = file.file_id
