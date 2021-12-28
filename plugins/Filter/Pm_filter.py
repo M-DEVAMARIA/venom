@@ -230,7 +230,7 @@ async def advantage_spoll_choker(bot, query):
     if movie_  == "close_spellcheck":
         return await query.message.delete()
     own = query.from_user.id
-    await query.answer('Checking for Movie in database...',show_alert=True)
+    await query.answer('Checking for Movie in database...')
     db = await get_poster(query=movie_, id=True)
     b = db['title']#check
     files = await get_filter_results(b)
