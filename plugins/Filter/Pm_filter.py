@@ -247,7 +247,7 @@ async def advantage_spoll_choker(bot, query):
         for file in files:
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
-        if single:
+        if single =="True":
           btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")])
         else:
           btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"spcheck#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"spcheck#{file_id}#{own}")])
@@ -277,7 +277,7 @@ async def advantage_spoll_choker(bot, query):
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
-            ident, file_id = query.data.split("#")
+            ident, file_id, user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
                 return await query.answer("This not for you", show_alert=True)
             filedetails = await get_file_details(file_id)
