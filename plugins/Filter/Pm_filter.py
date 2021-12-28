@@ -235,9 +235,9 @@ async def advantage_spoll_choker(bot, query):
     b = db['title']#check
     files = await get_filter_results(b)
     if not files:
-        await query.message.edit(text = f" nothing found with {b} in my database")
-        await asyncio.sleep(30)
-        await message.delete()
+        await query.answer(f" nothing found with {b} in my database",show_alert=True)
+        #await asyncio.sleep(30)
+       # await message.delete()
         return
     message = query.message.reply_to_message or query.message
     btn = []
