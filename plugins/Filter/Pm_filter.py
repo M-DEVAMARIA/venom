@@ -224,7 +224,7 @@ def split_list(l, n):
 
 @Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
-    _, user, movie_ = query.data.split('#')
+    _, user, movie_, configs = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
         return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
@@ -240,7 +240,6 @@ async def advantage_spoll_choker(bot, query):
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
-    configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     btn = []
     if files:
@@ -927,7 +926,7 @@ async def group(client, message):
                        [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')}",
-                           callback_data=f"spolling#{user}#{movie.movieID}",
+                           callback_data=f"spolling#{user}#{movie.movieID}#{configs}",
                            )
                         ]
                         for movie in movies
