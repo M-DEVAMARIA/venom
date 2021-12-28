@@ -936,13 +936,13 @@ async def group(client, message):
                     await asyncio.sleep(13)
                     await k.delete()
                     return
-                 if not advance:
+                  if not advance:
                     spf = await message.reply_text(
-                    text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
+                    text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>",
                     reply_markup=InlineKeyboardMarkup(
-                           [[ 
-
-                            InlineKeyboardButton("🔍 GOOGLE 🔎", url=f'https://www.google.com/')
+                           [[  
+                            InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
+                            InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')
                            ]]
                        ),     
                     parse_mode="html",
