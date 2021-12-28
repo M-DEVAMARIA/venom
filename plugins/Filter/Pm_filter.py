@@ -224,7 +224,7 @@ def split_list(l, n):
 
 @Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
-    _, user, single, movie_ = query.data.split('#')
+    _, user, single, imdb, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
         return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
@@ -269,11 +269,13 @@ async def advantage_spoll_choker(bot, query):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
-        imdb = db
+        imdb = db if imdb =="True" else None
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-           return await query.message.delete()
+        else:
+           await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+        return await query.message.delete()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
@@ -926,7 +928,7 @@ async def group(client, message):
                        [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')}",
-                           callback_data=f"spolling#{user}#{single}#{movie.movieID}",
+                           callback_data=f"spolling#{user}#{single}#{imdbg}#{movie.movieID}",
                            )
                         ]
                         for movie in movies
