@@ -933,7 +933,7 @@ async def group(client, message):
                     ]
                     btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
                     k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
-                    await asyncio.sleep(13)
+                    await asyncio.sleep(25)
                     await k.delete()
                     return
                   if not advance:
@@ -947,7 +947,7 @@ async def group(client, message):
                        ),     
                     parse_mode="html",
                     reply_to_message_id=message.message_id)
-                    await asyncio.sleep(10)
+                    await asyncio.sleep(25)
                     await spf.delete()
                     return
      
