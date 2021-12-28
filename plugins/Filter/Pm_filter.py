@@ -234,20 +234,24 @@ async def advantage_spoll_choker(bot, query):
     b = db['title']#check
     files = await get_filter_results(b)
     if not files:
-        await query.answer(f" nothing found with {b} in my database",show_alert=True)
+        await query.answer(f" nothing found in my database check others",show_alert=True)
         #await asyncio.sleep(30)
        # await message.delete()
         return
     message = query.message.reply_to_message or query.message
+    configs = await db.find_chat(chat)
+    single = configs["configs"]["pm_fchat"] 
     btn = []
     if files:
-        await query.answer('Checking for Movie in database...',show_alert=True)
+        await query.answer('Checking for Movie in database...')
         for file in files:
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
-          btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")]
-                    )
+        if single:
+          btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")])
+        else:
+          btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"spcheck#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"spcheck#{file_id}#{own}")])
+                        
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
             keyword = f"{message.chat.id}-{message.message_id}"
@@ -928,8 +932,11 @@ async def group(client, message):
                         for movie in movies
                     ]
                     btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
-                    return await message.reply_text(f"hey {message.from_user.mention},\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
-                  if not advance:
+                    k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
+                    await asyncio.sleep(13)
+                    await k.delete()
+                    return
+                 if not advance:
                     spf = await message.reply_text(
                     text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
                     reply_markup=InlineKeyboardMarkup(
