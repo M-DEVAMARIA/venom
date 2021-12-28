@@ -274,7 +274,7 @@ async def advantage_spoll_choker(bot, query):
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
-           await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+           await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
         return await query.message.delete()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
