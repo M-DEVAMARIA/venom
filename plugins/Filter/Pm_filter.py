@@ -224,7 +224,7 @@ def split_list(l, n):
 
 @Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
-    _, user, configs, movie_ = query.data.split('#')
+    _, user, single, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
         return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
@@ -240,7 +240,7 @@ async def advantage_spoll_choker(bot, query):
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
-    single = configs["configs"]["pm_fchat"] 
+ #   single = configs["configs"]["pm_fchat"] 
     btn = []
     if files:
         await query.answer('Checking for Movie in database...')
@@ -886,7 +886,7 @@ async def group(client, message):
         nyva=BOT.get("username")
         chat = message.chat.id
         configs = await db.find_chat(chat)
-        pm_file_chat = configs["configs"]["pm_fchat"] 
+        single = configs["configs"]["pm_fchat"] 
         imdbg = configs["configs"]["imDb"]
         spcheck = configs["configs"]["spellcheck"]
         autoftr = configs["configs"]["autofilter"]
@@ -904,7 +904,7 @@ async def group(client, message):
                 file_id = file.file_id
                 size = f"[{get_size(file.file_size)}]"
                 name = f"{file.file_name}"
-            if pm_file_chat:
+            if single:
                     btn.append(
                              [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
                              )
@@ -926,7 +926,7 @@ async def group(client, message):
                        [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')}",
-                           callback_data=f"spolling#{user}#{configs}#{movie.movieID}",
+                           callback_data=f"spolling#{user}#{single}#{movie.movieID}",
                            )
                         ]
                         for movie in movies
