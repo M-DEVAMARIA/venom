@@ -928,7 +928,7 @@ async def group(client, message):
                         for movie in movies
                     ]
                     btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
-                    return await message.reply_text(f'Here is what i found {movies} on IMDb', reply_markup=InlineKeyboardMarkup(btn))
+                    return await message.reply_text(f"hey {message.from_user.mention},\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
                   if not advance:
                     spf = await message.reply_text(
                     text=f"<code>Sorry {message.from_user.mention},\n\nI didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</code>",
