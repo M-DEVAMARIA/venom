@@ -230,12 +230,15 @@ async def advantage_spoll_choker(bot, query):
     if movie_  == "close_spellcheck":
         return await query.message.delete()
     own = query.from_user.id
-    await query.answer('Checking for Movie in database...')
+    await query.answer('Checking for Movie in database...',show_alert=True)
     db = await get_poster(query=movie_, id=True)
     b = db['title']#check
     files = await get_filter_results(b)
     if not files:
-        return await query.message.reply_text(text = f" nothing found with {b}")
+        await query.message.edit(text = f" nothing found with {b} in my database")
+        await asyncio.sleep(30)
+        await message.delete()
+        return
     message = query.message.reply_to_message or query.message
     btn = []
     if files:
@@ -266,7 +269,7 @@ async def advantage_spoll_choker(bot, query):
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-           await query.answer()
+           return await query.message.delete()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
