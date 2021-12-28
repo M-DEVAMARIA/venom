@@ -113,8 +113,8 @@ class Database:
         await self.refresh_cache(chat)
         
     async def update(self, id, configs):
-        chat = await self.grp.find_one({'id': id})
-        c = await self.grp.insert_one(chat,{'configs': configs})
+       # chat = await self.grp.find_one({'id': id})
+        c = await self.grp.insert_one({'_id': id},{'configs': configs})
         await self.refresh_cache(int(id))
     
 
