@@ -239,6 +239,7 @@ async def advantage_spoll_choker(bot, query):
        # await message.delete()
         return
     message = query.message.reply_to_message or query.message
+    chat = message.chat.id
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     btn = []
