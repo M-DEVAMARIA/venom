@@ -66,7 +66,7 @@ async def bot_info(bot, update: CallbackQuery):
     imd = "ON ✔️" if imdb else "OFF ✖️"
     spellc = "ON ✔️" if spell else "OFF ✖️"
     autoc = "ON ✔️" if autof else "OFF ✖️"
-    n, chat_id = query_data.split("#")
+    chat_id = query_data.split("#")
     chat = chat_id if chat_type =="private" else chat
     buttons = [[
             
