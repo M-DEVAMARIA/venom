@@ -64,7 +64,7 @@ HELP = InlineKeyboardMarkup(
         ],[
         InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
         InlineKeyboardButton('stαtus', callback_data="stats"),
-        InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid')
+        InlineKeyboardButton('settings', callback_data='covid')
         ],[
         InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
         InlineKeyboardButton('extra', callback_data='extramod'),
@@ -72,7 +72,7 @@ HELP = InlineKeyboardMarkup(
         ],[
         InlineKeyboardButton('mísc', callback_data='misc'),
         InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imbs'),
-        InlineKeyboardButton('settings', callback_data='imbs')
+        InlineKeyboardButton('fun', callback_data='imbs')
         ],[
         InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='help'),
         InlineKeyboardButton('jѕon', callback_data='json'),
