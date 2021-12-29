@@ -235,12 +235,9 @@ async def advantage_spoll_choker(bot, query):
     files = await get_filter_results(b)
     if not files:
         await query.answer(f" nothing found in my database check others",show_alert=True)
-        #await asyncio.sleep(30)
-       # await message.delete()
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
- #   single = configs["configs"]["pm_fchat"] 
     btn = []
     if files:
         await query.answer('Checking for Movie in database...')
@@ -262,12 +259,15 @@ async def advantage_spoll_choker(bot, query):
             data = BUTTONS[keyword]
             buttons = data['buttons'][0].copy()
             buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-            )    
+            [InlineKeyboardButton(text="Next Page ⏩",callback_data=f"next_0_{keyword}")]
+            )  
+            buttons.append(
+                [InlineKeyboardButton(text=f"🗓 1/{data['total']}, callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+            )
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
             )
         imdb = db if imdb =="True" else None
         if imdb:
@@ -322,10 +322,10 @@ async def nextfilter(client: Client, query):
                 buttons = data['buttons'][int(index)+1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ BACK", callback_data=f"back_{int(index)+1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)+2}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -338,14 +338,11 @@ async def nextfilter(client: Client, query):
                 buttons = data['buttons'][int(index)+1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ BACK", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)+2}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
                 )
-                if BUTTON:
-                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
@@ -365,10 +362,10 @@ async def backfilter(client: Client, query):
                 buttons = data['buttons'][int(index)-1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
+                    [InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -381,14 +378,12 @@ async def backfilter(client: Client, query):
                 buttons = data['buttons'][int(index)-1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ BACK", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pages {int(index)}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
                 )
-                if BUTTON:
-                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-
+                
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
@@ -922,7 +917,6 @@ async def group(client, message):
                   user = message.from_user.id 
                  #await advantage_spell_chek(message)
                   movies = await get_poster(search, bulk=True)
-                  movieslist = [movie.get('title') for movie in movies]
                   if advance: 
                     btn = [
                        [
@@ -965,42 +959,27 @@ async def group(client, message):
                 "total" : len(btns),
                 "buttons" : btns
             }
+            data = BUTTONS[keyword]
+            buttons = data['buttons'][0].copy()         
+            buttons.append(
+            [InlineKeyboardButton(text="Next Page ⏩,callback_data=f"next_0_{keyword}")]
+            )    
+            buttons.append(
+            [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+            )
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
             )
-            if BUTTON:
-                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-            imdb = await get_poster(search) if imdbg else None
-            if imdb:
-                cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-                await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-            else:
-                await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-            return
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⫸ ",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        if BUTTON:
-            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-        poster=None
-        if API_KEY:
-            poster=await get_poster(search)
-        if poster:
-            cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"], countries = poster["countries"], release_date = poster['release_date'],**locals())
-            await message.reply_photo(photo=poster.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+        imdb = await get_poster(search) if imdbg else None
+        if imdb:
+           cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+           await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
-            await message.reply_text(caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-
-                
+           await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+        return 
+             
 #@Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spooll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
