@@ -52,8 +52,33 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
 
 CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('📢 Join Updates Channel ', url='https://t.me/venombotupdates')]])
 
-
-
+HELP = InlineKeyboardMarkup(
+        [[ 
+        InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
+        InlineKeyboardButton('ᴍᴀɴᴜᴀʟ fɪʟᴛᴇʀ', callback_data='manual'),
+        InlineKeyboardButton('ᴄᴏɴɴᴇᴄᴛɪᴏɴ', callback_data='connection')
+        ],[
+        InlineKeyboardButton('song', callback_data='song'),
+        InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
+        InlineKeyboardButton('ʙᴀᴛᴄʜ', callback_data='batch')
+        ],[
+        InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
+        InlineKeyboardButton('stαtus', callback_data="stats"),
+        InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid')
+        ],[
+        InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
+        InlineKeyboardButton('extra', callback_data='extramod'),
+        InlineKeyboardButton('ᴘɪɴ', callback_data='pin')
+        ],[
+        InlineKeyboardButton('mísc', callback_data='misc'),
+        InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imbs'),
+        InlineKeyboardButton('settings', callback_data='imbs')
+        ],[
+        InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='help'),
+        InlineKeyboardButton('jѕon', callback_data='json'),
+        InlineKeyboardButton('TTS', callback_data='tts')
+        ]]
+     )
             
             
             
