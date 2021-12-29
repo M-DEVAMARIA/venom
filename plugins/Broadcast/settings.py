@@ -15,7 +15,7 @@ from info import ADMINS
 async def botsetting_info(client, message):
     chat_id = message.chat.id
     userid = message.from_user.id
-    st = await client.get_chat_member(grp_id, userid)
+    st = await client.get_chat_member(chat_id, userid)
     if not (st.status == "creator") or (str(userid) in ADMINS):
         return
     buttons = [[
