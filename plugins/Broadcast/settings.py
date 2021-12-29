@@ -40,7 +40,7 @@ async def botsetting_info(client, message):
         return
     
     buttons = [[
-            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{grp_id}")
+            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{grpid}")
             ],[
             InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
             ],[
