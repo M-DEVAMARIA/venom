@@ -25,7 +25,7 @@ async def botsetting_info(client, message):
             try:
                 chat = await client.get_chat(grpid)
                 title = chat.title
-                chtid = chat.id
+                chid = chat.id
             except:
                 await message.reply_text("Make sure I'm present in your group!!", quote=True)
                 return
@@ -33,7 +33,7 @@ async def botsetting_info(client, message):
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
     elif chat_type in ["group", "supergroup"]:
-        chtid = chat_id
+        chid = chat_id
         st = await client.get_chat_member(grp_id, userid)
         if not (st.status == "creator") or (str(userid) in ADMINS):
             return
@@ -41,7 +41,7 @@ async def botsetting_info(client, message):
         return
     
     buttons = [[
-            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chtid}")
+            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chid}")
             ],[
             InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
             ],[
