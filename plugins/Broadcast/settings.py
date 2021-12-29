@@ -31,7 +31,7 @@ async def botsetting_info(client, message):
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
-    elif chat_type in ["group", "supergroup"]
+    elif chat_type in ["group", "supergroup"]:
     else:
         return
     st = await client.get_chat_member(chat_id, userid)
