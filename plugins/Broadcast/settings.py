@@ -32,15 +32,15 @@ async def botsetting_info(client, message):
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
     elif chat_type in ["group", "supergroup"]:
-        chat_id = chat_id
-        st = await client.get_chat_member(chat_id, userid)
+        chat = chat_id
+        st = await client.get_chat_member(chat, userid)
         if not (st.status == "creator") or (str(userid) in ADMINS):
             return
     else:
         return
     
     buttons = [[
-            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chat_id}")
+            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chat}")
             ],[
             InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
             ],[
@@ -68,7 +68,7 @@ async def bot_info(bot, update: CallbackQuery):
     spellc = "ON ✔️" if spell else "OFF ✖️"
     autoc = "ON ✔️" if autof else "OFF ✖️"
     chat_id = query_data.split("#")
-    if chat_type =="private"
+    if chat_type =="private":
       chat = chat_id  
     else:
        chat = chat
