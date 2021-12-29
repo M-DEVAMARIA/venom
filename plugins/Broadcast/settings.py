@@ -68,7 +68,10 @@ async def bot_info(bot, update: CallbackQuery):
     spellc = "ON ✔️" if spell else "OFF ✖️"
     autoc = "ON ✔️" if autof else "OFF ✖️"
     chat_id = query_data.split("#")
-    chat = chat_id if chat_type =="private" else chat
+    if chat_type =="private"
+      chat = chat_id  
+    else:
+       chat = chat
     buttons = [[
             
             InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})"),
