@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
 from database.users_db import db
+from database.connection_db import active_connection
 from database.Settings_db import Database 
 from plugins import VERIFY 
 from info import ADMINS
@@ -15,7 +16,22 @@ from info import ADMINS
 async def botsetting_info(client, message):
     chat_id = message.chat.id
     userid = message.from_user.id
+    chat_type = message.chat.type
     st = await client.get_chat_member(chat_id, userid)
+    if chat_type == "private":
+        grpid = await active_connection(str(userid))
+        if grpid is not None:
+            grp_id = grpid
+            try:
+                chat = await client.get_chat(grpid)
+                title = chat.title
+            except:
+                await message.reply_text("Make sure I'm present in your group!!", quote=True)
+                return
+        else:
+            await message.reply_text("I'm not connected to any groups!", quote=True)
+            return
+
     if not (st.status == "creator") or (str(userid) in ADMINS):
         return
     buttons = [[
