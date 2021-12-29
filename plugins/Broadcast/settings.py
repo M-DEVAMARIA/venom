@@ -39,7 +39,7 @@ async def botsetting_info(client, message):
     if not (st.status == "creator") or (str(userid) in ADMINS):
         return
     buttons = [[
-            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})")
+            InlineKeyboardButton("🔓 open settings", callback_data=f"open#{chat_id}")
             ],[
             InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
             ],[
@@ -55,7 +55,7 @@ async def botsetting_info(client, message):
 async def bot_info(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
-    t = "hi"
+    chat_type = message.chat.type
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False) 
@@ -66,7 +66,8 @@ async def bot_info(bot, update: CallbackQuery):
     imd = "ON ✔️" if imdb else "OFF ✖️"
     spellc = "ON ✔️" if spell else "OFF ✖️"
     autoc = "ON ✔️" if autof else "OFF ✖️"
-    
+    n, chat_id = query.data.split("#")
+    chat = chat_id if chat_type =="private" else chat
     buttons = [[
             
             InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})"),
