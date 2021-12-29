@@ -19,8 +19,10 @@ async def botsetting_info(client, message):
     if not (st.status == "creator") or (str(userid) in ADMINS):
         return
     buttons = [[
-            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})"),
-            InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})"),
+            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})")
+            ],[
+            InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
+            ],[
             InlineKeyboardButton("✖️ Close", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
