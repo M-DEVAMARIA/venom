@@ -6,7 +6,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN
+from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
 from translation import Translation
 from pyrogram.errors import UserNotParticipant
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
@@ -683,23 +683,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html')
         
     elif query.data == "help":
-        buttons = [[ 
-            InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
-            InlineKeyboardButton('ᴍᴀɴᴜᴀʟ fɪʟᴛᴇʀ', callback_data='manual'),
-            InlineKeyboardButton('ᴄᴏɴɴᴇᴄᴛɪᴏɴ', callback_data='connection')
-            ],[
-            InlineKeyboardButton('song', callback_data='song'),
-            InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
-            InlineKeyboardButton('ʙᴀᴛᴄʜ', callback_data='batch')
-            ],[
-            InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
-            InlineKeyboardButton('stαtus', callback_data="stats"),
-            InlineKeyboardButton('next ➪', callback_data='extra')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text="<b>ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ..  </b>\n",
-            reply_markup=reply_markup,
+            reply_markup=HELP,
             parse_mode='html'
             )
  
