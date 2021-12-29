@@ -33,6 +33,8 @@ async def botsetting_info(client, message):
             return
     elif chat_type in ["group", "supergroup"]:
         chat_id = chat_id
+    else:
+        return
     st = await client.get_chat_member(grpid, userid)
     if not (st.status == "creator") or (str(userid) in ADMINS):
         return
