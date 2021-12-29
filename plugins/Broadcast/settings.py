@@ -17,7 +17,7 @@ async def botsetting_info(client, message):
     chat_id = message.chat.id
     userid = message.from_user.id
     chat_type = message.chat.type
-    st = await client.get_chat_member(chat_id, userid)
+    
     if chat_type == "private":
         grpid = await active_connection(str(userid))
         if grpid is not None:
@@ -31,7 +31,10 @@ async def botsetting_info(client, message):
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
             return
-
+    elif chat_type in ["group", "supergroup"]
+    else:
+        return
+    st = await client.get_chat_member(chat_id, userid)
     if not (st.status == "creator") or (str(userid) in ADMINS):
         return
     buttons = [[
