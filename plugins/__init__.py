@@ -74,7 +74,7 @@ HELP = InlineKeyboardMarkup(
         InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imbs'),
         InlineKeyboardButton('fun', callback_data='imbs')
         ],[
-        InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='help'),
+        InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
         InlineKeyboardButton('jѕon', callback_data='json'),
         InlineKeyboardButton('TTS', callback_data='tts')
         ]]
