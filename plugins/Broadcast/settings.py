@@ -25,7 +25,7 @@ async def botsetting_info(client, message):
             try:
                 chat = await client.get_chat(grpid)
                 title = chat.title
-                chtidchtid = chat.id
+                chtid = chat.id
             except:
                 await message.reply_text("Make sure I'm present in your group!!", quote=True)
                 return
