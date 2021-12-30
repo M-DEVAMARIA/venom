@@ -113,52 +113,30 @@ So you go to google and check the spelling of the name of the movie you want.
                 "total" : len(btns),
                 "buttons" : btns
             }
+            data = BUTTONS[keyword]
+            buttons = data['buttons'][0].copy()
+
+            buttons.append(
+               [InlineKeyboardButton(text="Next page ⏩",callback_data=f"next_0_{keyword}")]
+            )    
+            buttons.append(
+               [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages")]
+             )
         else:
             query = search
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages")]
             )
-            if BUTTON:
-                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-        
-            poster=None
-            if API_KEY:
-                poster=await get_poster(search)
-            if poster:
-                cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"],  countries = poster["countries"], release_date = poster['release_date'],**locals())
-                await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
-
-            else:
-                await message.reply_photo(photo=poster, caption=f"your query {search}", reply_markup=InKeyboardMarkup(buttons))
-            return
-
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⫸",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        if BUTTON:
-            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
-        poster=None
-        if API_KEY:
-            poster=await get_poster(search)
-        if API_KEY:
-                poster=await get_poster(search)
+            
+        poster=await get_poster(search)
         if poster:
-            cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"], countries = poster["countries"], release_date = poster['release_date'],**locals())
-            await message.reply_photo(photo=poster.get("poster"),caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
-
+           cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"],  countries = poster["countries"], release_date = poster['release_date'],**locals())
+           await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
-            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-        return
-
-
+           await message.reply_photo(photo=poster, caption=f"your query {search}", reply_markup=InKeyboardMarkup(buttons))
+        retrun
+        
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
 async def give_filter(client, message): 
     group_id = message.chat.id
