@@ -71,11 +71,11 @@ async def bot_info(bot, update: CallbackQuery):
     autodelete  = settings["configs"].get("delete", False)
     page = settings["configs"]["max_pages"]
     delete = settings["configs"]["delete_time"]
-    cap = "single" if pm_file_chat else "Double"
-    imd = "ON ✔️" if imdb else "OFF ✖️"
-    spellc = "ON ✔️" if spell else "OFF ✖️"
-    autoc = "ON ✔️" if autof else "OFF ✖️"
-    deletec = "ON ✔️" if autodelete else "OFF ✖️"
+    cap = "Single" if pm_file_chat else "Double"
+    imd = "ON ✅" if imdb else "OFF ❌"
+    spellc = "ON ✅" if spell else "OFF ❌"
+    autoc = "ON ✅" if autof else "OFF ❌"
+    deletec = "ON ✅" if autodelete else "OFF ❌"
     chat_id = query_data.split("#")
     if chat_type =="private":
       chat = chat_id  
