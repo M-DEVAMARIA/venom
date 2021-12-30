@@ -239,7 +239,7 @@ async def auto_filter(bot, update: CallbackQuery):
         parse_mode="html"
     )
 @Client.on_callback_query(filters.regex(r"pages\((.+)\)"), group=2)
-async def auto_filter(bot, update: CallbackQuery):
+async def filter_page(bot, update: CallbackQuery):
     #imdb on / off calback function
     query_data = update.data
     chat_id = update.message.chat.id
@@ -271,7 +271,7 @@ async def auto_filter(bot, update: CallbackQuery):
         parse_mode="html"
     )
 @Client.on_callback_query(filters.regex(r"delete\((.+)\)"), group=2)
-async def auto_filter(bot, update: CallbackQuery):
+async def auto_delete(bot, update: CallbackQuery):
     #imdb on / off calback function
     query_data = update.data
     chat_id = update.message.chat.id
