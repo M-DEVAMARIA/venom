@@ -966,7 +966,7 @@ async def group(client, message):
            await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-        if delete
+        if delete:
            await asyncio.sleep({delete_time})
            await message.delete()
         return 
