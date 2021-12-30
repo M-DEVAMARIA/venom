@@ -34,12 +34,12 @@ async def botsetting_info(client, message):
             return
     elif chat_type in ["group", "supergroup"]:
         chid = chat_id
-        st = await client.get_chat_member(grp_id, userid)
-        if not (st.status == "creator") or (str(userid) in ADMINS):
-            return
+        
     else:
         return
-    
+    st = await client.get_chat_member(grp_id, userid)
+    if not (st.status == "creator") or (str(userid) in ADMINS):
+        return
     buttons = [[
             InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chid}")
             ],[
