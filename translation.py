@@ -28,7 +28,7 @@ Current settings:\n\n
 ⪼<b>Auto delete :</b> {}\n
 ⪼<b>Imdb:</b> {}
 
-update below value using buttons below
+update above value using buttons below
 """
 
     AUTOFILTER_TXT = """ <b>Auto Filter</b>
