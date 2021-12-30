@@ -970,7 +970,7 @@ async def group(client, message):
            delete_time = 15
            await asyncio.sleep(int(delete_time))
            k = message.reply_to_message and message
-           await message.delete()
+           await k.delete()
         return 
              
 #@Client.on_callback_query(filters.regex(r"^spolling"))
