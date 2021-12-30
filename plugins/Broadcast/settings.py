@@ -1,5 +1,5 @@
 #@crazybot filter bot v2 
-import re
+import re, asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
@@ -34,12 +34,15 @@ async def botsetting_info(client, message):
             return
     elif chat_type in ["group", "supergroup"]:
         chid = chat_id
-        
+        st = await client.get_chat_member(chid, userid)
+        if not (st.status == "creator") or (str(userid) in ADMINS):
+            k = await message.reply_text("your are not group owner or admin')
+            await asyncio.sleep(10)
+            await k.delete()
+            return
     else:
         return
-    st = await client.get_chat_member(grp_id, userid)
-    if not (st.status == "creator") or (str(userid) in ADMINS):
-        return
+    
     buttons = [[
             InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chid}")
             ],[
