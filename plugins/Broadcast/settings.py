@@ -253,7 +253,7 @@ async def auto_filter(bot, update: CallbackQuery):
                 InlineKeyboardButton("7", callback_data=f"set(pages|7|{chat_id}|{count})"),
                 InlineKeyboardButton("10", callback_data=f"set(pages|10|{chat_id}|{count})")
                 ],[
-                InlineKeyboardButton("12", callback_data=f"set(pages|12|{chat_id}|{count})""),
+                InlineKeyboardButton("12", callback_data=f"set(pages|12|{chat_id}|{count})"),
                 InlineKeyboardButton("15", callback_data=f"set(pages|15|{chat_id}|{count})"),
                 InlineKeyboardButton("20", callback_data=f"set(pages|20|{chat_id}|{count})")
                 ],[
