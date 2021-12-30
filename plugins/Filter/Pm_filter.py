@@ -874,6 +874,8 @@ async def group(client, message):
         spcheck = configs["configs"]["spellcheck"]
         autoftr = configs["configs"]["autofilter"]
         advance = configs["configs"]["advance"]
+        delete = configs["configs"]["delete"]
+        delete_time = configs["configs"]["delete_time"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -964,6 +966,9 @@ async def group(client, message):
            await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+        if delete
+           await asyncio.sleep({delete_time})
+           await message.delete()
         return 
              
 #@Client.on_callback_query(filters.regex(r"^spolling"))
