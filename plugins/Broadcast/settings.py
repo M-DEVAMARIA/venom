@@ -75,7 +75,7 @@ async def bot_info(bot, update: CallbackQuery):
     imd = "ON ✔️" if imdb else "OFF ✖️"
     spellc = "ON ✔️" if spell else "OFF ✖️"
     autoc = "ON ✔️" if autof else "OFF ✖️"
-    deletec = "ON ✔️" if delete else "OFF ✖️"
+    deletec = "ON ✔️" if autodelete else "OFF ✖️"
     chat_id = query_data.split("#")
     if chat_type =="private":
       chat = chat_id  
@@ -83,8 +83,8 @@ async def bot_info(bot, update: CallbackQuery):
        chat = chat
     buttons = [[
             
-            InlineKeyboardButton("auto filter", callback_data=f"auto({autof}|{chat})"),
-            InlineKeyboardButton("spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
+            InlineKeyboardButton("Auto filter", callback_data=f"auto({autof}|{chat})"),
+            InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
@@ -92,7 +92,7 @@ async def bot_info(bot, update: CallbackQuery):
             InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
             InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
             ],[
-            InlineKeyboardButton("✖️ close ✖️", callback_data=f"close")
+            InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
