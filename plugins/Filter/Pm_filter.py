@@ -874,6 +874,7 @@ async def group(client, message):
         spcheck = configs["configs"]["spellcheck"]
         autoftr = configs["configs"]["autofilter"]
         advance = configs["configs"]["advance"]
+        max_pages = configs["configs"]["max_pages"]
         delete = configs["configs"]["delete"]
         delete_time = configs["configs"]["delete_time"]
         if not nyva:
@@ -940,8 +941,8 @@ async def group(client, message):
         if not btn:
             return
 
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
+        if len(btn) > int(max_pages): 
+            btns = list(split_list(btn, int(max_pages))) 
             keyword = f"{message.chat.id}-{message.message_id}"
             BUTTONS[keyword] = {
                 "total" : len(btns),
@@ -967,7 +968,6 @@ async def group(client, message):
         else:
            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete:
-           delete_time = 15
            await asyncio.sleep(int(delete_time))
            await k.delete()
            await message.delete()
