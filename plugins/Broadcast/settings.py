@@ -6,7 +6,7 @@ from pyrogram.errors import ButtonDataInvalid, FloodWait
 from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
- from translation import Translation
+from translation import Translation
 from plugins import VERIFY 
 from info import ADMINS
 #db = Database()
