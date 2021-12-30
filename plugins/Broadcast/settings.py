@@ -61,7 +61,7 @@ async def botsetting_info(client, message):
 async def bot_info(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
-    userid = message.from_user.id
+    userid = update.from_user.id
     chat_type = update.message.chat.type
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
