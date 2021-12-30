@@ -69,6 +69,8 @@ async def refresh(bot, message):
       max_pages=True,
       max_results=True,
       autofilter=True,
+      delete=True,
+      delete_time=3600,
       pm_fchat=True,
       imDb=True)
     append = await db.update_configs(user, new)
