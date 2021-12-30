@@ -36,6 +36,8 @@ class Database:
                 max_pages=5,
                 max_results=50,
                 autofilter=True,
+                delete=False,
+                delete_time=3600,
                 pm_fchat=True,
                 advance=True,
                 imDb=True
