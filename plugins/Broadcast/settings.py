@@ -61,6 +61,7 @@ async def botsetting_info(client, message):
 async def bot_info(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
+    userid = message.from_user.id
     chat_type = update.message.chat.type
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
@@ -77,6 +78,9 @@ async def bot_info(bot, update: CallbackQuery):
     autoc = "ON ✅" if autof else "OFF ❌"
     deletec = "ON ✅" if autodelete else "OFF ❌"
     chat_id = query_data.split("#")
+    st = await client.get_chat_member(chat, userid)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin" show_alert=True)
     if chat_type =="private":
       chat = chat_id  
     else:
