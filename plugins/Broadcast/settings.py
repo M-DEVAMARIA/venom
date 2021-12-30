@@ -335,7 +335,7 @@ async def cb_set(bot, update: CallbackQuery):
     spellCheck = True if prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
-    auto_delete = True if prev["configs"].get("delete")) == (True or "True") else False
+    auto_delete = True if prev["configs"].get("delete") == (True or "True") else False
     auto_delete_time = int(prev["configs"].get("delete_time"))
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
