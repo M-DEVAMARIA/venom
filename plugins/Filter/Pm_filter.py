@@ -968,7 +968,7 @@ async def group(client, message):
            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete:
            delete_time = 15
-           await asyncio.sleep({int("delete_time")})
+           await asyncio.sleep({int(delete_time)})
            await message.delete()
         return 
              
