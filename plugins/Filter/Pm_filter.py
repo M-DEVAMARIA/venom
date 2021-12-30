@@ -969,6 +969,7 @@ async def group(client, message):
         if delete:
            delete_time = 15
            await asyncio.sleep(int(delete_time))
+           k = message.reply_to_message and message
            await message.delete()
         return 
              
