@@ -19,14 +19,14 @@ class Translation(object):
 ║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.0</a>
    ╰━━━━━━━━━━━━━━━➣
 """
-    SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n\n
-Current settings:\n\n
-⪼<b>Auto Filter::</b> {}\n
-⪼<b>Buttons mode:</b> {}\n
-⪼<b>Spelling mode:</b> {}\n
-⪼<b>Filter per page:</b> {}\n
-⪼<b>Auto delete :</b> {}\n
-⪼<b>Imdb:</b> {}
+    SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
+Current settings:-\n
+⪼ <b>Auto Filter::</b> {}\n
+⪼ <b>Buttons mode:</b> {}\n
+⪼ <b>Spelling mode:</b> {}\n
+⪼ <b>Filter per page:</b> {}\n
+⪼ <b>Auto delete :</b> {}\n
+⪼ <b>Imdb:</b> {}
 
 change above value using buttons below
 """
