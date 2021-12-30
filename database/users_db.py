@@ -33,7 +33,7 @@ class Database:
             ),
             configs = dict(
                 spellcheck=True,
-                max_pages=5,
+                max_pages=10,
                 max_results=50,
                 autofilter=True,
                 delete=False,
