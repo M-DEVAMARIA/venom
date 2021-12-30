@@ -224,7 +224,7 @@ def split_list(l, n):
 
 @Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
-    _, user, single, imdb, movie_ = query.data.split('#')
+    _, user, single, imdb, max_pages, delete, delete_time, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
         return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
@@ -249,8 +249,8 @@ async def advantage_spoll_choker(bot, query):
         else:
           btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"spcheck#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"spcheck#{file_id}#{own}")])
                         
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
+        if len(btn) > int(max_pages): 
+            btns = list(split_list(btn, int(max_pages))) 
             keyword = f"{message.chat.id}-{message.message_id}"
             BUTTONS[keyword] = {
                 "total" : len(btns),
@@ -272,9 +272,14 @@ async def advantage_spoll_choker(bot, query):
         imdb = db if imdb =="True" else None
         if imdb:
            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-           await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           k = await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
-           await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
+           k = await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
+        if delete =="True":
+            await asyncio.sleep(int(delete_time))
+            await k.delete()
+            await query.delete()
+            await 
         return await query.message.delete()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
@@ -911,7 +916,7 @@ async def group(client, message):
                        [
                            InlineKeyboardButton(
                            text=f"{movie.get('title')}",
-                           callback_data=f"spolling#{user}#{single}#{imdbg}#{movie.movieID}",
+                           callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
                            )
                         ]
                         for movie in movies
