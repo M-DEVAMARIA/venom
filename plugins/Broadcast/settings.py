@@ -67,7 +67,9 @@ async def bot_info(bot, update: CallbackQuery):
     spell  = settings["configs"].get("spellcheck", False)
     advance  = settings["configs"].get("advance", False)
     autof  = settings["configs"].get("autofilter", False)
+    autodelete  = settings["configs"].get("delete", False)
     page = settings["configs"]["max_pages"]
+    delete = settings["configs"]["delete_time"]
     cap = "single" if pm_file_chat else "Double"
     imd = "ON ✔️" if imdb else "OFF ✖️"
     spellc = "ON ✔️" if spell else "OFF ✖️"
@@ -86,7 +88,7 @@ async def bot_info(bot, update: CallbackQuery):
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
             ],[
             InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
-            InlineKeyboardButton("Auto delete", callback_data=f"pages({page}|{chat})")
+            InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
             ],[
             InlineKeyboardButton("✖️ close ✖️", callback_data=f"close")
     ]]
@@ -268,6 +270,42 @@ async def auto_filter(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
+@Client.on_callback_query(filters.regex(r"delete\((.+)\)"), group=2)
+async def auto_filter(bot, update: CallbackQuery):
+    #imdb on / off calback function
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    
+    if user_id not in ADMINS:
+        return
+
+    count,value, chat_id = re.findall(r"delete\((.+)\)", query_data)[0].split("|", 2)
+    value = True if value=="True" else False
+    if value:
+         buttons= [[ 
+                InlineKeyboardButton("Off ✖️", callback_data=f"set(autodelete|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("1 h", callback_data=f"set(delete|3600|{chat_id}|{count})"),
+                InlineKeyboardButton("3 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
+                InlineKeyboardButton("5 h", callback_data=f"set(delete|10080|{chat_id}|{count})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+    else:
+        buttons =[[
+                InlineKeyboardButton("ON ✔", callback_data=f"set(autodelete|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+                    
+    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     """
@@ -297,6 +335,8 @@ async def cb_set(bot, update: CallbackQuery):
     spellCheck = True if prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
+    auto_delete = int(prev["configs"].get("delete")) == (True or "True") else False
+    auto_delete_time = int(prev["configs"].get("delete_time"))
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
     imdb = True if prev["configs"].get("imDb") == (True or "True") else False
@@ -310,6 +350,12 @@ async def cb_set(bot, update: CallbackQuery):
         
     elif action == "results":
         max_results = int(val)
+        
+    elif action == "autodelete":
+        auto_delete = True if val=="True" else False
+    
+    elif action == "delete":
+        auto_delete_time = int(val)
         
     elif action == "auto":
         auto_Filter = True if val=="True" else False
@@ -326,9 +372,11 @@ async def cb_set(bot, update: CallbackQuery):
     new = dict(
         spellcheck=spellCheck,
         max_pages=max_pages,
-        max_results=max_results,
+        max_results=max_results, 
         autofilter=auto_Filter,
         pm_fchat=pm_file_chat,
+        delete = auto_delete,
+        delete_time = auto_delete_time,
         advance=advancespl,
         imDb=imdb
         
