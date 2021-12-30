@@ -5,7 +5,8 @@ from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, 
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
 from database.users_db import db
 from database.connection_db import active_connection
-from database.Settings_db import Database 
+from database.Settings_db import Database
+ from translation import Translation
 from plugins import VERIFY 
 from info import ADMINS
 #db = Database()
@@ -74,6 +75,7 @@ async def bot_info(bot, update: CallbackQuery):
     imd = "ON ✔️" if imdb else "OFF ✖️"
     spellc = "ON ✔️" if spell else "OFF ✖️"
     autoc = "ON ✔️" if autof else "OFF ✖️"
+    deletec = "ON ✔️" if delete else "OFF ✖️"
     chat_id = query_data.split("#")
     if chat_type =="private":
       chat = chat_id  
@@ -95,7 +97,7 @@ async def bot_info(bot, update: CallbackQuery):
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
         reply_markup=reply_markup,
-        text= f"<b>coustime your</b> {update.message.chat.title} <b>Group settings.</b>\n\nCurrent settings:\n\n⪼<b>Button:</b> {cap}\n\n⪼<b>Imdb:</b> {imd}\n\n⪼<b>Spelling mode:</b> {spellc}\n\n⪼<b>AutoFilter:</b> {autoc}",
+        text= Translation.SETTINGS_TXT.format(update.message.chat.title,autoc,cap,spellc,page,deletec,imd),
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
