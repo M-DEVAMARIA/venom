@@ -87,7 +87,7 @@ async def bot_info(bot, update: CallbackQuery):
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
             ],[
-            InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
+            InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})")
             InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
             ],[
             InlineKeyboardButton("✖️ close ✖️", callback_data=f"close")
