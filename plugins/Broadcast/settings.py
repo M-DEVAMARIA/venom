@@ -67,6 +67,7 @@ async def bot_info(bot, update: CallbackQuery):
     spell  = settings["configs"].get("spellcheck", False)
     advance  = settings["configs"].get("advance", False)
     autof  = settings["configs"].get("autofilter", False)
+    page = settings["configs"]["max_pages"]
     cap = "single" if pm_file_chat else "Double"
     imd = "ON ✔️" if imdb else "OFF ✖️"
     spellc = "ON ✔️" if spell else "OFF ✖️"
@@ -83,6 +84,11 @@ async def bot_info(bot, update: CallbackQuery):
             ],[
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
+            ],[
+            InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
+            InlineKeyboardButton("Auto delete", callback_data=f"pages({page}|{chat})")
+            ],[
+            InlineKeyboardButton("✖️ close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
@@ -222,6 +228,38 @@ async def auto_filter(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
+                    
+    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
+@Client.on_callback_query(filters.regex(r"pages\((.+)\)"), group=2)
+async def auto_filter(bot, update: CallbackQuery):
+    #imdb on / off calback function
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    
+    if user_id not in ADMINS:
+        return
+
+    count, chat_id = re.findall(r"pages\((.+)\)", query_data)[0].split("|", 1)
+    
+    buttons= [[
+                InlineKeyboardButton("5", callback_data=f"set(pages|5|{chat_id}|{count})"),
+                InlineKeyboardButton("7", callback_data=f"set(pages|7|{chat_id}|{count})"),
+                InlineKeyboardButton("10", callback_data=f"set(pages|10|{chat_id}|{count})")
+                ],[
+                InlineKeyboardButton("12", callback_data=f"set(pages|12|{chat_id}|{count})""),
+                InlineKeyboardButton("15", callback_data=f"set(pages|15|{chat_id}|{count})"),
+                InlineKeyboardButton("20", callback_data=f"set(pages|20|{chat_id}|{count})")
+                ],[
+                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                ]]
+    
                     
     text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
