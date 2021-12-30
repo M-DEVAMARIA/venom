@@ -278,8 +278,7 @@ async def advantage_spoll_choker(bot, query):
         if delete =="True":
             await asyncio.sleep(int(delete_time))
             await k.delete()
-            await query.delete()
-            await 
+            await query.delete() 
         return await query.message.delete()
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
