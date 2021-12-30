@@ -80,7 +80,7 @@ async def bot_info(bot, update: CallbackQuery):
     chat_id = query_data.split("#")
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-        return await update.answer("your are not group owner or admin" show_alert=True)
+        return await update.answer("your are not group owner or admin", show_alert=True)
     if chat_type =="private":
       chat = chat_id  
     else:
