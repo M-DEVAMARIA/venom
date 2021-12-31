@@ -54,7 +54,7 @@ async def chatverupikkals(bot, message):
           max_pages=10,
           max_results=10,
           autofilter=True,
-          delete=True,
+          delete=False,
           delete_time=3600,
           pm_fchat=True,
           imDb=True)
@@ -63,7 +63,7 @@ async def chatverupikkals(bot, message):
         if not k:
            await db.update(int(user), new)
         else:
-           await asyncio.sleep(3)
+           await asyncio.sleep(2)
            await message.reply_text("append")
 
 @Client.on_message(filters.command("refresh"))
