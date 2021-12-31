@@ -63,6 +63,7 @@ async def chatverupikkals(bot, message):
         if not k:
            await db.update(int(user), new)
         else:
+           await asyncio.sleep(3)
            await message.reply_text("append")
 
 @Client.on_message(filters.command("refresh"))
