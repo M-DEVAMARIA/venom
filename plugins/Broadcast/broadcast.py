@@ -2,7 +2,7 @@ import asyncio
 from pyrogram import Client, filters
 import datetime
 import time 
-from info import ADMINS, LOG_CHANNEL
+from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL
 #broadcast 
 from utils import broadcast_messages
 from database.users_db import db
