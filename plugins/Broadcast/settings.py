@@ -305,7 +305,7 @@ async def auto_delete(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>Use below btns to auto delete messages after desired time send by venom\n\n bot only delete message send by user and venom. do not delete other bot messages</i>"
+    text=f"<b>Use below buttons to select auto delete messages after desired time send by venom</b>\n\n<i>Note:-\n bot only delete message send by user and venom. do not delete other bot messages</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
