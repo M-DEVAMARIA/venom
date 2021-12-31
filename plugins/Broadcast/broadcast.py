@@ -51,12 +51,19 @@ async def chatverupikkals(bot, message):
         user =  int(chat['id'])
         new = dict(
           spellcheck=True,
-          max_pages=True,
-          max_results=True,
+          max_pages=10,
+          max_results=10,
           autofilter=True,
+          delete=True,
+          delete_time=3600,
           pm_fchat=True,
           imDb=True)
-    await db.update_configs(user, new)
+
+   k = await db.update_configs(user, new)
+   if not k:
+       await db.update(int(user), new)
+   else:
+       await message.reply_text("append")
 
 @Client.on_message(filters.command("refresh"))
 async def refresh(bot, message):
@@ -66,8 +73,8 @@ async def refresh(bot, message):
       #  user =  int(chat['id'])
     new = dict(
       spellcheck=True,
-      max_pages=True,
-      max_results=True,
+      max_pages=10,
+      max_results=10,
       autofilter=True,
       delete=True,
       delete_time=3600,
