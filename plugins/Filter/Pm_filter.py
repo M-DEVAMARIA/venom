@@ -116,13 +116,13 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
                [InlineKeyboardButton(text="Next page ⏩",callback_data=f"next_0_{keyword}")]
             )    
             buttons.append(
-               [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages")]
+               [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
              )
         else:
             query = search
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
             )
             
         poster=await get_poster(search)
@@ -131,7 +131,7 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
            await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
            await message.reply_photo(photo=poster, caption=f"your query {search}", reply_markup=InKeyboardMarkup(buttons))
-        retrun
+        return
         
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
 async def give_filter(client, message): 
@@ -874,9 +874,9 @@ async def group(client, message):
                 size = f"[{get_size(file.file_size)}]"
                 name = f"{file.file_name}"
             if single:
-                    btn.append(
-                             [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
-                             )
+               btn.append(
+                          [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
+                           )
             else:
                btn =[[
                         InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"
