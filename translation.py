@@ -114,5 +114,5 @@ A module to find all country covid informations.
     TTS_TXT = """<b>🗣 TEXT To Speech</b>\n\nA Module To Convert TEXT To Voice With Language Support\n\n<b>📚Commands:</b>\n\n◉ /tts :- <code>Reply To Any TEXT Message  To Convert as audio</code>"""
     IMDB_TXT = """<b>IMDB MODULE</b>\n\nA Module To Get The Movie Informations. Use This Module To Get Movie Informations\n\n📚<b> commands:</b>\n◉ /imdb - <code>get the film information from IMDb source.</code>\n◉ /search - <code>get the film information from IMDb source.</code>"""
     SETT_TXT = """<b>Settings module</b>\n\nThis module is for customise your Auto filters settings in your group.\n\n📚 Commands:\n\n/settings <code>- command for open settings module in group</code>"""
-    
+    GROUP_LOG = """#NEWGROUP: \n\nGroup Name - {}\nGroup id - {}\nTotal members - {}\nAdded by - {}"""
     
