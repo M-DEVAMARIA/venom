@@ -854,7 +854,7 @@ async def group(client, message):
     max_pages = configs["configs"]["max_pages"]
     delete = configs["configs"]["delete"]
     delete_time = configs["configs"]["delete_time"]
-    if 2 < len(message.text) < 50:    
+    if 2 < len(message.text) < 100:    
         btn = []
         search = message.text 
         leng = ("total_len")
@@ -878,12 +878,7 @@ async def group(client, message):
                           [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
                            )
             else:
-               btn =[[
-                        InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"
-                        ),
-                        InlineKeyboardButton(text=f"{size}", callback_data=f"subinps#{file_id}"
-                        ),
-                   ]]
+               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{size}", callback_data=f"subinps#{file_id}")])
         if not files: 
              if spcheck:
                   user = message.from_user.id 
