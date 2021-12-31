@@ -84,10 +84,9 @@ async def filter(client, message):
         
             video=google, 
             caption=f"""
-👋Hey {message.from_user.mention}
-If this movie is not in our database you will not get that movie..
-Otherwise, The spelling of the requested movie may not be correct...
-So you go to google and check the spelling of the movie you want.""",
+Hey {message.from_user.mention},
+I couldn't find {search}? The spelling of the requested movie may not be correct...
+So you go to google or imdb and check the spelling of the movie you want.""",
             reply_markup=InlineKeyboardMarkup(
                       [[
                       InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
