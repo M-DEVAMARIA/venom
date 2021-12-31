@@ -1,9 +1,9 @@
 class Translation(object):
     START_TXT = """ <b>HEY, {}</b>
 
-<code>I am a autofilter + manual + filestore bot I will give movies in your group and my PM ! Also I can store files</code>
+<code>I am a AutoFilter + ManualFilter  + Filestore bot I will give movies in your group and my PM ! Also I can store files</code>
 
-<b>maintained by : @mdadmin2</b>"""
+<b>maintained by : <a href="t.me/mdadmin2">M.D Admin</a></b>"""
 
     ABOUT_TXT = """ 
 ╔═╦═╗╔═╗╔═╦╗╔═╗╔══╗ 
@@ -16,7 +16,7 @@ class Translation(object):
 ║┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
 ║┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
 ║┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
-║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.0</a>
+║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.1</a>
    ╰━━━━━━━━━━━━━━━➣
 """
     SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
