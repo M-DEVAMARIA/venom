@@ -131,7 +131,7 @@ async def buttons(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
            
-    text=f"<i>Use The Buttons Below To Select filename and  File Size Should Be Shown With Seperate Button or in same button ... to </i>" 
+    text=f"<i>Use The Buttons Below To Select filename and  File Size Should Be Shown With Seperate Button or in Single button ... to </i>" 
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
