@@ -110,9 +110,9 @@ async def buttons(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS:
-        return
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
 
@@ -131,7 +131,7 @@ async def buttons(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
            
-    text=f"<i>This Config Will Help You To Enable/Disable File Transfer Through Bot PM Without Redirecting Them To Channel....</i>" 
+    text=f"<i>Use The Buttons Below To Select filename and  File Size Should Be Shown With Seperate Button or in same button ... to </i>" 
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -145,9 +145,9 @@ async def imdb_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS:
-        return
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
     
@@ -165,7 +165,7 @@ async def imdb_mode(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    text=f"<i>Use Below Buttons to Imdb on/off. </i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -178,9 +178,9 @@ async def cb_show_invites(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS:
-        return
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
     
@@ -204,7 +204,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    text=f"<i>Use Below Buttons to Spelling mode on/off and choose mode: advance/normal.</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -213,13 +213,13 @@ async def cb_show_invites(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"auto\((.+)\)"), group=2)
 async def auto_filter(bot, update: CallbackQuery):
-    #imdb on / off calback function
+    #auto filter on / off calback function
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS:
-        return
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     value, chat_id = re.findall(r"auto\((.+)\)", query_data)[0].split("|", 1)
     
@@ -237,7 +237,7 @@ async def auto_filter(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    text=f"<i>Use Below Buttons to Auto filter On/Off</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -250,9 +250,9 @@ async def filter_page(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS:
-        return
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     count, chat_id = re.findall(r"pages\((.+)\)", query_data)[0].split("|", 1)
     
@@ -269,7 +269,7 @@ async def filter_page(bot, update: CallbackQuery):
                 ]]
     
                     
-    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    text=f"<i>Choose Your Desired 'Max Filter Count Per Page' For Every Filter Results Shown In group..</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -282,9 +282,9 @@ async def auto_delete(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS:
-        return
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     count,value, chat_id = re.findall(r"delete\((.+)\)", query_data)[0].split("|", 2)
     value = True if value=="True" else False
@@ -305,7 +305,7 @@ async def auto_delete(bot, update: CallbackQuery):
                 InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>This Config Will Help You To Show Invitation Link Of All Active Chats Along With The Filter Results For The Users To Join.....</i>"
+    text=f"<i>Use below btns to auto delete messages after desired time send by venom\n\n bot only delete message send by user and venom. do not delete other bot messages</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -321,9 +321,9 @@ async def cb_set(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
     user_id = update.from_user.id
-    
-    if user_id not in ADMINS :
-        return
+    st = await bot.get_chat_member(chat, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
 
     action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", query_data)[0].split("|", 3)
 
@@ -391,22 +391,22 @@ async def cb_set(bot, update: CallbackQuery):
     append_db = await db.update_configs(chat, new)
     
     if not append_db:
-        text="Something Wrong Please Check Bot Log For More Information...."
+        text="This group was not in my database.please send command /start in group to add group in db. again you feel this issue send /refresh in group"
         await update.answer(text=text, show_alert=True)
         return
     
-    text=f"Your Request Was Updated Sucessfully....\nNow All Upcoming Results Will Show According To This Settings..."
+    text=f"<b>Your Request Was Updated Sucessfully....</b>"
         
     buttons = [
         [
             InlineKeyboardButton
                 (
-                    "Back 🔙", callback_data=f"open({chat_id})"
+                    "⬅️ Back", callback_data=f"open({chat_id})"
                 ),
             
             InlineKeyboardButton
                 (
-                    "Close 🔐", callback_data="close"
+                    "✖️ Close ✖️", callback_data="close"
                 )
         ]
     ]
