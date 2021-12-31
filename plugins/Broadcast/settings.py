@@ -45,17 +45,17 @@ async def botsetting_info(client, message):
         return
     
     buttons = [[
-            InlineKeyboardButton("🔓 open settings", callback_data=f"open({chat_id})#{chid}")
+            InlineKeyboardButton("🔓 open here ", callback_data=f"open({chat_id})#{chid}")
             ],[
             InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
             ],[
-            InlineKeyboardButton("✖️ Close", callback_data=f"close")
+            InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
         chat_id=message.chat.id,
         reply_markup=reply_markup,
-        text="settings here you can coustimise venom ",
+        text="Where do you want to open the settings menu? ",
         parse_mode="html")
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(bot, update: CallbackQuery):
@@ -120,15 +120,15 @@ async def buttons(bot, update: CallbackQuery):
     
     if value:
         buttons= [[
-                InlineKeyboardButton("DOUBLE ✔️", callback_data=f"set(inPM|False|{chat_id}|{value})")
+                InlineKeyboardButton("DOUBLE ✅", callback_data=f"set(inPM|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back ", callback_data=f"open({chat_id})")
                 ]] 
     else:
         buttons=[[
-                InlineKeyboardButton("SINGLE  ✔️", callback_data=f"set(inPM|True|{chat_id}|{value})")
+                InlineKeyboardButton("SINGLE ✅", callback_data=f"set(inPM|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
            
     text=f"<i>Use The Buttons Below To Select filename and  File Size Should Be Shown With Seperate Button or in Single button ... to </i>" 
@@ -156,13 +156,13 @@ async def imdb_mode(bot, update: CallbackQuery):
         buttons= [[
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(imddb|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
     else:
         buttons =[[
-                InlineKeyboardButton("ON ✔", callback_data=f"set(imddb|True|{chat_id}|{value})")
+                InlineKeyboardButton("ON ✅", callback_data=f"set(imddb|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
     text=f"<i>Use Below Buttons to Imdb on/off. </i>"
@@ -189,19 +189,19 @@ async def cb_show_invites(bot, update: CallbackQuery):
     acts = "" if values=="True" else "✅"
     if value:
         buttons= [[
-                InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})"),
+                InlineKeyboardButton("ON ✅", callback_data=f"set(spell|True|{chat_id}|{value})"),
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton(f"advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
                 InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
     else:
         buttons =[[
-                InlineKeyboardButton("ON ✔", callback_data=f"set(spell|True|{chat_id}|{value})")
+                InlineKeyboardButton("ON ✅", callback_data=f"set(spell|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
     text=f"<i>Use Below Buttons to Spelling mode on/off and choose mode: advance/normal.</i>"
@@ -228,13 +228,13 @@ async def auto_filter(bot, update: CallbackQuery):
         buttons= [[
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(auto|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
     else:
         buttons =[[
-                InlineKeyboardButton("ON ✔", callback_data=f"set(auto|True|{chat_id}|{value})")
+                InlineKeyboardButton("ON ✅", callback_data=f"set(auto|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
     text=f"<i>Use Below Buttons to Auto filter On/Off</i>"
@@ -265,7 +265,7 @@ async def filter_page(bot, update: CallbackQuery):
                 InlineKeyboardButton("15", callback_data=f"set(pages|15|{chat_id}|{count})"),
                 InlineKeyboardButton("20", callback_data=f"set(pages|20|{chat_id}|{count})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
     
                     
@@ -296,16 +296,16 @@ async def auto_delete(bot, update: CallbackQuery):
                 InlineKeyboardButton("3 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
                 InlineKeyboardButton("5 h", callback_data=f"set(delete|10080|{chat_id}|{count})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
     else:
         buttons =[[
                 InlineKeyboardButton("ON ✔", callback_data=f"set(autodelete|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Back 🔙", callback_data=f"open({chat_id})")
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<b>Use below buttons to select auto delete messages after desired time send by venom</b>\n\n<i>Note:-\n bot only delete message send by user and venom. do not delete other bot messages</i>"
+    text=f"<b>Use below buttons to select auto delete messages send by venom after desired time</b>\n\n<i>Note:-\n bot only delete message send by user and venom. do not delete other bot messages</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -314,10 +314,6 @@ async def auto_delete(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
-    """
-    A Callback Funtion Support For config()
-    """
-    global VERIFY
     query_data = update.data
     chat = update.message.chat.id
     user_id = update.from_user.id
