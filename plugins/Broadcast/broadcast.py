@@ -80,7 +80,7 @@ async def refresh(bot, message):
       delete_time=3600,
       pm_fchat=True,
       imDb=True)
-      append = await db.update_configs(user, new)
+    append = await db.update_configs(user, new)
     if append: 
        await db.update(int(user), new)
        text="Something Wrong Please Check Bot Log For More Information...."
