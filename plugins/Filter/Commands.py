@@ -45,7 +45,7 @@ async def gstart(bot, cmd):
             group_id = cmd.chat.id
             title = cmd.chat.title
             await db.add_chat(cmd.chat.id, cmd.chat.title)
-            await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name - [{cmd.chat.title}]\nGroup id - {cmd.chat.id}\nTotal members = [{total}]\nAdded by - 'Unknown'")
+            await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name - {cmd.chat.title}\nGroup ID - {cmd.chat.id}\nTotal members - {total}\nAdded by - "Unknown"")
         return 
     
     if not await db.is_user_exist(cmd.from_user.id): 
@@ -69,7 +69,7 @@ async def gstart(bot, cmd):
                     )
                     return
             except UserNotParticipant:
-                ident, file_id = cmd.text.split("_-_-_-_")
+                ident, file_id = cmd.text.split("#")
                 await bot.send_message(
                     chat_id=cmd.from_user.id,
                     text="**Please Join My Updates Channel to use this Bot!**",
@@ -95,7 +95,7 @@ async def gstart(bot, cmd):
                 )
                 return
         try:
-            ident, file_id = cmd.text.split("_-_-_-_")
+            ident, file_id = cmd.text.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
