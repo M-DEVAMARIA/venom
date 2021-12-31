@@ -1,4 +1,4 @@
-#Kanged From @TroJanZheX
+# (c) @mdadmin2
 from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB, P_TTI_SHOW_OFF
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
@@ -85,8 +85,8 @@ async def filter(client, message):
             video=google, 
             caption=f"""
 Hey {message.from_user.mention},
-I couldn't find {search}? The spelling of the requested movie may not be correct...
-So you go to google or imdb and check the spelling of the movie you want.""",
+<b>I couldn't find</b><code> {search}</code><b>? The spelling of the requested movie may not be correct...
+So you go to google or imdb and check the spelling of the movie you want.</b>""",
             reply_markup=InlineKeyboardMarkup(
                       [[
                       InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
