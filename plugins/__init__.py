@@ -62,7 +62,7 @@ HELP = InlineKeyboardMarkup(
         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
         InlineKeyboardButton('ʙᴀᴛᴄʜ', callback_data='batch')
         ],[
-        InlineKeyboardButton('settings', callback_data='start'),
+        InlineKeyboardButton('settings', callback_data='sett'),
         InlineKeyboardButton('stαtus', callback_data="stats"),
         InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid')
         ],[
