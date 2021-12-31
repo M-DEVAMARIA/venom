@@ -53,7 +53,7 @@ async def gstart(bot, cmd):
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(
             LOG_CHANNEL,
-            f"#NEWUSER: \n\nNew User - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id})
+            f"#NEWUSER: \n\Name - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id})
          
     usr_cmdall1 = cmd.text
     if usr_cmdall1.startswith("/start subinps"):
