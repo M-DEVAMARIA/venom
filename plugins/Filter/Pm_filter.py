@@ -760,6 +760,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
+    elif query.data == "sett":
+        await query.message.edit_text(
+            text=Translation.SETT_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        ) 
     elif query.data == "extramod":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
