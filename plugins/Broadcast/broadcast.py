@@ -78,7 +78,7 @@ async def refresh(bot, message):
             group_id = cmd.chat.id
             title = cmd.chat.title
             await db.add_chat(cmd.chat.id, cmd.chat.title) 
-            return await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name -  [{cmd.chat.title}]\nGroup id - {cmd.chat.id}\nTotal members = [{total}]\nAdded by - "Unknown"",)
+            return await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name -  [{cmd.chat.title}]\nGroup id - {cmd.chat.id}\nTotal members = [{total}]\nAdded by - 'Unknown'")
               
     new = dict(
       spellcheck=True,
