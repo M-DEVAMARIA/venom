@@ -111,7 +111,7 @@ async def buttons(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
@@ -146,7 +146,7 @@ async def imdb_mode(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
@@ -179,7 +179,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
@@ -218,7 +218,7 @@ async def auto_filter(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     value, chat_id = re.findall(r"auto\((.+)\)", query_data)[0].split("|", 1)
@@ -251,7 +251,7 @@ async def filter_page(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     count, chat_id = re.findall(r"pages\((.+)\)", query_data)[0].split("|", 1)
@@ -283,7 +283,7 @@ async def auto_delete(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     count,value, chat_id = re.findall(r"delete\((.+)\)", query_data)[0].split("|", 2)
@@ -322,7 +322,7 @@ async def cb_set(bot, update: CallbackQuery):
     chat = update.message.chat.id
     user_id = update.from_user.id
     st = await bot.get_chat_member(chat, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", query_data)[0].split("|", 3)
