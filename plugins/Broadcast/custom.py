@@ -202,4 +202,4 @@ async def find_by_file_id(_, message):
             quote=True
         )
     except Exception as error:
-        await message.reply_text(str(e), quote=True)
+        await message.reply_text(error occurred", quote=True)
