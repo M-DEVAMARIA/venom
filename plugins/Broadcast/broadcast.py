@@ -57,6 +57,7 @@ async def chatverupikkals(bot, message):
           delete=False,
           delete_time=3600,
           pm_fchat=True,
+          advance=True,
           imDb=True)
 
         k = await db.update_configs(user, new)
@@ -88,6 +89,7 @@ async def refresh(bot, message):
       delete=false,
       delete_time=3600,
       pm_fchat=True,
+      advance=True,
       imDb=True)
     append = await db.update_configs(user, new)
     if append: 
