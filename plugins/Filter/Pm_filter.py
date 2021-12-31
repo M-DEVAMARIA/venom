@@ -21,7 +21,7 @@ import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
-BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="extra")]])
+BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 
 
     
@@ -847,23 +847,23 @@ async def cb_data(bot, update):
             
 async def group(client, message):
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-        return
+        return 
+    chat = message.chat.id
+    configs = await db.find_chat(chat)
+    single = configs["configs"]["pm_fchat"] 
+    imdbg = configs["configs"]["imDb"]
+    spcheck = configs["configs"]["spellcheck"]
+    autoftr = configs["configs"]["autofilter"]
+    advance = configs["configs"]["advance"]
+    max_pages = configs["configs"]["max_pages"]
+    delete = configs["configs"]["delete"]
+    delete_time = configs["configs"]["delete_time"]
     if 2 < len(message.text) < 50:    
         btn = []
         search = message.text 
         leng = ("total_len")
         query = search
         nyva=BOT.get("username")
-        chat = message.chat.id
-        configs = await db.find_chat(chat)
-        single = configs["configs"]["pm_fchat"] 
-        imdbg = configs["configs"]["imDb"]
-        spcheck = configs["configs"]["spellcheck"]
-        autoftr = configs["configs"]["autofilter"]
-        advance = configs["configs"]["advance"]
-        max_pages = configs["configs"]["max_pages"]
-        delete = configs["configs"]["delete"]
-        delete_time = configs["configs"]["delete_time"]
         if not nyva:
             botusername=await client.get_me()
             nyva=botusername.username
@@ -871,7 +871,7 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if not configs :
             await message.reply_text(text= "error occurred")
-    #if autoftr:
+    if autoftr:
         if files:
             for file in files:
                 file_id = file.file_id
@@ -959,52 +959,7 @@ async def group(client, message):
            await k.delete()
            await message.delete()
         return 
-             
-#@Client.on_callback_query(filters.regex(r"^spolling"))
-async def advantage_spooll_choker(bot, query):
-    _, user, movie_ = query.data.split('#')
-    if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("This not for you", show_alert=True)
-    if movie_  == "close_spellcheck":
-        return await query.message.delete()
     
-    await query.answer('Checking for Movie in database...')
-    db = await get_poster(query=movie_, id=True)
-    b = db['title']#check
-    files = await get_filter_results(b)
-    if not files:
-        return await query.message.reply_text(text = f" nothing found with {b}")
-    message = query.message.reply_to_message or query.message
-    btn = []
-    if files:
-        for file in files:
-          file_id = file.file_id
-          filename = f"[{get_size(file.file_size)}] {file.file_name}"
-          btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
-                    )
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message.message_id}"
-            BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
-            }
-            data = BUTTONS[keyword]
-            buttons = data['buttons'][0].copy()
-            buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}"),InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-            )    
-        else:
-            buttons = btn
-            buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
-            )
-        imdb = db
-        if imdb:
-           cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-           await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-           return await query.answer(f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
 async def advantage_spell_chok(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
     query = query.strip() + " movie"
