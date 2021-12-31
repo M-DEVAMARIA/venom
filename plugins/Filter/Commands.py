@@ -45,7 +45,7 @@ async def gstart(bot, cmd):
             group_id = cmd.chat.id
             title = cmd.chat.title
             await db.add_chat(cmd.chat.id, cmd.chat.title)
-            await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name - {cmd.chat.title}\nGroup ID - {cmd.chat.id}\nTotal members - {total}\nAdded by - "Unknown"")
+            await bot.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(cmd.chat.title,cmd.chat.id,total,"Unknown"))
         return 
     
     if not await db.is_user_exist(cmd.from_user.id): 
