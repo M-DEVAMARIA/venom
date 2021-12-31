@@ -875,12 +875,12 @@ async def group(client, message):
                 file_id = file.file_id
                 size = f"[{get_size(file.file_size)}]"
                 name = f"{file.file_name}"
-            if single:
-               btn.append(
+                if single:
+                   btn.append(
                           [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
                            )
-            else:
-               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{size}", callback_data=f"subinps#{file_id}")])
+                else:
+                   btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{size}", callback_data=f"subinps#{file_id}")])
         if not files: 
              if spcheck:
                   user = message.from_user.id 
