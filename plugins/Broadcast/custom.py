@@ -191,7 +191,7 @@ async def text_to_speech(_, message: Message):
         e = traceback.format_exc()
         print(e)
 
-@Client.on_message(filters.command(["findbyfileid"]) 
+@Client.on_message(filters.command(["findid", "stickerid"]) 
 async def find_by_file_id(_, message):
     if not message.reply_to_message:
         return
