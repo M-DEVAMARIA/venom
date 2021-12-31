@@ -69,7 +69,7 @@ async def gstart(bot, cmd):
                     )
                     return
             except UserNotParticipant:
-                ident, file_id = cmd.text.split("#")
+                file_id = cmd.text.split("#")
                 await bot.send_message(
                     chat_id=cmd.from_user.id,
                     text="**Please Join My Updates Channel to use this Bot!**",
@@ -95,7 +95,7 @@ async def gstart(bot, cmd):
                 )
                 return
         try:
-            ident, file_id = cmd.text.split("#")
+            file_id = cmd.text.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
