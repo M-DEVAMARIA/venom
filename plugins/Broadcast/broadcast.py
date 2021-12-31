@@ -59,11 +59,11 @@ async def chatverupikkals(bot, message):
           pm_fchat=True,
           imDb=True)
 
-   k = await db.update_configs(user, new)
-   if not k:
-       await db.update(int(user), new)
-   else:
-       await message.reply_text("append")
+        k = await db.update_configs(user, new)
+        if not k:
+           await db.update(int(user), new)
+        else:
+           await message.reply_text("append")
 
 @Client.on_message(filters.command("refresh"))
 async def refresh(bot, message):
@@ -80,7 +80,7 @@ async def refresh(bot, message):
       delete_time=3600,
       pm_fchat=True,
       imDb=True)
-    append = await db.update_configs(user, new)
+      append = await db.update_configs(user, new)
     if append: 
        await db.update(int(user), new)
        text="Something Wrong Please Check Bot Log For More Information...."
