@@ -21,7 +21,7 @@ class Translation(object):
 """
     SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
 Current settings:-\n
-⪼ <b>Auto Filter::</b> {}\n
+⪼ <b>Auto Filter:</b> {}\n
 ⪼ <b>Buttons mode:</b> {}\n
 ⪼ <b>Spelling mode:</b> {}\n
 ⪼ <b>Filter per page:</b> {}\n
