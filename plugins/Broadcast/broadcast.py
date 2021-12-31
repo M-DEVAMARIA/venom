@@ -2,7 +2,7 @@ import asyncio
 from pyrogram import Client, filters
 import datetime
 import time 
-from info import ADMINS 
+from info import ADMINS, LOG_CHANNEL
 #broadcast 
 from utils import broadcast_messages
 from database.users_db import db
@@ -72,6 +72,14 @@ async def refresh(bot, message):
     user = message.chat.id 
    # async for chat in users:
       #  user =  int(chat['id'])
+    if not await db.get_chat(cmd.chat.id):
+            total=await bot.get_chat_members_count(cmd.chat.id)
+            channel_id = cmd.chat.id
+            group_id = cmd.chat.id
+            title = cmd.chat.title
+            await db.add_chat(cmd.chat.id, cmd.chat.title) 
+            return await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name -  [{cmd.chat.title}]\nGroup id - {cmd.chat.id}\nTotal members = [{total}]\nAdded by - "Unknown"",)
+              
     new = dict(
       spellcheck=True,
       max_pages=10,
