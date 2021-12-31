@@ -190,3 +190,16 @@ async def text_to_speech(_, message: Message):
         await m.edit(e)
         e = traceback.format_exc()
         print(e)
+
+@Client.on_message(filters.command(["findbyfileid"]) 
+async def find_by_file_id(_, message):
+    if not message.reply_to_message:
+        return
+    stickerid = str(message.reply_to_message.text)
+    try:
+        await message.reply_cached_media(
+            stickerid,
+            quote=True
+        )
+    except Exception as error:
+        await message.reply_text(str(e), quote=True)
