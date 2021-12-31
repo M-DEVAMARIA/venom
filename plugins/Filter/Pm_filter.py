@@ -854,6 +854,8 @@ async def group(client, message):
     max_pages = configs["configs"]["max_pages"]
     delete = configs["configs"]["delete"]
     delete_time = configs["configs"]["delete_time"]
+    if not autoftr:
+        return
     if 2 < len(message.text) < 100:    
         btn = []
         search = message.text 
@@ -867,7 +869,7 @@ async def group(client, message):
         files = await get_filter_results(query=search)
         if not configs :
             await message.reply_text(text= "error occurred")
-    if autoftr:
+    
         if files:
             for file in files:
                 file_id = file.file_id
