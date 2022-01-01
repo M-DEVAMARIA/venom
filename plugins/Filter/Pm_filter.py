@@ -1,5 +1,6 @@
 # (c) @mdadmin2
 from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB, P_TTI_SHOW_OFF
+from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re, time, asyncio
@@ -245,8 +246,15 @@ async def advantage_spoll_choker(bot, query):
             )
         imdb = db if imdb =="True" else None
         if imdb:
-           cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-           k = await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           try:
+               cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+               k = await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
+               pic = imdb.get('poster')
+               poster = pic.replace('.jpg', "._V1_UX360.jpg")
+               await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+           except Exception as e:
+               await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons)) 
         else:
            k = await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete =="True":
@@ -886,6 +894,8 @@ async def group(client, message):
                   user = message.from_user.id 
                  #await advantage_spell_chek(message)
                   movies = await get_poster(search, bulk=True)
+                  if not movies:
+                        return await message.reply_text(f"i couldn't find anything with {search}")
                   if advance: 
                     btn = [
                        [
@@ -943,8 +953,15 @@ async def group(client, message):
             )
         imdb = await get_poster(search) if imdbg else None
         if imdb:
-           cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-           k = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           try:
+               cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+               k = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
+               pic = imdb.get('poster')
+               poster = pic.replace('.jpg', "._V1_UX360.jpg")
+               await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+           except Exception as e:
+               await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete:
