@@ -131,14 +131,14 @@ async def gstart(bot, cmd):
             )
         )
     else: 
-      try:
-       await start(bot, cmd)
-       await cmd.reply_photo(
-       photo=random.choice(PHOTO), 
-       caption=Translation.START_TXT.format(cmd.from_user.first_name),
-       parse_mode="html",
-       reply_markup= START_BTN)
-        
+        k = await start(bot, cmd)
+        if k =="False":
+            await cmd.reply_photo(
+            photo=random.choice(PHOTO), 
+            caption=Translation.START_TXT.format(cmd.from_user.first_name),
+            parse_mode="html",
+            reply_markup= START_BTN)
+    return
 #===================file store start =================#
 #@Client.on_message(filters.command(['start']))
 async def start(c, m):
@@ -177,7 +177,8 @@ async def start(c, m):
         caption = f"{msg.caption.markdown}\n\n\n" if msg.caption else ""
         
         await msg.copy(m.from_user.id, caption=caption)
-    
+    else:
+        return False
 
  #==================about Function====================#
 @Client.on_message(filters.command(['about']))
