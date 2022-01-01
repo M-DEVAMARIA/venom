@@ -6,8 +6,11 @@ from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL
 #broadcast 
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from database.users_db import db
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
-        
+    
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/GetTGLink/4178
 async def verupikkals(bot, message):
