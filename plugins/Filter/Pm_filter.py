@@ -219,10 +219,10 @@ async def advantage_spoll_choker(bot, query):
         for file in files:
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
-        if single =="True":
-          btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")])
-        else:
-          btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"spcheck#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"spcheck#{file_id}#{own}")])
+          if single =="True":
+              btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")])
+          else:
+              btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"spcheck#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"spcheck#{file_id}#{own}")])
                         
         if len(btn) > int(max_pages): 
             btns = list(split_list(btn, int(max_pages))) 
@@ -888,7 +888,7 @@ async def group(client, message):
                           [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
                            )
                 else:
-                   btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{size}", callback_data=f"subinps#{file_id}")])
+                   btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}")])
         if not files: 
              if spcheck:
                   user = message.from_user.id 
