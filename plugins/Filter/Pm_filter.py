@@ -207,7 +207,7 @@ async def advantage_spoll_choker(bot, query):
     own = query.from_user.id
     db = await get_poster(query=movie_, id=True)
     b = db['title']#check
-    b+= b.remove("IMDB")
+    b+= b.replace("imdb", "")
     files = await get_filter_results(b)
     if not files:
         await query.answer(f"{b} not found in my database check others",show_alert=True)
