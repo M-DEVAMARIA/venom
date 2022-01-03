@@ -207,9 +207,10 @@ async def advantage_spoll_choker(bot, query):
     own = query.from_user.id
     db = await get_poster(query=movie_, id=True)
     b = db['title']#check
+    b+= b.remove(IMDB)
     files = await get_filter_results(b)
     if not files:
-        await query.answer(f" nothing found in my database check others",show_alert=True)
+        await query.answer(f"{b} not found in my database check others",show_alert=True)
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
@@ -266,7 +267,7 @@ async def givess_filter(client: Client, query):
   
             ident, file_id, user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
-                return await query.answer("This not for you", show_alert=True)
+                return await query.answer("This is not for you\nask your own movie", show_alert=True)
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -384,7 +385,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         typed = query.from_user.id
         pass 
     if not (clicked == typed):
-        return await query.answer("ask your own movie",show_alert=True)
+        return await query.answer("This is not for you\nask your own movie",show_alert=True)
     if (clicked == typed):
 
         if query.data.startswith("subinps"):
@@ -892,7 +893,7 @@ async def group(client, message):
         if not files: 
              if spcheck:
                   user = message.from_user.id 
-                 #await advantage_spell_chek(message)
+                  search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
                   movies = await get_poster(search, bulk=True)
                   if not movies:
                         return await message.reply_text(f"i couldn't find anything with {search}")
