@@ -210,7 +210,7 @@ import math
 import json
 import shutil
 import heroku3
-@Client.on_message((filters.private | filters.group) & filters.command('status'))
+@Client.on_message((filters.private & filters.command('Dyno'))
 async def bot_status(client,message):
     if HEROKU_API_KEY:
         try:
