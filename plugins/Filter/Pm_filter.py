@@ -899,7 +899,7 @@ async def group(client, message):
                   movies = []
                   if imdb:
                       for movie in imdb: 
-                        movies += movie.get('title')
+                        movies = movie.get('title')
                   movies = list(dict.fromkeys(movies))
                   if not movies:
                         return await message.reply_text(f"i couldn't find anything with {search}")
