@@ -875,7 +875,8 @@ async def group(client, message):
             botusername=await client.get_me()
             nyva=botusername.username
             BOT["username"]=nyva
-        files = await get_filter_results(query=search)
+        searchs = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
+        files = await get_filter_results(query=searchs)
         if not configs :
             await message.reply_text(text= "error occurred")
     
@@ -901,7 +902,8 @@ async def group(client, message):
                       movieid = f"{movie.movieID}"
                       title = f"{movie.get('year')}"
                       movie =f"{movie.get('title')}"
-                      if len(movie) > 1: 
+                      movies = movie.split(' ') 
+                      if dict(movies) > 1: 
                           movie = movie + title
                           
                   if advance: 
@@ -958,7 +960,7 @@ async def group(client, message):
             buttons.append(
                 [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
             )
-        imdb = await get_poster(search) if imdbg else None
+        imdb = await get_poster(searchs) if imdbg else None
         if imdb:
            try:
                cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
