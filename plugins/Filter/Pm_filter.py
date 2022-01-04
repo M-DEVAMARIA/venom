@@ -895,7 +895,7 @@ async def group(client, message):
         if not files: 
              if spcheck:
                   if advance:
-                     return await advancespellmode(message, user, single, imdbg, max_pages, delete, delete_time)
+                     return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                   if not advance:
                      return await normalspellmode(message)
            
