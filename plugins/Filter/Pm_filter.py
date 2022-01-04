@@ -902,7 +902,7 @@ async def group(client, message):
                       title = f"{movie.get('year')}"
                       movie =f"{movie.get('title')}"
                       if len(movie) > 1: 
-                          movie = movie.append(title)
+                          movie = movie.str_append(title)
                           
                   if advance: 
                     btn = [
