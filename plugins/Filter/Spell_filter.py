@@ -13,7 +13,7 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 
 
-async def advancespellmode(message):
+async def advancespellmode(message, user, single, imdbg, max_pages, delete, delete_time):
     search = message.text
     user = message.from_user.id 
     search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
