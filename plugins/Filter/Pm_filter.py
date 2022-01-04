@@ -207,7 +207,7 @@ async def advantage_spoll_choker(bot, query):
     own = query.from_user.id
     db = await get_poster(query=movie_, id=True)
     b = db['title']#check
-    b+= b.replace("imdb", "")
+    b = b.replace("imdb", "")
     files = await get_filter_results(b)
     if not files:
         await query.answer(f"{b} not found in my database check others",show_alert=True)
@@ -893,19 +893,22 @@ async def group(client, message):
         if not files: 
              if spcheck:
                   user = message.from_user.id 
+                  movies = []
                   search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
-                  movies = await get_poster(search, bulk=True)
+                  movies += await get_poster(search, bulk=True)
+                  movies += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in movies]
+                  movies = list(dict.fromkeys(movies))
                   if not movies:
                         return await message.reply_text(f"i couldn't find anything with {search}")
                   if advance: 
                     btn = [
                        [
                            InlineKeyboardButton(
-                           text=f"{movie.get('title')}",
+                           text=movie.strip(),
                            callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
                            )
                         ]
-                        for movie in movies
+                        for movie in enumerate(movies)
                     ]
                     btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
                     k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
