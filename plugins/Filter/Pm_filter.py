@@ -900,9 +900,10 @@ async def group(client, message):
                   for movie in movies: 
                       movieid = f"{movie.movieID}"
                       movie =f"{movie.get('title')}"
+                      title = f"{movie.get('year')}"
                       if len(movie) > 1: 
-                          movie =f"{movie.get('title')} + {movie.get('year')}"
-                      
+                          movie = movie.append(title)
+                          
                   if advance: 
                     btn = [
                        [
