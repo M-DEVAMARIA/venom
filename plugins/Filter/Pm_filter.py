@@ -899,9 +899,9 @@ async def group(client, message):
                        return await message.reply_text(f"i couldn't find anything with {search}")
                   for movie in movies: 
                       if len(movie) > 1: 
-                          movie = movie.get('title') + movie.get('year')
+                          movie =f"{movie.get('title')} + {movie.get('year')}"
                       else:
-                          movie = movie.get('title')
+                          movie =f"{movie.get('title')}
                   
                   if advance: 
                     btn = [
