@@ -899,8 +899,8 @@ async def group(client, message):
                        return await message.reply_text(f"i couldn't find anything with {search}")
                   for movie in movies: 
                       movieid = f"{movie.movieID}"
-                      movie =f"{movie.get('title')}"
                       title = f"{movie.get('year')}"
+                      movie =f"{movie.get('title')}"
                       if len(movie) > 1: 
                           movie = movie.append(title)
                           
