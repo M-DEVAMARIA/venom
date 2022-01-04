@@ -897,15 +897,20 @@ async def group(client, message):
                   movies = await get_poster(search, bulk=True)
                   if not movies:
                        return await message.reply_text(f"i couldn't find anything with {search}")
+                  for movie in movies: 
+                      if len[movie]>1: 
+                          movie = movie.get('title') + movie.get('year')
+                      else:
+                          movie = movie.get('title')
+                  
                   if advance: 
                     btn = [
                        [
                            InlineKeyboardButton(
-                           text=f"{movie.get('title')}",
+                           text=f"{movie}",
                            callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
                            )
                         ]
-                        for movie in movies
                     ]
                     btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
                     k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
