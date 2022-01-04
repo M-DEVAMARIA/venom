@@ -899,7 +899,7 @@ async def group(client, message):
                   movie = []
                   if movies:
                       for i in movie: 
-                      movies = movies.strip() + movies['year']
+                      movies = movies.strip() + "movies['year']"
                         
                   movies = list(dict.fromkeys(movies))
                   if not movies:
