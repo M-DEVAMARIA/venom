@@ -897,7 +897,7 @@ async def group(client, message):
                   
                   movies = await get_poster(search, bulk=True)
                   movie = []
-                  if movies
+                  if movies:
                       for i in movie: 
                       movies = movies.strip() + movies['year']
                         
