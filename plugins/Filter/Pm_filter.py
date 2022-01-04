@@ -908,7 +908,7 @@ async def group(client, message):
                        [
                            InlineKeyboardButton(
                            text=movie.strip(),
-                           callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
+                           callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie}",
                            )
                         ]
                         for movie in movies
