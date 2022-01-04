@@ -14,6 +14,7 @@ from database.connection_db import active_connection, all_connections, delete_co
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
 from database.users_db import db 
 from database.filters_db import del_all, find_filter, get_filters 
+from .Spell_filter import advancespellmode, normalspellmode
 import random
 BUTTONS = {}
 BOT = {}
@@ -893,42 +894,10 @@ async def group(client, message):
                    btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}")])
         if not files: 
              if spcheck:
-                  user = message.from_user.id 
-                  search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
-                  movies = await get_poster(search, bulk=True)
-                  if not movies:
-                       return await message.reply_text(f"i couldn't find anything with {search}")
-                  if advance: 
-                    btn = [
-                       [
-                           InlineKeyboardButton(
-                           text=f"{movie.get('title')}",
-                           callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
-                           )
-                        ]
-                        for movie in movies
-                    ]
-                    btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
-                    k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
-                    await asyncio.sleep(22)
-                    await k.delete()
-                    return
+                  if advance:
+                     return await advancespellmode(message)
                   if not advance:
-                    spf = await message.reply_text(
-                    text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>",
-                    reply_markup=InlineKeyboardMarkup(
-                           [[  
-                            InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
-                            InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')
-                           ]]
-                       ),     
-                    parse_mode="html",
-                    reply_to_message_id=message.message_id)
-                    await asyncio.sleep(22)
-                    await spf.delete()
-                    return
-     
-               
+                     return await normalspellmode(message)
            
         if not btn:
             return
