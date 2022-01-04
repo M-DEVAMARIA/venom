@@ -14,6 +14,7 @@ BUTTONS = {}
 
 
 async def advancespellmode(message):
+    search = message.text
     user = message.from_user.id 
     search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
     movies = await get_poster(search, bulk=True)
@@ -35,6 +36,7 @@ async def advancespellmode(message):
     return 
 
 async def normalspellmode(message):
+    search = message.text
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>",
     reply_markup=InlineKeyboardMarkup(
