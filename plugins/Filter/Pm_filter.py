@@ -907,7 +907,7 @@ async def group(client, message):
                     btn = [
                        [
                            InlineKeyboardButton(
-                           text=movie.strip(),
+                           text=movie,
                            callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie}",
                            )
                         ]
