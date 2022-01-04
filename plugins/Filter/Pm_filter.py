@@ -897,7 +897,7 @@ async def group(client, message):
                   
                   imdb = await get_poster(search, bulk=True)
                   imdb = list(dict.fromkeys(imdb))
-                  movies = imdb.strip() 
+                  movies = imdb
                   if not movies:
                         return await message.reply_text(f"i couldn't find anything with {search}")
                   if advance: 
