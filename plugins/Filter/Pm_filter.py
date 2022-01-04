@@ -899,16 +899,15 @@ async def group(client, message):
                        return await message.reply_text(f"i couldn't find anything with {search}")
                   for movie in movies: 
                       movieid = f"{movie.movieID}"
+                      movie =f"{movie.get('title')}"
                       if len(movie) > 1: 
                           movie =f"{movie.get('title')} + {movie.get('year')}"
-                      else:
-                          movie =f"{movie.get('title')}"
-                  
+                      
                   if advance: 
                     btn = [
                        [
                            InlineKeyboardButton(
-                           text=f"{movie}",
+                           text=movie,
                            callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movieid}",
                            )
                         ]
