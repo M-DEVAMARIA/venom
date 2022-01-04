@@ -901,7 +901,7 @@ async def group(client, message):
                       if len(movie) > 1: 
                           movie =f"{movie.get('title')} + {movie.get('year')}"
                       else:
-                          movie =f"{movie.get('title')}
+                          movie =f"{movie.get('title')}"
                   
                   if advance: 
                     btn = [
