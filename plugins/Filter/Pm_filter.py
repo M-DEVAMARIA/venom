@@ -897,17 +897,14 @@ async def group(client, message):
                   
                   imdb = await get_poster(search, bulk=True)
                   imdb = list(dict.fromkeys(imdb))
-                  if imdb:
-                      for movie in imdb: 
-                        movies = movie.get('title')
-                  
+                  movies = imdb.strip() 
                   if not movies:
                         return await message.reply_text(f"i couldn't find anything with {search}")
                   if advance: 
                     btn = [
                        [
                            InlineKeyboardButton(
-                           text=movie,
+                           text=f"{movie.get('title')}",
                            callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie}",
                            )
                         ]
