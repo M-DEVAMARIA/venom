@@ -288,7 +288,9 @@ async def bot_status(client,message):
         quote=True,
         parse_mode="md"
     )
- def humanbytes(size):
+    return
+
+def humanbytes(size):
     if not size:
         return ""
     power = 2**10
