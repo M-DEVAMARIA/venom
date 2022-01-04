@@ -898,26 +898,19 @@ async def group(client, message):
                   movies = await get_poster(search, bulk=True)
                   if not movies:
                        return await message.reply_text(f"i couldn't find anything with {search}")
-                  for movie in movies: 
-                      movieid = f"{movie.movieID}"
-                      title = f"{movie.get('year')}"
-                      movie =f"{movie.get('title')}"
-                      movies = movie.split(' ') 
-                      if dict(movies) > 1: 
-                          movie = movie + title
-                          
                   if advance: 
                     btn = [
                        [
                            InlineKeyboardButton(
-                           text=movie,
-                           callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movieid}",
+                           text=f"{movie.get('title')}",
+                           callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
                            )
                         ]
+                        for movie in movies
                     ]
                     btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
                     k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
-                    await asyncio.sleep(25)
+                    await asyncio.sleep(22)
                     await k.delete()
                     return
                   if not advance:
@@ -931,7 +924,7 @@ async def group(client, message):
                        ),     
                     parse_mode="html",
                     reply_to_message_id=message.message_id)
-                    await asyncio.sleep(25)
+                    await asyncio.sleep(22)
                     await spf.delete()
                     return
      
