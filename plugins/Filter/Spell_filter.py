@@ -13,34 +13,38 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 
 
-#@Client.on_message(filters.group & filters.text & ~filters.edited & filters.incoming)
-#async def give_filter(client,message):
-        #await auto_filter(client, message)   
-@Client.on_callback_query(filters.regex(r"^spolling"))
-async def advantage_spoll_choker(bot, query):
-    _, user, movie_ = query.data.split('#')
-    if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("okDa", show_alert=True)
-    if movie_  == "close_spellcheck":
-        return await query.message.delete()
-    
-    await query.answer('Checking for Movie in database...')
-    files = await get_filter_results(movie_)
-    if not files:
-        return await query.answer("not in not in my database", show_alert=True)
-    message = query.message.reply_to_message or query.message
-    if files:
-        k = (movie_, files) 
-        buttons = [
+async def advancespellmode(message):
+    user = message.from_user.id 
+    search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
+    movies = await get_poster(search, bulk=True)
+    if not movies:
+    return await message.reply_text(f"i couldn't find anything with {search}")
+    btn = [
             [
-                InlineKeyboardButton(
-                    text=f"{file.file_size} {file.file_name}", callback_data=f'files#{file.file_id}'
-                ),
-            ]
-            for file in files
-        ]
-    return await query.message.reply_text(text = f"<b>Here is What I Found In My Database For Your Query  ‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-     
+              InlineKeyboardButton(
+              text=f"{movie.get('title')}",
+              callback_data=f"spolling#{user}#{single}#{imdbg}#{max_pages}#{delete}#{delete_time}#{movie.movieID}",
+              )
+             ]
+             for movie in movies
+          ]
+    btn.append([InlineKeyboardButton(text="close", callback_data=f'spolling#{user}#close_spellcheck')])
+    k =await message.reply_text(f"hey {message.from_user.mention},\n\nI couldn't find anything related to thatDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
+    await asyncio.sleep(22)
+    await k.delete()
+    return 
 
-
-                    
+async def normalspellmode(message):
+    spf = await message.reply_text(
+    text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>",
+    reply_markup=InlineKeyboardMarkup(
+            [[  
+             InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
+             InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')
+            ]]
+         ),     
+    parse_mode="html",
+    reply_to_message_id=message.message_id)
+    await asyncio.sleep(22)
+    await spf.delete()
+    return 
