@@ -292,6 +292,8 @@ async def auto_delete(bot, update: CallbackQuery):
          buttons= [[ 
                 InlineKeyboardButton("Off ✖️", callback_data=f"set(autodelete|False|{chat_id}|{value})")
                 ],[
+                InlineKeyboardButton("🕑 Timer", callback_data="time")
+                ],[
                 InlineKeyboardButton("1 h", callback_data=f"set(delete|3600|{chat_id}|{count})"),
                 InlineKeyboardButton("3 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
                 InlineKeyboardButton("5 h", callback_data=f"set(delete|10080|{chat_id}|{count})")
