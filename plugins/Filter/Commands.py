@@ -1,28 +1,26 @@
+import sys 
 import os, re
-import base64
-#sys for restart the bot
-import sys
-import asyncio, time
-import logging
-import random
-from plugins.__init__ import CAPTION, CALCULATE_TEXT, CALCULATE_BUTTONS, START_BTN
-from utils import Media, get_file_details, get_size, time_formatter, temp
-from database.users_db import db
-from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
-from pyrogram import Client, filters
-from info import ADMINS, BROADCAST_CHANNEL, PHOTO, start_uptime, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
+import random 
+import base64 
+import logging 
+import asyncio, time 
+from database.users_db import db 
 from translation import Translation 
-from pyrogram import StopPropagation
+from pyrogram import Client, filters 
 from pyrogram.errors import UserNotParticipant
+from plugins.__init__ import CAPTION, START_BTN, CALCULATE_TEXT, CALCULATE_BUTTONS
+from utils import temp, Media, get_size, time_formatter, get_file_details, unpack_new_file_id
+from pyrogram.types import User, Message, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL , PHOTO, start_uptime, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
+
 logger = logging.getLogger(__name__)
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-#from database.Settings_db import Database
-LOG_CHANNEL = BROADCAST_CHANNEL
+
 OWNER_ID = "1411070838"
-DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
-#dbs = Database
 IS_PRIVATE = os.environ.get("IS_PRIVATE",False) 
+DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
+
 
 #===================Start Function===================#
 @Client.on_message(filters.command("start"))
@@ -139,8 +137,7 @@ async def gstart(bot, cmd):
             parse_mode="html",
             reply_markup= START_BTN)
     return
-#===================file store start =================#
-#@Client.on_message(filters.command(['start']))
+#===================file store start =================
 async def start(c, m):
     if len(m.command) > 1: # sending the stored file
         try:
@@ -180,7 +177,7 @@ async def start(c, m):
     else:
         return False
 
- #==================about Function====================#
+#==================about Function====================
 @Client.on_message(filters.command(['about']))
 async def bot_info(client, message):
     buttons = [[
@@ -193,7 +190,7 @@ async def bot_info(client, message):
         text=Translation.ABOUT_TXT,
         parse_mode="html")
     
- #==================restart Function====================#
+ #==================restart Function====================
 
 @Client.on_message(filters.command('restart')& filters.user(ADMINS))
 async def restart(client, message):
@@ -204,17 +201,11 @@ async def restart(client, message):
     await msg.edit("<i>Server restarted successfully ✅</i>")
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-#qq feature____________#
+#=====================stats==============================
 @Client.on_message(filters.command('stats') & filters.user(ADMINS))
 async def stats(client, message):
-    
-
-    text=f"<b><u>🤖Bot's Status</u></b>\n"
-    text+=f"\n🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>\n"
-    text+=f"\nBot Funtion: <b><>Auto Filter & Manual Filters</b>"
-
     buttons = [[
-         InlineKeyboardButton("🔙 Back", url= f"https://t.me/mdmovies"),
+         InlineKeyboardButton("📢 updates Channel", url= f"https://t.me/mdmovies"),
          InlineKeyboardButton("Close 🔐", url= f"https://t.me/mdmovieses")
          ]]    
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -222,12 +213,9 @@ async def stats(client, message):
         chat_id=message.chat.id,
         reply_markup=reply_markup,
         text=f"🕐Bot's Uptime: <code>{time_formatter(time.time() - start_uptime)}</code>\n",
-        
-
         parse_mode="html")
 
- #_______________logs__________________#
-
+#========================log===============================
 @Client.on_message(filters.command('logger') & filters.user(ADMINS))
 async def log_file(bot, message):
     """Send log file"""
@@ -235,6 +223,8 @@ async def log_file(bot, message):
         await message.reply_document('TelegramBot.log')
     except Exception as e:
         await message.reply(str(e))
+        
+#=======================delete=============================
 @Client.on_message(filters.command('delete') & filters.user(ADMINS))
 async def delete(bot, message):
     reply = message.reply_to_message
@@ -279,7 +269,7 @@ async def delete(bot, message):
             else:
                 await msg.edit('File not found in database')
 
-
+#========================report================================
 @Client.on_message((filters.command(["report"]) | filters.regex("@admins") | filters.regex("@admin")) & filters.group)
 async def report(bot, message):
     if message.reply_to_message:
@@ -304,7 +294,7 @@ async def report(bot, message):
         if success:
             await message.reply_text("**Reported to Admins!**")
 
-#________________________________calculator____________________#
+#============================calculator=====================
 @Client.on_message(filters.command(["calc", "calculate", "calculator"]))
 async def calculate(bot, update):
     await update.reply_text(
@@ -313,6 +303,8 @@ async def calculate(bot, update):
         disable_web_page_preview=True,
         quote=True
     )
+ 
+#===========================================================
 @Client.on_callback_query(filters.regex(r"^cal"))
 async def cb_data(bot, update):
         i, data = update.data.split('#')
@@ -335,6 +327,7 @@ async def cb_data(bot, update):
         except Exception as error:
             print(error)
             
+#============================================================        
 async def decode(base64_string):
     base64_bytes = base64_string.encode("ascii")
     string_bytes = base64.b64decode(base64_bytes) 
