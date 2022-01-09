@@ -270,7 +270,28 @@ async def calculate(bot, update):
         disable_web_page_preview=True,
         quote=True
     )
-       
+@Client.on_callback_query(filters.regex(r"^cal"))
+async def cb_data(bot, update):
+        i, data = update.data.split('#')
+        try:
+            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
+            message_text = '' if CALCULATE_TEXT in message_text else message_text
+            if data == "=":
+                text = float(eval(message_text))
+            elif data == "DEL":
+                text = message_text[:-1]
+            elif data == "AC":
+                text = ""
+            else:
+                text = message_text + data
+            await update.message.edit_text(
+                text=f"{text}\n\n{CALCULATE_TEXT}",
+                disable_web_page_preview=True,
+                reply_markup=CALCULATE_BUTTONS
+            )
+        except Exception as error:
+            print(error)
+            
 async def decode(base64_string):
     base64_bytes = base64_string.encode("ascii")
     string_bytes = base64.b64decode(base64_bytes) 
