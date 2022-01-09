@@ -828,9 +828,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
       )
-@Client.on_callback_query()
+@Client.on_callback_query(filters.regex(r"^cal"))
 async def cb_data(bot, update):
-        data = update.data
+        i, data = update.data.split(#)
         try:
             message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
             message_text = '' if CALCULATE_TEXT in message_text else message_text
