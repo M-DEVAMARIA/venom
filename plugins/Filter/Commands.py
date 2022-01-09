@@ -275,7 +275,7 @@ async def cb_data(bot, update):
         i, data = update.data.split('#')
         try:
             message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
-            message_text = '' message_text
+           # message_text = '' message_text
             if data == "=":
                 text = float(eval(message_text))
             elif data == "DEL":
