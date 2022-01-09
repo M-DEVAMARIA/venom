@@ -20,7 +20,7 @@ START_BTN = InlineKeyboardMarkup(
         ]] 
         ) 
            
-CALCULATE_TEXT = "<code>Use below buttons to calculate numbers</code>"
+CALCULATE_TEXT = "Use below buttons to calculate numbers"
 CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="cal#DEL"),
