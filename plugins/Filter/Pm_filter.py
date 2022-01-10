@@ -239,12 +239,12 @@ async def advantage_spoll_choker(bot, query):
             [InlineKeyboardButton(text="Next Page ⏩",callback_data=f"next_0_{keyword}")]
             )  
             buttons.append(
-                [InlineKeyboardButton(text=f"🗓 1/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{message.from_user.id}")]
+                [InlineKeyboardButton(text=f"🗓 1/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{query.from_user.id}")]
             )
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{message.from_user.id}")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{query.from_user.id}")]
             )
         imdb = db if imdb =="True" else None
         if imdb:
