@@ -60,10 +60,10 @@ HELP = InlineKeyboardMarkup(
         ],[
         InlineKeyboardButton('song', callback_data='song'),
         InlineKeyboardButton('ᴛᴇʟᴇɢʀᴀᴘʜ', callback_data='telegraph'),
-        InlineKeyboardButton('ᶠⁱˡᵉ ˢᵗᵒʳᵉ', callback_data='batch')
+        InlineKeyboardButton('Fɪʟᴇ sᴛᴏʀᴇ', callback_data='batch')
         ],[
         InlineKeyboardButton('settings', callback_data='sett'),
-        InlineKeyboardButton('ᶜᵃˡᶜᵘˡᵃᵗᵒʳ', callback_data="calculator"),
+        InlineKeyboardButton('ᴄᴀʟᴄᴜʟᴀᴛᴏʀ', callback_data="calculate"),
         InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid')
         ],[
         InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
