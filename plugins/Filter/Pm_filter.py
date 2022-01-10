@@ -716,7 +716,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         )  
-    elif query.data == "calculater": 
+    elif query.data == "clcltr": 
         await query.message.edit_text(
             text=Translation.CALC_TXT,
             reply_markup=BUTTONS2,
