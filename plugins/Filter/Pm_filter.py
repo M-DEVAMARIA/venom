@@ -115,7 +115,7 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
             buttons = data['buttons'][0].copy()
 
             buttons.append(
-               [InlineKeyboardButton(text="Next page ⏩",callback_data=f"next_0_{keyword}")]
+               [InlineKeyboardButton(text="Next page ⏩",callback_data=f"next_0_{keyword}_{search}")]
             )    
             buttons.append(
                [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
@@ -236,7 +236,7 @@ async def advantage_spoll_choker(bot, query):
             data = BUTTONS[keyword]
             buttons = data['buttons'][0].copy()
             buttons.append(
-            [InlineKeyboardButton(text="Next Page ⏩",callback_data=f"next_0_{keyword}")]
+            [InlineKeyboardButton(text="Next Page ⏩",callback_data=f"next_0_{keyword}_{b}")]
             )  
             buttons.append(
                 [InlineKeyboardButton(text=f"🗓 1/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{query.from_user.id}")]
@@ -312,7 +312,7 @@ async def nextfilter(client: Client, query):
     
      
        
-            ident, index, keyword = query.data.split("_")
+            ident, index, keyword, search = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
@@ -323,7 +323,7 @@ async def nextfilter(client: Client, query):
                 buttons = data['buttons'][int(index)+1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}_{search}")]
                 )
                 buttons.append(
                     [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
@@ -339,10 +339,10 @@ async def nextfilter(client: Client, query):
                 buttons = data['buttons'][int(index)+1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}_{search}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)+1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
                 )
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -352,7 +352,7 @@ async def nextfilter(client: Client, query):
 
 @Client.on_callback_query(filters.regex(r"^back"))                         
 async def backfilter(client: Client, query):
-            ident, index, keyword = query.data.split("_")
+            ident, index, keyword, search = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
@@ -363,10 +363,10 @@ async def backfilter(client: Client, query):
                 buttons = data['buttons'][int(index)-1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
+                    [InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -379,10 +379,10 @@ async def backfilter(client: Client, query):
                 buttons = data['buttons'][int(index)-1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)-1}_{keyword}_{search}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
                 )
                 
                 await query.edit_message_reply_markup( 
@@ -932,7 +932,7 @@ async def group(client, message):
             data = BUTTONS[keyword]
             buttons = data['buttons'][0].copy()      
             buttons.append(
-            [InlineKeyboardButton(text="Next Page ⏩", callback_data=f"next_0_{keyword}")]
+            [InlineKeyboardButton(text="Next Page ⏩", callback_data=f"next_0_{keyword}_{searchs}")]
             )    
             buttons.append(
             [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
