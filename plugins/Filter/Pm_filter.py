@@ -274,10 +274,10 @@ async def givess_filter(client: Client, query):
   
     ident, file_id, user = query.data.split("#")
     if int(user) != 0 and query.from_user.id != int(user): 
-         return await query.answer("This is not for you ! ask your own movie", show_alert=True)
+         return await query.answer("This is not for you ! request your own movie", show_alert=True)
     files = await get_filter_results(file_id)
     if files:
-         await query.answer("sending to your pm ! check your pm", show_alert=True)
+         await query.answer("Sending all files to your pm ! check your pm", show_alert=True)
          for file in files:
             file_id = file.file_id
             filedetails = await get_file_details(file_id)
@@ -399,7 +399,7 @@ async def backfilter(client: Client, query):
 async def autocb(client: Client, query):
             ident, file_id, user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
-               return await query.answer("This is not for you ! ask your own movie", show_alert=True)
+               return await query.answer("This is not for you ! request your own movie", show_alert=True)
         
             filedetails = await get_file_details(file_id)
             for files in filedetails:
@@ -435,7 +435,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         typed = query.from_user.id
         pass 
     if not (clicked == typed):
-        return await query.answer("This is not for you ! ask your own movie",show_alert=True)
+        return await query.answer("This is not for you ! request your own movie",show_alert=True)
     if (clicked == typed):
         
         if query.data.startswith("checksub"):
