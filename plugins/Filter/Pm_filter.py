@@ -290,7 +290,7 @@ async def givess_filter(client: Client, query):
                   await query.answer(url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
                   return
                 else:
-                    await query.answer()
+                    await query.answer("sending......")
                     await client.send_cached_media(
                         chat_id=query.from_user.id,
                         file_id=file_id,
