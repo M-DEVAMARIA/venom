@@ -222,9 +222,9 @@ async def advantage_spoll_choker(bot, query):
           file_id = file.file_id
           filename = f"[{get_size(file.file_size)}] {file.file_name}"
           if single =="True":
-              btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"spcheck#{file_id}#{own}")])
+              btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}#{own}")])
           else:
-              btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"spcheck#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"spcheck#{file_id}#{own}")])
+              btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"subinps#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{own}")])
                         
         if len(btn) > int(max_pages): 
             btns = list(split_list(btn, int(max_pages))) 
@@ -394,20 +394,14 @@ async def backfilter(client: Client, query):
                 return
         
 
-@Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
-    clicked = query.from_user.id
-    try:
-        typed = query.message.reply_to_message.from_user.id
-    except:
-        typed = query.from_user.id
-        pass 
-    if not (clicked == typed):
-        return await query.answer("This is not for you\nask your own movie",show_alert=True)
-    if (clicked == typed):
 
-        if query.data.startswith("subinps"):
-            ident, file_id= query.data.split("#")
+@Client.on_callback_query(filters.regex(r"^subinps"))
+async def autocb(client: Client, query):
+  
+    ident, file_id, user = query.data.split("#")
+    if int(user) != 0 and query.from_user.id != int(user): 
+        return await query.answer("This is not for you\nask your own movie", show_alert=True)
+        
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -432,7 +426,20 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         caption=f_caption,
                         reply_markup=CAPTION,
                         )
-        elif query.data.startswith("checksub"):
+                    
+@Client.on_callback_query()
+async def cb_handler(client: Client, query: CallbackQuery):
+    clicked = query.from_user.id
+    try:
+        typed = query.message.reply_to_message.from_user.id
+    except:
+        typed = query.from_user.id
+        pass 
+    if not (clicked == typed):
+        return await query.answer("This is not for you\nask your own movie",show_alert=True)
+    if (clicked == typed):
+        
+        if query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
                 return
@@ -905,10 +912,10 @@ async def group(client, message):
                 name = f"{file.file_name}"
                 if single:
                    btn.append(
-                          [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}")]
+                          [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
                            )
                 else:
-                   btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}")])
+                   btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
         if not files: 
              if spcheck:
                   if advance:
