@@ -63,7 +63,7 @@ HELP = InlineKeyboardMarkup(
         InlineKeyboardButton('ᶠⁱˡᵉ ˢᵗᵒʳᵉ', callback_data='batch')
         ],[
         InlineKeyboardButton('settings', callback_data='sett'),
-        InlineKeyboardButton('ᶜᵃˡᶜᵘˡᵃᵗᵒʳ', callback_data="stats"),
+        InlineKeyboardButton('ᶜᵃˡᶜᵘˡᵃᵗᵒʳ', callback_data="calculator"),
         InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid')
         ],[
         InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
@@ -72,10 +72,10 @@ HELP = InlineKeyboardMarkup(
         ],[
         InlineKeyboardButton('mísc', callback_data='misc'),
         InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imbs'),
-        InlineKeyboardButton('jѕon', callback_data='imbs')
+        InlineKeyboardButton('jѕon', callback_data='json')
         ],[
         InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
-        InlineKeyboardButton('stαtus', callback_data='json'),
+        InlineKeyboardButton('stαtus', callback_data='stats'),
         InlineKeyboardButton('TTS', callback_data='tts')
         ]]
      )
