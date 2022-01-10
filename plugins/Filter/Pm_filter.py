@@ -266,9 +266,12 @@ async def advantage_spoll_choker(bot, query):
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
-            ident, file_id, user = query.data.split("#")
-            if int(user) != 0 and query.from_user.id != int(user): 
-                return await query.answer("This is not for you\nask your own movie", show_alert=True)
+    ident, file_id, user = query.data.split("#")
+    if int(user) != 0 and query.from_user.id != int(user): 
+         return await query.answer("This is not for you\nask your own movie", show_alert=True)
+    if file_id:
+         for file in file_id:
+            file_id = file.file_id
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -910,7 +913,10 @@ async def group(client, message):
                 "buttons" : btns
             }
             data = BUTTONS[keyword]
-            buttons = data['buttons'][0].copy()         
+            buttons = data['buttons'][0].copy()  
+            buttons.append(
+            [InlineKeyboardButton(text="All", callback_data=f"spcheck#{files}#{message.from_user.id})]
+            )    
             buttons.append(
             [InlineKeyboardButton(text="Next Page ⏩", callback_data=f"next_0_{keyword}")]
             )    
