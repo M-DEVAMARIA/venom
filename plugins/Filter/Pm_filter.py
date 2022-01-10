@@ -323,7 +323,7 @@ async def nextfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{query.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{query.from_user.id}")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
