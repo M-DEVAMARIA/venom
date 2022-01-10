@@ -268,10 +268,10 @@ async def givess_filter(client: Client, query):
   
     ident, file_id, user = query.data.split("#")
     if int(user) != 0 and query.from_user.id != int(user): 
-         return await query.answer("This is not for you\nask your own movie", show_alert=True)
+         return await query.answer("This is not for you ! ask your own movie", show_alert=True)
     files = await get_filter_results(file_id)
     if files:
-         await query.answer("sending......")
+         await query.answer("sending to your pm ! check your pm", show_alert=True)
          for file in files:
             file_id = file.file_id
             filedetails = await get_file_details(file_id)
@@ -393,7 +393,7 @@ async def backfilter(client: Client, query):
 async def autocb(client: Client, query):
             ident, file_id, user = query.data.split("#")
             if int(user) != 0 and query.from_user.id != int(user): 
-               return await query.answer("This is not for you\nask your own movie", show_alert=True)
+               return await query.answer("This is not for you ! ask your own movie", show_alert=True)
         
             filedetails = await get_file_details(file_id)
             for files in filedetails:
@@ -429,7 +429,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         typed = query.from_user.id
         pass 
     if not (clicked == typed):
-        return await query.answer("This is not for you\nask your own movie",show_alert=True)
+        return await query.answer("This is not for you ! ask your own movie",show_alert=True)
     if (clicked == typed):
         
         if query.data.startswith("checksub"):
@@ -666,26 +666,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
         timefmt = time_formatter(time.time() - start_uptime),
         await query.message.edit_text(Translation.ABOUT_TXT.format(timefmt), reply_markup=InlineKeyboardMarkup(
                [[
-                         InlineKeyboardButton("📦 Source", url="https://t.me/mD_movieseses"),
+                         InlineKeyboardButton("📦 Source", url="https://t.me/M_D_movieses"),
                          InlineKeyboardButton("Dev 🤠", url="https://t.me/mdadmin2")
                          ],
                          [
-                         InlineKeyboardButton("🏕️ Home", callback_data="start"),
+                         InlineKeyboardButton("🏠 Home", callback_data="start"),
                          InlineKeyboardButton("Close 🗑️", callback_data="close")
                    ]] 
                 ))
     
-    elif query.data == "use":
-        buttons = [[
-            InlineKeyboardButton('🚶close', callback_data='close')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.reply_video(
-            video='https://telegra.ph/file/fe9b257274b17e9487dbb.mp4',
-            caption='tutorial will comming soon \n\n you dont know anything please contact @mdadmin2',
-            reply_markup=reply_markup,
-            parse_mode='html')
-        
     elif query.data == "help":
         await query.message.edit_text(
             text="<b>ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ..  </b>\n",
@@ -693,37 +682,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
             )
  
-    elif query.data == "extra":
-        buttons = [[
-            InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid'),
-            InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
-            InlineKeyboardButton('extra', callback_data='extramod')
-            ],[
-            InlineKeyboardButton('ᴘɪɴ', callback_data='pin'),
-            InlineKeyboardButton('mísc', callback_data='misc'),
-            InlineKeyboardButton('ɪᴍᴅʙ', callback_data='imbs')
-            ],[
-            InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='help'),
-            InlineKeyboardButton('jѕon', callback_data='json'),
-            InlineKeyboardButton('TTS', callback_data='tts')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text="ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ...",
-            reply_markup=reply_markup,
-            parse_mode='html'
-        )
+    
     elif query.data == "autofilter": 
-        buttons = [[
-
-            InlineKeyboardButton('back', callback_data='help'),
-
-            InlineKeyboardButton('index', callback_data=f'index')
-            ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=Translation.AUTOFILTER_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )
     elif query.data == "song": 
@@ -752,7 +716,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         )  
-    
+    elif query.data == "calculator": 
+        await query.message.edit_text(
+            text=Translation.CALC_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        )  
     elif query.data == "misc":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
@@ -809,7 +778,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
         ) 
     elif query.data == "stats":
-        await query.answer("Fetching MongoDb DataBase")
+        
         buttons = [[
             InlineKeyboardButton('⇚ Back', callback_data='help'),
             InlineKeyboardButton('↻ refresh', callback_data='rfrsh')
@@ -820,11 +789,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         chats = await db.total_chat_count()
         monsize = await db.get_db_size() 
         monsize = get_size(monsize)
-        await query.message.edit_text(
-            text=Translation.STATUS_TXT.format(total, users, chats, monsize),
-            reply_markup=reply_markup,
-            parse_mode='html'
-        )
+        text=Translation.STATUS_TXT.format(total, users, chats, monsize)
+        await query.answer(f"{text}", show_alert=True)
+       # await query.message.edit_text(
+         #   text=text,
+         #   reply_markup=reply_markup,
+           # parse_mode='html'
+        #)
  
     elif query.data == "rfrsh":
         await query.answer("Fetching MongoDb DataBase")
