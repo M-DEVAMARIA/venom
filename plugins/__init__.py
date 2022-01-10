@@ -8,7 +8,7 @@ VERIFY = {}
 
 START_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('➕ 𝐴𝐷𝐷 𝑀𝐸 𝑇𝑂 𝑌𝑂𝑈𝑅 𝐺𝑅𝑂𝑈𝑃 ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
+        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
         ],[
         InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
         InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
