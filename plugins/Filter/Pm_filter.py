@@ -271,6 +271,7 @@ async def givess_filter(client: Client, query):
          return await query.answer("This is not for you\nask your own movie", show_alert=True)
     files = await get_filter_results(file_id)
     if files:
+         await query.answer("sending......")
          for file in files:
             file_id = file.file_id
             filedetails = await get_file_details(file_id)
@@ -290,13 +291,25 @@ async def givess_filter(client: Client, query):
                   await query.answer(url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
                   return
                 else:
-                    await query.answer("sending......")
-                    await client.send_cached_media(
-                        chat_id=query.from_user.id,
-                        file_id=file_id,
-                        caption=f_caption,
-                        reply_markup=CAPTION,
-                        )
+                   try:  
+                     await client.send_cached_media(
+                           chat_id=query.from_user.id,
+                           file_id=file_id,
+                           caption=f_caption,
+                           reply_markup=CAPTION,
+                           )
+                   except FloodWait as e:
+                       await asyncio.sleep(e.x)
+                       print(f"Floodwait of {e.x} sec.")
+                       await client.send_cached_media(
+                           chat_id=query.from_user.id,
+                           file_id=file_id,
+                           caption=f_caption,
+                           reply_markup=CAPTION,
+                           )
+                   except Exception as e:
+                      print(e)
+                      return
 @Client.on_callback_query(filters.regex(r"^next"))
 async def nextfilter(client: Client, query):
     
