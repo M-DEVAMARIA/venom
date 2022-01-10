@@ -9,7 +9,7 @@ import ast
 import pyrogram 
 from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
 from translation import Translation
-from pyrogram.errors import UserNotParticipant
+from pyrogram.errors import UserNotParticipant, FloodWait
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
 from database.users_db import db 
@@ -118,13 +118,13 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
                [InlineKeyboardButton(text="Next page ⏩",callback_data=f"next_0_{keyword}")]
             )    
             buttons.append(
-               [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+               [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
              )
         else:
             query = search
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
             )
             
         poster=await get_poster(search)
@@ -239,12 +239,12 @@ async def advantage_spoll_choker(bot, query):
             [InlineKeyboardButton(text="Next Page ⏩",callback_data=f"next_0_{keyword}")]
             )  
             buttons.append(
-                [InlineKeyboardButton(text=f"🗓 1/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                [InlineKeyboardButton(text=f"🗓 1/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{message.from_user.id}")]
             )
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{message.from_user.id}")]
             )
         imdb = db if imdb =="True" else None
         if imdb:
@@ -326,7 +326,7 @@ async def nextfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -342,7 +342,7 @@ async def nextfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
                 )
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -366,7 +366,7 @@ async def backfilter(client: Client, query):
                     [InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -382,7 +382,7 @@ async def backfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
                 )
                 
                 await query.edit_message_reply_markup( 
@@ -930,20 +930,17 @@ async def group(client, message):
                 "buttons" : btns
             }
             data = BUTTONS[keyword]
-            buttons = data['buttons'][0].copy()  
-            buttons.append(
-            [InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
-            )    
+            buttons = data['buttons'][0].copy()      
             buttons.append(
             [InlineKeyboardButton(text="Next Page ⏩", callback_data=f"next_0_{keyword}")]
             )    
             buttons.append(
-            [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+            [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
             )
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close")]
+                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
             )
         imdb = await get_poster(searchs) if imdbg else None
         if imdb:
