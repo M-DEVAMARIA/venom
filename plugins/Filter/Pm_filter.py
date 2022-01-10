@@ -412,7 +412,7 @@ async def autocb(client: Client, query):
                   await query.answer(url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
                   return
                 else:
-                    await query.answer()
+                    await query.answer("check your pm")
                     await client.send_cached_media(
                         chat_id=query.from_user.id,
                         file_id=file_id,
@@ -716,7 +716,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         )  
-    elif query.data == "calculator": 
+    elif query.data == "calculate": 
         await query.message.edit_text(
             text=Translation.CALC_TXT,
             reply_markup=BUTTONS2,
