@@ -71,10 +71,10 @@ Commands and Usage:
 • /connections - <code>list all your connections</code> """
    
     STATUS_TXT = """
-➭ Total files in db: <code>{}</code>
-➭ users: <code>{}</code>
-➭ total groups: <code>{}</code>
-➭ used storage: <code>{}</code> """
+➭ Total files in db: {}
+➭ users: {}
+➭ total groups: {}
+➭ used storage: {} """
     MISC_TXT = """Help: <b>Extra Modules</b>
 <b>NOTE:</b>
 
@@ -115,4 +115,4 @@ A module to find all country covid informations.
     IMDB_TXT = """<b>IMDB MODULE</b>\n\nA Module To Get The Movie Informations. Use This Module To Get Movie Informations\n\n📚<b> commands:</b>\n◉ /imdb - <code>get the film information from IMDb source.</code>\n◉ /search - <code>get the film information from IMDb source.</code>"""
     SETT_TXT = """<b>Settings module</b>\n\nThis module is for customise your Auto filters settings in your group.\n\n📚 Commands:\n\n/settings <code>- command for open settings module in group</code>"""
     GROUP_LOG = """#NEWGROUP:\n\n<b>Group Name -</b> {}\n<b>Group id -</b> {}\n<b>Total members -</b> {}\n<b>Added by -</b> {}"""
-    
+    CALC_TXT ="""<b>CALCULATOR MODULE</b>\n\nA module for launch calculator in telegram\n\n<b>🗣️ Available commands </b>\n\n▪️/calculator :-  <code>For launch calculator in telegram</code>"""
