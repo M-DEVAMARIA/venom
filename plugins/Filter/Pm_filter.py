@@ -265,7 +265,7 @@ async def advantage_spoll_choker(bot, query):
               await k.delete(True)
               await query.message.delete(True)
            except Exception as e:
-              await bot.send_message(LOG_CHANNEL,text="issue on autodelete message\n{e}" )       
+              await bot.send_message(LOG_CHANNEL,text=f"issue on autodelete message\n{e}" )       
               print(f'error in auto delete message {e}')
               return 
                                
@@ -937,7 +937,7 @@ async def group(client, message):
               await k.delete(True)
               await message.delete(True)
            except Exception as e:
-              await client.send_message(LOG_CHANNEL,text="issue on autodelete message\n{e}" )       
+              await client.send_message(LOG_CHANNEL,text=f"issue on autodelete message\n{e}" )       
               print(f'error in auto delete message {e}')
         return 
     
