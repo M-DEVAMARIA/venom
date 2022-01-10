@@ -260,7 +260,7 @@ async def advantage_spoll_choker(bot, query):
         else:
            k = await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete =="True":
-           await asyncio.sleep(int(delete_time)
+           await asyncio.sleep(int(delete_time))
            try:
               await k.delete(True)
               await query.message.delete(True)
@@ -932,7 +932,7 @@ async def group(client, message):
         else:
            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete:
-           await asyncio.sleep(int(delete_time)
+           await asyncio.sleep(int(delete_time))
            try:
               await k.delete(True)
               await message.delete(True)
