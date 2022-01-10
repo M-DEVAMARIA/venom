@@ -309,9 +309,6 @@ async def givess_filter(client: Client, query):
                     return
 @Client.on_callback_query(filters.regex(r"^next"))
 async def nextfilter(client: Client, query):
-    
-     
-       
             ident, index, keyword, search = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
@@ -326,7 +323,7 @@ async def nextfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{query.from_user.id}")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -342,7 +339,7 @@ async def nextfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)+1}_{keyword}_{search}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)+1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)+2}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{query.from_user.id}")]
                 )
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -366,7 +363,7 @@ async def backfilter(client: Client, query):
                     [InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{query.from_user.id}")]
                 )
                 if BUTTON:
                     buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
@@ -382,7 +379,7 @@ async def backfilter(client: Client, query):
                     [InlineKeyboardButton("⏪ Back Page", callback_data=f"back_{int(index)-1}_{keyword}_{search}"),InlineKeyboardButton("Next Page ⏩", callback_data=f"next_{int(index)-1}_{keyword}_{search}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
+                    [InlineKeyboardButton(f"🗓 {int(index)}/{data['total']}", callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{query.from_user.id}")]
                 )
                 
                 await query.edit_message_reply_markup( 
