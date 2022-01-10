@@ -287,29 +287,26 @@ async def givess_filter(client: Client, query):
                         f_caption=f_caption
                 if f_caption is None:
                     f_caption = f"{files.file_name}" 
-                if P_TTI_SHOW_OFF:
-                  await query.answer(url=f"https://t.me/{temp.U_NAME}?start=subinps_-_-_-_{file_id}")
-                  return
-                else:
-                   try:  
-                     await client.send_cached_media(
-                           chat_id=query.from_user.id,
-                           file_id=file_id,
-                           caption=f_caption,
-                           reply_markup=CAPTION,
-                           )
-                   except FloodWait as e:
-                       await asyncio.sleep(e.x)
-                       print(f"Floodwait of {e.x} sec.")
-                       await client.send_cached_media(
-                           chat_id=query.from_user.id,
-                           file_id=file_id,
-                           caption=f_caption,
-                           reply_markup=CAPTION,
-                           )
-                   except Exception as e:
-                      print(e)
-                      return
+               
+                try:  
+                    await client.send_cached_media(
+                          chat_id=query.from_user.id,
+                          file_id=file_id,
+                          caption=f_caption,
+                          reply_markup=CAPTION,
+                          )
+                except FloodWait as e:
+                    await asyncio.sleep(e.x)
+                    print(f"Floodwait of {e.x} sec.")
+                    await client.send_cached_media(
+                          chat_id=query.from_user.id,
+                          file_id=file_id,
+                          caption=f_caption,
+                          reply_markup=CAPTION,
+                          )
+                except Exception as e:
+                    print(e)
+                    return
 @Client.on_callback_query(filters.regex(r"^next"))
 async def nextfilter(client: Client, query):
     
@@ -397,10 +394,9 @@ async def backfilter(client: Client, query):
 
 @Client.on_callback_query(filters.regex(r"^subinps"))
 async def autocb(client: Client, query):
-  
-    ident, file_id, user = query.data.split("#")
-    if int(user) != 0 and query.from_user.id != int(user): 
-        return await query.answer("This is not for you\nask your own movie", show_alert=True)
+            ident, file_id, user = query.data.split("#")
+            if int(user) != 0 and query.from_user.id != int(user): 
+               return await query.answer("This is not for you\nask your own movie", show_alert=True)
         
             filedetails = await get_file_details(file_id)
             for files in filedetails:
