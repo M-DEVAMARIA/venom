@@ -1,5 +1,5 @@
 # (c) @mdadmin2
-from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB, P_TTI_SHOW_OFF
+from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB, P_TTI_SHOW_OFF, BROADCAST_CHANNEL as LOG_CHANNEL
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
@@ -254,15 +254,21 @@ async def advantage_spoll_choker(bot, query):
            except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
                pic = imdb.get('poster')
                poster = pic.replace('.jpg', "._V1_UX360.jpg")
-               await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+               k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
            except Exception as e:
-               await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons)) 
+               k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons)) 
         else:
            k = await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete =="True":
-            await asyncio.sleep(int(delete_time))
-            await k.delete()
-        return await query.message.delete()
+           await asyncio.sleep(int(delete_time)
+           try:
+              await k.delete(True)
+              await query.message.delete(True)
+           except Exception as e:
+              await bot.send_message(LOG_CHANNEL,text="issue on autodelete message\n{e}" )       
+              print(f'error in auto delete message {e}')
+              return 
+                               
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
@@ -840,6 +846,8 @@ async def cb_data(bot, update):
 
             
 async def group(client, message):
+    if message.text.startswith("/"):
+        return
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return 
     chat = message.chat.id
@@ -918,15 +926,19 @@ async def group(client, message):
            except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
                pic = imdb.get('poster')
                poster = pic.replace('.jpg', "._V1_UX360.jpg")
-               await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+               k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
            except Exception as e:
-               await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
+               k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         if delete:
-           await asyncio.sleep(int(delete_time))
-           await k.delete()
-           await message.delete()
+           await asyncio.sleep(int(delete_time)
+           try:
+              await k.delete(True)
+              await message.delete(True)
+           except Exception as e:
+              await client.send_message(LOG_CHANNEL,text="issue on autodelete message\n{e}" )       
+              print(f'error in auto delete message {e}')
         return 
     
 async def advantage_spell_chok(msg):
