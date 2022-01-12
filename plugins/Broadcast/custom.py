@@ -124,12 +124,12 @@ async def ping(_, message):
     await rm.edit(f"Pong!\n{time_taken_s:.3f} ms")
 
 #==========================================================
-@Client.on_message(filters.reply & filters.command("wiki"))
+@Client.on_message(filters.command(["wiki","Wikimedia"]))
 async def wiki(bot, message):
     i, reply = message.text.split(None, 1)
+    msg = await message.reply_text( f"`Searching {reply} on wikipedia..`")
     if not ' ' in message.text:
         return await message.reply_text ("`Give some text to search on wikipedia !`")
-    msg = await message.reply_text( f"`Searching {reply} on wikipedia..`")
     try:
      #   mk = wikipedia.summary(reply, sentences=3)
         summary = "**results :** {}\n\n**url :** {}"
