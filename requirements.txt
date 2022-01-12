@@ -12,6 +12,7 @@ pyromod
 requests
 bs4
 imdbpy
+tswift
 telegraph
 aiofiles
 wikipedia
