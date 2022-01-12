@@ -36,10 +36,10 @@ def get_arg(message):
     return " ".join(split[1:])    
 
 def lyrics(song):
-        lyric = Song.find_song(song)
-     #   lyric = lyric.format()
+        song = Song.find_song(song)
+        song = song.format()
         text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
-        text += f'{lyric}'
+        text += f'{song}'
         text += '\n\n\n💙 Thanks for using me'
         return text
 
