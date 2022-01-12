@@ -132,7 +132,7 @@ async def wiki(bot, message):
         return await message.reply_text ("`Give some text to search on wikipedia !`")
     try:
      #   mk = wikipedia.summary(reply, sentences=3)
-        summary = "**results :** {}\n\n**url :** {}"
+        summary = "{} <a href="{}">more</a>"
         result = summary.format(wikipedia.summary(reply, sentences=3), wikipedia.page(reply).url)
         
         await msg.edit(result)
