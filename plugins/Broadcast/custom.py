@@ -132,9 +132,10 @@ async def wiki(bot, message):
     msg = await message.reply_text( f"`Searching {reply} on wikipedia..`")
     try:
      #   mk = wikipedia.summary(reply, sentences=3)
-        rslt = summary.format(wikipedia.summary(reply, sentences=3), wikipedia.page(reply).url)
-        te = f"**Search Query :** {reply}\n\n**Results :** {rslt}"
-        await msg.edit(te)
+        summary = f"**Search Query :** {reply}\n\n**Results :** {rslt}"
+        result = summary.format(wikipedia.summary(reply, sentences=3), wikipedia.page(reply).url)
+        
+        await msg.edit(result)
     except Exception as e:
         await msg.edit(f"**ERROR** : {str(e)}")
     b_msg = message.reply_to_message
