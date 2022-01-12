@@ -37,6 +37,9 @@ def get_arg(message):
 
 def lyrics(song):
         song = Song.find_song(song)
+        if not song:
+            return print("not found anything ")
+        song = song.lyrics
         song = song.format()
         text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
         text += f'{song}'
