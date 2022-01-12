@@ -126,8 +126,8 @@ async def ping(_, message):
 #==========================================================
 @Client.on_message(filters.reply & filters.command("wiki"))
 async def wiki(bot, message):
-    reply = message.reply_to_message
-    if not reply:
+    i, reply = message.text.split(None, 1)
+    if not ' ' in message.text::
         return await message.reply_text ("`Give some text to search on wikipedia !`")
     msg = await message.reply_text( f"`Searching {reply} on wikipedia..`")
     try:
@@ -138,7 +138,7 @@ async def wiki(bot, message):
         await msg.edit(result)
     except Exception as e:
         await msg.edit(f"**ERROR** : {str(e)}")
-    b_msg = message.reply_to_message
+    
 
 #=============================================================
 from io import BytesIO
