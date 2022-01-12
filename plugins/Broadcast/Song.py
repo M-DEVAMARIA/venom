@@ -37,7 +37,7 @@ def get_arg(message):
 
 def lyrics(song):
         lyric = Song.find_song(song)
-        lyric = lyric.format()
+     #   lyric = lyric.format()
         text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
         text += f'{lyric}'
         text += '\n\n\n💙 Thanks for using me'
