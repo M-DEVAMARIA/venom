@@ -1,4 +1,5 @@
 import os 
+from asyncio import sleep as rest
 from database.users_db import db
 from pyrogram import filters, Client
 from translation import Translation 
@@ -9,15 +10,17 @@ from info import IMDB_TEMPLATE, BROADCAST_CHANNEL as LOG_CHANNEL
 @Client.on_message(filters.new_chat_members & filters.group)
 async def save_group(bot, cmd):
     if not await db.get_chat(cmd.chat.id):
-            total=await bot.get_chat_members_count(cmd.chat.id)
-            channel_id = cmd.chat.id
-            group_id = cmd.chat.id
-            title = cmd.chat.title
-            await db.add_chat(cmd.chat.id, cmd.chat.title)
-            await bot.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(cmd.chat.title,cmd.chat.id,total,"Unknown"))
+        total=await bot.get_chat_members_count(cmd.chat.id)
+        channel_id = cmd.chat.id
+        group_id = cmd.chat.id
+        title = cmd.chat.title
+        await db.add_chat(cmd.chat.id, cmd.chat.title)
+        await bot.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(cmd.chat.title,cmd.chat.id,total,"Unknown"))
             
     for u in cmd.new_chat_members:
-         await cmd.reply(f"<b>Hey , {u.mention}, Welcome to {cmd.chat.title}</b>")
+        k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>")
+        await rest(30)
+        await k.delete(True)
 
 @Client.on_message(filters.command(['info']))
 async def bot_info(client, message):
@@ -31,16 +34,27 @@ async def bot_info(client, message):
 @Client.on_message(filters.command('id'))
 async def showid(client, message):
     chat_type = message.chat.type
-    if chat_type == "private":
-        user_id = message.chat.id
-        first = message.from_user.first_name
-        last = message.from_user.last_name or ""
-        username = message.from_user.username
-        dc_id = message.from_user.dc_id or ""
+    user_id = message.chat.id
+    first = message.from_user.first_name
+    last = message.from_user.last_name or ""
+    username = message.from_user.username
+    dc_id = message.from_user.dc_id or ""
+    if chat_type == "private": 
         await message.reply_text(
             f"<b>➲ First Name:</b> {first}\n<b>➲ Last Name:</b> {last}\n<b>➲ Username:</b> {username}\n<b>➲ Telegram ID:</b> <code>{user_id}</code>\n<b>➲ Data Centre:</b> <code>{dc_id}</code>",
-            quote=True
-        )#/EvaMaria/blob/master/plugins/misc.py#:~:text=setLevel(logging.ERROR)-,%40Client.on_message(filters.command(%27id%27)),),-elif%20chat_type%20in    
+            quote=True 
+        )
+    if chat_type in ["group", "supergroup"]:
+         k = ""
+         k+= f"<b>➲ User ID:</b> <code>{user_id}</code>\n<b>➲ Chat ID:</b> <code>{message.chat.id}</code>"
+            
+         if message.reply_to_message:
+            k+= f"<b>➲ Replied User ID:</b> <code>{message.reply_to_message.from_user.id if message.reply_to_message.from_user else 'Anonymous'}</code>"
+         await message.reply_text(
+             k,
+             quote=True
+         )
+            
 @Client.on_message(filters.command(["imdb", 'search']))
 async def imdb_search(client, message):
     if ' ' in message.text:
