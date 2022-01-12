@@ -1,10 +1,23 @@
 import os 
+from database.users_db import db
 from pyrogram import filters, Client
 from translation import Translation 
 from utils import get_poster
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from info import IMDB_TEMPLATE
+from info import IMDB_TEMPLATE, BROADCAST_CHANNEL as LOG_CHANNEL
 
+@Client.on_message(filters.new_chat_members & filters.group)
+async def save_group(bot, cmd):
+    if not await db.get_chat(cmd.chat.id):
+            total=await bot.get_chat_members_count(cmd.chat.id)
+            channel_id = cmd.chat.id
+            group_id = cmd.chat.id
+            title = cmd.chat.title
+            await db.add_chat(cmd.chat.id, cmd.chat.title)
+            await bot.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(cmd.chat.title,cmd.chat.id,total,"Unknown"))
+            
+    for u in cmd.new_chat_members:
+         await cmd.reply(f"<b>Hey , {u.mention}, Welcome to {cmd.chat.title}</b>")
 
 @Client.on_message(filters.command(['info']))
 async def bot_info(client, message):
