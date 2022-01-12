@@ -127,7 +127,7 @@ async def ping(_, message):
 @Client.on_message(filters.reply & filters.command("wiki"))
 async def wiki(bot, message):
     i, reply = message.text.split(None, 1)
-    if not ' ' in message.text::
+    if not ' ' in message.text:
         return await message.reply_text ("`Give some text to search on wikipedia !`")
     msg = await message.reply_text( f"`Searching {reply} on wikipedia..`")
     try:
