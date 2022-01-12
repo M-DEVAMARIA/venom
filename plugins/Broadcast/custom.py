@@ -126,13 +126,14 @@ async def ping(_, message):
 #==========================================================
 @Client.on_message(filters.reply & filters.command("wiki"))
 async def wiki(bot, message):
-    srch = message.reply_to_message
-    if not srch:
+    reply = message.reply_to_message
+    if not reply:
         return await message.reply_text ("`Give some text to search on wikipedia !`")
-    msg = await message.reply_text( f"`Searching {srch} on wikipedia..`")
+    msg = await message.reply_text( f"`Searching {reply} on wikipedia..`")
     try:
         mk = wikipedia.summary(srch, sentences=3)
-        te = f"**Search Query :** {srch}\n\n**Results :** {mk[:1024]}"
+        rslt = summary.format(wikipedia.summary(reply, sentences=3), wikipedia.page(reply).url)
+        te = f"**Search Query :** {reply}\n\n**Results :** {rslt}"
         await msg.edit(te)
     except Exception as e:
         await msg.edit(f"**ERROR** : {str(e)}")
