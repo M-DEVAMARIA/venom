@@ -20,7 +20,10 @@ async def save_group(bot, cmd):
     for u in cmd.new_chat_members:
         k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>")
         await rest(30)
-        await k.delete(True)
+            try:
+               await k.delete(True)
+            except Exception as e:
+               print(f"error in auto delete message {e}")
 
 @Client.on_message(filters.command(['info']))
 async def bot_info(client, message):
