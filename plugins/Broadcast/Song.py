@@ -6,6 +6,7 @@ import asyncio
 import os
 import time
 import youtube_dl
+from tswift import Song
 from youtube_search import YoutubeSearch
 import requests
 from pyrogram.types import Message
@@ -13,8 +14,7 @@ from pytube import YouTube
 from youtubesearchpython import VideosSearch
 from utils import temp
 #________arq__________#
-import requests
-
+ 
 
 dl_limit = 0
 def yt_search(song):
@@ -33,9 +33,30 @@ def get_arg(message):
     split = msg[1:].replace("\n", " \n").split(" ")
     if " ".join(split[1:]).strip() == "":
         return ""
-    return " ".join(split[1:])        
+    return " ".join(split[1:])    
 
+def lyrics(song):
+        lyric = Song.find_song(song)
+        lyric = lyric.format()
+        text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
+        text += f'{lyric}'
+        text += '\n\n\n💙 Thanks for using me'
+        return text
 
+@Client.on_message(filters.command(["lyric", "lyrics"]))
+async def lyrics(client, message):
+   if ' ' in message.text:
+      chat_id = message.chat.id
+      r, query = message.text.split(None, 1)
+      k = await message.reply("Searching For Lyrics.....")
+      rpl = lyrics(query)
+      try:
+         await k.delete()
+         await client.send_message(chat_id, text = rpl, reply_to_message_id = message.message_id)
+      except Exception as e:
+         await message.reply_text(f"I Can't Find A Song With `{query}`", quote = True)
+         print(f"{e}")
+        
 @Client.on_message(filters.command(["music", "song"]))
 async def song(client, message):
     chat_id = message.chat.id
