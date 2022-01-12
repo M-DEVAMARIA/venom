@@ -46,7 +46,7 @@ async def showid(client, message):
         )
     if chat_type in ["group", "supergroup"]:
          k = ""
-         k+= f"<b>➲ User ID:</b> <code>{user_id}</code>\n<b>➲ Chat ID:</b> <code>{message.chat.id}</code>"
+         k+= f"<b>➲ User ID:</b> <code>{message.from_user.id}</code>\n<b>➲ Chat ID:</b> <code>{message.chat.id}</code>\n"
             
          if message.reply_to_message:
             k+= f"<b>➲ Replied User ID:</b> <code>{message.reply_to_message.from_user.id if message.reply_to_message.from_user else 'Anonymous'}</code>"
