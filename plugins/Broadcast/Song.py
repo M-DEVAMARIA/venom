@@ -44,7 +44,7 @@ def lyrics(song):
         return text
 
 @Client.on_message(filters.command(["lyric", "lyrics"]))
-async def lyric(client, message):
+async def lyrical(client, message):
    if ' ' in message.text:
       chat_id = message.chat.id
       r, query = message.text.split(None, 1)
