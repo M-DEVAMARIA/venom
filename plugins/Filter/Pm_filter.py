@@ -10,6 +10,7 @@ import pyrogram
 from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
 from translation import Translation
 from pyrogram.errors import UserNotParticipant, FloodWait
+from plugins.Broadcast.settings import botsetting_info
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
 from database.users_db import db 
@@ -822,6 +823,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode='html'
       )
+    elif query.data == "sets":
+        await botsetting_info(client, query)
+ 
 @Client.on_callback_query(filters.regex(r"^cal"))
 async def cb_data(bot, update):
         i, data = update.data.split('#')
