@@ -9,9 +9,9 @@ import requests
 from requests.utils import requote_uri
 from utils import temp
 API = "https://api.sumanjay.cf/covid/?country="
-BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
-
+BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('📢 Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
+
 @Client.on_message(filters.media & filters.private)
 async def telegraph_upload(bot, update):
 
@@ -46,18 +46,13 @@ async def telegraph_upload(bot, update):
         text=f"<b>Link :-</b> <code>https://telegra.ph{response[0]}</code>",
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(text="Open Link", url=f"https://telegra.ph{response[0]}"),
-                    InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url=https://telegra.ph{response[0]}")
-                ],
-                [  
-                    InlineKeyboardButton(text="📢 Join venom Update Channel ", url="https://t.me/venombotupdates")
-                ]
-            ]
-        )
-    )
-
+            [[
+                InlineKeyboardButton(text="Open Link", url=f"https://telegra.ph{response[0]}"),
+                InlineKeyboardButton(text="Share Link", url=f"https://telegram.me/share/url?url=https://telegra.ph{response[0]}")
+                ],[
+                InlineKeyboardButton(text="📢 Join venom Update Channel ", url="https://t.me/venombotupdates")
+            ]]))
+            
 @Client.on_message(filters.command("covid"))
 async def reply_info(bot, message):
     reply_markup = BUTTONS
@@ -100,21 +95,18 @@ searched by @{temp.U_NAME}"""
         return error
 
 #-------------------pin---------------------#
-@Client.on_message(filters.command("pin"))
+@Client.on_message(filters.command(["pin", "unpin"]))
 async def pin(_, message: Message):
     if not message.reply_to_message:
-        return
-    await message.reply_to_message.pin()
+        return 
+    if message =="/pin":
+        await message.reply_to_message.pin()
+         
+    if message =="/unpin":
+        await message.reply_to_message.unpin()
+ 
 
-@Client.on_message(filters.command("unpin"))
-async def unpin(_, message: Message):
-    if not message.reply_to_message:
-        return
-    await message.reply_to_message.unpin()
-    
-import wikipedia
-
-#_____________________ping_____________________
+#====================ping=====================
 @Client.on_message(filters.command("ping"))
 async def ping(_, message):
     start_t = time.time()
@@ -124,6 +116,7 @@ async def ping(_, message):
     await rm.edit(f"Pong!\n{time_taken_s:.3f} ms")
 
 #==========================================================
+import wikipedia
 @Client.on_message(filters.command(["wiki","Wikimedia"]))
 async def wiki(bot, message):
     i, reply = message.text.split(None, 1)
