@@ -16,7 +16,6 @@ from info import ADMINS
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, message, call=False):
     userid = message.from_user.id
-    chat_type = message.chat.type
     if not call:
         chat_id = message.chat.id
     else:
