@@ -34,7 +34,7 @@ async def gstart(bot, cmd):
               InlineKeyboardButton('⚙️ Setting', callback_data=f"sets")
             ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await cmd.reply(Translation.START_TXT.format(cmd.chat.title),, disable_web_page_preview=True, reply_markup=reply_markup)
+        await cmd.reply(Translation.START_TXT.format(cmd.chat.title), disable_web_page_preview=True, reply_markup=reply_markup)
         await asyncio.sleep(2) 
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
