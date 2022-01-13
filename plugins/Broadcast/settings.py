@@ -21,7 +21,7 @@ async def botsetting_info(client, message, call=False):
         chat_id = message.chat.id
     else:
         chat_id = message.message.chat.id
-        
+        chat_type = message.message.chat.type
     if chat_type == "private":
         grpid = await active_connection(str(userid))
         if grpid is not None:
