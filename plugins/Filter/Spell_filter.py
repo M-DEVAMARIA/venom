@@ -32,8 +32,9 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
         search = search[:3]
     if search:
         for k in search:
-            search = k
-    movies = await get_poster(search, bulk=True)
+            search = k 
+    
+    movies = await get_poster(search.strip(), bulk=True)
     if not movies:
         return await message.reply_text(f"i couldn't find anything with {search}")
     btn = [
