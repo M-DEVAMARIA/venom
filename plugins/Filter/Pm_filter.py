@@ -824,7 +824,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
       )
     elif query.data == "sets":
-        await botsetting_info(client, query)
+        await botsetting_info(client, query, query)
  
 @Client.on_callback_query(filters.regex(r"^cal"))
 async def cb_data(bot, update):
