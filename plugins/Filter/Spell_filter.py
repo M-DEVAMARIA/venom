@@ -28,6 +28,9 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
     gs = list(filter(regex.match, search))
     search = [re.sub(r'\b(\-([a-zA-Z-\s])\-\simdb|(\-\s)?imdb|(\-\s)?wikipedia|\(|\)|\-|reviews|full|all|episode(s)?|film|movie|series)', '', i, flags=re.IGNORECASE) for i in gs]
     search = list(dict.fromkeys(search))
+    if search:
+        for k in search:
+            search = k
     movies = await get_poster(search, bulk=True)
     if not movies:
         return await message.reply_text(f"i couldn't find anything with {search}")
