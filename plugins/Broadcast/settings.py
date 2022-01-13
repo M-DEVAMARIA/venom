@@ -14,7 +14,7 @@ from info import ADMINS
 #db = {}
 
 @Client.on_message(filters.command(['settings']))
-async def botsetting_info(client, message, call=False):
+async def botsetting_info(client, message, call=False):#call will cb 
     userid = message.from_user.id
     if not call:
         chat_id = message.chat.id
@@ -42,7 +42,7 @@ async def botsetting_info(client, message, call=False):
             if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS): 
                 return await message.answer("your not group owner or admin", show_alert=true)
             else:
-                await message.delete()
+                await message.message.delete()#"claback query"
         else:
             if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
                 k = await message.reply_text("your are not group owner or admin")
