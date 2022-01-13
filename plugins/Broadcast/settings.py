@@ -55,7 +55,7 @@ async def botsetting_info(client, message, call=False):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
-        chat_id=message.chat.id,
+        chat_id=chat_id,
         reply_markup=reply_markup,
         text="Where do you want to open the settings menu? ",
         parse_mode="html")
