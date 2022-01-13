@@ -20,6 +20,7 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
     search = search.strip() + "movie"
   #  search = await search_gagala(search)
 #    search+= await search_gagala(message.text)
+    search =[]
     if not search:
         k=await message.reply_text("I couldn't find anything with your query")
         await asyncio.sleep(20)
