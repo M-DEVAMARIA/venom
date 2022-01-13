@@ -17,6 +17,17 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
     search = message.text
     user = message.from_user.id 
     search = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
+    search = search.strip() + "movie"
+    search = await search_gagala(search)
+    search+= await search_gagala(message.text)
+    if not search:
+        k=await message.reply_text("I couldn't find anything with your query")
+        await asyncio.sleep(20)
+        return await k.delete()
+    regex = re.compile(r".*(imdb|wikipedia).*", re.IGNORECASE) # look for imdb / wiki results
+    gs = list(filter(regex.match, search))
+    search = [re.sub(r'\b(\-([a-zA-Z-\s])\-\simdb|(\-\s)?imdb|(\-\s)?wikipedia|\(|\)|\-|reviews|full|all|episode(s)?|film|movie|series)', '', i, flags=re.IGNORECASE) for i in gs]
+    search = list(dict.fromkeys(search))
     movies = await get_poster(search, bulk=True)
     if not movies:
         return await message.reply_text(f"i couldn't find anything with {search}")
