@@ -38,11 +38,17 @@ async def botsetting_info(client, message, call=False):
     elif chat_type in ["group", "supergroup"]:
         chid = chat_id
         st = await client.get_chat_member(chid, userid)
-        if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-            k = await message.reply_text("your are not group owner or admin")
-            await asyncio.sleep(10)
-            await k.delete()
-            return
+        if call:
+            if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS): 
+                return await message.answer("your not group owner or admin", show_alert=true)
+            else:
+                await message.delete()
+        else:
+            if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+                k = await message.reply_text("your are not group owner or admin")
+                await asyncio.sleep(10)
+                await k.delete()
+                return
     else:
         return
     
