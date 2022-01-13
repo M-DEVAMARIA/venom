@@ -18,6 +18,7 @@ async def botsetting_info(client, message, call=False):#call will cb
     userid = message.from_user.id
     if not call:
         chat_id = message.chat.id
+        chat_type = message.chat.type
     else:
         chat_id = message.message.chat.id
         chat_type = message.message.chat.type
