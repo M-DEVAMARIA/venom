@@ -26,16 +26,15 @@ DB_CHANNEL_ID = os.environ.get("DB_CHANNEL_ID",'-100')
 @Client.on_message(filters.command("start"))
 async def gstart(bot, cmd): 
     if cmd.chat.type in ['group', 'supergroup']:
-        buttons = [
-            [
-                InlineKeyboardButton('🤖VENOM Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')
-            ],
-            [
-                InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/venom_moviebot?start=help"),
-            ]
-            ]
+        buttons = [[
+              InlineKeyboardButton('🤖VENOM Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')
+              ],[
+              InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/venom_moviebot?start=help")
+              ],[
+              InlineKeyboardButton('⚙️ Setting', callback_data=f"sets")
+            ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await cmd.reply(Translation.START_TXT.format(cmd.chat.title), reply_markup=reply_markup)
+        await cmd.reply(Translation.START_TXT.format(cmd.chat.title),, disable_web_page_preview=True, reply_markup=reply_markup)
         await asyncio.sleep(2) 
         if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
