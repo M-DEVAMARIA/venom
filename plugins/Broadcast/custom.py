@@ -128,7 +128,7 @@ async def wiki(bot, message):
         summary = "{} <a href='{}'>more</a>"
         result = summary.format(wikipedia.summary(reply, sentences=3), wikipedia.page(reply).url)
         
-        await msg.edit(result)
+        await msg.edit(result, disable_web_page_preview=True)
     except Exception as e:
         await msg.edit(f"**ERROR** : {str(e)}")
     
