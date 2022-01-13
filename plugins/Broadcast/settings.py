@@ -14,11 +14,14 @@ from info import ADMINS
 #db = {}
 
 @Client.on_message(filters.command(['settings']))
-async def botsetting_info(client, message):
-    chat_id = message.chat.id
+async def botsetting_info(client, message, call=False):
     userid = message.from_user.id
     chat_type = message.chat.type
-    
+    if not call:
+        chat_id = message.chat.id
+    else:
+        chat_id = message.message.chat.id
+        
     if chat_type == "private":
         grpid = await active_connection(str(userid))
         if grpid is not None:
