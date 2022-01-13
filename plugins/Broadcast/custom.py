@@ -99,10 +99,10 @@ searched by @{temp.U_NAME}"""
 async def pin(_, message: Message):
     if not message.reply_to_message:
         return 
-    if message =="/pin":
+    if message.text =="/pin":
         await message.reply_to_message.pin()
          
-    if message =="/unpin":
+    if message.text =="/unpin":
         await message.reply_to_message.unpin()
  
 
