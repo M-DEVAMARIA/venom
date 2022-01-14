@@ -20,7 +20,8 @@ wikipedia
 wget #this not important delaye after check song.py
 aiohttp[speedups]
 youtube_dl
-heroku3
+heroku3 
+git
 #______for file store check___________
 psycopg2-binary
 
