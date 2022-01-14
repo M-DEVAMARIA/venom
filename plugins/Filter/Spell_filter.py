@@ -26,15 +26,15 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
     #    k=await message.reply_text("I couldn't find anything with your query")
      #   await asyncio.sleep(20)
       # return await k.delete()
-    regex = re.compile(r".*(imdb|wikipedia).*", re.IGNORECASE) # look for imdb / wiki results
-    gs = list(filter(regex.match, search))
-    search = [re.sub(r'\b(\-([a-zA-Z-\s])\-\simdb|(\-\s)?imdb|(\-\s)?wikipedia|\(|\)|\-|reviews|full|all|episode(s)?|film|movie|series)', '', i, flags=re.IGNORECASE) for i in gs]
-    search = list(dict.fromkeys(search))
-    if len(search) > 3:
-        search = search[:3]
-    if search:
-        for k in search:
-            search = k 
+ #   regex = re.compile(r".*(imdb|wikipedia).*", re.IGNORECASE) # look for imdb / wiki results
+#    gs = list(filter(regex.match, search))
+  #  search = [re.sub(r'\b(\-([a-zA-Z-\s])\-\simdb|(\-\s)?imdb|(\-\s)?wikipedia|\(|\)|\-|reviews|full|all|episode(s)?|film|movie|series)', '', i, flags=re.IGNORECASE) for i in gs]
+#    search = list(dict.fromkeys(search))
+ #   if len(search) > 3:
+   #     search = search[:3]
+ #   if search:
+  #      for k in search:
+  #          search = k 
     
     movies = await get_poster(search, bulk=True)
     if not movies:
