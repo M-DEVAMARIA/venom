@@ -156,22 +156,22 @@ async def give_filter(client, message):
                 try:
                     if fileid == "None":
                         if btn == "[]":
-                          k =  await message.reply_text(reply_text, disable_web_page_preview=True)
+                          k=await message.reply_text(reply_text, disable_web_page_preview=True)
                         else:
                             button = eval(btn)
-                            await message.reply_text(
+                            k=await message.reply_text(
                                 reply_text,
                                 disable_web_page_preview=True,
                                 reply_markup=InlineKeyboardMarkup(button)
                             )
                     elif btn == "[]":
-                       k = await message.reply_cached_media(
+                        k=await message.reply_cached_media(
                             fileid,
                             caption=reply_text or ""
                         )
                     else:
                         button = eval(btn) 
-                        k = await message.reply_cached_media(
+                        k=await message.reply_cached_media(
                             fileid,
                             caption=reply_text or "",
                             reply_markup=InlineKeyboardMarkup(button)
