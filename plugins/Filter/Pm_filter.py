@@ -177,13 +177,12 @@ async def give_filter(client, message):
                             reply_markup=InlineKeyboardMarkup(button)
                         )
                     if delete:
-                       delete_time = 30
                        await asyncio.sleep(int(delete_time))
                        try:
                           await k.delete(True)
                           await message.delete(True)
                        except Exception as e:
-                          return print(f"{e}")
+                          return logger.exception(e)
                 except Exception as e:
                     logger.exception(e)
                 break 
@@ -322,7 +321,7 @@ async def givess_filter(client: Client, query):
                           reply_markup=CAPTION,
                           )
                 except Exception as e:
-                    print(e)
+                    logger.exception(e)
                     return
 @Client.on_callback_query(filters.regex(r"^next"))
 async def nextfilter(client: Client, query):
