@@ -177,7 +177,7 @@ async def give_filter(client, message):
                             reply_markup=InlineKeyboardMarkup(button)
                         )
                         if delete:
-                        delete_time = 30
+                            delete_time = 30
                             await asyncio.sleep(int(delete_time))
                             try:
                                await k.delete(True)
