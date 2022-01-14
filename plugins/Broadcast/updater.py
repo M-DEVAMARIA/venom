@@ -4,6 +4,8 @@ import asyncio
 from git import Repo
 from git.exc import GitCommandError
 from pyrogram import Client, filters 
+UPSTREAM_REPO =https://github.com/M-DEVAMARIA/venom.git
+UPSTREAM_REMOTE = "Version_2.0"
 
 @Client.on_message(filters.command(['update', 'update']))
 async def check_update(bot, message):
@@ -58,16 +60,16 @@ async def check_update(bot, message):
 
 
 def _get_updates(repo: Repo, branch: str) -> str:
-    repo.remote(Config.UPSTREAM_REMOTE).fetch(branch)
-    upst = Config.UPSTREAM_REPO.rstrip('/')
+    repo.remote(UPSTREAM_REMOTE).fetch(branch)
+    upst = UPSTREAM_REPO.rstrip('/')
     return ''.join(
         f"🔨 **#{i.count()}** : [{i.summary}]({upst}/commit/{i}) 👷 __{i.author}__\n\n"
-        for i in repo.iter_commits(f'HEAD..{Config.UPSTREAM_REMOTE}/{branch}')
+        for i in repo.iter_commits(f'HEAD..{UPSTREAM_REMOTE}/{branch}')
     )
 
 
 async def _pull_from_repo(repo: Repo, branch: str) -> None:
     repo.git.checkout(branch, force=True)
     repo.git.reset('--hard', branch)
-    repo.remote(Config.UPSTREAM_REMOTE).pull(branch, force=True)
+    repo.remote(UPSTREAM_REMOTE).pull(branch, force=True)
     await asyncio.sleep(1)
