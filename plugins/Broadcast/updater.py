@@ -4,7 +4,7 @@ import asyncio
 from git import Repo
 from git.exc import GitCommandError
 from pyrogram import Client, filters 
-UPSTREAM_REPO =https://github.com/M-DEVAMARIA/venom.git
+UPSTREAM_REPO = "https://github.com/M-DEVAMARIA/venom.git"
 UPSTREAM_REMOTE = "Version_2.0"
 
 @Client.on_message(filters.command(['update', 'update']))
