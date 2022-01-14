@@ -180,6 +180,7 @@ async def give_filter(client, message):
                     logger.exception(e)
                 break 
                 if delete:
+                    delete_time = 30
                     await asyncio.sleep(int(delete_time))
                     try:
                        await k.delete(True)
