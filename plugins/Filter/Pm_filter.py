@@ -140,7 +140,9 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
 async def give_filter(client, message): 
     group_id = message.chat.id
     name = message.text
-
+    set = await db.find_chat(group_id)
+    delete = set["configs"]["delete"]
+    delete_time = set["configs"]["delete_time"]
     keywords = await get_filters(group_id)
     for keyword in reversed(sorted(keywords, key=len)):
         pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
@@ -154,7 +156,7 @@ async def give_filter(client, message):
                 try:
                     if fileid == "None":
                         if btn == "[]":
-                            await message.reply_text(reply_text, disable_web_page_preview=True)
+                          k =  await message.reply_text(reply_text, disable_web_page_preview=True)
                         else:
                             button = eval(btn)
                             await message.reply_text(
@@ -163,13 +165,13 @@ async def give_filter(client, message):
                                 reply_markup=InlineKeyboardMarkup(button)
                             )
                     elif btn == "[]":
-                        await message.reply_cached_media(
+                       k = await message.reply_cached_media(
                             fileid,
                             caption=reply_text or ""
                         )
                     else:
                         button = eval(btn) 
-                        await message.reply_cached_media(
+                        k = await message.reply_cached_media(
                             fileid,
                             caption=reply_text or "",
                             reply_markup=InlineKeyboardMarkup(button)
@@ -177,7 +179,13 @@ async def give_filter(client, message):
                 except Exception as e:
                     logger.exception(e)
                 break 
-
+                if delete:
+                    await asyncio.sleep(int(delete_time))
+                    try:
+                       await k.delete(True)
+                       await message.delete(True)
+                    except Exception as e:
+                       continue
     else:
         await group(client, message)   
 
@@ -898,7 +906,8 @@ async def group(client, message):
                      return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                   if not advance:
                      return await normalspellmode(message)
-           
+             else: return 
+            
         if not btn:
             return
 
