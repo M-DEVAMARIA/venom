@@ -176,14 +176,14 @@ async def give_filter(client, message):
                             caption=reply_text or "",
                             reply_markup=InlineKeyboardMarkup(button)
                         )
-                        if delete:
-                            delete_time = 30
-                            await asyncio.sleep(int(delete_time))
-                            try:
-                               await k.delete(True)
-                               await message.delete(True)
-                            except Exception as e:
-                               print(f"{e}")
+                    if delete:
+                       delete_time = 30
+                       await asyncio.sleep(int(delete_time))
+                       try:
+                          await k.delete(True)
+                          await message.delete(True)
+                       except Exception as e:
+                          return print(f"{e}")
                 except Exception as e:
                     logger.exception(e)
                 break 
