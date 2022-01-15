@@ -83,8 +83,7 @@ async def filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
                     )
         else:
-            spf = await message.reply_video(
-        
+            k= await message.reply_video(
             video=google, 
             caption=f"""
 Hey {message.from_user.mention},
@@ -99,7 +98,7 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
             parse_mode="html",
             reply_to_message_id=message.message_id)
             await asyncio.sleep(30)
-            await spf.delete()
+            await k.delete()
             return
 
         if not btn:
@@ -226,7 +225,9 @@ async def advantage_spoll_choker(bot, query):
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
     btn = []
+    spell = (movie_, files)
     if files:
+        await group(bot, query, spell)
         await query.answer('Checking for Movie in database...')
         for file in files:
           file_id = file.file_id
@@ -795,12 +796,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode='html'
         ) 
     elif query.data == "stats":
-        
-        buttons = [[
-            InlineKeyboardButton('⇚ Back', callback_data='help'),
-            InlineKeyboardButton('↻ refresh', callback_data='rfrsh')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
         users = await db.total_users_count()
         chats = await db.total_chat_count()
@@ -808,31 +803,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         monsize = get_size(monsize)
         text=Translation.STATUS_TXT.format(total, users, chats, monsize)
         await query.answer(f"{text}", show_alert=True)
-       # await query.message.edit_text(
-         #   text=text,
-         #   reply_markup=reply_markup,
-           # parse_mode='html'
-        #)
- 
-    elif query.data == "rfrsh":
-        await query.answer("Fetching MongoDb DataBase")
-        buttons = [[
-            InlineKeyboardButton('⇚ Back', callback_data='help'),
-            InlineKeyboardButton('↻ refresh', callback_data='rfrsh')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        total = await Media.count_documents()
-        users = await db.total_users_count()
-        chats = await db.total_chat_count()
-        monsize = await db.get_db_size()
-        free = 536870912 - monsize
-        monsize = get_size(monsize)
-        free = get_size(free)
-        await query.message.edit_text(
-            text=Translation.STATUS_TXT.format(total, users, chats, monsize),
-            reply_markup=reply_markup,
-            parse_mode='html'
-      )
+       
     elif query.data == "sets":
         await botsetting_info(client, query, query)
         
@@ -841,35 +812,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
-@Client.on_callback_query(filters.regex(r"^cal"))
-async def cb_data(bot, update):
-        i, data = update.data.split('#')
-        try:
-            message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
-            message_text = '' if CALCULATE_TEXT in message_text else message_text
-            if data == "=":
-                text = float(eval(message_text))
-            elif data == "DEL":
-                text = message_text[:-1]
-            elif data == "AC":
-                text = ""
-            else:
-                text = message_text + data
-            await update.message.edit_text(
-                text=f"{text}\n\n{CALCULATE_TEXT}",
-                disable_web_page_preview=True,
-                reply_markup=CALCULATE_BUTTONS
-            )
-        except Exception as error:
-            print(error)
 
             
-async def group(client, message):
+async def group(client, message, spell=False):
     if message.text.startswith("/"):
         return
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return 
-    chat = message.chat.id
+    chat = message.message.chat.id if spell else message.chat.id
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     imdbg = configs["configs"]["imDb"]
@@ -881,32 +831,32 @@ async def group(client, message):
     delete_time = configs["configs"]["delete_time"]
     if not autoftr:
         return
-    if 2 < len(message.text) < 100:    
-        btn = []
-        search = message.text 
-        leng = ("total_len")
-        query = search
-        nyva=BOT.get("username")
-        if not nyva:
-            botusername=await client.get_me()
-            nyva=botusername.username
-            BOT["username"]=nyva
-        searchs = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
-        files = await get_filter_results(query=searchs)
-        if not configs :
-            await message.reply_text(text= "error occurred")
-    
+        if not spell:
+            if 2 < len(message.text) < 100:    
+                btn = []
+                search = message.text 
+                leng = ("total_len")
+                query = search
+                nyva=BOT.get("username")
+                if not nyva:
+                botusername=await client.get_me()
+                nyva=botusername.username
+                BOT["username"]=nyva
+              #  searchs = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
+                files = await get_filter_results(query=searchs)
+        else:
+            files, search = spell
         if files:
             for file in files:
                 file_id = file.file_id
                 size = f"[{get_size(file.file_size)}]"
                 name = f"{file.file_name}"
                 if single:
-                   btn.append(
+                     btn.append(
                           [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
                            )
                 else:
-                   btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
+                     btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
         if not files: 
              if spcheck:
                   if advance:
