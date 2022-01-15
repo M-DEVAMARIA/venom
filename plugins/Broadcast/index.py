@@ -30,10 +30,11 @@ async def index_files(bot, message, cal=False):
             except Exception as e:
                 await last_msg.reply_text(f"This Is An Invalid Message, Either the channel is private and bot is not an admin in the forwarded chat, or you forwarded message as copy.\nError caused Due to <code>{e}</code>")
                 continue
-    
-    msg = await message.reply('Processing...⏳')
-    
-
+    if not call:
+        msg = await message.reply('Processing...⏳')
+    else:
+        msg = await message.message.reply('Processing...⏳')
+        
     await msg.edit(
         "Starting Indexing",
         reply_markup=InlineKeyboardMarkup(
