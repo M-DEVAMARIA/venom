@@ -801,6 +801,7 @@ async def group(client, message, spell=False):
                 else: return 
     else:
        searchs, files = spell 
+       msg = message.message
        message = message.message.reply_to_message
     if files:
        for file in files:
@@ -853,7 +854,7 @@ async def group(client, message, spell=False):
             k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         except: return 
     if spell:
-        await message.delete(True)
+        await msg.delete(True)
     if delete:
         await asyncio.sleep(int(delete_time))
         try:
