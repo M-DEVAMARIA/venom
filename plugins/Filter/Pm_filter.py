@@ -838,7 +838,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "index":
         await index_files(client, query, query)
- 
+        if query.data.startswith('index_cancel'):
+            return await query.answer("cancel indexing",show_alert=True)
+        
 @Client.on_callback_query(filters.regex(r"^cal"))
 async def cb_data(bot, update):
         i, data = update.data.split('#')
