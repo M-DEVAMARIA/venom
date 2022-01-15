@@ -1,1 +1,1 @@
-#___for check
+from .index import index_files
