@@ -854,7 +854,7 @@ async def group(client, message, spell=False):
                          return await normalspellmode(message)
                 else: return 
     else:
-       files, search = spell
+       searchs, files = spell
     if files:
        for file in files:
            file_id = file.file_id
