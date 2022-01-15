@@ -224,61 +224,13 @@ async def advantage_spoll_choker(bot, query):
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
-    btn = []
     spell = (b, files)
     if files:
-        await group(bot, query, spell)
         await query.answer('Checking for Movie in database...')
-        for file in files:
-          file_id = file.file_id
-          filename = f"[{get_size(file.file_size)}] {file.file_name}"
-          if single =="True":
-              btn.append([InlineKeyboardButton(text=f"{filename}",callback_data=f"subinps#{file_id}#{own}")])
-          else:
-              btn.append([InlineKeyboardButton(text=f"{file.file_name}", callback_data=f"subinps#{file_id}#{own}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{own}")])
-                        
-        if len(btn) > int(max_pages): 
-            btns = list(split_list(btn, int(max_pages))) 
-            keyword = f"{message.chat.id}-{message.message_id}"
-            BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
-            }
-            data = BUTTONS[keyword]
-            buttons = data['buttons'][0].copy()
-            buttons.append(
-            [InlineKeyboardButton(text="Next Page ⏩",callback_data=f"next_0_{keyword}_{b}")]
-            )  
-            buttons.append(
-                [InlineKeyboardButton(text=f"🗓 1/{data['total']}", callback_data="pages"),InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{query.from_user.id}")]
-            )
-        else:
-            buttons = btn
-            buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{b}#{query.from_user.id}")]
-            )
-        imdb = db if imdb =="True" else None
-        if imdb:
-           try:
-               cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-               k = await query.message.reply_photo(photo=imdb.get("poster"),caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-           except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
-               pic = imdb.get('poster')
-               poster = pic.replace('.jpg', "._V1_UX360.jpg")
-               k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
-           except Exception as e:
-               k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons)) 
-        else:
-           k = await query.message.reply_text(f"<b>Here is What I Found In My Database For Your Query </b>", reply_markup=InlineKeyboardMarkup(buttons))
-        if delete =="True":
-           await asyncio.sleep(int(delete_time))
-           try:
-              await k.delete(True)
-              await query.message.delete(True)
-           except Exception as e:
-              await bot.send_message(LOG_CHANNEL,text=f"issue on autodelete message\n{e}" )       
-              print(f'error in auto delete message {e}')
-              return 
+        try:
+          await group(bot, query, spell)
+        except:
+          await group(bot, query, spell)
                                
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
@@ -900,7 +852,8 @@ async def group(client, message, spell=False):
         try:
             k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
         except: return 
-    if spell: await message.delete()
+    if spell:
+        await message.delete(True)
     if delete:
         await asyncio.sleep(int(delete_time))
         try:
