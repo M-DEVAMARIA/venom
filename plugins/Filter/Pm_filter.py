@@ -844,6 +844,14 @@ async def group(client, message, spell=False):
                     BOT["username"]=nyva
               #  searchs = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
                 files = await get_filter_results(query=searchs)
+                print("testing autof")
+                if not files: 
+                    if spcheck:
+                         if advance:
+                             return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
+                         if not advance:
+                             return await normalspellmode(message)
+                else: return 
         else:
             files, search = spell
         if files:
@@ -857,14 +865,7 @@ async def group(client, message, spell=False):
                            )
                 else:
                      btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
-        if not files: 
-             if spcheck:
-                  if advance:
-                     return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
-                  if not advance:
-                     return await normalspellmode(message)
-             else: return 
-            
+        
         if not btn:
             return
 
