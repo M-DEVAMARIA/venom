@@ -38,7 +38,7 @@ async def index_files(bot, message, call=False):
     await msg.edit(
         "Starting Indexing",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton('Cancel', url= f'https://t.me/maxbotassbot?restart')]]
+            [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
         )
     )
     
