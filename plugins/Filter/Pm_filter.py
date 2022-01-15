@@ -814,7 +814,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
 
             
-async def group(client, message, spell=False):     
+async def group(client, message, spell=False):
+    btn = []
     chat = message.message.chat.id if spell else message.chat.id
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
@@ -828,24 +829,17 @@ async def group(client, message, spell=False):
     if not autoftr:
         return
     if not spell:
-        if message.text.startswith("/"):
-             return
-        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-            return 
+        if message.text.startswith("/"): return
+        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text): return
         if 2 < len(message.text) < 100:    
-            btn = []
             search = message.text 
-            leng = ("total_len")
-            query = search
             nyva=BOT.get("username")
             if not nyva:
                 botusername=await client.get_me()
                 nyva=botusername.username
                 BOT["username"]=nyva 
                 searchs=search
-              #  searchs = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
             files = await get_filter_results(query=search)
-            print("testing autof")
             if not files: 
                 if spcheck:
                      if advance:
@@ -904,7 +898,8 @@ async def group(client, message, spell=False):
     else:
         try:
             k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-        except: return
+        except: return 
+    if spell: await message.delete()
     if delete:
         await asyncio.sleep(int(delete_time))
         try:
