@@ -814,11 +814,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
 
             
-async def group(client, message, spell=False):
-    if message.text.startswith("/"):
-        return
-    if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-        return 
+async def group(client, message, spell=False):     
     chat = message.message.chat.id if spell else message.chat.id
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
@@ -832,6 +828,10 @@ async def group(client, message, spell=False):
     if not autoftr:
         return
     if not spell:
+        if message.text.startswith("/"):
+             return
+        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+            return 
         if 2 < len(message.text) < 100:    
             btn = []
             search = message.text 
