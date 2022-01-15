@@ -225,7 +225,7 @@ async def advantage_spoll_choker(bot, query):
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
     btn = []
-    spell = (movie_, files)
+    spell = (b, files)
     if files:
         await group(bot, query, spell)
         await query.answer('Checking for Movie in database...')
@@ -832,14 +832,14 @@ async def group(client, message, spell=False):
         if message.text.startswith("/"): return
         if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text): return
         if 2 < len(message.text) < 100:    
-            search = message.text 
+            searchs = message.text 
             nyva=BOT.get("username")
             if not nyva:
                 botusername=await client.get_me()
                 nyva=botusername.username
                 BOT["username"]=nyva 
-                searchs=search
-            files = await get_filter_results(query=search)
+                
+            files = await get_filter_results(query=searchs)
             if not files: 
                 if spcheck:
                      if advance:
