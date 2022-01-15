@@ -849,7 +849,7 @@ async def group(client, message, spell=False):
                 else: return 
     else:
        searchs, files = spell 
-       message = msg.message.reply_to_message
+       message = message.message.reply_to_message
     if files:
        for file in files:
            file_id = file.file_id
