@@ -831,86 +831,88 @@ async def group(client, message, spell=False):
     delete_time = configs["configs"]["delete_time"]
     if not autoftr:
         return
-        if not spell:
-            if 2 < len(message.text) < 100:    
-                btn = []
-                search = message.text 
-                leng = ("total_len")
-                query = search
-                nyva=BOT.get("username")
-                if not nyva:
-                    botusername=await client.get_me()
-                    nyva=botusername.username
-                    BOT["username"]=nyva
+    if not spell:
+        if 2 < len(message.text) < 100:    
+            btn = []
+            search = message.text 
+            leng = ("total_len")
+            query = search
+            nyva=BOT.get("username")
+            if not nyva:
+                botusername=await client.get_me()
+                nyva=botusername.username
+                BOT["username"]=nyva
               #  searchs = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", search, flags=re.IGNORECASE)
-                files = await get_filter_results(query=searchs)
-                print("testing autof")
-                if not files: 
-                    if spcheck:
-                         if advance:
-                             return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
-                         if not advance:
-                             return await normalspellmode(message)
+            files = await get_filter_results(query=searchs)
+            print("testing autof")
+            if not files: 
+                if spcheck:
+                     if advance:
+                         return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
+                     if not advance:
+                         return await normalspellmode(message)
                 else: return 
-        else:
-            files, search = spell
-        if files:
-            for file in files:
-                file_id = file.file_id
-                size = f"[{get_size(file.file_size)}]"
-                name = f"{file.file_name}"
-                if single:
-                     btn.append(
-                          [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
-                           )
-                else:
-                     btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
+    else:
+       files, search = spell
+    if files:
+       for file in files:
+           file_id = file.file_id
+           size = f"[{get_size(file.file_size)}]"
+           name = f"{file.file_name}"
+           if single:
+               btn.append(
+                      [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
+                      )
+           else:
+               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
         
-        if not btn:
-            return
+    if not btn:
+        return
 
-        if len(btn) > int(max_pages): 
-            btns = list(split_list(btn, int(max_pages))) 
-            keyword = f"{message.chat.id}-{message.message_id}"
-            BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
-            }
-            data = BUTTONS[keyword]
-            buttons = data['buttons'][0].copy()      
-            buttons.append(
-            [InlineKeyboardButton(text="Next Page ⏩", callback_data=f"next_0_{keyword}_{searchs}")]
-            )    
-            buttons.append(
-            [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
+    if len(btn) > int(max_pages): 
+        btns = list(split_list(btn, int(max_pages))) 
+        keyword = f"{message.chat.id}-{message.message_id}"
+        BUTTONS[keyword] = {
+             "total" : len(btns),
+             "buttons" : btns
+        }
+        data = BUTTONS[keyword]
+        buttons = data['buttons'][0].copy()      
+        buttons.append(
+        [InlineKeyboardButton(text="Next Page ⏩", callback_data=f"next_0_{keyword}_{searchs}")]
+        )    
+        buttons.append(
+        [InlineKeyboardButton(text=f"🗓 1/{data['total']}",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
+        )
+    else:
+        buttons = btn
+        buttons.append(
+            [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
             )
-        else:
-            buttons = btn
-            buttons.append(
-                [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{searchs}#{message.from_user.id}")]
-            )
-        imdb = await get_poster(searchs) if imdbg else None
-        if imdb:
-           try:
-               cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-               k = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
-           except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
-               pic = imdb.get('poster')
-               poster = pic.replace('.jpg', "._V1_UX360.jpg")
-               k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
-           except Exception as e:
-               k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
-        else:
-           k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-        if delete:
-           await asyncio.sleep(int(delete_time))
-           try:
-              await k.delete(True)
-              await message.delete(True)
-           except Exception as e:
-              await client.send_message(LOG_CHANNEL,text=f"issue on autodelete message\n{e}" )       
-              print(f'error in auto delete message {e}')
-        return 
+    imdb = await get_poster(searchs) if imdbg else None
+    if imdb:
+        try:
+            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+            k = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+        except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
+            pic = imdb.get('poster')
+            poster = pic.replace('.jpg', "._V1_UX360.jpg")
+            k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+        except Exception as e:
+            k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
+    else:
+        try:
+            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+        except: return
+    if delete:
+        await asyncio.sleep(int(delete_time))
+        try:
+           await k.delete(True)
+           await message.delete(True)
+        except Exception as e:
+           await client.send_message(LOG_CHANNEL,text=f"issue on autodelete message\n{e}" )       
+           print(f'error in auto delete message {e}')
+    return 
     
 async def advantage_spell_chok(msg):
     query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
