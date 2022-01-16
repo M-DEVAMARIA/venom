@@ -802,7 +802,7 @@ async def group(client, message, spell=False):
             if not files: 
                 if spcheck:
                      if advance:
-                         advantage_spell_chok(message)
+                         await advantage_spell_chok(message)
                          return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                      if not advance:
                          return await normalspellmode(message)
