@@ -771,11 +771,22 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
+async def chat_settings(chat)
+    configs = await db.find_chat(chat)
+    single = configs["configs"]["pm_fchat"] 
+    imdb = configs["configs"]["imDb"]
+    spcheck = configs["configs"]["spellcheck"]
+    autoftr = configs["configs"]["autofilter"]
+    advance = configs["configs"]["advance"]
+    max_pages = configs["configs"]["max_pages"]
+    delete = configs["configs"]["delete"]
+    delete_time = configs["configs"]["delete_time"]
+    return single,imdb,spcheck,autoftr,advance,max_pages,delete,delete_time
 
-            
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
+    L = await chat_settings(chat)
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     imdbg = configs["configs"]["imDb"]
@@ -785,7 +796,7 @@ async def group(client, message, spell=False):
     max_pages = configs["configs"]["max_pages"]
     delete = configs["configs"]["delete"]
     delete_time = configs["configs"]["delete_time"]
-    if not autoftr:
+    if not L["autoftr"]:
         return
     if not spell:
         if message.text.startswith("/"): return
