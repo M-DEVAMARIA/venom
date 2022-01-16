@@ -870,6 +870,8 @@ async def group(client, message, spell=False):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
             k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+        except ChatAdminRequired:
+            print("i am not admin your group")
         except Exception as e:
             k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
     else:
