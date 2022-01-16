@@ -699,6 +699,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         )  
+    elif query.data == "wiki": 
+        await query.message.edit_text(
+            text=Translation.WIKI_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        )  
     elif query.data == "misc":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
@@ -786,15 +792,15 @@ async def chat_settings(chat):
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
-    set = await chat_settings(chat)
-    single = set["single"] 
-    imdbg = set["imdb"]
-    spcheck = set['spcheck']
-    autoftr = set['autoftr']
-    advance = set['advance']
-    max_pages = set['max_pages']
-    delete = set['delete']
-    delete_time = set['delete_time']
+    configs = await db.find_chat(chat)
+    single = configs["configs"]["pm_fchat"] 
+    imdbg = configs["configs"]["imDb"]
+    spcheck = configs["configs"]["spellcheck"]
+    autoftr = configs["configs"]["autofilter"]
+    advance = configs["configs"]["advance"]
+    max_pages = configs["configs"]["max_pages"]
+    delete = configs["configs"]["delete"]
+    delete_time = configs["configs"]["delete_time"]
     if not autoftr:
         return
     if not spell:
@@ -812,7 +818,6 @@ async def group(client, message, spell=False):
             if not files: 
                 if spcheck:
                      if advance:
-                         await advantage_spell_chok(message)
                          return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                      if not advance:
                          return await normalspellmode(message)
