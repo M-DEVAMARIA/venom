@@ -786,17 +786,12 @@ async def chat_settings(chat):
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
-    L = await chat_settings(chat)
+    set = await chat_settings(chat)
     configs = await db.find_chat(chat)
-    single = configs["configs"]["pm_fchat"] 
-    imdbg = configs["configs"]["imDb"]
-    spcheck = configs["configs"]["spellcheck"]
-    autoftr = configs["configs"]["autofilter"]
-    advance = configs["configs"]["advance"]
-    max_pages = configs["configs"]["max_pages"]
-    delete = configs["configs"]["delete"]
-    delete_time = configs["configs"]["delete_time"]
-    if not L["autoftr"]:
+    single, imdbg, spcheck, max_pages  = set["single"], set['imdb'], set['spcheck], set['max_pages']
+    autoftr, advance, delete, delete_time = set['autoftr'], set['advance'], set['delete'], set['delete_time']
+    
+    if not autoftr:
         return
     if not spell:
         if message.text.startswith("/"): return
