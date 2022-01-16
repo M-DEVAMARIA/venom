@@ -791,7 +791,7 @@ async def group(client, message, spell=False):
   #  sett= (set["single"],set["imdb"],set["spcheck"],set["max_pages"],set["autoftr"],set["advance"],set["delete"], set["delete_time"])
    # single, imdbg, spcheck, max_pages, autoftr, advance, delete, delete_time = sett 
     
-    if not s.autoftr:
+    if not s('autoftr'):
         return
     if not spell:
         if message.text.startswith("/"): return
