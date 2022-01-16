@@ -833,7 +833,7 @@ async def group(client, message, spell=False):
            name = f"{file.file_name}"
            if single:
                btn.append(
-                      [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
+                      [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
                       )
            else:
                btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
