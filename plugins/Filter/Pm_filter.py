@@ -771,7 +771,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
-async def chat_settings(chat)
+async def chat_settings(chat):
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     imdb = configs["configs"]["imDb"]
