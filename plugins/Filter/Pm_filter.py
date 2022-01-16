@@ -789,7 +789,7 @@ async def group(client, message, spell=False):
     s = await chat_settings(chat)
     configs = await db.find_chat(chat)
     sett= set["single"],set["imdb"],set["spcheck"],set["max_pages"],set["autoftr"],set["advance"],set["delete"],set["delete_time"]
-    single, imdbg, spcheck, max_pages, autoftr, advance, delete, delete_time = sett.split(",")
+    single, imdbg, spcheck, max_pages, autoftr, advance, delete, delete_time = sett
     
     if not autoftr:
         return
