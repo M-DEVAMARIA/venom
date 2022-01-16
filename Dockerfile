@@ -9,5 +9,5 @@ RUN pip3 install -U pip && pip3 install -U -r requirements.txt
 RUN git clone https://github.com/M-DEVAMARIA/venom.git/venom
 RUN mkdir /venom
 WORKDIR /venom
-COPY start.sh /start.sh
+COPY profile /profile
 CMD python3 bot.py
