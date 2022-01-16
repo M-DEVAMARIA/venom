@@ -10,4 +10,4 @@ RUN git clone https://github.com/M-DEVAMARIA/venom.git/venom
 RUN mkdir /venom
 WORKDIR /venom
 COPY profile /profile
-CMD python3 bot.py
+CMD venom
