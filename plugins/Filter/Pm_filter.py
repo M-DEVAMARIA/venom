@@ -127,13 +127,20 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
                 [InlineKeyboardButton(text="🗓 1/1",callback_data="pages"), InlineKeyboardButton(text=f"🗑️", callback_data="close"), InlineKeyboardButton(text="All", callback_data=f"spcheck#{search}#{message.from_user.id}")]
             )
             
-        poster=await get_poster(search)
-        if poster:
-           cap = IMDB_TEMPLATE.format(title = poster['title'], url = poster['url'], year = poster['year'], genres = poster['genres'], plot = poster['plot'], rating = poster['rating'], languages = poster["languages"], runtime = poster["runtime"],  countries = poster["countries"], release_date = poster['release_date'],**locals())
-           await message.reply_photo(photo=poster.get("poster"), caption= cap, reply_markup=InlineKeyboardMarkup(buttons))
+        imdb=await get_poster(search)
+        if imdb:
+           try:
+              cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+              await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
+              pic = imdb.get('poster')
+              poster = pic.replace('.jpg', "._V1_UX360.jpg")
+              await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+           except Exception as e:
+              await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
-           await message.reply_photo(photo=poster, caption=f"your query {search}", reply_markup=InKeyboardMarkup(buttons))
-        return
+              await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search}</b>", reply_markup=InlineKeyboardMarkup(buttons))
+        return 
         
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
 async def give_filter(client, message): 
@@ -795,6 +802,7 @@ async def group(client, message, spell=False):
             if not files: 
                 if spcheck:
                      if advance:
+                         advantage_spell_chok(message)
                          return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                      if not advance:
                          return await normalspellmode(message)
@@ -846,7 +854,7 @@ async def group(client, message, spell=False):
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
-            k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+            k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         except Exception as e:
             k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
     else:
