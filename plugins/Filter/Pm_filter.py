@@ -787,21 +787,30 @@ async def chat_settings(message):
         await db.add_chat(message.chat.id, message.chat.title)
         await asyncio.sleep(3)
         configs = await db.find_chat(message.chat.id)
-  return configs
+  a = configs["configs"]["pm_fchat"]#single
+  b = configs["configs"]["imDb"]#imdbg
+  c = configs["configs"]["spellcheck"]#spcheck
+  d = configs["configs"]["autofilter"]#autoftr
+  e = configs["configs"]["advance"]#advance
+  f = configs["configs"]["max_pages"]#max_pages
+  g = configs["configs"]["delete"]#delete
+  t = configs["configs"]["delete_time"]#delete_time
+  return a, b, c, d, e, f, g, t
 
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
     mess= message.message if spell else message
     configs = await chat_settings(mess)
-    single = configs["configs"]["pm_fchat"] 
-    imdbg = configs["configs"]["imDb"]
-    spcheck = configs["configs"]["spellcheck"]
-    autoftr = configs["configs"]["autofilter"]
-    advance = configs["configs"]["advance"]
-    max_pages = configs["configs"]["max_pages"]
-    delete = configs["configs"]["delete"]
-    delete_time = configs["configs"]["delete_time"]
+    single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time = configs
+   # single = configs["configs"]["pm_fchat"] 
+  #  imdbg = configs["configs"]["imDb"]
+   # spcheck = configs["configs"]["spellcheck"]
+  #  autoftr = configs["configs"]["autofilter"]
+   # advance = configs["configs"]["advance"]
+   # max_pages = configs["configs"]["max_pages"]
+  #  delete = configs["configs"]["delete"]
+   # delete_time = configs["configs"]["delete_time"]
     if not autoftr:
         return
     if not spell:
