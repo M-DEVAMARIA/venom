@@ -116,3 +116,4 @@ A module to find all country covid informations.
     SETT_TXT = """<b>Settings module</b>\n\nThis module is for customise your Auto filters settings in your group.\n\n📚 Commands:\n\n/settings <code>- command for open settings module in group</code>"""
     GROUP_LOG = """#NEWGROUP:\n\n<b>Group Name -</b> {}\n<b>Group id -</b> {}\n<b>Total members -</b> {}\n<b>Added by -</b> {}"""
     CALC_TXT ="""<b>CALCULATOR MODULE</b>\n\nA module for launch calculator in telegram\n\n<b>🗣️ Available commands </b>\n\n▪️/calculator :-  <code>For launch calculator in telegram</code>"""
+    WIKI_TXT = """<b>Wiki Module</b>\n\nA module to find information from Wikipedia for your query<b>📚 commands:</b>\n\n/wiki <query> <code>- fech information from Wikipedia</code>"""
