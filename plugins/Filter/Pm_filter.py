@@ -786,23 +786,14 @@ async def chat_settings(message):
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
         await db.add_chat(message.chat.id, message.chat.title)
         await asyncio.sleep(3)
-      #  configs = await db.find_chat(message.chat.id)
-#  single = configs["configs"]["pm_fchat"] 
- # imdb = configs["configs"]["imDb"]
-#  spcheck = configs["configs"]["spellcheck"]
-#  autoftr = configs["configs"]["autofilter"]
- # advance = configs["configs"]["advance"]
-#  max_pages = configs["configs"]["max_pages"]
-#  delete = configs["configs"]["delete"]
-#  delete_time = configs["configs"]["delete_time"]
- # return single,imdb,spcheck,autoftr,advance,max_pages,delete,delete_time
+        configs = await db.find_chat(message.chat.id)
+  return configs
 
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
     mess= message.message if spell else message
-    await chat_settings(mess)
-    configs = await db.find_chat(chat)
+    configs = await chat_settings(mess)
     single = configs["configs"]["pm_fchat"] 
     imdbg = configs["configs"]["imDb"]
     spcheck = configs["configs"]["spellcheck"]
