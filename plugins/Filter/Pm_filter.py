@@ -777,21 +777,30 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
-async def chat_settings(chat):
-    configs = await db.find_chat(chat)
-    single = configs["configs"]["pm_fchat"] 
-    imdb = configs["configs"]["imDb"]
-    spcheck = configs["configs"]["spellcheck"]
-    autoftr = configs["configs"]["autofilter"]
-    advance = configs["configs"]["advance"]
-    max_pages = configs["configs"]["max_pages"]
-    delete = configs["configs"]["delete"]
-    delete_time = configs["configs"]["delete_time"]
-    return single,imdb,spcheck,autoftr,advance,max_pages,delete,delete_time
+async def chat_settings(message):
+  try:
+    configs = await db.find_chat(message.chat.id)
+  except:
+    if not await db.get_chat(message.chat.id):
+        total=await client.get_chat_members_count(message.chat.id)
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
+        await db.add_chat(message.chat.id, message.chat.title)
+        await asyncio.sleep(3)
+      #  configs = await db.find_chat(message.chat.id)
+#  single = configs["configs"]["pm_fchat"] 
+ # imdb = configs["configs"]["imDb"]
+#  spcheck = configs["configs"]["spellcheck"]
+#  autoftr = configs["configs"]["autofilter"]
+ # advance = configs["configs"]["advance"]
+#  max_pages = configs["configs"]["max_pages"]
+#  delete = configs["configs"]["delete"]
+#  delete_time = configs["configs"]["delete_time"]
+ # return single,imdb,spcheck,autoftr,advance,max_pages,delete,delete_time
 
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
+    await chat_settings(message)
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     imdbg = configs["configs"]["imDb"]
