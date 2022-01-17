@@ -800,7 +800,8 @@ async def chat_settings(message):
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
-    await chat_settings(message)
+    mess=message.message
+    await chat_settings(mess)
     configs = await db.find_chat(chat)
     single = configs["configs"]["pm_fchat"] 
     imdbg = configs["configs"]["imDb"]
