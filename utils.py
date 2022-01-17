@@ -153,8 +153,8 @@ async def get_search_results(query, file_type=None, max_results=20, offset=0):
 
 
 async def get_filter_results(query):
-   # query = query.strip()
-    query = query.lower().strip().replace(' ','.*') #change it on pattern
+    query = query.strip()
+    #query = query.lower().strip().replace(' ','.*') #change it on pattern
     if not query:
         raw_pattern = '.'
     elif ' ' not in query:
