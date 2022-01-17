@@ -1,5 +1,5 @@
 # (c) @mdadmin2
-from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GROUPS, BUTTON, start_uptime, IMDB, P_TTI_SHOW_OFF, BROADCAST_CHANNEL as LOG_CHANNEL
+from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS, start_uptime, IMDB, P_TTI_SHOW_OFF, BROADCAST_CHANNEL as LOG_CHANNEL
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
@@ -10,12 +10,12 @@ import pyrogram
 from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
 from translation import Translation 
 from plugins.Broadcast import index_files, botsetting_info
-from pyrogram.errors import UserNotParticipant, FloodWait
+from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
 from database.users_db import db 
 from database.filters_db import del_all, find_filter, get_filters 
-from .Spell_filter import advancespellmode, normalspellmode
+from .Spell_filter import advancespellmode, normalspellmode, advantage_spell_chok
 import random
 BUTTONS = {}
 BOT = {}
@@ -131,18 +131,18 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
         if imdb:
            try:
               cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-              await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+              await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
            except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
               pic = imdb.get('poster')
               poster = pic.replace('.jpg', "._V1_UX360.jpg")
-              await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+              await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
            except Exception as e:
               await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
               await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search}</b>", reply_markup=InlineKeyboardMarkup(buttons))
         return 
         
-@Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
+@Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming, group=0)
 async def give_filter(client, message): 
     group_id = message.chat.id
     name = message.text
@@ -410,7 +410,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
         if query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
-                await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
+                await query.answer("🛑 Join updates channel and press refresh button To get movie",show_alert=True)
                 return
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
@@ -699,6 +699,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=BUTTONS2,
             parse_mode='html'
         )  
+    elif query.data == "wiki": 
+        await query.message.edit_text(
+            text=Translation.WIKI_TXT,
+            reply_markup=BUTTONS2,
+            parse_mode='html'
+        )  
     elif query.data == "misc":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
@@ -771,20 +777,30 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
+async def chat_settings(client, message):
+  if not await db.get_chat(message.chat.id):
+      total=await client.get_chat_members_count(message.chat.id)
+      await client.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(message.chat.title, message.chat.id, total, "Unknown"))       
+      await db.add_chat(message.chat.id, message.chat.title)
+      await asyncio.sleep(3)
+  configs = await db.find_chat(message.chat.id)
+  a = configs["configs"]["pm_fchat"]#single
+  b = configs["configs"]["imDb"]#imdbg
+  c = configs["configs"]["spellcheck"]#spcheck
+  d = configs["configs"]["autofilter"]#autoftr
+  e = configs["configs"]["advance"]#advance
+  f = configs["configs"]["max_pages"]#max_pages
+  g = configs["configs"]["delete"]#delete
+  t = configs["configs"]["delete_time"]#delete_time
+  return a, b, c, d, e, f, g, t
 
-            
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
-    configs = await db.find_chat(chat)
-    single = configs["configs"]["pm_fchat"] 
-    imdbg = configs["configs"]["imDb"]
-    spcheck = configs["configs"]["spellcheck"]
-    autoftr = configs["configs"]["autofilter"]
-    advance = configs["configs"]["advance"]
-    max_pages = configs["configs"]["max_pages"]
-    delete = configs["configs"]["delete"]
-    delete_time = configs["configs"]["delete_time"]
+    mess= message.message if spell else message
+    configs = await chat_settings(client, mess)
+    single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time = configs
+   
     if not autoftr:
         return
     if not spell:
@@ -792,17 +808,10 @@ async def group(client, message, spell=False):
         if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text): return
         if 2 < len(message.text) < 100:    
             searchs = message.text 
-            nyva=BOT.get("username")
-            if not nyva:
-                botusername=await client.get_me()
-                nyva=botusername.username
-                BOT["username"]=nyva 
-                
             files = await get_filter_results(query=searchs)
             if not files: 
                 if spcheck:
                      if advance:
-                         await advantage_spell_chok(message)
                          return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                      if not advance:
                          return await normalspellmode(message)
@@ -818,7 +827,7 @@ async def group(client, message, spell=False):
            name = f"{file.file_name}"
            if single:
                btn.append(
-                      [InlineKeyboardButton(text=f"{size}{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
+                      [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
                       )
            else:
                btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
@@ -850,17 +859,16 @@ async def group(client, message, spell=False):
     if imdb:
         try:
             cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
-            k = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+            k = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
-            k = await message.reply_photo(photo=poster, caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
+            k = await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
         except Exception as e:
             k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
     else:
-        try:
-            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
-        except: return 
+            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {searchs} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+         
     if spell:
         await msg.delete(True)
     if delete:
@@ -873,51 +881,3 @@ async def group(client, message, spell=False):
            print(f'error in auto delete message {e}')
     return 
     
-async def advantage_spell_chok(msg):
-    query = re.sub(r"\b(pl(i|e)*?(s|z+|ease|se|ese|(e+)s(e)?)|((send|snd|giv(e)?|gib)(\sme)?)|movie(s)?|new|latest|br((o|u)h?)*|^h(e|a)?(l)*(o)*|mal(ayalam)?|t(h)?amil|file|that|find|und(o)*|kit(t(i|y)?)?o(w)?|thar(u)?(o)*w?|kittum(o)*|aya(k)*(um(o)*)?|full\smovie|any(one)|with\ssubtitle(s)?)", "", msg.text, flags=re.IGNORECASE) # plis contribute some common words 
-    query = query.strip() + " movie"
-    g_s = await search_gagala(query)
-    g_s += await search_gagala(msg.text)
-    gs_parsed = []
-    if not g_s:
-        k = await msg.reply("I couldn't find any movie in that name.")
-        await asyncio.sleep(8)
-        await k.delete()
-        return
-    regex = re.compile(r".*(imdb|wikipedia).*", re.IGNORECASE) # look for imdb / wiki results
-    gs = list(filter(regex.match, g_s))
-    gs_parsed = [re.sub(r'\b(\-([a-zA-Z-\s])\-\simdb|(\-\s)?imdb|(\-\s)?wikipedia|\(|\)|\-|reviews|full|all|episode(s)?|film|movie|series)', '', i, flags=re.IGNORECASE) for i in gs]
-    if not gs_parsed:
-        reg = re.compile(r"watch(\s[a-zA-Z0-9_\s\-\(\)]*)*\|.*", re.IGNORECASE) # match something like Watch Niram | Amazon Prime 
-        for mv in g_s:
-            match  = reg.match(mv)
-            if match:
-                gs_parsed.append(match.group(1))
-    user = msg.from_user.id if msg.from_user else 0
-    movielist = []
-    gs_parsed = list(dict.fromkeys(gs_parsed)) # removing duplicates https://stackoverflow.com/a/7961425
-    if len(gs_parsed) > 3:
-        gs_parsed = gs_parsed[:3]
-    if gs_parsed:
-        for mov in gs_parsed:
-            imdb_s = await get_poster(mov.strip(), bulk=True) # searching each keyword in imdb
-            if imdb_s:
-                movielist += [movie.get('title') for movie in imdb_s]
-    movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
-    movielist = list(dict.fromkeys(movielist)) # removing duplicates
-    if not movielist:
-        k = await msg.reply("I couldn't find anything related to that. Check your spelling")
-        await asyncio.sleep(8)
-        await k.delete()
-        return
-    SPELL_CHECK[msg.message_id] = movielist
-    btn = [[
-                InlineKeyboardButton(
-                    text=movie.strip(),
-                    callback_data=f"spolling#{user}#{k}",
-                )
-            ] for k, movie in enumerate(movielist)]
-    btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("I couldn't find anything related to that\nDid you mean any one of these?", reply_markup=InlineKeyboardMarkup(btn))
-    
-

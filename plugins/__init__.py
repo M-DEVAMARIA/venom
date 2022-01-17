@@ -66,7 +66,7 @@ HELP = InlineKeyboardMarkup(
         InlineKeyboardButton('ᴄᴀʟᴄᴜʟᴀᴛᴏʀ', callback_data="clcltr"),
         InlineKeyboardButton('ᴄᴏᴠɪᴅ', callback_data='covid')
         ],[
-        InlineKeyboardButton('ᴄᴏᴜɴᴛʀʏ', callback_data='cal'),
+        InlineKeyboardButton('Wɪᴋɪᴘᴇᴅɪᴀ', callback_data='wiki'),
         InlineKeyboardButton('extra', callback_data='extramod'),
         InlineKeyboardButton('ᴘɪɴ', callback_data='pin')
         ],[

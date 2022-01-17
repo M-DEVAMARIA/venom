@@ -13,11 +13,8 @@ import os
 import PTN
 import requests
 import json
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL, API_KEY
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL
 from database.users_db import db
-DATABASE_URI_2=os.environ.get('DATABASE_URI_2', DATABASE_URI)
-DATABASE_NAME_2=os.environ.get('DATABASE_NAME_2', DATABASE_NAME)
-COLLECTION_NAME_2="Posters"
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -59,28 +56,6 @@ class Media(Document):
     class Meta:
         collection_name = COLLECTION_NAME
 
-
-    
-async def save_poster(imdb_id, title, year, url):
-    try:
-        data = Poster(
-            imdb_id=imdb_id,
-            title=title,
-            year=int(year),
-            poster=url
-        )
-    except ValidationError:
-        logger.exception('Error occurred while saving poster in database')
-        return False, 2
-    else:
-        try:
-            await data.commit()
-        except DuplicateKeyError:
-            logger.warning("already saved in database")
-            return False, 0
-        else:
-            logger.info("Poster is saved in database")
-            return True, 1
 async def save_file(media):
     """Save file in database"""
 
@@ -153,8 +128,8 @@ async def get_search_results(query, file_type=None, max_results=20, offset=0):
 
 
 async def get_filter_results(query):
-   # query = query.strip()
-    query = query.lower().strip().replace(' ','.*') #change it on pattern
+    query = query.strip()
+    #query = query.lower().strip().replace(' ','.*') #change it on pattern
     if not query:
         raw_pattern = '.'
     elif ' ' not in query:
@@ -228,7 +203,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
             return movieid
         movieid = movieid[0].movieID
     else:
-        movieid = int(query)
+        movieid = query
     movie = imdb.get_movie(movieid)
     genres = ", ".join(movie.get("genres")) if movie.get("genres") else None
     if movie.get("original air date"):
