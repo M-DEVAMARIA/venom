@@ -28,7 +28,7 @@ BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data=
 
 
     
-@Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
+@Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming, group=0)
 async def filter(client, message):
     if message.text.startswith("/"):
         return
