@@ -777,7 +777,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
-async def chat_settings(message):
+async def chat_settings(client, message):
   configs = await db.find_chat(message.chat.id)
   if not configs:
     if not await db.get_chat(message.chat.id):
@@ -800,7 +800,7 @@ async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
     mess= message.message if spell else message
-    configs = await chat_settings(mess)
+    configs = await chat_settings(client, mess)
     single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time = configs
    
     if not autoftr:
