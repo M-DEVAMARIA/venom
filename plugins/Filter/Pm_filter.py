@@ -874,7 +874,7 @@ async def group(client, message, spell=False):
         except Exception as e:
             k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
     else:
-            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {searchs} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
          
     if spell:
         await msg.delete(True)
