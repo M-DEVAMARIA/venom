@@ -13,11 +13,8 @@ import os
 import PTN
 import requests
 import json
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL, API_KEY
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL
 from database.users_db import db
-DATABASE_URI_2=os.environ.get('DATABASE_URI_2', DATABASE_URI)
-DATABASE_NAME_2=os.environ.get('DATABASE_NAME_2', DATABASE_NAME)
-COLLECTION_NAME_2="Posters"
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -59,28 +56,6 @@ class Media(Document):
     class Meta:
         collection_name = COLLECTION_NAME
 
-
-    
-async def save_poster(imdb_id, title, year, url):
-    try:
-        data = Poster(
-            imdb_id=imdb_id,
-            title=title,
-            year=int(year),
-            poster=url
-        )
-    except ValidationError:
-        logger.exception('Error occurred while saving poster in database')
-        return False, 2
-    else:
-        try:
-            await data.commit()
-        except DuplicateKeyError:
-            logger.warning("already saved in database")
-            return False, 0
-        else:
-            logger.info("Poster is saved in database")
-            return True, 1
 async def save_file(media):
     """Save file in database"""
 
