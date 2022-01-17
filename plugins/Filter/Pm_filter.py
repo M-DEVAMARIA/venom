@@ -808,12 +808,6 @@ async def group(client, message, spell=False):
         if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text): return
         if 2 < len(message.text) < 100:    
             searchs = message.text 
-            nyva=BOT.get("username")
-            if not nyva:
-                botusername=await client.get_me()
-                nyva=botusername.username
-                BOT["username"]=nyva 
-                
             files = await get_filter_results(query=searchs)
             if not files: 
                 if spcheck:
