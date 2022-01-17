@@ -778,14 +778,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return await query.answer("cancel indexing",show_alert=True)
         
 async def chat_settings(client, message):
+  if not await db.get_chat(message.chat.id):
+      total=await client.get_chat_members_count(message.chat.id)
+      await client.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(message.chat.title, message.chat.id, total, "Unknown"))       
+      await db.add_chat(message.chat.id, message.chat.title)
+      await asyncio.sleep(3)
   configs = await db.find_chat(message.chat.id)
-  if not configs:
-    if not await db.get_chat(message.chat.id):
-        total=await client.get_chat_members_count(message.chat.id)
-        await client.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(message.chat.title, message.chat.id, total, "Unknown"))       
-        await db.add_chat(message.chat.id, message.chat.title)
-        await asyncio.sleep(3)
-        configs = await db.find_chat(message.chat.id)
   a = configs["configs"]["pm_fchat"]#single
   b = configs["configs"]["imDb"]#imdbg
   c = configs["configs"]["spellcheck"]#spcheck
