@@ -142,7 +142,7 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
               await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search}</b>", reply_markup=InlineKeyboardMarkup(buttons))
         return 
         
-@Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & ~filters.bot, group=0)
+@Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming, group=0)
 async def give_filter(client, message): 
     group_id = message.chat.id
     name = message.text
