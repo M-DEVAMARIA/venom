@@ -18,12 +18,17 @@ async def save_group(bot, cmd):
         await bot.send_message(LOG_CHANNEL, Translation.GROUP_LOG.format(cmd.chat.title,cmd.chat.id,total,"Unknown"))
             
     for u in cmd.new_chat_members:
-        k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>")
-        await rest(30)
         try:
-           await k.delete(True)
-        except Exception as e:
-           print(f"error in auto delete message {e}")
+            k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>")
+        except:
+            return 
+        if k:
+           try:
+             await rest(30)
+             await k.delete(True)
+             return
+           except Exception as e:
+             return print(f"error in auto delete message {e}")
 
 @Client.on_message(filters.command(['info']))
 async def bot_info(client, message):
