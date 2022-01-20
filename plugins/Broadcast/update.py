@@ -1,6 +1,7 @@
 import os 
 from asyncio import sleep as rest 
-import asyncio
+import asyncio 
+import git
 from git import Repo
 from git.exc import GitCommandError
 from pyrogram import Client, filters 
