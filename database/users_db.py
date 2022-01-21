@@ -40,6 +40,8 @@ class Database:
                 delete_time=3600,
                 pm_fchat=True,
                 advance=True,
+                welcome=True,
+                protect=False,
                 imDb=True
             ),
         )
@@ -52,6 +54,8 @@ class Database:
                 autofilter=True,
                 pm_fchat=True,
                 advance=True,
+                welcome=True,
+                protect=False,
                 imDb=True
             )
         )

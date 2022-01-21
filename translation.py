@@ -25,7 +25,9 @@ Current settings:-\n
 ⪼ <b>Buttons mode:</b> {}\n
 ⪼ <b>Spelling mode:</b> {}\n
 ⪼ <b>Filter per page:</b> {}\n
-⪼ <b>Auto delete :</b> {}\n
+⪼ <b>Auto delete :</b> {}\n 
+⪼ <b>welcome :</b> {}\n
+⪼ <b>protect :</b> {}\n
 ⪼ <b>Imdb:</b> {}
 
 change above value using buttons below

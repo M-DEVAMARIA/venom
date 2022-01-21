@@ -74,7 +74,9 @@ async def bot_info(bot, update: CallbackQuery):
     spell  = settings["configs"].get("spellcheck", False)
     advance  = settings["configs"].get("advance", False)
     autof  = settings["configs"].get("autofilter", False)
-    autodelete  = settings["configs"].get("delete", False)
+    autodelete  = settings["configs"].get("delete", False) 
+    welcome  = settings["configs"].get("welcome", False) 
+    protect  = settings["configs"].get("protect", False)
     page = settings["configs"]["max_pages"]
     delete = settings["configs"]["delete_time"]
     cap = "Single" if pm_file_chat else "Double"
@@ -82,6 +84,8 @@ async def bot_info(bot, update: CallbackQuery):
     spellc = "ON ✅" if spell else "OFF ❌"
     autoc = "ON ✅" if autof else "OFF ❌"
     deletec = "ON ✅" if autodelete else "OFF ❌"
+    wlcm = "ON ✅" if welcome else "OFF ❌"
+    prot = "ON ✅" if protect else "OFF ❌"
     chat_id = query_data.split("#")
     st = await bot.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
@@ -101,12 +105,15 @@ async def bot_info(bot, update: CallbackQuery):
             InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
             InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
             ],[
+            InlineKeyboardButton("welcome", callback_data=f"wlcm({welcome}|{chat})"),
+            InlineKeyboardButton("protect content", callback_data=f"protect({protect}|{chat})")
+            ],[
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await update.message.edit_text( 
         reply_markup=reply_markup,
-        text= Translation.SETTINGS_TXT.format(update.message.chat.title,autoc,cap,spellc,page,deletec,imd),
+        text= Translation.SETTINGS_TXT.format(update.message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
@@ -299,9 +306,9 @@ async def auto_delete(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("🕑 Timer", callback_data="time")
                 ],[
-                InlineKeyboardButton("1 h", callback_data=f"set(delete|3600|{chat_id}|{count})"),
-                InlineKeyboardButton("3 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
-                InlineKeyboardButton("5 h", callback_data=f"set(delete|10080|{chat_id}|{count})")
+                InlineKeyboardButton("1 h ✅"if count=="3600" else "1 h" , callback_data=f"set(delete|3600|{chat_id}|{count})"),
+                InlineKeyboardButton("3 h ✅"if count=="7200" else "2 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
+                InlineKeyboardButton("5 h ✅"if count=="10080" else "3 h", callback_data=f"set(delete|10080|{chat_id}|{count})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -313,6 +320,72 @@ async def auto_delete(bot, update: CallbackQuery):
                 ]]
                     
     text=f"<b>Use below buttons to select auto delete messages send by venom after desired time</b>\n\n<i>Note:-\n bot only delete message send by user and venom. do not delete other bot messages</i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
+@Client.on_callback_query(filters.regex(r"wlcm\((.+)\)"), group=2)
+async def imdb_mode(bot, update: CallbackQuery):
+    #wlcm on / off calbackalback function
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
+
+    value, chat_id = re.findall(r"wlcm\((.+)\)", query_data)[0].split("|", 1)
+    
+    value = True if value=="True" else False
+    if value:
+        buttons= [[
+                InlineKeyboardButton(" OFF ❌", callback_data=f"set(wlcm|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
+                ]]
+    else:
+        buttons =[[
+                InlineKeyboardButton("ON ✅", callback_data=f"set(wlcm|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
+                ]]
+                    
+    text=f"<i>Use Below Buttons to welcome message on/off. </i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(
+        text,
+        reply_markup=reply_markup,
+        parse_mode="html"
+    )
+@Client.on_callback_query(filters.regex(r"protect\((.+)\)"), group=2)
+async def imdb_mode(bot, update: CallbackQuery):
+    #imdb on / off calbackalback function
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    st = await bot.get_chat_member(chat_id, user_id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
+
+    value, chat_id = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
+    
+    value = True if value=="True" else False
+    if value:
+        buttons= [[
+                InlineKeyboardButton(" OFF ❌", callback_data=f"set(protect|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
+                ]]
+    else:
+        buttons =[[
+                InlineKeyboardButton("ON ✅", callback_data=f"set(protect|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
+                ]]
+                    
+    text=f"<i>Use Below Buttons to protect content on/off. </i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -348,7 +421,9 @@ async def cb_set(bot, update: CallbackQuery):
     auto_delete_time = int(prev["configs"].get("delete_time"))
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
     pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
-    imdb = True if prev["configs"].get("imDb") == (True or "True") else False
+    imdb = True if prev["configs"].get("imDb") == (True or "True") else False 
+    protect = True if prev["configs"].get("protect") == (True or "True") else False 
+    welcome = True if prev["configs"].get("welcome") == (True or "True") else False
     advancespl = True if prev["configs"].get("advance") == (True or "True") else False
     
     if action == "spell": # Scophisticated way 😂🤣
@@ -373,9 +448,16 @@ async def cb_set(bot, update: CallbackQuery):
         imdb = True if val=="True" else False
 
     elif action == "inPM":
-        pm_file_chat = True if val=="True" else False  
+        pm_file_chat = True if val=="True" else False 
+        
     elif action == "advance":
-        advancespl = True if val=="True" else False
+        advancespl = True if val=="True" else False 
+        
+    elif action == "protect":
+        protect = True if val=="True" else False 
+        
+    elif action == "wlcm":
+        welcome = True if val=="True" else False
         
 
     new = dict(
@@ -387,6 +469,8 @@ async def cb_set(bot, update: CallbackQuery):
         delete = auto_delete,
         delete_time = auto_delete_time,
         advance=advancespl,
+        protect=protect,
+        welcome=welcome,
         imDb=imdb
         
     )
