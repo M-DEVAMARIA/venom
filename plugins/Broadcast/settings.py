@@ -352,7 +352,7 @@ async def imdb_mode(bot, update: CallbackQuery):
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>Use Below Buttons to Imdb on/off. </i>"
+    text=f"<i>Use Below Buttons to welcome message on/off. </i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -385,7 +385,7 @@ async def imdb_mode(bot, update: CallbackQuery):
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>Use Below Buttons to Imdb on/off. </i>"
+    text=f"<i>Use Below Buttons to protect content on/off. </i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
