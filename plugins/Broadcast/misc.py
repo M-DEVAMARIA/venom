@@ -23,7 +23,7 @@ async def save_group(bot, cmd):
            w = set["configs"]["welcome"]
            if not w: return
         except:
-           continue
+           pass
     for u in cmd.new_chat_members:
         try:
             k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>")
