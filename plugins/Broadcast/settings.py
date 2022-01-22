@@ -14,11 +14,11 @@ from info import ADMINS
 #db = {}
 
 @Client.on_message(filters.command(['settings']))
-async def botsetting_info(bot, message):
+async def bot_info(bot, message):
     await botsetting_info(bot, message, message)   
     
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def bot_info(client, message, call=False):   
+async def botsetting_info(client, message, call=False):   
     
     if not call:
        message = message.message
