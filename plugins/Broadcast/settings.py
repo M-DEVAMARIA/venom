@@ -21,7 +21,7 @@ async def bot_info(bot, message):
 async def botsetting_info(client, message, call=False):   
     
     
-       
+    message = message.message
     chat = message.chat.id
     chat_type = message.chat.type
     userid = message.from_user.id 
