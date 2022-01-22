@@ -12,16 +12,18 @@ API = "https://api.sumanjay.cf/covid/?country="
 BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('📢 Join Updates Channel ⚙', url='https://t.me/venombotupdates')]])
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 
-@Client.on_message(filters.media & filters.private)
+@Client.on_message(filters.command(['Telegraph', 'Teleg'])& filters.media & filters.private)
 async def telegraph_upload(bot, update):
-
+    media= await bot.ask(chat_id=update.from_user.id,text="please send a media under 5 Mb")
+    if media not in media:
+        return
     medianame = "./DOWNLOADS/" + "venom/telegraph"
     text = await update.reply_text(
         text="<code>Downloading to My Server ...</code>",
         disable_web_page_preview=True
     )
     await bot.download_media(
-        message=update,
+        message=media,
         file_name=medianame
     )
     await text.edit_text(
