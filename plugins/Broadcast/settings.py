@@ -14,7 +14,7 @@ from info import ADMINS
 #db = {}
 
 @Client.on_message(filters.command(['settings']))
-async def bot_info(client, message, call=False):
+async def botsetting_info(client, message, call=False):
     if call:
         message = message.message
         await message.delete()
@@ -38,7 +38,7 @@ async def bot_info(client, message, call=False):
     await client.send_message(chat_id=chat_id,reply_markup=reply_markup,text="Where do you want to open the settings menu? ",parse_mode="html")
         
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def botsetting_info(client, message):   
+async def bot_info(client, message):   
     message = message.message
     chat = message.chat.id
     userid = message.from_user.id 
