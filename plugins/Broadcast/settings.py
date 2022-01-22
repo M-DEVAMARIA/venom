@@ -15,22 +15,17 @@ from info import ADMINS
 
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, message, call=False):#call will cb 
-    userid = message.from_user.id
-    if not call:
-        chat = message.chat.id
-        chat_type = message.chat.type
-        userid = message.from_user.id
-    else:
-        message = message.message
-        chat = message.message.chat.id
-        chat_type = message.message.chat.type
-        userid = message.message.from_user.id
-        
+    if call:
+       message = message.message 
+    
+    chat = message.chat.id
+    chat_type = message.chat.type
+    userid = message.from_user.id 
+    
     if chat_type == "private": return
-       
+     
     elif chat_type in ["group", "supergroup"]:
-        chid = chat_id
-        st = await client.get_chat_member(chid, userid)
+        st = await client.get_chat_member(chat, userid)
         if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
              k = await message.reply_text("your are not group owner or admin")
              await asyncio.sleep(10)
