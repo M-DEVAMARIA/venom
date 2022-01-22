@@ -94,9 +94,8 @@ async def chatverupikkals(bot, message):
            half+=1
         else:
            done+=1
-           await asyncio.sleep(3)
-           if not done % 20:
-               await k.edit(f"settings upgrading done: {done} \nhalf done: {half}")
+           await asyncio.sleep(2)
+           await k.edit(f"settings upgrading done: {done} \nhalf done: {half}")
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))          
     await k.edit(f"successfully completed within: {time_taken}\ndone: {done}\nhalf done: {half}")
 
