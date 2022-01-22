@@ -76,6 +76,9 @@ async def botsetting_info(client, message, call=False, back=False):#call will cb
     else:
        await message.reply_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html") 
         
+@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
+async def bot_info(bot, update: CallbackQuery):    
+    await botsetting_info(bot, update, update, update)
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def buttons(bot, update: CallbackQuery):
