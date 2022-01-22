@@ -20,8 +20,7 @@ async def bot_info(bot, message):
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def botsetting_info(client, message, call=False):   
     
-    if not call:
-       message = message.message
+    
        
     chat = message.chat.id
     chat_type = message.chat.type
