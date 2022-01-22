@@ -18,7 +18,8 @@ async def botsetting_info(client, message, call=False, back=False):#call will cb
     
     if call:
        message = message.message
-       await message.delete()
+       if not back
+          await message.delete() 
     
     chat = message.chat.id
     chat_type = message.chat.type
@@ -78,7 +79,7 @@ async def botsetting_info(client, message, call=False, back=False):#call will cb
         
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(bot, update: CallbackQuery):    
-    await botsetting_info(bot, update, update, update)
+    await botsetting_info(bot, update,k=False, update)
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def buttons(bot, update: CallbackQuery):
