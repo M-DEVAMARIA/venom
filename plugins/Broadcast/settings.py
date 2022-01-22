@@ -18,7 +18,7 @@ async def botsetting_info(client, message, call=False, back=False):#call will cb
     
     if call:
        message = message.message
-       if not back
+       if not back:
           await message.delete() 
     
     chat = message.chat.id
