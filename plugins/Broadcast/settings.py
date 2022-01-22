@@ -14,30 +14,39 @@ from info import ADMINS
 #db = {}
 
 @Client.on_message(filters.command(['settings']))
-async def bot_info(bot, message):
-    await botsetting_info(bot, message, message)   
-    
-@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def botsetting_info(client, message, call=False):   
-    
-    
-    message = message.message
+async def bot_info(client, message, call=False):
+    if call:
+        message = message.message
+        await message.delete()
     chat = message.chat.id
     chat_type = message.chat.type
     userid = message.from_user.id 
-    if chat_type == "private": return 
-    
-    elif chat_type in ["group", "supergroup"]:
-        st = await client.get_chat_member(chat, userid)
+    if chat_type in ["group", "supergroup"]:
         if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-             k = await message.reply_text(f"your are not group owner or admin {userid}")
-             await asyncio.sleep(10)
-             await k.delete()
-             await message.delete()
-             return
-    else: return 
+            k=await message.reply_text(f"your are not group owner or admin")
+            await asyncio.sleep(5)
+            return await k.delete()
+    else: return
+    buttons = [[
+            InlineKeyboardButton("🔓 open here ", callback_data=f"open({chat_id})#{chid}")
+            ],[
+            InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
+            ],[
+            InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
+    ]]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await client.send_message(chat_id=chat_id,reply_markup=reply_markup,text="Where do you want to open the settings menu? ",parse_mode="html")
+        
+@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
+async def botsetting_info(client, message):   
+    message = message.message
+    chat = message.chat.id
+    userid = message.from_user.id 
     
-    
+    st = await client.get_chat_member(chat, userid)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+        await message.answer(f"your are not group owner or admin", show_alert=True)
+             
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False) 
@@ -73,13 +82,8 @@ async def botsetting_info(client, message, call=False):
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    if not call:
-       await message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
-    else:
-       await message.reply_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html") 
-        
-
-    
+    await message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+   
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def buttons(bot, update: CallbackQuery):
     # button mode callback function
