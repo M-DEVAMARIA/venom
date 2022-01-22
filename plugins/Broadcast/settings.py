@@ -17,25 +17,17 @@ from info import ADMINS
 async def botsetting_info(client, message, call=False):#call will cb 
     userid = message.from_user.id
     if not call:
-        chat_id = message.chat.id
+        chat = message.chat.id
         chat_type = message.chat.type
+        userid = message.from_user.id
     else:
-        chat_id = message.message.chat.id
+        message = message.message
+        chat = message.message.chat.id
         chat_type = message.message.chat.type
-    if chat_type == "private":
-        grpid = await active_connection(str(userid))
-        if grpid is not None:
-            grp_id = grpid
-            try:
-                chat = await client.get_chat(grpid)
-                title = chat.title
-                chid = chat.id
-            except:
-                await message.reply_text("Make sure I'm present in your group!!", quote=True)
-                return
-        else:
-            await message.reply_text("I'm not connected to any groups!", quote=True)
-            return
+        userid = message.message.from_user.id
+        
+    if chat_type == "private": return
+       
     elif chat_type in ["group", "supergroup"]:
         chid = chat_id
         st = await client.get_chat_member(chid, userid)
@@ -45,29 +37,11 @@ async def botsetting_info(client, message, call=False):#call will cb
              await k.delete()
              await message.delete()
              return
-    else:
-        return
+    else: return 
+    
     if call:
-        await message.message.delete()
-    buttons = [[
-            InlineKeyboardButton("🔓 open here ", callback_data=f"open({chat_id})#{chid}")
-            ],[
-            InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
-            ],[
-            InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await client.send_message(
-        chat_id=chat_id,
-        reply_markup=reply_markup,
-        text="Where do you want to open the settings menu? ",
-        parse_mode="html")
-@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def bot_info(bot, update: CallbackQuery):
-    query_data = update.data
-    chat = update.message.chat.id
-    userid = update.from_user.id
-    chat_type = update.message.chat.type
+        await message.delete()
+        
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False) 
@@ -86,16 +60,8 @@ async def bot_info(bot, update: CallbackQuery):
     deletec = "ON ✅" if autodelete else "OFF ❌"
     wlcm = "ON ✅" if welcome else "OFF ❌"
     prot = "ON ✅" if protect else "OFF ❌"
-    chat_id = query_data.split("#")
-    st = await bot.get_chat_member(chat, userid)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-    if chat_type =="private":
-      chat = chat_id  
-    else:
-       chat = chat
+
     buttons = [[
-            
             InlineKeyboardButton("Auto filter", callback_data=f"auto({autof}|{chat})"),
             InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
@@ -111,9 +77,9 @@ async def bot_info(bot, update: CallbackQuery):
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await update.message.edit_text( 
+    await message.edit_text( 
         reply_markup=reply_markup,
-        text= Translation.SETTINGS_TXT.format(update.message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),
+        text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),
         parse_mode="html")
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
