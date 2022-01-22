@@ -14,16 +14,17 @@ from info import ADMINS
 #db = {}
 
 @Client.on_message(filters.command(['settings']))
-async def botsetting_info(client, message, call=False):#call will cb 
+async def botsetting_info(client, message, call=False, back=False):#call will cb 
+    
     if call:
-       message = message.message 
+       message = message.message
+       await message.delete()
     
     chat = message.chat.id
     chat_type = message.chat.type
     userid = message.from_user.id 
+    if chat_type == "private": return 
     
-    if chat_type == "private": return
-     
     elif chat_type in ["group", "supergroup"]:
         st = await client.get_chat_member(chat, userid)
         if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
@@ -34,9 +35,7 @@ async def botsetting_info(client, message, call=False):#call will cb
              return
     else: return 
     
-    if call:
-        await message.delete()
-        
+    
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False) 
@@ -72,10 +71,11 @@ async def botsetting_info(client, message, call=False):#call will cb
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await message.reply_text( 
-        reply_markup=reply_markup,
-        text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),
-        parse_mode="html")
+    if back:
+       await message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+    else:
+       await message.reply_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html") 
+        
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def buttons(bot, update: CallbackQuery):
