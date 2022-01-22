@@ -768,6 +768,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "sets":
         await botsetting_info(client, query, query)
         
+    elif query.data == "open":
+        await botsetting_info(client, query, query, query)
+        
     elif query.data == "index":
         await index_files(client, query, query)
         if query.data.startswith('index_cancel'):
