@@ -72,7 +72,7 @@ async def botsetting_info(client, message, call=False):#call will cb
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-    await message.edit_text( 
+    await message.reply_text( 
         reply_markup=reply_markup,
         text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),
         parse_mode="html")
