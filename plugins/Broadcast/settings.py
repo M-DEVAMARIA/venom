@@ -15,7 +15,7 @@ from info import ADMINS
 
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(bot, message):
-    await botsetting_info(bot, update, update)   
+    await botsetting_info(bot, message, message)   
     
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(client, message, call=False):   
