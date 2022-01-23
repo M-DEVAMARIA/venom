@@ -370,7 +370,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if not (clicked == typed):
         return await query.answer("This is not for you ! request your own movie",show_alert=True)
     if (clicked == typed):
-        if query data.startwith("subinps):
+        if query.data.startwith("subinps):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
