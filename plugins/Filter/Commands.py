@@ -110,6 +110,7 @@ async def gstart(bot, cmd):
                     chat_id=cmd.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
+                    protect_content=True if ident == "venoms" else False
                     reply_markup=CAPTION
                     )
         except Exception as err:
