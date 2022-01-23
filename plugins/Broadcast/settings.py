@@ -45,7 +45,7 @@ async def bot_info(client, message: CallbackQuery):
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-        await message.message.answer(f"your are not group owner or admin", show_alert=True)
+        await message.answer(f"your are not group owner or admin", show_alert=True)
       
     k = await extract(message.message)
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
