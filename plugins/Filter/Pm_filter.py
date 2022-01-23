@@ -370,7 +370,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if not (clicked == typed):
         return await query.answer("This is not for you ! request your own movie",show_alert=True)
     if (clicked == typed):
-        if query.data.startwith("subinps):
+        if query.data.startwith("venom"):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
@@ -386,7 +386,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 if f_caption is None:
                     f_caption = f"{files.file_name}" 
                 if P_TTI_SHOW_OFF:
-                  await query.answer(url=f"https://t.me/{temp.U_NAME}?start=venom_-_-_-_{file_id}")
+                  await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_-_-_-_{file_id}")
                   return
                 else:
                     await query.answer("check your pm")
@@ -395,7 +395,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         file_id=file_id,
                         caption=f_caption,
                         reply_markup=CAPTION,
-                        protect_content=True if ident == "subinpss" else False
+                        protect_content=True if ident == "venoms" else False
                         )
         if query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
@@ -815,13 +815,13 @@ async def group(client, message, spell=False):
            file_id = file.file_id
            size = f"{get_size(file.file_size)}"
            name = f"{file.file_name}"
-           subinps= subinpss if protect=="True" else subinps                  
+           venom= "venoms" if protect=="True" else "venom"                  
            if single:
                btn.append(
-                      [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"{subinps}#{file_id}")]
+                      [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"{venom}#{file_id}")]
                       )
            else:
-               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"{subinps}#{file_id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"{subinps}_#{file_id}")])
+               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"{venom}#{file_id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"{venom}_#{file_id}")])
         
     if not btn:
         return
