@@ -72,7 +72,6 @@ async def chatverupikkals(bot, message):
    # user =  int(users['id']) 
     done=0
     half=0
-    k=await message.reply_text("upgrading settings please wait..")
     async for chat in users:
         user =  int(chat['id'])
         new = dict(
@@ -91,14 +90,12 @@ async def chatverupikkals(bot, message):
 
         k = await db.update_configs(user, new)
         if not k:
-           await db.update(int(user), new)
-           half+=1
+           await db.update(int(user), new)  
         else:
-           done+=1
-           await asyncio.sleep(2)
-           await k.edit(f"settings upgrading done: {done} \nhalf done: {half}")
+          await message.reply_text(f"updated a chat\nID: {user}\nwith new {new}")
+           
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))          
-    await k.edit(f"successfully completed within: {time_taken}\ndone: {done}\nhalf done: {half}")
+    await message.reply_text(f"successfully completed within: {time_taken}")
 
 @Client.on_message(filters.command("refresh"))
 async def refresh(bot, message):
