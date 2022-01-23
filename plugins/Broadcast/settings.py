@@ -439,7 +439,7 @@ async def cb_set(bot, update: CallbackQuery):
         
     elif action == "spell_template":
         spell_template  = TEMPLATE.get(chat)
-        
+        print(f"spell_template")
 
     new = dict(
         spellcheck=spellCheck,
