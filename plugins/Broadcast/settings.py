@@ -12,20 +12,19 @@ from info import ADMINS
 
     
 @Client.on_message(filters.command(['settings']))
-async def botsetting_info(client, msg, call=False):   
-    chat = msg.chat.id if not call else msg.message.chat.id
-    userid = msg.from_user.id 
+async def botsetting_info(client, msg, call=False): 
+    chat = msg.message.chat.id if call else msg.chat.id
+    userid = msg.from_user.id
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
         if call:
-            msg=msg.message
             return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
         else: 
             k=await msg.reply_text("your not group owner or admin ")
             await asyncio.sleep(5)
             return await k.delete()
-    
+    msg = msg.message if call else msg
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
     imdb  = settings["configs"].get("imDb", False) 
