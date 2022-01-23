@@ -72,6 +72,7 @@ async def chatverupikkals(bot, message):
    # user =  int(users['id']) 
     done=0
     half=0
+    start_time = time.time()
     async for chat in users:
         user =  int(chat['id'])
         new = dict(
