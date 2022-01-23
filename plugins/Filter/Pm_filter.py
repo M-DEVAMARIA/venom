@@ -372,6 +372,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if (clicked == typed):
         if query.data.startwith("venom"):
             ident, file_id = query.data.split("#")
+            configs = await db.find_chat(query.message.chat.id)
+            a = configs["configs"]["callback"]
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -385,7 +387,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         f_caption=f_caption
                 if f_caption is None:
                     f_caption = f"{files.file_name}" 
-                if P_TTI_SHOW_OFF:
+                if not a:
                   await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_-_-_-_{file_id}")
                   return
                 else:
