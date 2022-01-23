@@ -164,7 +164,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton(f"advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
                 InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})"),
-                InlineKeyboardButton("custom", callback_data=f"custom_template({chat_id})")
+                InlineKeyboardButton("custom", callback_data=f"custom_template")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -352,7 +352,7 @@ async def protect_mode(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
-@Client.on_callback_query(filters.regex(r"custom_template\((.+)\)"), group=2)
+@Client.on_callback_query(filters.regex(r"^custom_template"))
 async def cb_set(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     prev = await db.find_chat(chat_id)
