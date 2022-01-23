@@ -88,7 +88,7 @@ async def buttons(bot, update: CallbackQuery):
         buttons= [[
                 InlineKeyboardButton("DOUBLE ✅", callback_data=f"set(inPM|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Bot Pm ❌"if value2=="True" else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value})")
+                InlineKeyboardButton("Bot Pm ❌"if value2=="True" else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value2})")
                 ],[
                 InlineKeyboardButton("⬅️ Back ", callback_data=f"open({chat_id})")
                 ]] 
@@ -96,7 +96,7 @@ async def buttons(bot, update: CallbackQuery):
         buttons=[[
                 InlineKeyboardButton("SINGLE ✅", callback_data=f"set(inPM|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Bot Pm ❌"if value2=="True" else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value})")
+                InlineKeyboardButton("Bot Pm ❌"if value2=="True" else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value2})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
