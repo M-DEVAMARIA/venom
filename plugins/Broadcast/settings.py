@@ -41,11 +41,11 @@ async def botsetting_info(client, message, call=False):
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(client, msg: CallbackQuery):   
     chat = msg.message.chat.id
-    userid = msg.message.from_user.id 
+    userid = message.from_user.id 
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-        await message.answer(f"your are not group owner or admin {userid}", show_alert=True)
+        await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
       
     k = await settings_extract(msg.message)
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
