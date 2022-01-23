@@ -13,41 +13,23 @@ from info import ADMINS
 
 #db = {}
 
-@Client.on_message(filters.command(['settings']))
-async def botsetting_info(client, message, call=False):
-    if call:
-        message = message.message
-        await message.delete()
-    chat_id = message.chat.id
-    chat_type = message.chat.type
-    userid = message.from_user.id 
-    if chat_type in ["group", "supergroup"]:
-        st = await client.get_chat_member(chat_id, userid)
-        if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-            k=await message.reply_text(f"your are not group owner or admin")
-            await asyncio.sleep(5)
-            return await k.delete()
-    else: return
-    buttons = [[
-            InlineKeyboardButton("🔓 open here ", callback_data=f"open({chat_id})")
-            ],[
-            InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
-            ],[
-            InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await client.send_message(chat_id=chat_id,reply_markup=reply_markup,text="Where do you want to open the settings menu? ",parse_mode="html")
-        
+
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def bot_info(client, msg: CallbackQuery):   
-    chat = msg.message.chat.id
+async def bot_info(client, message):
+    await botsetting_info(client, message , message)
+    
+@Client.on_message(filters.command(['settings']))
+async def botsetting_info(client, msg, call=False):   
+    chat = msg.chat.id if not call else msg.message.chat.id
     userid = msg.from_user.id 
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-        await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
-      
-    k = await settings_extract(msg.message)
+        if call:
+            msg=msg.message
+            return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
+        else: return print("your not admin")
+    k = await settings_extract(msg)
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)#a
@@ -84,7 +66,7 @@ async def bot_info(client, msg: CallbackQuery):
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(btns)
-    await msg.message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+    await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
 async def settings_extract(msg):
     chat = msg.chat.id
     settings = await db.find_chat(int(chat))
