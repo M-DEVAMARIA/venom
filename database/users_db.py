@@ -39,6 +39,7 @@ class Database:
                 delete=False,
                 delete_time=3600,
                 pm_fchat=True,
+                callback=False,
                 advance=True,
                 welcome=True,
                 protect=False,
