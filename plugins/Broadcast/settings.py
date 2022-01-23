@@ -354,13 +354,13 @@ async def protect_mode(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"^custom_template"))
 async def custm_spell(bot, update: CallbackQuery):
-    chat_id = update.message.chat.id
-    prev = await db.find_chat(chat_id)
+    chat = update.message.chat.id
+    prev = await db.find_chat(chat)
     value = prev["configs"].get("spell_template")
     
-    spell = await bot.ask(chat_id=chat_id,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
+    spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
     k = spell
-    TEMPLATE[spell]=k
+    TEMPLATE[chat]=k
     buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|k|{chat_id}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
@@ -438,7 +438,7 @@ async def cb_set(bot, update: CallbackQuery):
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
-        spell_template  = TEMPLATE.get(spell)
+        spell_template  = TEMPLATE.get(chat)
         
 
     new = dict(
