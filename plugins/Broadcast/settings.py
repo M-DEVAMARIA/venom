@@ -29,7 +29,7 @@ async def botsetting_info(client, message, call=False):
             return await k.delete()
     else: return
     buttons = [[
-            InlineKeyboardButton("🔓 open here ", callback_data=f"open({chat_id})#{chid}")
+            InlineKeyboardButton("🔓 open here ", callback_data=f"open({chat_id})")
             ],[
             InlineKeyboardButton("👤 open in private", callback_data=f"open({chat_id})")
             ],[
