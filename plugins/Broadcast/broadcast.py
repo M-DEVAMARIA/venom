@@ -92,7 +92,7 @@ async def chatverupikkals(bot, message):
         if not k:
            await db.update(int(user), new)  
         else:
-          await message.reply_text(f"updated a chat\nID: {user}\nwith new {new}")
+          await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}")
            
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))          
     await message.reply_text(f"successfully completed within: {time_taken}")
