@@ -39,15 +39,15 @@ async def botsetting_info(client, message, call=False):
     await client.send_message(chat_id=chat_id,reply_markup=reply_markup,text="Where do you want to open the settings menu? ",parse_mode="html")
         
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def bot_info(client, message: CallbackQuery):   
-    chat = message.message.chat.id
-    userid = message.message.from_user.id 
+async def bot_info(client, msg: CallbackQuery):   
+    chat = msg.message.chat.id
+    userid = msg.message.from_user.id 
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
         await message.answer(f"your are not group owner or admin {userid}", show_alert=True)
       
-    k = await settings_extract(message.message)
+    k = await settings_extract(msg.message)
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)#a
@@ -84,9 +84,9 @@ async def bot_info(client, message: CallbackQuery):
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(btns)
-    await message.message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+    await msg.message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
 async def settings_extract(msg):
-    chat = message.chat.id
+    chat = msg.chat.id
     settings = await db.find_chat(int(chat))
     p  = settings["configs"].get("pm_fchat", False)
     i  = settings["configs"].get("imDb", False) 
