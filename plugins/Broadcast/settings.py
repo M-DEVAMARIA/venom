@@ -352,7 +352,7 @@ async def protect_mode(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
-@Client.on_callback_query(filters.regex(r"^custom_template"))
+@Client.on_callback_query(filters.regex(r"^custom_template"),group=2)
 async def custm_spell(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
