@@ -370,7 +370,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     if not (clicked == typed):
         return await query.answer("This is not for you ! request your own movie",show_alert=True)
     if (clicked == typed):
-        if query.data.startwith("venom"):
+        if query.data.startswith("venom"):
             ident, file_id = query.data.split("#")
             configs = await db.find_chat(query.message.chat.id)
             a = configs["configs"]["callback"]
