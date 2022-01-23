@@ -41,14 +41,14 @@ async def botsetting_info(client, message, call=False):
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(client, message):   
     message = message.message
-    chat = message.chat.id
-    userid = message.from_user.id 
+    chat = message.message.chat.id
+    userid = message.message.from_user.id 
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
-        await message.answer(f"your are not group owner or admin", show_alert=True)
+        await message.message.answer(f"your are not group owner or admin", show_alert=True)
       
-    k = await extract(message)
+    k = await extract(message.message)
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)#a
@@ -85,7 +85,7 @@ async def bot_info(client, message):
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(btns)
-    await message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+    await message.message.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(message.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
 async def settings_extract(msg):
     chat = message.chat.id
     settings = await db.find_chat(int(chat))
