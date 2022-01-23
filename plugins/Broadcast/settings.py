@@ -361,7 +361,7 @@ async def custm_spell(bot, update: CallbackQuery):
     k= await bot.ask(chat_id=chat_id,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
     buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|{k}|{chat_id}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
-    await k.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
+    await message.message.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
     return
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
