@@ -363,7 +363,7 @@ async def custm_spell(bot, update: CallbackQuery):
     TEMPLATE[chat]=k
     buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|k|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
-    await update.message.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
+    await spell.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
     return
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
