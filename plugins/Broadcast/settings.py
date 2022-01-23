@@ -265,8 +265,8 @@ async def auto_delete(bot, update: CallbackQuery):
                 InlineKeyboardButton("🕑 Timer", callback_data="time")
                 ],[
                 InlineKeyboardButton("1 h ✅"if count=="3600" else "1 h" , callback_data=f"set(delete|3600|{chat_id}|{count})"),
-                InlineKeyboardButton("2 h ✅"if count=="7200" else "2 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
-                InlineKeyboardButton("5 h ✅"if count=="10080" else "3 h", callback_data=f"set(delete|10080|{chat_id}|{count})"),
+                InlineKeyboardButton("3 h ✅"if count=="10080" else "3 h", callback_data=f"set(delete|7200|{chat_id}|{count})"),
+                InlineKeyboardButton("5 h ✅"if count=="18000" else "5 h", callback_data=f"set(delete|10080|{chat_id}|{count})"),
                 InlineKeyboardButton("8 h ✅"if count=="28800" else "8 h", callback_data=f"set(delete|28800|{chat_id}|{count})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
