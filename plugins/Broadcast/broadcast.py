@@ -104,8 +104,7 @@ async def chatverupikkals(bot, message):
 async def refresh(bot, message):
     users = await db.get_all_chats() 
     user = message.chat.id 
-   # async for chat in users:
-      #  user =  int(chat['id'])
+    cmd = message
     if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
             channel_id = cmd.chat.id
