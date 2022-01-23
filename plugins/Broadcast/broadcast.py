@@ -87,6 +87,7 @@ async def chatverupikkals(bot, message):
           advance=True,
           welcome=True,
           protect=False,
+          spell_template=None,
           imDb=True)
 
         k = await db.update_configs(user, new)
@@ -112,16 +113,19 @@ async def refresh(bot, message):
             return await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name -  [{cmd.chat.title}]\nGroup id - {cmd.chat.id}\nTotal members = [{total}]\nAdded by - 'Unknown'")
               
     new = dict(
-      spellcheck=True,
-      max_pages=10,
-      max_results=10,
-      autofilter=True,
-      delete=false,
-      delete_time=3600,
-      pm_fchat=True,
-      callback=False,
-      advance=True,
-      imDb=True)
+          spellcheck=True,
+          max_pages=10,
+          max_results=10,
+          autofilter=True,
+          delete=False,
+          delete_time=3600,
+          pm_fchat=True,
+          callback=False,
+          advance=True,
+          welcome=True,
+          protect=False,
+          spell_template=None,
+          imDb=True)
     append = await db.update_configs(user, new)
     if append: 
        #await db.update(int(user), new)
