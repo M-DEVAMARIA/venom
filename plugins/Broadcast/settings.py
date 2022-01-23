@@ -29,7 +29,7 @@ async def botsetting_info(client, msg, call=False):
             msg=msg.message
             return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
         else: return print("your not admin")
-    k = await settings_extract(msg)
+    k = await settings_extract(msg.message if not call else msg)
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)#a
