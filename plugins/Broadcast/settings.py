@@ -66,7 +66,11 @@ async def botsetting_info(client, msg, call=False):
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
     reply_markup = InlineKeyboardMarkup(btns)
-    await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+    if call:
+        await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+    else:
+        await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+
 async def settings_extract(msg):
     chat = msg.chat.id
     settings = await db.find_chat(int(chat))
