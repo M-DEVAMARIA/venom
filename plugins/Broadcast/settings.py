@@ -163,7 +163,8 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton(f"advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
-                InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})")
+                InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})"),
+                InlineKeyboardButton("custom", callback_data=f"custom_template({chat_id})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -351,6 +352,16 @@ async def protect_mode(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
+@Client.on_callback_query(filters.regex(r"custom_template\((.+)\)"), group=2)
+async def cb_set(bot, update: CallbackQuery):
+    prev = await db.find_chat(update.message.chat.id)
+    value = prev["configs"].get("spell_template"))
+    
+    k= await bot.ask("please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
+    buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|{k}|{update.message.chat.id}|{value})")]]        
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await k.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
+    return
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     query_data = update.data
@@ -376,6 +387,7 @@ async def cb_set(bot, update: CallbackQuery):
     spellCheck = True if prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
+    spell_template = prev["configs"].get("spell_template"))
     auto_delete = True if prev["configs"].get("delete") == (True or "True") else False
     auto_delete_time = int(prev["configs"].get("delete_time"))
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
@@ -420,7 +432,10 @@ async def cb_set(bot, update: CallbackQuery):
         protect = True if val=="True" else False 
         
     elif action == "wlcm":
-        welcome = True if val=="True" else False
+        welcome = True if val=="True" else False 
+        
+    elif action == "spell_template":
+        spell_template  = val
         
 
     new = dict(
@@ -435,6 +450,7 @@ async def cb_set(bot, update: CallbackQuery):
         advance=advancespl,
         protect=protect,
         welcome=welcome,
+        spell_template=spell_template,
         imDb=imdb
         
     )
