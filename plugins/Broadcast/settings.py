@@ -39,8 +39,7 @@ async def botsetting_info(client, message, call=False):
     await client.send_message(chat_id=chat_id,reply_markup=reply_markup,text="Where do you want to open the settings menu? ",parse_mode="html")
         
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def bot_info(client, message):   
-    message = message.message
+async def bot_info(client, message: CallbackQuery):   
     chat = message.message.chat.id
     userid = message.message.from_user.id 
     
