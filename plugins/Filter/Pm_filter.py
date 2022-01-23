@@ -358,15 +358,20 @@ async def backfilter(client: Client, query):
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
                 return
-        
-
-
-@Client.on_callback_query(filters.regex(r"^subinps"))
-async def autocb(client: Client, query):
-            ident, file_id, user = query.data.split("#")
-            if int(user) != 0 and query.from_user.id != int(user): 
-               return await query.answer("This is not for you ! request your own movie", show_alert=True)
-        
+            
+@Client.on_callback_query()
+async def cb_handler(client: Client, query: CallbackQuery):
+    clicked = query.from_user.id
+    try:
+        typed = query.message.reply_to_message.from_user.id
+    except:
+        typed = query.from_user.id
+        pass 
+    if not (clicked == typed):
+        return await query.answer("This is not for you ! request your own movie",show_alert=True)
+    if (clicked == typed):
+        if query data.startwith("subinps)
+            ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -390,20 +395,8 @@ async def autocb(client: Client, query):
                         file_id=file_id,
                         caption=f_caption,
                         reply_markup=CAPTION,
+                        protect_content=True if ident == "subinpss" else False
                         )
-                    
-@Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
-    clicked = query.from_user.id
-    try:
-        typed = query.message.reply_to_message.from_user.id
-    except:
-        typed = query.from_user.id
-        pass 
-    if not (clicked == typed):
-        return await query.answer("This is not for you ! request your own movie",show_alert=True)
-    if (clicked == typed):
-        
         if query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("🛑 Join updates channel and press refresh button To get movie",show_alert=True)
@@ -788,14 +781,15 @@ async def chat_settings(client, message):
   f = configs["configs"]["max_pages"]#max_pages
   g = configs["configs"]["delete"]#delete
   t = configs["configs"]["delete_time"]#delete_time
-  return a, b, c, d, e, f, g, t
+  p = configs["configs"]["protect"]                             
+  return a, b, c, d, e, f, g, t, p
 
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
     mess= message.message if spell else message
     configs = await chat_settings(client, mess)
-    single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time = configs
+    single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time, protect = configs
    
     if not autoftr:
         return
@@ -819,14 +813,15 @@ async def group(client, message, spell=False):
     if files:
        for file in files:
            file_id = file.file_id
-           size = f"[{get_size(file.file_size)}]"
+           size = f"{get_size(file.file_size)}"
            name = f"{file.file_name}"
+           subinps= subinpss if protect=="True" else subinps                  
            if single:
                btn.append(
-                      [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"subinps#{file_id}#{message.from_user.id}")]
+                      [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"{subinps}#{file_id}")]
                       )
            else:
-               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"subinps#{file_id}#{message.from_user.id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"subinps#{file_id}#{message.from_user.id}")])
+               btn.append([InlineKeyboardButton(text=f"{name}", callback_data=f"{subinps}#{file_id}"),InlineKeyboardButton(text=f"{get_size(file.file_size)}", callback_data=f"{subinps}_#{file_id}")])
         
     if not btn:
         return
