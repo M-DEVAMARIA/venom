@@ -34,6 +34,7 @@ async def botsetting_info(client, msg, call=False):
     autodelete  = settings["configs"].get("delete", False)
     welcome  = settings["configs"].get("welcome", False)
     protect  = settings["configs"].get("protect", False)
+    callback  = settings["configs"].get("callback", False)
     page = settings["configs"]["max_pages"]
     delete = settings["configs"]["delete_time"]
     cap = "Single" if pm_file_chat else "Double"
@@ -48,7 +49,7 @@ async def botsetting_info(client, msg, call=False):
             InlineKeyboardButton("Auto filter", callback_data=f"auto({autof}|{chat})"),
             InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
-            InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
+            InlineKeyboardButton("Button Mode ", callback_data=f"inPM({callback}|{pm_file_chat}|{chat})"),
             InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
             ],[
             InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
@@ -79,19 +80,23 @@ async def buttons(bot, update: CallbackQuery):
     if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
-    value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 1)
+    value2, value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 2)
 
     value = True if value=="True" else False
-    
+    values = True if value2=="False" else False
     if value:
         buttons= [[
                 InlineKeyboardButton("DOUBLE ✅", callback_data=f"set(inPM|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Bot Pm ❌"if value2 else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("⬅️ Back ", callback_data=f"open({chat_id})")
                 ]] 
     else:
         buttons=[[
                 InlineKeyboardButton("SINGLE ✅", callback_data=f"set(inPM|True|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("Bot Pm ❌"if value2 else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -374,7 +379,8 @@ async def cb_set(bot, update: CallbackQuery):
     auto_delete = True if prev["configs"].get("delete") == (True or "True") else False
     auto_delete_time = int(prev["configs"].get("delete_time"))
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
-    pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False
+    pm_file_chat = True if prev["configs"].get("pm_fchat") == (True or "True") else False 
+    callback = True if prev["configs"].get("callback") == (True or "True") else False 
     imdb = True if prev["configs"].get("imDb") == (True or "True") else False 
     protect = True if prev["configs"].get("protect") == (True or "True") else False 
     welcome = True if prev["configs"].get("welcome") == (True or "True") else False
@@ -397,7 +403,10 @@ async def cb_set(bot, update: CallbackQuery):
         
     elif action == "auto":
         auto_Filter = True if val=="True" else False
-
+    
+    elif action == "inPmcb":
+        callback = True if val=="True" else False
+        
     elif action =="imddb":
         imdb = True if val=="True" else False
 
@@ -420,6 +429,7 @@ async def cb_set(bot, update: CallbackQuery):
         max_results=max_results, 
         autofilter=auto_Filter,
         pm_fchat=pm_file_chat,
+        callback=callback,
         delete = auto_delete,
         delete_time = auto_delete_time,
         advance=advancespl,
