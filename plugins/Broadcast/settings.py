@@ -9,14 +9,7 @@ from database.Settings_db import Database
 from translation import Translation
 from plugins import VERIFY 
 from info import ADMINS
-#db = Database()
 
-#db = {}
-
-
-@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
-async def bot_info(client, message):
-    await botsetting_info(client, message , message)
     
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False):   
@@ -28,85 +21,55 @@ async def botsetting_info(client, msg, call=False):
         if call:
             msg=msg.message
             return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
-        else: return print("your not admin")
-    k = await settings_extract(msg.message if not call else msg)
-    a, b, c, d, e, f, g, h, i, j, k, l, m, n, p, q ,r, btns = k
+        else: 
+            k=await msg.reply_text("your not group owner or admin ")
+            await asyncio.sleep(5)
+            return await k.delete()
+    
     settings = await db.find_chat(int(chat))
-    pm_file_chat  = settings["configs"].get("pm_fchat", False)#a
-    imdb  = settings["configs"].get("imDb", False) #b
-    spell  = settings["configs"].get("spellcheck", False)#c
-    advance  = settings["configs"].get("advance", False)#d
-    autof  = settings["configs"].get("autofilter", False)#e
-    autodelete  = settings["configs"].get("delete", False)#f
-    welcome  = settings["configs"].get("welcome", False)#g
-    protect  = settings["configs"].get("protect", False)#h
-    page = settings["configs"]["max_pages"]#i
-    delete = settings["configs"]["delete_time"]#j
-    cap = "Single" if pm_file_chat else "Double"#k
-    imd = "ON ✅" if imdb else "OFF ❌"#l
-    spellc = "ON ✅" if spell else "OFF ❌"#m
-    autoc = "ON ✅" if autof else "OFF ❌"#n
-    deletec = "ON ✅" if autodelete else "OFF ❌"#p
-    wlcm = "ON ✅" if welcome else "OFF ❌"#q
-    prot = "ON ✅" if protect else "OFF ❌"#r
+    pm_file_chat  = settings["configs"].get("pm_fchat", False)
+    imdb  = settings["configs"].get("imDb", False) 
+    spell  = settings["configs"].get("spellcheck", False)
+    advance  = settings["configs"].get("advance", False)
+    autof  = settings["configs"].get("autofilter", False)
+    autodelete  = settings["configs"].get("delete", False)
+    welcome  = settings["configs"].get("welcome", False)
+    protect  = settings["configs"].get("protect", False)
+    page = settings["configs"]["max_pages"]
+    delete = settings["configs"]["delete_time"]
+    cap = "Single" if pm_file_chat else "Double"
+    imd = "ON ✅" if imdb else "OFF ❌"
+    spellc = "ON ✅" if spell else "OFF ❌"
+    autoc = "ON ✅" if autof else "OFF ❌"
+    deletec = "ON ✅" if autodelete else "OFF ❌"
+    wlcm = "ON ✅" if welcome else "OFF ❌"
+    prot = "ON ✅" if protect else "OFF ❌"
 
     buttons = [[
-            InlineKeyboardButton("Auto filter", callback_data=f"auto({e}|{chat})"),#e
-            InlineKeyboardButton("Spell mode ", callback_data=f"spell({c}|{d}|{chat})")#c,d
+            InlineKeyboardButton("Auto filter", callback_data=f"auto({autof}|{chat})"),
+            InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
-            InlineKeyboardButton("Button Mode ", callback_data=f"inPM({a}|{chat})"),#a
-            InlineKeyboardButton("Imdb ", callback_data=f"imddb({b}|{chat})")#b
+            InlineKeyboardButton("Button Mode ", callback_data=f"inPM({pm_file_chat}|{chat})"),
+            InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
             ],[
-            InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),#i
-            InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")#j,f
+            InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
+            InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
             ],[
-            InlineKeyboardButton("welcome", callback_data=f"wlcm({welcome}|{chat})"),#g
-            InlineKeyboardButton("protect content", callback_data=f"protect({protect}|{chat})")#h
+            InlineKeyboardButton("welcome", callback_data=f"wlcm({welcome}|{chat})"),
+            InlineKeyboardButton("protect content", callback_data=f"protect({protect}|{chat})")
             ],[
             InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
     ]]
-    reply_markup = InlineKeyboardMarkup(btns)
+    reply_markup = InlineKeyboardMarkup(buttons)
     if call:
         await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
     else:
         await msg.reply_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
-
-async def settings_extract(msg):
-    chat = msg.chat.id
-    settings = await db.find_chat(int(chat))
-    p  = settings["configs"].get("pm_fchat", False)
-    i  = settings["configs"].get("imDb", False) 
-    s  = settings["configs"].get("spellcheck", False)
-    ad = settings["configs"].get("advance", False)
-    af = settings["configs"].get("autofilter", False)
-    da = settings["configs"].get("delete", False) 
-    we = settings["configs"].get("welcome", False) 
-    pr  = settings["configs"].get("protect", False)
-    pa = settings["configs"]["max_pages"]
-    de = settings["configs"]["delete_time"]
-    ca = "Single" if p else "Double"
-    im = "ON ✅" if i else "OFF ❌"
-    sp = "ON ✅" if s else "OFF ❌"
-    au = "ON ✅" if af else "OFF ❌"
-    dc = "ON ✅" if da else "OFF ❌"
-    wl = "ON ✅" if we else "OFF ❌"
-    po = "ON ✅" if pr else "OFF ❌"
-    buttons = [[
-            InlineKeyboardButton("Auto filter", callback_data=f"auto({af}|{chat})"),#e
-            InlineKeyboardButton("Spell mode ", callback_data=f"spell({s}|{ad}|{chat})")#c,d
-            ],[
-            InlineKeyboardButton("Button Mode ", callback_data=f"inPM({p}|{chat})"),#a
-            InlineKeyboardButton("Imdb ", callback_data=f"imddb({i}|{chat})")#b
-            ],[
-            InlineKeyboardButton("Filter per page", callback_data=f"pages({pa}|{chat})"),#i
-            InlineKeyboardButton("Auto delete", callback_data=f"delete({de}|{af}|{chat})")#j,f
-            ],[
-            InlineKeyboardButton("welcome", callback_data=f"wlcm({we}|{chat})"),#g
-            InlineKeyboardButton("protect content", callback_data=f"protect({pr}|{chat})")#h
-            ],[
-            InlineKeyboardButton("✖️ Close ✖️", callback_data=f"close")
-    ]]
-    return p,i,s,ad,af,da,we,pr,pa,de,ca,im,sp,au,dc,wl,po, buttons
+        
+@Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
+async def bot_info(client, message):
+    await botsetting_info(client, message , message)
+    
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def buttons(bot, update: CallbackQuery):
     # button mode callback function
