@@ -41,7 +41,7 @@ async def botsetting_info(client, message, call=False):
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(client, msg: CallbackQuery):   
     chat = msg.message.chat.id
-    userid = message.from_user.id 
+    userid = msg.from_user.id 
     
     st = await client.get_chat_member(chat, userid)
     if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
