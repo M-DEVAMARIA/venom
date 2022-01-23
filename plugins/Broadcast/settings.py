@@ -9,7 +9,7 @@ from database.Settings_db import Database
 from translation import Translation
 from plugins import VERIFY 
 from info import ADMINS
-
+TEMPLATE ={}
     
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
@@ -359,7 +359,8 @@ async def custm_spell(bot, update: CallbackQuery):
     value = prev["configs"].get("spell_template")
     
     k= await bot.ask(chat_id=chat_id,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
-    buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|{k}|{chat_id}|{value})")]]        
+    TEMPLATE[spell]=k
+    buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|k|{chat_id}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
     return
@@ -436,7 +437,7 @@ async def cb_set(bot, update: CallbackQuery):
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
-        spell_template  = val
+        spell_template  = TEMPLATE.get(spell)
         
 
     new = dict(
