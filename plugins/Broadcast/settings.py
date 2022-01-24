@@ -359,12 +359,10 @@ async def custm_spell(bot, update: CallbackQuery):
     value = prev["configs"].get("spell_template")
     texts=[]
     spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
-    texts.append(spell)
-    if texts:
-       for text in texts:
-           TEMPLATE.append(text)
+    texts.append(spell.text)
+    TEMPLATE.append(spell.text)
     print(f"{text}")
-    buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|{text}|{chat}|{value})")]]        
+    buttons =[[InlineKeyboardButton("ON ✅", callback_data=f"set(spell_template|{texts}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text("confirm to set this is your spell check message",reply_markup=reply_markup)
     return
