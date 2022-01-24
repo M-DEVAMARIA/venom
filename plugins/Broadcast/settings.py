@@ -439,7 +439,7 @@ async def cb_set(bot, update: CallbackQuery):
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
-        spell_template  = spell_template
+        spell_template  = val
         #TEMPLATE.get()
         print(f"{spell_template}")
 
