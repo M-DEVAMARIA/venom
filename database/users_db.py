@@ -43,6 +43,8 @@ class Database:
                 advance=True,
                 welcome=True,
                 protect=False,
+                spell_template=spell_template,
+                imdb_template=imdb_template,
                 imDb=True
             ),
         )
