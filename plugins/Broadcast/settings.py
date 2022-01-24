@@ -52,7 +52,7 @@ async def botsetting_info(client, msg, call=False):
             InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({callback}|{pm_file_chat}|{chat})"),
-            InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{imdb_temp}|{chat})")
+            InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
             ],[
             InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
             InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
@@ -120,8 +120,9 @@ async def imdb_mode(bot, update: CallbackQuery):
     st = await bot.get_chat_member(chat_id, user_id)
     if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
-
-    value, imdb_temp, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 2)
+    settings = await db.find_chat(int(chat_id))
+    imdb_temp = settings["configs"]["imdb_template"]
+    value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
