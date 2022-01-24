@@ -860,10 +860,12 @@ async def group(client, message, spell=False):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
             k = await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
+        except KeyError as e:
+            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nyour custom group imdb template is wrong format please correct it !</b>", reply_markup=InlineKeyboardMarkup(buttons))
         except Exception as e:
             k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
     else:
-            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {searchs} ‌‌‌‌‎ ­  ­  ­  ­  ­  </b>", reply_markup=InlineKeyboardMarkup(buttons))
+            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {searchs} </b>", reply_markup=InlineKeyboardMarkup(buttons))
          
     if spell:
         await msg.delete(True)
