@@ -852,16 +852,18 @@ async def group(client, message, spell=False):
             )
     imdb = await get_poster(searchs) if imdbg else None
     if imdb:
-        TEMPLATE = IMDB_TEMPLATE if imdbtemp=="None" else imdbtemp
-        cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+        TEMPLATE = IMDB_TEMPLATE if imdbtemp=="None" else imdbtemp 
+        if TEMPLATE:
+            try:
+              cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
+            except KeyError:
+              cap = f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nyour custom group imdb template is wrong format please correct it !</b>" 
         try:
             k = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
             k = await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
-        except KeyError as e:
-            k = await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nyour custom group imdb template is wrong format please correct it !</b>", reply_markup=InlineKeyboardMarkup(buttons))
         except Exception as e:
             k = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(buttons))
     else:
