@@ -379,14 +379,14 @@ async def imdb_template(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    texts=[]
-    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\nhey,{name},i cant find movie with your search {search}")
-    texts.append(spell.text)
+    chat_id, current = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
+    buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)")]] 
+    if current=="current":
+        return await update.message.reply_text(f"Current:-\n\n{value}")
+    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\nhey,{name},i cant find movie with your search {search}",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
-    print(f"{spell.text}")
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
-    reply_markup=InlineKeyboardMarkup(buttons) 
-    await spell.reply_text(f"<code>{texts}</code>\n\nconfirm to set this is your spell check message",reply_markup=reply_markup, parse_mode="html")
+    await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
     return
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
