@@ -9,7 +9,7 @@ from database.Settings_db import Database
 from translation import Translation
 from plugins import VERIFY 
 from info import ADMINS
-TEMPLATE =[]
+TEMPLATE ={}
     
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
