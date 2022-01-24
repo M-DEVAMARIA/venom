@@ -10,6 +10,7 @@ from translation import Translation
 from plugins import VERIFY 
 from info import ADMINS
 TEMPLATE ={}
+IMDBTEMPLATE ={}
     
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
@@ -36,6 +37,7 @@ async def botsetting_info(client, msg, call=False):
     protect  = settings["configs"].get("protect", False)
     callback  = settings["configs"].get("callback", False)
     page = settings["configs"]["max_pages"]
+    imdb_temp = settings["configs"]["imdb_template"]
     delete = settings["configs"]["delete_time"]
     cap = "Single" if pm_file_chat else "Double"
     imd = "ON ✅" if imdb else "OFF ❌"
@@ -50,7 +52,7 @@ async def botsetting_info(client, msg, call=False):
             InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
             ],[
             InlineKeyboardButton("Button Mode ", callback_data=f"inPM({callback}|{pm_file_chat}|{chat})"),
-            InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{chat})")
+            InlineKeyboardButton("Imdb ", callback_data=f"imddb({imdb}|{imdb_temp}|{chat})")
             ],[
             InlineKeyboardButton("Filter per page", callback_data=f"pages({page}|{chat})"),
             InlineKeyboardButton("Auto delete", callback_data=f"delete({delete}|{autodelete}|{chat})")
@@ -119,12 +121,17 @@ async def imdb_mode(bot, update: CallbackQuery):
     if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
-    value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
+    value, imdb_temp, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 2)
     
     value = True if value=="True" else False
     if value:
         buttons= [[
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(imddb|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("IMDB TEMPLATE", callback_data=f"k(k|k|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("default ✅" if imdb_temp==None else "default", callback_data=f"set(imdb_template|None|{chat_id}|{value})"),
+                InlineKeyboardButton("custom"if imdb_temp==None else "custom ✅", callback_data=f"imdb_template({chat_id})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -358,11 +365,25 @@ async def custm_spell(bot, update: CallbackQuery):
     prev = await db.find_chat(chat)
     value = prev["configs"].get("spell_template")
     texts=[]
-    spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
+    spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message\n\nexample:-\nhey,{name},i cant find movie with your search {search}")
     texts.append(spell.text)
     TEMPLATE[chat]=spell.text
     print(f"{spell.text}")
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|e|{chat}|{value})")]]        
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await spell.reply_text(f"<code>{texts}</code>\n\nconfirm to set this is your spell check message",reply_markup=reply_markup, parse_mode="html")
+    return 
+@Client.on_callback_query(filters.regex(r"imdb_template\((.+)\)"),group=2)
+async def imdb_template(bot, update: CallbackQuery):
+    chat = update.message.chat.id
+    prev = await db.find_chat(chat)
+    value = prev["configs"].get("imdb_template")
+    texts=[]
+    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\nhey,{name},i cant find movie with your search {search}")
+    texts.append(spell.text)
+    IMDBTEMPLATE[chat]=spell.text
+    print(f"{spell.text}")
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(f"<code>{texts}</code>\n\nconfirm to set this is your spell check message",reply_markup=reply_markup, parse_mode="html")
     return
@@ -392,6 +413,7 @@ async def cb_set(bot, update: CallbackQuery):
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
     spell_template = prev["configs"].get("spell_template")
+    imdb_template = prev["configs"].get("imdb_template")
     auto_delete = True if prev["configs"].get("delete") == (True or "True") else False
     auto_delete_time = int(prev["configs"].get("delete_time"))
     auto_Filter = True if prev["configs"].get("autofilter") == (True or "True") else False
@@ -440,8 +462,10 @@ async def cb_set(bot, update: CallbackQuery):
         
     elif action == "spell_template":
         spell_template  = TEMPLATE.get(chat)
-        #TEMPLATE.get()
-        print(f"{spell_template}")
+        
+    elif action == "imdb_template":
+        imdb_template = IMDBTEMPLATE.get(chat) or val
+        
 
     new = dict(
         spellcheck=spellCheck,
@@ -456,6 +480,7 @@ async def cb_set(bot, update: CallbackQuery):
         protect=protect,
         welcome=welcome,
         spell_template=spell_template,
+        imdb_template=imdb_template,
         imDb=imdb
         
     )
