@@ -783,15 +783,16 @@ async def chat_settings(client, message):
   f = configs["configs"]["max_pages"]#max_pages
   g = configs["configs"]["delete"]#delete
   t = configs["configs"]["delete_time"]#delete_time
-  p = configs["configs"]["protect"]                             
-  return a, b, c, d, e, f, g, t, p
+  p = configs["configs"]["protect"]
+  st = configs["configs"]["spell_template"]
+  return a, b, c, d, e, f, g, t, p, st
 
 async def group(client, message, spell=False):
     btn = []
     chat = message.message.chat.id if spell else message.chat.id
     mess= message.message if spell else message
     configs = await chat_settings(client, mess)
-    single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time, protect = configs
+    single, imdbg, spcheck, autoftr, advance, max_pages, delete, delete_time, protect, spelltemp = configs
    
     if not autoftr:
         return
@@ -806,7 +807,7 @@ async def group(client, message, spell=False):
                      if advance:
                          return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
                      if not advance:
-                         return await normalspellmode(message)
+                         return await normalspellmode(message, spelltemp)
                 else: return 
     else:
        searchs, files = spell 
