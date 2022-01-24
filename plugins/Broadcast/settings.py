@@ -360,7 +360,7 @@ async def custm_spell(bot, update: CallbackQuery):
     texts=[]
     spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message\nexample:-\nhey,{name},i cant find movie with your search {search}")
     texts.append(spell.text)
-    TEMPLATE.append(spell.text)
+    TEMPLATE[chat]=spell.text
     print(f"{spell.text}")
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|{texts}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
@@ -439,7 +439,7 @@ async def cb_set(bot, update: CallbackQuery):
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
-        spell_template  = val
+        spell_template  = TEMPLATE.get(chat)
         #TEMPLATE.get()
         print(f"{spell_template}")
 
