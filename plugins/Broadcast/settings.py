@@ -130,8 +130,8 @@ async def imdb_mode(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("IMDB TEMPLATE", callback_data=f"k(k|k|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("default ✅" if imdb_temp==None else "default", callback_data=f"set(imdb_template|None|{chat_id}|{value})"),
-                InlineKeyboardButton("custom"if imdb_temp==None else "custom ✅", callback_data=f"imdb_template({chat_id})")
+                InlineKeyboardButton("default ✅" if imdb_temp=="None" else "default", callback_data=f"set(imdb_template|None|{chat_id}|{value})"),
+                InlineKeyboardButton("custom"if imdb_temp=="None" else "custom ✅", callback_data=f"imdb_template({chat_id})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
