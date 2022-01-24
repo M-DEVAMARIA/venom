@@ -37,10 +37,10 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
     await k.delete()
     return 
 
-async def normalspellmode(message):
+async def normalspellmode(message, template):
     search = message.text
     spf = await message.reply_text(
-    text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>",
+    text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>"if template==None else f"{template}",
     reply_markup=InlineKeyboardMarkup(
             [[  
              InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
