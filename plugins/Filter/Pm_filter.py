@@ -852,9 +852,9 @@ async def group(client, message, spell=False):
             )
     imdb = await get_poster(searchs) if imdbg else None
     if imdb:
+        IMDB_TEMPLATE = IMDB_TEMPLATE if imdbtemp=="None" else imdbtemp
+        cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
         try:
-            IMDB_TEMPLATE = IMDB_TEMPLATE if imdbtemp=="None" else imdbtemp
-            cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
             k = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
