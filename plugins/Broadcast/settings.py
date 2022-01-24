@@ -379,7 +379,7 @@ async def imdb_template(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    chat_id, current = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
+    chat_id, current = re.findall(r"imdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)")]] 
     if current=="current":
         return await update.message.reply_text(f"Current:-\n\n{value}")
