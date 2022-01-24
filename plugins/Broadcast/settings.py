@@ -461,10 +461,10 @@ async def cb_set(bot, update: CallbackQuery):
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
-        spell_template  = TEMPLATE.get(chat)
+        spell_template  = TEMPLATE.get(chat) if not val=="None" else val
         
     elif action == "imdb_template":
-        imdb_template = IMDBTEMPLATE.get(chat) or val
+        imdb_template = IMDBTEMPLATE.get(chat) if not val=="None" else val
         
 
     new = dict(
