@@ -369,20 +369,27 @@ async def custm_spell(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("spell_template")
+    st = await bot.get_chat_member(chat, update.from_user.id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
     spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>")
-    texts = "press Confirm to delete you custom spell message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
+    texts = "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
     val= None if spell.text=="/empty" else "k"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|{val}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
     return 
+
 @Client.on_callback_query(filters.regex(r"cimdb_template\((.+)\)"),group=2)
 async def imdb_template(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
+    st = await bot.get_chat_member(chat, update.from_user.id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
     chat_id, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
-    buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)")]]
+    buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"close")]]
     if current=="current":
         return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!", reply_markup=InlineKeyboardMarkup(CLOSE))
@@ -390,9 +397,10 @@ async def imdb_template(bot, update: CallbackQuery):
         return await update.message.reply_text(FILLINGS, reply_markup=InlineKeyboardMarkup(CLOSE) )
     spell = await bot.ask(chat_id=chat,text="<b>please now send a custom imdb template for set as your group imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(cimdb_template|e|{chat}|{value})")]]        
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
     return
+
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     query_data = update.data
