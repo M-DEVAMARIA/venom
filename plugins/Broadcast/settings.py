@@ -371,7 +371,8 @@ async def custm_spell(bot, update: CallbackQuery):
     texts.append(spell.text)
     TEMPLATE[chat]=spell.text
     print(f"{spell.text}")
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|e|{chat}|{value})")]]        
+    val= None if spell.text=="/empty" else "k"
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|{val}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(f"<code>{texts}</code>\n\nconfirm to set this is your spell check message",reply_markup=reply_markup, parse_mode="html")
     return 
