@@ -134,7 +134,7 @@ async def imdb_mode(bot, update: CallbackQuery):
                 InlineKeyboardButton("IMDB TEMPLATE", callback_data=f"k(k|k|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("default ✅" if imdb_temp=="None" else "default", callback_data=f"set(imdb_template|None|{chat_id}|{value})"),
-                InlineKeyboardButton("custom"if imdb_temp=="None" else "custom ✅", callback_data=f"imdb_template({chat_id}|k)")
+                InlineKeyboardButton("custom"if imdb_temp=="None" else "custom ✅", callback_data=f"cimdb_template({chat_id}|k)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -167,16 +167,16 @@ async def cb_show_invites(bot, update: CallbackQuery):
     custom = prev["configs"].get("spell_template")    
     value = True if value=="True" else False 
     act = "✅" if values=="True" else ""
-    acts = "" if values=="True" and not custom=="None" else "✅"
+    acts = "" if values=="True" else "✅"
     cact= ""if custom=="None" else "✅"
     if value:
         buttons= [[
                 InlineKeyboardButton("ON ✅", callback_data=f"set(spell|True|{chat_id}|{value})"),
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton(f"advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
-                InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})"),
-                InlineKeyboardButton(f"custom {cact}", callback_data=f"custom_template({chat_id})")
+                InlineKeyboardButton(f"Advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
+                InlineKeyboardButton(f"Normal {acts}"if custom=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
+                InlineKeyboardButton(f"Custom {cact}", callback_data=f"custom_template({chat_id})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -376,19 +376,19 @@ async def custm_spell(bot, update: CallbackQuery):
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
     return 
-@Client.on_callback_query(filters.regex(r"imdb_template\((.+)\)"),group=2)
+@Client.on_callback_query(filters.regex(r"cimdb_template\((.+)\)"),group=2)
 async def imdb_template(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    chat_id, current = re.findall(r"imdb_template\((.+)\)", update.data)[0].split("|", 1)
+    chat_id, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"close")]]
     if current=="current":
         return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!", reply_markup=InlineKeyboardMarkup(CLOSE))
     if current=="Fillings":
         return await update.message.reply_text(FILLINGS, reply_markup=InlineKeyboardMarkup(CLOSE) )
-    spell = await bot.ask(chat_id=chat,text="<b>please send a custom imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
+    spell = await bot.ask(chat_id=chat,text="<b>please now send a custom imdb template for set as your group imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
