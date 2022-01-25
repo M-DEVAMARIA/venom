@@ -381,12 +381,12 @@ async def imdb_template(bot, update: CallbackQuery):
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
     chat_id, current = re.findall(r"imdb_template\((.+)\)", update.data)[0].split("|", 1)
-    buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)"), 
+    buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)")]]
     if current=="current":
         return await update.message.reply_text(f"Current:-\n\n{value}"if value else "your are not using custom imdb template. your using default imdb template!" )
     if current=="Fillings":
         return await update.message.reply_text(FILLINGS)
-    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\nhey,{name},i cant find movie with your search {search}",reply_markup=InlineKeyboardMarkup(buttons))
+    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\n🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n👥 Cast : <code>{cast}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
