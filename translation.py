@@ -22,12 +22,12 @@ class Translation(object):
     SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
 Current settings:-\n
 ⪼ <b>Auto Filter:</b> {}\n
+⪼ <b>Auto delete:</b> {}\n 
 ⪼ <b>Buttons mode:</b> {}\n
 ⪼ <b>Spelling mode:</b> {}\n
 ⪼ <b>Filter per page:</b> {}\n
-⪼ <b>Auto delete :</b> {}\n 
-⪼ <b>welcome :</b> {}\n
-⪼ <b>protect :</b> {}\n
+⪼ <b>welcome message:</b> {}\n
+⪼ <b>protect content:</b> {}\n
 ⪼ <b>Imdb:</b> {}
 
 change above value using buttons below
