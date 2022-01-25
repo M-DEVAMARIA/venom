@@ -858,6 +858,8 @@ async def group(client, message, spell=False):
               cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"], **locals())
             except KeyError as e:
               cap = f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nThis group custom IMDb template is in wrong format.used a wrong key {e}. please group owner or admin correct it !</b>" 
+        else:
+            cap = f"<b>Here is What I Found In My Database For Your Query {searchs} </b>"   
         try:
             k = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
