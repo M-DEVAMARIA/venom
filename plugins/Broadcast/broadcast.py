@@ -88,8 +88,8 @@ async def chatverupikkals(bot, message):
           advance=True,
           welcome=True,
           protect=False,
-          spell_template=None,
-          imdb_template=None,
+          spell_template='None',
+          imdb_template='None',
           imDb=True)
 
         k = await db.update_configs(user, new)
