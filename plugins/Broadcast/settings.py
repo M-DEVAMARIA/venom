@@ -176,7 +176,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton(f"Advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
                 InlineKeyboardButton(f"Normal {acts}"if custom=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
-                InlineKeyboardButton(f"Custom {cact}", callback_data=f"custom_template({chat_id})")
+                InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_template({chat_id})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
