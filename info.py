@@ -45,6 +45,7 @@ start_uptime = time.time()
 # for main filter.py
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", "<b>Query: {query}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10")
 FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "")
+FILLINGS = environ.get("FILLINGS", "")
 if FILE_CAPTION.strip() == "":
     CUSTOM_FILE_CAPTION=None
 else:
