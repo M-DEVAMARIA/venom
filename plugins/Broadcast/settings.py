@@ -374,7 +374,7 @@ async def custm_spell(bot, update: CallbackQuery):
         return await update.answer("your are not group owner or admin", show_alert=True)
     spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>")
     texts = "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
-    val= None if spell.text=="/empty" else "k"
+    val= "None" if spell.text=="/empty" else "k"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|{val}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
