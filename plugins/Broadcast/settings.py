@@ -384,7 +384,7 @@ async def imdb_template(bot, update: CallbackQuery):
     chat_id, current = re.findall(r"imdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)")]]
     if current=="current":
-        return await update.message.reply_text(f"Current:-\n\n{value}"if value else "your are not using custom imdb template. your using default imdb template!" )
+        return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!" )
     if current=="Fillings":
         return await update.message.reply_text(FILLINGS)
     spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n👥 Cast : <code>{cast}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
