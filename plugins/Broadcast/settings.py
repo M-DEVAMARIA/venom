@@ -163,10 +163,12 @@ async def cb_show_invites(bot, update: CallbackQuery):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
-    
+    prev = await db.find_chat(chat)
+    custom = prev["configs"].get("spell_template")    
     value = True if value=="True" else False 
     act = "✅" if values=="True" else ""
-    acts = "" if values=="True" else "✅"
+    acts = "" if values=="True" and not custom=="None" else "✅"
+    cact= ""if custom=="None" else "✅"
     if value:
         buttons= [[
                 InlineKeyboardButton("ON ✅", callback_data=f"set(spell|True|{chat_id}|{value})"),
@@ -174,7 +176,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton(f"advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
                 InlineKeyboardButton(f"normal {acts}", callback_data=f"set(advance|False|{chat_id}|{values})"),
-                InlineKeyboardButton("custom", callback_data=f"custom_template({chat_id})")
+                InlineKeyboardButton(f"custom {cact}", callback_data=f"custom_template({chat_id})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
