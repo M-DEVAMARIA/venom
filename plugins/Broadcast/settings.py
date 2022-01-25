@@ -12,6 +12,7 @@ from plugins import VERIFY
 
 TEMPLATE ={}
 IMDBTEMPLATE ={}
+CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data="close")]]
     
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
@@ -366,15 +367,12 @@ async def custm_spell(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("spell_template")
-    texts=[]
-    spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message\n\nexample:-\nhey,{name},i cant find movie with your search {search}")
-    texts.append(spell.text)
-    TEMPLATE[chat]=spell.text
-    print(f"{spell.text}")
+    spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>")
+    texts = "press Confirm to delete you custom spell message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
     val= None if spell.text=="/empty" else "k"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|{val}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
-    await spell.reply_text(f"<code>{texts}</code>\n\nconfirm to set this is your spell check message",reply_markup=reply_markup, parse_mode="html")
+    await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
     return 
 @Client.on_callback_query(filters.regex(r"imdb_template\((.+)\)"),group=2)
 async def imdb_template(bot, update: CallbackQuery):
@@ -384,10 +382,10 @@ async def imdb_template(bot, update: CallbackQuery):
     chat_id, current = re.findall(r"imdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)")]]
     if current=="current":
-        return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!" )
+        return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!", reply_markup=InlineKeyboardMarkup(CLOSE))
     if current=="Fillings":
-        return await update.message.reply_text(FILLINGS)
-    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n👥 Cast : <code>{cast}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
+        return await update.message.reply_text(FILLINGS, reply_markup=InlineKeyboardMarkup(CLOSE) )
+    spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\n<b>example:-</b>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n👥 Cast : <code>{cast}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
