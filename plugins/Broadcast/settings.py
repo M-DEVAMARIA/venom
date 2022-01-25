@@ -66,9 +66,9 @@ async def botsetting_info(client, msg, call=False):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     if call:
-        await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+        await msg.edit_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,deletec,cap,spellc,page,wlcm,prot,imd),parse_mode="html")
     else:
-        await msg.reply_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,cap,spellc,page,deletec,wlcm,prot,imd),parse_mode="html")
+        await msg.reply_text(reply_markup=reply_markup,text= Translation.SETTINGS_TXT.format(msg.chat.title,autoc,deletec,cap,spellc,page,wlcm,prot,imd),parse_mode="html")
         
 @Client.on_callback_query(filters.regex(r"open\((.+)\)"), group=2)
 async def bot_info(client, message):
