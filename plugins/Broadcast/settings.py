@@ -6,9 +6,10 @@ from pyrogram.errors import ButtonDataInvalid, FloodWait
 from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
-from translation import Translation
+from translation import Translation 
+from info import ADMINS, FILLINGS
 from plugins import VERIFY 
-from info import ADMINS
+
 TEMPLATE ={}
 IMDBTEMPLATE ={}
     
@@ -380,9 +381,11 @@ async def imdb_template(bot, update: CallbackQuery):
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
     chat_id, current = re.findall(r"imdb_template\((.+)\)", update.data)[0].split("|", 1)
-    buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)")]] 
+    buttons =[[InlineKeyboardButton("Current", callback_data=f"imdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"imdb_template({chat}|Fillings)"), 
     if current=="current":
-        return await update.message.reply_text(f"Current:-\n\n{value}")
+        return await update.message.reply_text(f"Current:-\n\n{value}"if value else "your are not using custom imdb template. your using default imdb template!" )
+    if current=="Fillings":
+        return await update.message.reply_text(FILLINGS)
     spell = await bot.ask(chat_id=chat,text="please send a custom imdb template\n\nexample:-\nhey,{name},i cant find movie with your search {search}",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
