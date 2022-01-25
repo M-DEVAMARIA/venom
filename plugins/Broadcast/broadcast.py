@@ -97,7 +97,7 @@ async def chatverupikkals(bot, message):
            await db.update(int(user), new)  
         else:
            try:
-             link = (await bot.create_chat_invite_link(chat_id)).invite_link
+             link = (await bot.create_chat_invite_link(user)).invite_link
              await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvie link: {link}")
            except ChatAdminRequired:
              link ="im not admin in that chat"
