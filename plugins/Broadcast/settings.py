@@ -163,7 +163,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
         return await update.answer("your are not group owner or admin", show_alert=True)
 
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
-    prev = await db.find_chat(chat)
+    prev = await db.find_chat(chat_id)
     custom = prev["configs"].get("spell_template")    
     value = True if value=="True" else False 
     act = "✅" if values=="True" else ""
