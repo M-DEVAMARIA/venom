@@ -91,7 +91,7 @@ async def imdb_search(client, message):
     else:
         await message.reply('Give me a movie / series Name')
      
-@Client.on_callback_query(filters.regex('^imdb'))
+@Client.on_callback_query(filters.regex(r'imdb'))
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, movie = query.data.split('#')
     poster = await get_poster(query=movie, id=True)
