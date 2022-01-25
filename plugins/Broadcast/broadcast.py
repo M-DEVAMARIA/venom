@@ -4,6 +4,7 @@ import datetime
 import time 
 from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL
 #broadcast 
+from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from database.users_db import db
 import logging
@@ -95,8 +96,15 @@ async def chatverupikkals(bot, message):
         if not k:
            await db.update(int(user), new)  
         else:
-          await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}")
-           
+           try:
+             link = (await bot.create_chat_invite_link(chat_id)).invite_link
+             await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvie link: {link}")
+           except ChatAdminRequired:
+             link ="im not admin in that chat"
+             await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvite link: {link}")
+           except Exception as e:
+             link = e
+             await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvite link: {link}")
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))          
     await message.reply_text(f"successfully completed within: {time_taken}")
 
