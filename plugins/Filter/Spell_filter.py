@@ -60,9 +60,7 @@ async def custombutton(msg):
     button = []
     buttons = "venom - https://t.me/venom_moviebot"
     button.append(buttons)
-    print(button)
-    if not buttons:
-        return False 
+    
     name, url = buttons.split(' - ')
     k = buttons.count(' - ')
     print(k)
