@@ -71,10 +71,10 @@ async def custombutton(msg):
     else:
         name, nxt, i= buttons.split(' - ')
         url, buttons = nxt.split('|')
-        names, urls = buttons.split(' - ')
+        names = buttons.split(' - ')
         reply_markup=InlineKeyboardMarkup(
             [[  
              InlineKeyboardButton(f"{name}", url= url),
-             InlineKeyboardButton(f"{names}", url= urls)
+             InlineKeyboardButton(f"{names}", url= url)
             ]])
         return reply_markup
