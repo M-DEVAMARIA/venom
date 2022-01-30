@@ -58,12 +58,10 @@ async def custombutton(msg):
    # db = await db.find_chat(msg.chat.id)
     #buttons = db["settings"]["buttons"]
     button = []
-    buttons = """venom - https://t.me/venom_moviebot
-    drishyam - https://t.me/mdadmin2"""
+    buttons = """venom - https://t.me/venom_moviebot|drishyam - https://t.me/mdadmin2"""     
     button.append(buttons)
     
-    
-    if not button.split('\n'):
+    if not buttons.split('|'):
          name, url = buttons.split(' - ')
          reply_markup=InlineKeyboardMarkup(
             [[  
@@ -72,7 +70,7 @@ async def custombutton(msg):
          return reply_markup
     else:
         name, url, i, i = buttons.split(' - ')
-        i, button = url.split('\n')
+        i, buttons = url.split('|')
         names, urls = button.split(' - ')
         reply_markup=InlineKeyboardMarkup(
             [[  
