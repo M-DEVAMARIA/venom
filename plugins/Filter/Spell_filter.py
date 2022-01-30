@@ -65,6 +65,7 @@ async def custombutton(msg):
         return False 
     name, url = buttons.split(' - ')
     k = buttons.count(' - ')
+    print(k)
     if k=='1' :
          reply_markup=InlineKeyboardMarkup(
             [[  
