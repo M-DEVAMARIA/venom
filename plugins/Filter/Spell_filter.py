@@ -60,7 +60,7 @@ async def custombutton(msg):
     buttons = "venom - https://t.me/venom_moviebot"
     if not buttons:
         return False 
-    name, url = buttons.split('-')
+    name, url = buttons.split('-'):
     if len('-' in buttons) > 1
          reply_markup=InlineKeyboardMarkup(
             [[  
