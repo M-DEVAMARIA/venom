@@ -61,10 +61,11 @@ async def custombutton(msg):
     if not buttons:
         return False 
     name, url = buttons.split('-')
-    if len(for '-' in buttons) > 1 :
-         reply_markup=InlineKeyboardMarkup(
+    for - in buttons
+       if len(-) > 1 :
+           reply_markup=InlineKeyboardMarkup(
             [[  
              InlineKeyboardButton(f"{name}", url= url)
             ]])
-    return reply_markup
+       return reply_markup
     
