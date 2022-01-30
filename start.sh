@@ -1,10 +1,10 @@
-if [ -z $UPSTREAM_REPO ]
+if [ -z $BRANCH ]
 then
   echo "Cloning main Repository"
-  git clone https://github.com/M-DEVAMARIA/venom.git /venom
+  git clone https://github.com/M-DEVAMARIA/venom /venom  
 else
   echo "Cloning Custom Repo from $UPSTREAM_REPO "
-  git clone $UPSTREAM_REPO /venom 
+  git clone https://github.com/M-DEVAMARIA/venom -b $BRANCH /venom 
 fi
 cd /venom
 pip3 install -U -r requirements.txt
