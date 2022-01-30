@@ -63,7 +63,7 @@ async def custombutton(msg):
     print(button)
     if not buttons:
         return False 
-    name, url = buttons.split('-')
+    name, url = buttons.split(' - ')
     if name and url:
          reply_markup=InlineKeyboardMarkup(
             [[  
