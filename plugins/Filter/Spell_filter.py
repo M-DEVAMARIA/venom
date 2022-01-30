@@ -54,7 +54,7 @@ async def normalspellmode(message, template):
     await spf.delete()
     return
    
-async def custombutton(msg)
+async def custombutton(msg):
    # db = await db.find_chat(msg.chat.id)
     #buttons = db["settings"]["buttons"]
     buttons = "venom - https://t.me/venom_moviebot"
