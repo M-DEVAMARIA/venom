@@ -43,12 +43,12 @@ async def normalspellmode(message, template):
     button = await custombutton(message)
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
-    reply_markup= button,#InlineKeyboardMarkup(
-           # [[  
-          #   InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
-          #   InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')
-          #  ]]
-       #  ),     
+    reply_markup= button if not button=='None' else InlineKeyboardMarkup(
+            [[  
+            InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
+            InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')
+            ]]
+         ),     
     parse_mode="html",
     reply_to_message_id=message.message_id)
     await asyncio.sleep(22)
@@ -58,8 +58,8 @@ async def normalspellmode(message, template):
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
-    buttons = f"{buttons}"
-  #  buttons = """configs - https://t.me/venom_moviebot|venom - https://t.me/venom_moviebot\ndrishyam - https://t.me/mdadmin2|drishyam - https://t.me/mdadmin2"""     
+    if buttons=='None':
+        return None
     if not '!' in buttons:
         if not '|' in buttons:
             name, url = buttons.split(' - ')
