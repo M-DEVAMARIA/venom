@@ -3,7 +3,8 @@ import re
 import ast 
 import pyrogram 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram import Client, filters
+from pyrogram import Client, filters 
+from database.users_db import db
 from utils import is_subscribed, get_poster, search_gagala, temp,Media, get_file_details, get_search_results, get_filter_results, get_file_details, list_to_str
 from info import IMDB_TEMPLATE
 import logging
