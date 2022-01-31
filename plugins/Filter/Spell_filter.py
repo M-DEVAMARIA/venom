@@ -58,6 +58,7 @@ async def normalspellmode(message, template):
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
+    buttons = f"{buttons}"
   #  buttons = """configs - https://t.me/venom_moviebot|venom - https://t.me/venom_moviebot\ndrishyam - https://t.me/mdadmin2|drishyam - https://t.me/mdadmin2"""     
     if not '\n' in buttons:
         if not '|' in buttons:
