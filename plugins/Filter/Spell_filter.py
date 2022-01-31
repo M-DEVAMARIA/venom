@@ -81,7 +81,7 @@ async def custombutton(msg):
             return reply_markup
            
     else:
-        if not buttons.split('|'):
+     #   if not buttons.split('|'):
             first, seco = buttons.split('\n')
             name, url = first.split(' - ')
             names , urls = seco.split(' - ')
