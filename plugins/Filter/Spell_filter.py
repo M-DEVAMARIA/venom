@@ -69,13 +69,8 @@ async def custombutton(msg):
             name, nxt,= buttons.split('|')
             name , url = name.split(' - ')
             names, urls = nxt.split(' - ')
-            reply_markup=InlineKeyboardMarkup(
-               [[  
-               InlineKeyboardButton(name, url= url),
-               InlineKeyboardButton(names, url= urls)
-               ]])
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(name, url= url),InlineKeyboardButton(names, url= urls)]])
             return reply_markup
-           
     else:
            btn = []
            first, seco = buttons.split('\n')
@@ -84,7 +79,7 @@ async def custombutton(msg):
            if not '|' in first and names:
                 btn.append([InlineKeyboardButton(name, url= url)])
                 btn.append([InlineKeyboardButton(names, url= urls)])
-                return btn
+                return InlineKeyboardMarkup(btn)
            if '|' in first:
                nth, uth = first.split('|')
                name, url = nth.split(' - ')
@@ -99,5 +94,5 @@ async def custombutton(msg):
                btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
            else:
                btn.append([InlineKeyboardButton(names, url= urls)])
-           return btn
+           return InlineKeyboardMarkup(btn)
              
