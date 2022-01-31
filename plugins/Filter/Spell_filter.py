@@ -77,15 +77,27 @@ async def custombutton(msg):
             return reply_markup
            
     else:
-        if not '|' in buttons:
-            first, seco = buttons.split('\n')
-            name, url = first.split(' - ')
-            names , urls = seco.split(' - ')
-            reply_markup=InlineKeyboardMarkup(
-               [[  
-               InlineKeyboardButton(name, url= url)
-               ],[
-               InlineKeyboardButton(names, url= urls)
-               ]])
-            return reply_markup
-     
+           btn = []
+           first, seco = buttons.split('\n')
+           name, url = first.split(' - ')
+           names , urls = seco.split(' - ')
+           if not '|' in first and names:
+                btn.append([InlineKeyboardButton(name, url= url)])
+                btn.append([InlineKeyboardButton(names, url= urls)])
+                return btn
+           if '|' in first:
+               nth, uth = first.split('|')
+               name, url = nth.split(' - ')
+               names, urls = uth split(' - ')
+               btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
+           else:
+               btn.append([InlineKeyboardButton(name, url= url)])
+           if '|' in seco:
+               nth, uth = seco.split('|')
+               name, url = nth.split(' - ')
+               names, urls = uth split(' - ')
+               btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
+           else:
+               btn.append([InlineKeyboardButton(names, url= urls)])
+           return btn
+             
