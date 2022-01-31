@@ -176,7 +176,9 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton(f"Advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
                 InlineKeyboardButton(f"Normal {acts}"if custom=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
-                InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_template({chat_id})")
+                InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_template({chat_id}|hi)")
+                ],[
+                InlineKeyboardButton("Button", callback_data=f"custom_template({chat_id}|button)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -368,15 +370,18 @@ async def protect_mode(bot, update: CallbackQuery):
 async def custm_spell(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
-    value = prev["configs"].get("spell_template")
+    i, mode = re.findall(r"custom_template\((.+)\)", query_data)[0].split("|", 1)
+    value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     st = await bot.get_chat_member(chat, update.from_user.id)
     if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
-    spell = await bot.ask(chat_id=chat,text="please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>")
+    text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "please send custom button"
+    spell = await bot.ask(chat_id=chat,text=text)
     TEMPLATE[chat]=spell.text
     texts = "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
     val= "None" if spell.text=="/empty" else "k"
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|{val}|{chat}|{value})")]]        
+    intent = "spell_template" if not mode=="button" else "custom_button"
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({intent}|{val}|{chat}|{value})")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
     return 
@@ -430,6 +435,7 @@ async def cb_set(bot, update: CallbackQuery):
     max_pages = int(prev["configs"].get("max_pages"))
     max_results = int(prev["configs"].get("max_results"))
     spell_template = prev["configs"].get("spell_template")
+    custom_button = prev["configs"].get("custom_button")
     imdb_template = prev["configs"].get("imdb_template")
     auto_delete = True if prev["configs"].get("delete") == (True or "True") else False
     auto_delete_time = int(prev["configs"].get("delete_time"))
@@ -479,6 +485,9 @@ async def cb_set(bot, update: CallbackQuery):
         
     elif action == "spell_template":
         spell_template  = TEMPLATE.get(chat) if not val=="None" else val
+    
+    elif action == "custom_button":
+        custom_button  = TEMPLATE.get(chat) if not val=="None" else val
         
     elif action == "imdb_template":
         imdb_template = IMDBTEMPLATE.get(chat) if not val=="None" else val
@@ -498,6 +507,7 @@ async def cb_set(bot, update: CallbackQuery):
         welcome=welcome,
         spell_template=spell_template,
         imdb_template=imdb_template,
+        custom_button=custom_button,
         imDb=imdb
         
     )
