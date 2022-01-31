@@ -94,7 +94,7 @@ async def custombutton(msg):
                names, urls = uth.split(' - ')
                btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
            else:
-               names, urls = first.split(' - ')
+               names, urls = seco.split(' - ')
                btn.append([InlineKeyboardButton(names, url= urls)])
            return InlineKeyboardMarkup(btn)
              
