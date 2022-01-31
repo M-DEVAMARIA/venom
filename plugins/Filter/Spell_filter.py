@@ -4,7 +4,7 @@ import ast
 import pyrogram 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
-from utils import is_subscribed, get_poster, search_gagala, temp,Media, get_file_details, get_search_results, get_filter_results, get_file_details
+from utils import is_subscribed, get_poster, search_gagala, temp,Media, get_file_details, get_search_results, get_filter_results, get_file_details, list_to_str
 from info import IMDB_TEMPLATE
 import logging
 logger = logging.getLogger(__name__)
@@ -72,7 +72,7 @@ async def custombutton(msg):
         name, nxt, urls= buttons.split(' - ')
         url, btn = nxt.split('|')
         names = btn.split(' - ')
-        names = str(names)
+        names = list_to_str(names)
         reply_markup=InlineKeyboardMarkup(
             [[  
              InlineKeyboardButton(f"{name}", url= url),
