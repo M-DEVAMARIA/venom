@@ -61,27 +61,23 @@ async def custombutton(msg):
     buttons = """venom - https://t.me/venom_moviebot\ndrishyam - https://t.me/mdadmin2"""     
     button.append(buttons)
     if not '\n' in buttons:
-        if not buttons.split('|'):
+        if not '|' in buttons:
             name, url = buttons.split(' - ')
-            reply_markup=InlineKeyboardMarkup(
-               [[  
-               InlineKeyboardButton(name, url= url)
-               ]])
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(name, url= url)]])
             return reply_markup
         else:
-            name, nxt, urls= buttons.split(' - ')
-            url, btn = nxt.split('|')
-            names = btn.split(' - ')
-           # names = buttons.count(' - ')
+            name, nxt,= buttons.split('|')
+            name , url = name.split(' - ')
+            names, urls = nxt.split(' - ')
             reply_markup=InlineKeyboardMarkup(
                [[  
                InlineKeyboardButton(name, url= url),
-               InlineKeyboardButton(list_to_str(names), url= urls)
+               InlineKeyboardButton(names, url= urls)
                ]])
             return reply_markup
            
     else:
-     #   if not buttons.split('|'):
+        if not '|' in buttons:
             first, seco = buttons.split('\n')
             name, url = first.split(' - ')
             names , urls = seco.split(' - ')
