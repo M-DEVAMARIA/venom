@@ -135,6 +135,7 @@ async def refresh(bot, message):
           protect=False,
           spell_template='None',
           imdb_template='None',
+          custom_button='None',
           imDb=True)
     append = await db.update_configs(user, new)
     if append: 
