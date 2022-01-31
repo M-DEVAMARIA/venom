@@ -83,14 +83,14 @@ async def custombutton(msg):
            if '|' in first:
                nth, uth = first.split('|')
                name, url = nth.split(' - ')
-               names, urls = uth split(' - ')
+               names, urls = uth.split(' - ')
                btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
            else:
                btn.append([InlineKeyboardButton(name, url= url)])
            if '|' in seco:
                nth, uth = seco.split('|')
                name, url = nth.split(' - ')
-               names, urls = uth split(' - ')
+               names, urls = uth.split(' - ')
                btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
            else:
                btn.append([InlineKeyboardButton(names, url= urls)])
