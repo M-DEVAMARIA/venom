@@ -75,6 +75,6 @@ async def custombutton(msg):
         reply_markup=InlineKeyboardMarkup(
             [[  
              InlineKeyboardButton(f"{name}", url= url),
-             InlineKeyboardButton(f"int({names})", url= urls)
+             InlineKeyboardButton(f"{i}" for i in names, url= urls)
             ]])
         return reply_markup
