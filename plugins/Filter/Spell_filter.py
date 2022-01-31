@@ -85,7 +85,7 @@ async def custombutton(msg):
                [[  
                InlineKeyboardButton(name, url= url)
                ],[
-               InlineKeyboardButton(list_to_str(names), url= urls)
+               InlineKeyboardButton(names, url= urls)
                ]])
             return reply_markup
      
