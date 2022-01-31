@@ -58,7 +58,7 @@ async def custombutton(msg):
    # db = await db.find_chat(msg.chat.id)
     #buttons = db["settings"]["buttons"]
     button = []
-    buttons = """venom - https://t.me/venom_moviebot|venom - https://t.me/venom_moviebot\ndrishyam - https://t.me/mdadmin2"""     
+    buttons = """venom - https://t.me/venom_moviebot|venom - https://t.me/venom_moviebot\ndrishyam - https://t.me/mdadmin2|drishyam - https://t.me/mdadmin2"""     
     button.append(buttons)
     if not '\n' in buttons:
         if not '|' in buttons:
