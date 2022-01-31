@@ -370,7 +370,7 @@ async def protect_mode(bot, update: CallbackQuery):
 async def custm_spell(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
-    i, mode = re.findall(r"custom_template\((.+)\)", query_data)[0].split("|", 1)
+    i, mode = re.findall(r"custom_template\((.+)\)", update.data)[0].split("|", 1)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     st = await bot.get_chat_member(chat, update.from_user.id)
     if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
