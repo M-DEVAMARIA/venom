@@ -5,7 +5,8 @@ import pyrogram
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters 
 from database.users_db import db
-from utils import is_subscribed, get_poster, search_gagala, temp,Media, get_file_details, get_search_results, get_filter_results, get_file_details, list_to_str
+from utils import is_subscribed, get_poster, search_gagala, temp,Media, get_file_details, get_search_results, get_filter_results, get_file_details, list_to_str, BTN_URL_REGEX
+from typing import Tuple, List, Optional
 from info import IMDB_TEMPLATE
 import logging
 logger = logging.getLogger(__name__)
@@ -44,7 +45,7 @@ async def normalspellmode(message, template):
     buttons = let["configs"]["custom_button"]
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
-    reply_markup= buttons if not buttons=='None' else InlineKeyboardMarkup(
+    reply_markup= parse_buttons(buttons) if not buttons=='None' else InlineKeyboardMarkup(
             [[  
             InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'),
             InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')
@@ -54,9 +55,36 @@ async def normalspellmode(message, template):
     reply_to_message_id=message.message_id)
     await asyncio.sleep(22)
     await spf.delete()
-    return
+    return 
    
-async def custombutton(msg):
+def parse_buttons(markdown_note: str) -> Tuple[str, Optional[InlineKeyboardMarkup]]:
+    """ markdown_note to string and buttons """
+    prev = 0
+    note_data = ""
+    buttons: List[Tuple[str, str, bool]] = []
+    for match in _BTN_URL_REGEX.finditer(markdown_note):
+        n_escapes = 0
+        to_check = match.start(1) - 1
+        while to_check > 0 and markdown_note[to_check] == "\\":
+            n_escapes += 1
+            to_check -= 1
+        if n_escapes % 2 == 0:
+            buttons.append((match.group(2), match.group(3), bool(match.group(4))))
+            note_data += markdown_note[prev:match.start(1)]
+            prev = match.end(1)
+        else:
+            note_data += markdown_note[prev:to_check]
+            prev = match.start(1) - 1
+    note_data += markdown_note[prev:]
+    keyb: List[List[InlineKeyboardButton]] = []
+    for btn in buttons:
+        if btn[2] and keyb:
+            keyb[-1].append(InlineKeyboardButton(btn[0], url=btn[1]))
+        else:
+            keyb.append([InlineKeyboardButton(btn[0], url=btn[1])])
+    return note_data.strip(), InlineKeyboardMarkup(keyb) if keyb else None
+
+def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
     btn = []
