@@ -42,7 +42,8 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
 async def normalspellmode(message, template):
     search = message.text
     let = await db.find_chat(message.chat.id)
-    buttons = let["configs"]["custom_button"]
+    buttons=[]
+    buttons.append(let["configs"]["custom_button"])
     i,button = parse_buttons(buttons.html)
     reply_button = button if not button==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
     spf = await message.reply_text(
