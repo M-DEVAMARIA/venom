@@ -7,7 +7,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
+from plugins.other import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
 from translation import Translation 
 from plugins.Broadcast import index_files, botsetting_info
 from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired
