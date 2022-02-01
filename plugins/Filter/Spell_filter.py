@@ -62,7 +62,7 @@ def parse_buttons(markdown_note: str) -> Tuple[str, Optional[InlineKeyboardMarku
     prev = 0
     note_data = ""
     buttons: List[Tuple[str, str, bool]] = []
-    for match in _BTN_URL_REGEX.finditer(markdown_note):
+    for match in BTN_URL_REGEX.finditer(markdown_note):
         n_escapes = 0
         to_check = match.start(1) - 1
         while to_check > 0 and markdown_note[to_check] == "\\":
