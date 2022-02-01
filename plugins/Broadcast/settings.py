@@ -3,6 +3,7 @@ import re, asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
+from plugins.__init__ import parse_buttons
 from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
@@ -379,9 +380,9 @@ async def custm_spell(bot, update: CallbackQuery):
     text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "👉🏻 <b>Now send the list of buttons</b> to insert on the inline keyboard, with texts and links, <b>using this parse:</b>\n\n<code>venom - https://t.me/venom_moviebot!venombot - https://t.me/venom_moviebot</code>\n\nIf you want to set up 2 buttons in the same row, separe them with <b>|</b>\n\n<b>Example:</b>\n<code>venom - https://t.me/venom_moviebot|venombot - https://t.me/venom_moviebot<code>."
     spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
  #   extracted = split_quotes(spell.text.html)
-    reply_text, btn, alert = parser(spell.text.html, spell.text.html.lower())
+    reply_text, btn = parse_buttons(spell.text.html.lower())
     TEMPLATE[chat]=spell.text.html
-    texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:{reply_text}\nalert:{alert}\nthis is your spell check button"
+    texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:\nalert:{alert}\nthis is your spell check button"
     val= "None" if spell.text=="/empty" else "k"
     intent = "spell_template" if not mode=="button" else "custom_button"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({intent}|{val}|{chat}|not)")]]        
