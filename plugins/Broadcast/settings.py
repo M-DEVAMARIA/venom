@@ -3,7 +3,7 @@ import re, asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
-from plugins.__init__ import parse_buttons
+from plugins.Spell_filter import parse_buttons
 from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
