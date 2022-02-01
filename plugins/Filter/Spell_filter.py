@@ -59,8 +59,8 @@ async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
     btn = []
-    if buttons=='None':
-        return None
+    if buttons:
+        return eval(buttons)
     if not '!' in buttons:
         if not '&&' in buttons:
             name, url = buttons.split(' - ')
