@@ -375,15 +375,15 @@ async def custm_spell(bot, update: CallbackQuery):
     st = await bot.get_chat_member(chat, update.from_user.id)
     if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
-    text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "please send custom button"
+    text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "👉🏻 Now send the list of buttons to insert on the inline keyboard, with texts and links, <b>using this parse:</b>\n\nformat:-\nvenom - https://t.me/venom_moviebot!venombot - https://t.me/venom_moviebot\n\nIf you want to set up 2 buttons in the same row, separe them with <b>|</b>\n\n<b>Example</b>\nvenom - https://t.me/venom_moviebot|venombot - https://t.me/venom_moviebot."
     spell = await bot.ask(chat_id=chat,text=text)
     TEMPLATE[chat]=spell.text
-    texts = "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
+    texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check button"
     val= "None" if spell.text=="/empty" else "k"
     intent = "spell_template" if not mode=="button" else "custom_button"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({intent}|{val}|{chat}|not)")]]        
     reply_markup=InlineKeyboardMarkup(buttons) 
-    await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
+    await spell.reply_text(txt if mode=='button' else texts, reply_markup=reply_markup, parse_mode="html")
     return 
 
 @Client.on_callback_query(filters.regex(r"cimdb_template\((.+)\)"),group=2)
