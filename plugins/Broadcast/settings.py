@@ -376,7 +376,7 @@ async def custm_spell(bot, update: CallbackQuery):
     if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
         return await update.answer("your are not group owner or admin", show_alert=True)
     text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "👉🏻 <b>Now send the list of buttons</b> to insert on the inline keyboard, with texts and links, <b>using this parse:</b>\n\n<code>venom - https://t.me/venom_moviebot!venombot - https://t.me/venom_moviebot</code>\n\nIf you want to set up 2 buttons in the same row, separe them with <b>|</b>\n\n<b>Example:</b>\n<code>venom - https://t.me/venom_moviebot|venombot - https://t.me/venom_moviebot<code>."
-    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]])
+    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]=spell.text
     texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check button"
     val= "None" if spell.text=="/empty" else "k"
