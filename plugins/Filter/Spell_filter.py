@@ -69,8 +69,7 @@ async def custombutton(msg):
             name, nxt,= buttons.split('&&')
             name , url = name.split(' - ')
             names, urls = nxt.split(' - ')
-            btn.append([InlineKeyboardButton(name, url= url)])
-            btn.append([InlineKeyboardButton(names, url= urls)])
+            btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
     else:
            first, seco = buttons.split('!')
            if '|' in first:
