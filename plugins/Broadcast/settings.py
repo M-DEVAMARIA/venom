@@ -382,7 +382,7 @@ async def custm_spell(bot, update: CallbackQuery):
  #   extracted = split_quotes(spell.text.html)
     reply_text, btn = parse_buttons(spell.text.html.lower())
     TEMPLATE[chat]=spell.text.html
-    texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:\nalert:{alert}\nthis is your spell check button"
+    texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:{reply_text}\nthis is your spell check button"
     val= "None" if spell.text=="/empty" else "k"
     intent = "spell_template" if not mode=="button" else "custom_button"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({intent}|{val}|{chat}|not)")]]        
