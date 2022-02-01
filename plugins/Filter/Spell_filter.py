@@ -43,7 +43,7 @@ async def normalspellmode(message, template):
     search = message.text
     let = await db.find_chat(message.chat.id)
     buttons = let["configs"]["custom_button"]
-    button = parse_buttons(buttons)
+    button = parse_buttons(buttons.input_raw)
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
     reply_markup= button if not buttons=='None' else InlineKeyboardMarkup(
