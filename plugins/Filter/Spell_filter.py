@@ -58,19 +58,20 @@ async def normalspellmode(message, template):
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
+    btn = []
     if buttons=='None':
         return None
     if not '!' in buttons:
         if not '&&' in buttons:
             name, url = buttons.split(' - ')
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(name, url= url)]])
+            btn.append([InlineKeyboardButton(name, url= url)])
         else:
             name, nxt,= buttons.split('&&')
             name , url = name.split(' - ')
             names, urls = nxt.split(' - ')
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(name, url= url),InlineKeyboardButton(names, url= urls)]])
+            btn.append([InlineKeyboardButton(name, url= url)])
+            btn.append([InlineKeyboardButton(names, url= urls)])
     else:
-           btn = []
            first, seco = buttons.split('!')
            if '|' in first:
                nth, uth = first.split('&&')
