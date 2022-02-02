@@ -18,7 +18,7 @@ IMDBTEMPLATE ={}
 @Client.on_message(filters.command("setbutton"))
 async def buttonmode(bot, msg):
      args = msg.text.html.split(None, 1)
-     extracted = split_quotes(list_to_str(args[1]))
+     extracted = split_quotes(args[1])
      if not args:
          return await msg.err('nothing found')
      reply_text, btn = parse_buttons(extracted[1])
