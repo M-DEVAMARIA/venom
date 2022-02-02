@@ -22,7 +22,7 @@ async def buttonmode(bot, msg):
      if len(args) < 2:
          return await msg.err('nothing found')
      #reply_text, btn = parse_buttons(args[0])
-     if (len(extracted) >= 2) and not message.reply_to_message:
+     if (len(extracted) >= 2) and not msg.reply_to_message:
         reply_text, btn = parser(extracted[1]) 
         fileid = None
         if not reply_text or btn:
