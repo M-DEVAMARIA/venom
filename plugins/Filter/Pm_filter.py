@@ -227,7 +227,7 @@ async def advantage_spoll_choker(bot, query):
     b = b.replace("- IMDb", "")
     files = await get_filter_results(b)
     if not files:
-        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ", callback_data=request#{b})]])
+        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ", callback_data=f'request#{b}')]])
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
