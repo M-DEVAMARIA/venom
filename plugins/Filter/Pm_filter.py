@@ -227,7 +227,7 @@ async def advantage_spoll_choker(bot, query):
     b = b.replace("- IMDb", "")
     files = await get_filter_results(b)
     if not files:
-        await query.answer(f"{b} not found in my database check others",show_alert=True)
+        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ", callback_data=request#{b})]])
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
@@ -762,7 +762,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
        
     elif query.data == "sets":
         await botsetting_info(client, query, query)
-        
+     
+    elif query.data == "request":
+        i, movie = query.data.split('#')
+        await bot.send_message(LOG_CHANNNEL,
+                               text=f'#request\nFrom - {query.message.user_mention}\nRequest: {movie} please add')
+                                                                                                                           
     elif query.data == "index":
         await index_files(client, query, query)
         if query.data.startswith('index_cancel'):
