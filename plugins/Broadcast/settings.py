@@ -8,7 +8,7 @@ from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
 from translation import Translation  
-from utils import parser, split_quotes
+from utils import parser, split_quotes, list_to_str
 from info import ADMINS, FILLINGS
 from plugins import VERIFY 
 
@@ -18,7 +18,7 @@ IMDBTEMPLATE ={}
 @Client.on_message(filters.command("setbutton"))
 async def buttonmode(bot, msg):
      args = msg.text.html.split(None, 1)
-     extracted = split_quotes(args)
+     extracted = split_quotes(list_to_str(args))
      if not args:
          return await msg.err('nothing found')
      reply_text, btn = parse_buttons(extracted) 
