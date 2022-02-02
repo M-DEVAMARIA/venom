@@ -764,9 +764,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await botsetting_info(client, query, query)
      
     elif query.data == "request":
+        await query.answer('Request successful')
         i, movie, year = query.data.split('#')
-        await bot.send_message(LOG_CHANNNEL,
-                               text=f'#request\nFrom - {query.message.user_mention}\n\n<b>movie info:</b>\nName: {movie}\nYear: {year}')
+        await client.send_message(LOG_CHANNNEL,
+                                 f'#request\nFrom - {query.message.user_mention}\n\n<b>movie info:</b>\nName: {movie}\nYear: {year}')
                                                                                                                            
     elif query.data == "index":
         await index_files(client, query, query)
