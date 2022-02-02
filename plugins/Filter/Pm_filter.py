@@ -768,7 +768,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         i, movie, year = query.data.split('#')
         await query.message.delete()
         await client.send_message(LOG_CHANNEL,
-                                 f'#request\nFrom - {query.message.user_mention}\n\n<b>movie info:</b>\nName: {movie}\nYear: {year}')
+                                 f'#request\nFrom - {query.message.from_user.mention}\n\n<b>movie info:</b>\nName: {movie}\nYear: {year}')
                                                                                                                          
     elif query.data == "index":
         await index_files(client, query, query)
