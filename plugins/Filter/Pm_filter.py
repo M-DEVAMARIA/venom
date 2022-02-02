@@ -7,7 +7,7 @@ import re, time, asyncio
 import re
 import ast
 import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP
+from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP, HELPS
 from translation import Translation 
 from plugins.Broadcast import index_files, botsetting_info
 from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired
@@ -23,7 +23,7 @@ SPELL_CHECK = {}
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
-BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
 BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 
 
@@ -622,10 +622,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             )
         
     elif query.data == "start": 
-        reply_markup = START_BTN
         await query.message.edit_text(
             text=Translation.START_TXT.format(query.from_user.first_name),
-            reply_markup=reply_markup,
+            reply_markup=START_BTN,
             parse_mode='html'
             )
         
@@ -643,9 +642,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ))
     
     elif query.data == "help":
+        mode = await.db.get_mode(message.from_user.id)
         await query.message.edit_text(
             text="<b>ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ..  </b>\n",
-            reply_markup=HELP,
+            reply_markup=HELP if mode else HELPS,
             parse_mode='html'
             )
  
@@ -661,20 +661,20 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "song": 
         await query.message.edit_text(
             text=Translation.SONG_TXT,
-            reply_markup=BUTTONS1,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )
     
     elif query.data == "batch": 
         await query.message.edit_text(
             text=Translation.STORE_TXT,
-            reply_markup=BUTTONS1,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )  
     elif query.data == "telegraph": 
         await query.message.edit_text(
             text=Translation.TELPH_TXT,
-            reply_markup=BUTTONS1,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )  
      
@@ -742,7 +742,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "connection": 
         await query.message.edit_text(
             text=Translation.CONNECTION_TXT,
-            reply_markup=BUTTONS1,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         ) 
     elif query.data == "manual": 
@@ -762,7 +762,20 @@ async def cb_handler(client: Client, query: CallbackQuery):
        
     elif query.data == "sets":
         await botsetting_info(client, query, query)
-     
+        
+    elif query.data.startswith("mode"):
+         i, use = query.data.split('#')
+         status = await.db.get_mode(message.from_user.id)
+         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status else 'NORMAL ✅', callback_data='mode#update')]])
+         if use=='update':
+             if status=='True':
+                await db.update_mode(message.from_user.id, False)
+             else:
+                await db.update_mode(message.from_user.id, True)
+             return await query.message.edit_reply_markup(reply_markup)
+         else:
+             return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=reply_markup)
+         
     elif query.data.startswith("request"):
         await query.answer('your Request successful', show_alert=True)
         i, movie, year = query.data.split('#')
