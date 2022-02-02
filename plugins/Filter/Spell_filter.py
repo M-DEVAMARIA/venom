@@ -55,11 +55,11 @@ async def normalspellmode(message, template):
     await spf.delete()
     return 
    
-def parse_buttons(markdown_note: str) -> Tuple[str, Optional[InlineKeyboardMarkup]]:
+def parse_buttons(markdown_note:str)-> (str, List):
     """ markdown_note to string and buttons """
     prev = 0
     note_data = ""
-    buttons: List[Tuple[str, str, bool]] = []
+    buttons =[]
     for match in BTN_URL_REGEX.finditer(markdown_note):
         n_escapes = 0
         to_check = match.start(1) - 1
@@ -74,13 +74,7 @@ def parse_buttons(markdown_note: str) -> Tuple[str, Optional[InlineKeyboardMarku
             note_data += markdown_note[prev:to_check]
             prev = match.start(1) - 1
     note_data += markdown_note[prev:]
-    keyb: List[List[InlineKeyboardButton]] = []
-    for btn in buttons:
-        if btn[2] and keyb:
-            keyb[-1].append(InlineKeyboardButton(btn[0], url=btn[1]))
-        else:
-            keyb.append([InlineKeyboardButton(btn[0], url=btn[1])])
-    return note_data.strip(), InlineKeyboardMarkup(keyb) if keyb else None
+    return note_data.strip(), eval(buttons) if buttons else None
 
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
