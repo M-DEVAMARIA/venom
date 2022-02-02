@@ -15,7 +15,14 @@ from plugins import VERIFY
 TEMPLATE ={}
 IMDBTEMPLATE ={}
 
-    
+@Client.on_message(filters.command("setbutton"))
+async def buttonmode(bot, msg):
+     args = msg.text.html.split(None, 1)
+     if not args:
+         return await msg.err('nothing found')
+     reply_text, btn = parser(args[1]) 
+     return await msg.reply_text(f"reply: {reply_text}\nbtn: {btn}")
+  
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
     chat = msg.message.chat.id if call else msg.chat.id
