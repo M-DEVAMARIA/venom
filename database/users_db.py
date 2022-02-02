@@ -115,7 +115,16 @@ class Database:
         return b_users, b_chats
     
 
-
+.   async def update_mode(self, id, value):
+        await self.col.update_one({'id': int(id)}, {'$set': {'mode': value}})
+        
+    
+    async def get_mode(self, id):
+        user = await self.col.find_one({'id':int(id)})
+        if user:
+            return user.get('mode', True)
+        return True
+    
     async def add_chat(self, chat, title):
         chat = self.new_group(chat, title)
         await self.grp.insert_one(chat)
