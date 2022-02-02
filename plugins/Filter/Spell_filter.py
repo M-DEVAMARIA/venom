@@ -66,18 +66,8 @@ def parse_buttons(markdown_note:str)-> (str, List):
     for match in BTN_URL_REGEX.finditer(markdown_note):
         n_escapes = 0
         to_check = match.start(1) - 1
-        while to_check > 0 and markdown_note[to_check] == "\\":
-            n_escapes += 1
-            to_check -= 1
-        if n_escapes % 2 == 0:
-            buttons.append((match.group(2), match.group(3), bool(match.group(4))))
-            note_data += markdown_note[prev:match.start(1)]
-            prev = match.end(1)
-        else:
-            note_data += markdown_note[prev:to_check]
-            prev = match.start(1) - 1
-    note_data += markdown_note[prev:]
-    return note_data.strip(), buttons
+        buttons.append((match.group(2), match.group(3), bool(match.group(4))))
+    return markdown_note, buttons
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
