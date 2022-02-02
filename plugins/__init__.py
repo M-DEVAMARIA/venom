@@ -16,7 +16,7 @@ START_BTN = InlineKeyboardMarkup(
         InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="about"),
         InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')
         ],[
-        InlineKeyboardButton('Features ❔', callback_data='user')
+        InlineKeyboardButton('MODE', callback_data='mode')
         ]] 
         ) 
            
@@ -89,5 +89,8 @@ HELPS = InlineKeyboardMarkup(
        InlineKeyboardButton('Fɪʟᴇ sᴛᴏʀᴇ', callback_data='batch')
        ],[
        InlineKeyboardButton('settings', callback_data='sett'),
-       InlineKeyboardButton('extra', callback_data='extramod')   
+       InlineKeyboardButton('extra', callback_data='extramod') 
+       ],[
+       InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
+       InlineKeyboardButton('stαtus', callback_data='stats'),
        ]])
