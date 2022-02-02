@@ -19,7 +19,7 @@ IMDBTEMPLATE ={}
 async def buttonmode(bot, msg):
      args = msg.text.html.split(None, 1)
      extracted = split_quotes(args[1])
-     text= exctracted[0].lower()
+     text= extracted[0].lower()
      if len(args) < 2:
          return await msg.err('nothing found')
      #reply_text, btn = parse_buttons(args[0])
