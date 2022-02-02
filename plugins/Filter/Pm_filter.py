@@ -763,8 +763,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "sets":
         await botsetting_info(client, query, query)
      
-    elif query.data == "request":
-        await query.answer('Request successful')
+    elif query.data.startswith("request"):
+        await query.answer('Request successful', show_alert=True)
         i, movie, year = query.data.split('#')
         await client.send_message(LOG_CHANNNEL,
                                  f'#request\nFrom - {query.message.user_mention}\n\n<b>movie info:</b>\nName: {movie}\nYear: {year}')
