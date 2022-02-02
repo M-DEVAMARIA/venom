@@ -16,7 +16,7 @@ START_BTN = InlineKeyboardMarkup(
         InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="about"),
         InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')
         ],[
-        InlineKeyboardButton('MODE', callback_data='mode')
+        InlineKeyboardButton('MODE', callback_data='mode#i')
         ]] 
         ) 
            
