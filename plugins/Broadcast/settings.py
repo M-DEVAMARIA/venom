@@ -20,7 +20,7 @@ async def buttonmode(bot, msg):
      args = msg.text.html.split(None, 1)
      if not args:
          return await msg.err('nothing found')
-     reply_text, btn = parser(args[1]) 
+     reply_text, btn = parse_buttons(args[1]) 
      return await msg.reply_text(f"reply: {reply_text}\nbtn: {btn}")
   
 @Client.on_message(filters.command(['settings']))
