@@ -18,7 +18,7 @@ BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)]\[buttonurl:/{0,2}(.+?)(:same)?])")
 @Client.on_message(filters.command("setbutton"))
 async def buttonmode(bot, msg):
      args = msg.text.html.split(None, 1)
-     if not args 
+     if not args:
          return await msg.err('nothing found')
      reply_text, btn = parser(args[1]) 
      await msg.reply_text(f"reply: {reply_text}\nbtn: {btn}")
