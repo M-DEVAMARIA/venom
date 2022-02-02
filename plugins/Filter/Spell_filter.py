@@ -15,6 +15,10 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)]\[buttonurl:/{0,2}(.+?)(:same)?])")
 
+@Client.on_message(filters.command("setbutton"))
+async def buttonmode(bot, msg):
+     text await bot.ask("send custom button")
+  
 async def advancespellmode(message, single, imdbg, max_pages, delete, delete_time):
  #   search = []
     search = message.text
