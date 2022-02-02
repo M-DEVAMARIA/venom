@@ -80,5 +80,14 @@ HELP = InlineKeyboardMarkup(
         ]]
      )
             
-            
-            
+HELPS = InlineKeyboardMarkup(
+       [[  
+       InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
+       InlineKeyboardButton('ᴍᴀɴᴜᴀʟ fɪʟᴛᴇʀ', callback_data='manual')
+       ],[    
+       InlineKeyboardButton('ᴄᴏɴɴᴇᴄᴛɪᴏɴ', callback_data='connection'),
+       InlineKeyboardButton('Fɪʟᴇ sᴛᴏʀᴇ', callback_data='batch')
+       ],[
+       InlineKeyboardButton('settings', callback_data='sett'),
+       InlineKeyboardButton('extra', callback_data='extramod')   
+       ]])
