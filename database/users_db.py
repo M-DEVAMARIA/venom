@@ -115,7 +115,7 @@ class Database:
         return b_users, b_chats
     
 
-.   async def update_mode(self, id, value):
+    async def update_mode(self, id, value):
         await self.col.update_one({'id': int(id)}, {'$set': {'mode': value}})
         
     
