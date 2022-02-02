@@ -17,7 +17,9 @@ BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)]\[buttonurl:/{0,2}(.+?)(:same)?])")
 
 @Client.on_message(filters.command("setbutton"))
 async def buttonmode(bot, msg):
-     text await bot.ask("send custom button")
+     args = msg.text.html.split(None, 1)
+     reply_text, btn = parser(args[1]) 
+     await msg.reply_text(f"reply: {reply_text}\nbtn: {btn}")
   
 async def advancespellmode(message, single, imdbg, max_pages, delete, delete_time):
  #   search = []
