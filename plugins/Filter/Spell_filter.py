@@ -48,7 +48,7 @@ async def normalspellmode(message, template):
        i,button = parse_buttons(list_to_str(buttons))
     except Exeption:
        logger.exception(e)
-    reply_button = button if not button==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
+    reply_button = eval(button) if not button==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
     reply_markup=reply_button,
@@ -77,8 +77,7 @@ def parse_buttons(markdown_note:str)-> (str, List):
             note_data += markdown_note[prev:to_check]
             prev = match.start(1) - 1
     note_data += markdown_note[prev:]
-    return note_data.strip(), eval(list_to_str(buttons))
-
+    return note_data.strip(), buttons
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
     buttons = let["configs"]["custom_button"]
