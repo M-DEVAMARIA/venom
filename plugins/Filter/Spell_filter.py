@@ -77,7 +77,7 @@ def parse_buttons(markdown_note:str)-> (str, List):
             note_data += markdown_note[prev:to_check]
             prev = match.start(1) - 1
     note_data += markdown_note[prev:]
-    return note_data.strip(), eval(buttons)
+    return note_data.strip(), eval(list_to_str(buttons))
 
 async def custombutton(msg):
     let = await db.find_chat(msg.chat.id)
