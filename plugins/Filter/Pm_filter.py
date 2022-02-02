@@ -642,7 +642,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ))
     
     elif query.data == "help":
-        mode = await db.get_mode(message.from_user.id)
+        mode = await db.get_mode(query.from_user.id)
         await query.message.edit_text(
             text="<b>ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ..  </b>\n",
             reply_markup=HELP if mode else HELPS,
@@ -765,13 +765,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data.startswith("mode"):
          i, use = query.data.split('#')
-         status = await db.get_mode(message.from_user.id)
+         status = await db.get_mode(query.from_user.id)
          reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status else 'NORMAL ✅', callback_data='mode#update')]])
          if use=='update':
              if status=='True':
-                await db.update_mode(message.from_user.id, False)
+                await db.update_mode(query.from_user.id, False)
              else:
-                await db.update_mode(message.from_user.id, True)
+                await db.update_mode(query.from_user.id, True)
              return await query.message.edit_reply_markup(reply_markup)
          else:
              return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=reply_markup)
