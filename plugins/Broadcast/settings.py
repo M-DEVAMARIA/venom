@@ -18,13 +18,14 @@ IMDBTEMPLATE ={}
 @Client.on_message(filters.command("setbutton"))
 async def buttonmode(bot, msg):
      args = msg.text.html.split(None, 1)
-     extracted = split_quotes(args[1])
-     text= extracted[0].lower()
+     
      if len(args) < 2:
          return await msg.err('nothing found')
+     extracted = split_quotes(args[1])
+     text= extracted[0].lower()
      #reply_text, btn = parse_buttons(args[0])
      if (len(extracted) >= 2) and not msg.reply_to_message:
-        reply_text, btn, i= parser(extracted[1], text) 
+        reply_text, btn= parse_buttons(extracted[1]) 
         fileid = None
         if not reply_text or btn:
             await msg.reply_text("You cannot have buttons alone, give some text to go with it!", quote=True)
