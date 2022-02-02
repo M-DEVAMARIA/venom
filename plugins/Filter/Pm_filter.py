@@ -223,11 +223,11 @@ async def advantage_spoll_choker(bot, query):
         return await query.message.delete()
     own = query.from_user.id
     db = await get_poster(query=movie_, id=True)
-    b = db['title']#check
+    b, year= db['title'], db['year']
     b = b.replace("- IMDb", "")
     files = await get_filter_results(b)
     if not files:
-        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ", callback_data=f'request#{b}')]])
+        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{b}#{year}')]]))
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
@@ -764,9 +764,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await botsetting_info(client, query, query)
      
     elif query.data == "request":
-        i, movie = query.data.split('#')
+        i, movie, year = query.data.split('#')
         await bot.send_message(LOG_CHANNNEL,
-                               text=f'#request\nFrom - {query.message.user_mention}\nRequest: {movie} please add')
+                               text=f'#request\nFrom - {query.message.user_mention}\n\n<b>movie info:</b>\nName: {movie}\nYear: {year}')
                                                                                                                            
     elif query.data == "index":
         await index_files(client, query, query)
