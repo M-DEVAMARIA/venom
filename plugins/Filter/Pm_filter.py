@@ -790,7 +790,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return await query.answer("cancel indexing",show_alert=True)
         
 async def save_mode(group_id, key, value):
-    current = await get_mode(group_id)
+    current = await db.get_mode(group_id)
     current[key] = value
     await db.update_mode(group_id, current) 
     
@@ -883,7 +883,7 @@ async def group(client, message, spell=False):
             try:
               cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"], **locals())
             except KeyError as e:
-              TEMPLATE = TEMPLATE.replace(e,'wrong')
+              TEMPLATE = TEMPLATE.replace(str(e),'wrong')
               cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"],wrong=f'key {e} unavailable', **locals())
         else:
             cap = f"<b>Here is What I Found In My Database For Your Query {searchs} </b>"   
