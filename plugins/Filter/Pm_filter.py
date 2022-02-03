@@ -767,12 +767,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
          i, use = query.data.split('#')
          status = await db.get_mode(query.from_user.id)
          if use=='update':
+             val = 'mode'
              if status=='True':
-                status['mode']= False
+                status[val]= 'False'
              else:
-                status['mode']= True
+                status[val]= 'True'
              await db.update_mode(query.from_user.id, status)
-             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status else 'NORMAL ✅', callback_data='mode#update')]])
+             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status else 'NORMAL ✅', callback_data='mode_#update')]])
              return await query.message.edit_reply_markup(reply_markup)
          else:
              return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status else 'NORMAL ✅', callback_data='mode#update')]]))
