@@ -3,7 +3,7 @@ import re, asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
-from plugins.Filter.Spell_filter import parse_buttons
+from plugins.Filter.Spell_filter import parse_buttons, BUTTONS
 from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
@@ -398,6 +398,7 @@ async def custm_spell(bot, update: CallbackQuery):
  #   extracted = split_quotes(spell.text.html)
     reply_text, btn = parse_buttons(spell.text.html)
     TEMPLATE[chat]= spell.text.html
+    BUTTONS [chat]= spell.text.html
     texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:{reply_text}\nthis is your spell check button"
     val= "None" if spell.text=="/empty" else "k"
     intent = "spell_template" if not mode=="button" else "custom_button"
