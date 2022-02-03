@@ -768,11 +768,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
          status = await db.get_mode(query.from_user.id)
          if use=='update':
              if status=='True':
-                value = False
+                value = 'False'
              else:
-                value = True
+                value = 'True'
              default = {'pm_filter': True, 'mode': value}
              await db.update_mode(query.from_user.id, default)
+             status = await db.get_mode(query.from_user.id)
              reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status else 'NORMAL ✅', callback_data='mode_#update')]])
              return await query.message.edit_reply_markup(reply_markup)
          else:
