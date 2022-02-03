@@ -767,7 +767,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
          i, use = query.data.split('#')
          status = await db.get_mode(query.from_user.id)
          if use=='update':
-             if status=='True':
+             if status['mode']=='True':
                 value = 'False'
              else:
                 value = 'True'
