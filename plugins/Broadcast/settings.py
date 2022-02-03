@@ -1,37 +1,18 @@
-#@crazybot filter bot v2 
 import re, asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait 
-from plugins.Filter.Spell_filter import parse_buttons, BUTTONS
 from database.users_db import db
 from database.connection_db import active_connection
 from database.Settings_db import Database
 from translation import Translation  
-from utils import parser, split_quotes, list_to_str
 from info import ADMINS, FILLINGS
 from plugins import VERIFY 
 
 TEMPLATE ={}
 IMDBTEMPLATE ={}
 
-@Client.on_message(filters.command("setbutton"))
-async def buttonmode(bot, msg):
-     args = msg.text.html.split(None, 1)
-     
-     if len(args) < 2:
-         return await msg.err('nothing found')
-     extracted = split_quotes(args[1])
-     text= extracted[0].lower()
-     #reply_text, btn = parse_buttons(args[0])
-     if (len(extracted) >= 2) and not msg.reply_to_message:
-        reply_text, btn= parse_buttons(extracted[1]) 
-        fileid = None
-        if not reply_text or btn:
-            await msg.reply_text("You cannot have buttons alone, give some text to go with it!", quote=True)
-            
-     return await msg.reply_text(f"reply: {reply_text}\nbtn: {btn}")
-  
+
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
     chat = msg.message.chat.id if call else msg.chat.id
@@ -196,7 +177,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 InlineKeyboardButton(f"Normal {acts}"if custom=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
                 InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_template({chat_id}|hi)")
                 ],[
-                InlineKeyboardButton("Button", callback_data=f"custom_template({chat_id}|button)")
+                InlineKeyboardButton("Button", callback_data=f"custom_button({chat_id}|none)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -395,10 +376,7 @@ async def custm_spell(bot, update: CallbackQuery):
         return await update.answer("your are not group owner or admin", show_alert=True)
     text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "👉🏻 <b>Now send the list of buttons</b> to insert on the inline keyboard, with texts and links, <b>using this parse:</b>\n\n<code>venom - https://t.me/venom_moviebot!venombot - https://t.me/venom_moviebot</code>\n\nIf you want to set up 2 buttons in the same row, separe them with <b>|</b>\n\n<b>Example:</b>\n<code>venom - https://t.me/venom_moviebot|venombot - https://t.me/venom_moviebot<code>."
     spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
- #   extracted = split_quotes(spell.text.html)
-    reply_text, btn = parse_buttons(spell.text.html)
     TEMPLATE[chat]= spell.text.html
-    BUTTONS [chat]= btn
     texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:{reply_text}\nthis is your spell check button"
     val= "None" if spell.text=="/empty" else "k"
     intent = "spell_template" if not mode=="button" else "custom_button"
@@ -428,8 +406,22 @@ async def imdb_template(bot, update: CallbackQuery):
     IMDBTEMPLATE[chat]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
-    return
+    return 
 
+@Client.on_callback_query(filters.regex(r"custom_button\((.+)\)"),group=2)
+async def custom_button(bot, update: CallbackQuery):
+    chat = update.message.chat.id
+    prev = await db.find_chat(chat)
+    i, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
+    st = await bot.get_chat_member(chat, update.from_user.id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
+        return await update.answer("your are not group owner or admin", show_alert=True)
+    msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
+    TEMPLATE[chat]= msg.text.html
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(custom_button|e|{chat}|l)")]] 
+    await msg.reply_text(f'<code>{msg.text}</code>\n\npress confirm set this your custom spell check message button', reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
+    return 
+    
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
     query_data = update.data
