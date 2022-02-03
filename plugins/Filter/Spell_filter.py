@@ -42,7 +42,9 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
 
 async def normalspellmode(message, template):
     search = message.text
-    buttons = await get_button(message)
+    info = await db.find_chat(msg.chat.id)
+    button = info["configs"]["custom_button"]
+    buttons = parse_buttons(button)
     reply_button = InlineKeyboardMarkup(buttons) if not buttons==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
@@ -53,16 +55,8 @@ async def normalspellmode(message, template):
     await spf.delete()
     return 
 
-async def get_button(msg):
-   info = await db.find_chat(msg.chat.id)
-   button = info["configs"]["custom_button"]
-   i, button = parse_buttons(button)
-   return button
 
 def parse_buttons(text):
-    """ markdown_note to string and buttons """
-    prev = 0
-    note_data = ""
     buttons =[]
     for match in BTN_URL_REGEX.finditer(text):
         n_escapes = 0
@@ -71,61 +65,14 @@ def parse_buttons(text):
             n_escapes += 1
             to_check -= 1
 
-        # if even, not escaped -> create button
         if n_escapes % 2 == 0:
-            # create a thruple with button label, url, and newline status
             if bool(match.group(4)) and buttons:
                 buttons[-1].append(InlineKeyboardButton(
                     text=match.group(2),
-                    url=match.group(3).replace(" ", "")
-                ))
+                    url=match.group(3).replace(" ", "")))
             else:
                 buttons.append([InlineKeyboardButton(
                     text=match.group(2),
-                    url=match.group(3).replace(" ", "")
-                )])
-            note_data += text[prev:match.start(1)]
-            prev = match.end(1)
-        # if odd, escaped -> move along
-        else:
-            note_data += text[prev:to_check]
-            prev = match.start(1) - 1
-    else:
-        note_data += text[prev:]
+                    url=match.group(3).replace(" ", ""))])
+    return buttons 
 
-    return note_data, buttons
-async def custombutton(msg):
-    let = await db.find_chat(msg.chat.id)
-    buttons = let["configs"]["custom_button"]
-    btn = []
-    if buttons:
-        return eval(buttons)
-    if not '!' in buttons:
-        if not '&&' in buttons:
-            name, url = buttons.split(' - ')
-            btn.append([InlineKeyboardButton(name, url= url)])
-        else:
-            name, nxt,= buttons.split('&&')
-            name , url = name.split(' - ')
-            names, urls = nxt.split(' - ')
-            btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
-    else:
-           first, seco = buttons.split('!')
-           if '|' in first:
-               nth, uth = first.split('&&')
-               name, url = nth.split(' - ')
-               names, urls = uth.split(' - ')
-               btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
-           else:
-               name, url = first.split(' - ')
-               btn.append([InlineKeyboardButton(name, url= url)])
-           if '|' in seco:
-               nth, uth = seco.split('&&')
-               name, url = nth.split(' - ')
-               names, urls = uth.split(' - ')
-               btn.append([InlineKeyboardButton(name, url= url), InlineKeyboardButton(names, url= urls)])
-           else:
-               names, urls = seco.split(' - ')
-               btn.append([InlineKeyboardButton(names, url= urls)])
-    return InlineKeyboardMarkup(btn)
-             
