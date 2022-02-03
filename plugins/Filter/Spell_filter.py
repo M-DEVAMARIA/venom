@@ -53,7 +53,7 @@ async def normalspellmode(message, template):
     await spf.delete()
     return 
 
-async def get_button(msg)
+async def get_button(msg):
    info = await db.find_chat(msg.chat.id)
    button = info["configs"]["custom_button"]
    i, button = parse_buttons(button)
