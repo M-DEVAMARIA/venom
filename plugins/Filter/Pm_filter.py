@@ -768,16 +768,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
          status = await db.get_mode(query.from_user.id)
          if use=='update':
              if status['mode']=='True' or True:
-                value = 'False'# or False 
+                await save_mode(query.from_user.id,'mode', False)
              else:
-                value = 'True' #or True
-             default = {'pm_filter': True, 'mode': value}
-             await db.update_mode(query.from_user.id, default)
+                await save_mode(query.from_user.id,'mode', True)
              status = await db.get_mode(query.from_user.id)
-             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode']=='True' else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status['mode']=='True' else 'NORMAL ✅', callback_data='mode_#update')],[InlineKeyboardButton('back', callback_data="start")]])
+             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data='mode_#update')],[InlineKeyboardButton('back', callback_data="start")]])
              return await query.message.edit_reply_markup(reply_markup)
          else:
-             return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode']=='True' else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status['mode']=='True' else 'NORMAL ✅', callback_data='mode#update')],[InlineKeyboardButton('back', callback_data="start")]]))
+             return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data='mode#update'), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data='mode#update')],[InlineKeyboardButton('back', callback_data="start")]]))
          
     elif query.data.startswith("request"):
         await query.answer('your Request successful', show_alert=True)
@@ -791,6 +789,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
+async def save_mode(group_id, key, value):
+    current = await get_mode(group_id)
+    current[key] = value
+    await db.update_mode(group_id, current) 
+    
 async def chat_settings(client, message):
   if not await db.get_chat(message.chat.id):
       total=await client.get_chat_members_count(message.chat.id)
@@ -880,7 +883,8 @@ async def group(client, message, spell=False):
             try:
               cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"], **locals())
             except KeyError as e:
-              cap = f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nThis group custom IMDb template is in wrong format.used a wrong key {e}. please group owner or admin correct it !</b>" 
+              TEMPLATE = TEMPLATE.replace(e,'wrong')
+              cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"],wrong=f'key {e} unavailable', **locals())
         else:
             cap = f"<b>Here is What I Found In My Database For Your Query {searchs} </b>"   
         try:
