@@ -120,10 +120,11 @@ class Database:
         
     
     async def get_mode(self, id):
+        default = True
         user = await self.col.find_one({'id':int(id)})
         if user:
-            return user.get('mode', True)
-        return True
+            return user.get('mode', default)
+        return default
     
     async def add_chat(self, chat, title):
         chat = self.new_group(chat, title)
