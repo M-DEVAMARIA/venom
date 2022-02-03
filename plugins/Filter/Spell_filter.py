@@ -57,7 +57,7 @@ async def get_button(msg):
    info = await db.find_chat(msg.chat.id)
    button = info["configs"]["custom_button"]
    i, button = parse_buttons(button)
-   return str(button)
+   return button
 
 def parse_buttons(text):
     """ markdown_note to string and buttons """
