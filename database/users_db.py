@@ -120,7 +120,7 @@ class Database:
         
     
     async def get_mode(self, id):
-        default = False
+        default = {'pm_filter': True, 'mode': True}
         user = await self.col.find_one({'id':int(id)})
         if user:
             return user.get('mode', default)
