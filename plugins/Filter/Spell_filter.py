@@ -44,7 +44,7 @@ async def normalspellmode(message, template):
     let = await db.find_chat(message.chat.id)
     button = let["configs"]["custom_button"]
     i, buttons = parse_buttons(button)
-    for button in buttons
+    for button in buttons:
           button = button
     reply_button = eval(button) if not buttons==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
     spf = await message.reply_text(
