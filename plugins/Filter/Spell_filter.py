@@ -42,8 +42,8 @@ async def advancespellmode(message, single, imdbg, max_pages, delete, delete_tim
 
 async def normalspellmode(message, template):
     search = message.text
-    reply_markup = await get_button(message)
-    reply_button = eval(reply_markup) if not buttons==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
+    buttons = await get_button(message)
+    reply_button = eval(buttons) if not buttons==None else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
     spf = await message.reply_text(
     text=f"<code>Sorry {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
     reply_markup=reply_button,
