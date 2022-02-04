@@ -14,7 +14,7 @@ IMDBTEMPLATE ={}
 
 async def admins(bot, msg):
     st = await bot.get_chat_member(msg.message.chat.id, msg.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(msg.from_user.id) in ADMINS):
         await update.answer("your are not group owner or admin", show_alert=True)
         return Flase 
     return True 
