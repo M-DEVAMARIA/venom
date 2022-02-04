@@ -4,6 +4,7 @@ from database.users_db import db
 from pyrogram import filters, Client
 from translation import Translation 
 from utils import get_poster
+from plugins.Filter.Spell_filter import parse_buttons
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from info import IMDB_TEMPLATE, BROADCAST_CHANNEL as LOG_CHANNEL
 
