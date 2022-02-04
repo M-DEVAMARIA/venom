@@ -122,6 +122,7 @@ async def refresh(bot, message):
             return await bot.send_message(LOG_CHANNEL, f"#NEWGROUP \n\nGroup Name -  [{cmd.chat.title}]\nGroup id - {cmd.chat.id}\nTotal members = [{total}]\nAdded by - 'Unknown'")
               
     new = dict(
+          imDb=True,
           spellcheck=True,
           max_pages=10,
           max_results=10,
@@ -133,10 +134,12 @@ async def refresh(bot, message):
           advance=True,
           welcome=True,
           protect=False,
+          custom_wlcm='None',
           spell_template='None',
           imdb_template='None',
           custom_button='None',
-          imDb=True)
+          custom_wlcm_button='None')
+          
     append = await db.update_configs(user, new)
     if append: 
        #await db.update(int(user), new)
