@@ -771,10 +771,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
              elif value=='False' or False:
                 await save_mode(query.from_user.id,'mode', True)
          status = await db.get_mode(query.from_user.id)
-             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f'mode#update#status['mode']'), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f'mode_#update#status['mode']')],[InlineKeyboardButton('back', callback_data="start")]])
+             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f'mode#update#{status['mode']}'), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f'mode_#update#{status['mode']}')],[InlineKeyboardButton('back', callback_data="start")]])
              return await query.message.edit_reply_markup(reply_markup)
          else:
-             return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f'mode#update#status['mode']'), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f'mode#updatestatus['mode']')],[InlineKeyboardButton('back', callback_data="start")]]))
+             return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f'mode#update#{status['mode']}'), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f'mode#update#{status['mode']}')],[InlineKeyboardButton('back', callback_data="start")]]))
          
     elif query.data.startswith("request"):
         await query.answer('your Request successful', show_alert=True)
