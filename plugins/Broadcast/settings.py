@@ -12,6 +12,12 @@ from plugins import VERIFY
 TEMPLATE ={}
 IMDBTEMPLATE ={}
 
+async def admins(msg):
+    st = await bot.get_chat_member(msg.message.chat.id, msg.from_user.id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
+        await update.answer("your are not group owner or admin", show_alert=True)
+        return Flase 
+    return True 
 
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
@@ -75,14 +81,11 @@ async def bot_info(client, message):
     
 @Client.on_callback_query(filters.regex(r"inPM\((.+)\)"), group=2)
 async def buttons(bot, update: CallbackQuery):
-    # button mode callback function
+    #button mode callback function
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admin(msg): return
     value2, value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 2)
 
     value = True if value=="True" else False
@@ -118,9 +121,7 @@ async def imdb_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
+    if not await admins(update): return
     settings = await db.find_chat(int(chat_id))
     imdb_temp = settings["configs"]["imdb_template"]
     value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
@@ -157,10 +158,8 @@ async def cb_show_invites(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admins(update): return
+    
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
     prev = await db.find_chat(chat_id)
     custom = prev["configs"].get("spell_template")    
@@ -175,9 +174,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton(f"Advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
                 InlineKeyboardButton(f"Normal {acts}"if custom=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
-                InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_template({chat_id}|hi)")
-                ],[
-                InlineKeyboardButton("Button", callback_data=f"custom_button({chat_id}|none)")
+                InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_info({chat_id}|hi)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -201,10 +198,8 @@ async def auto_filter(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admins(update): return 
+    
     value, chat_id = re.findall(r"auto\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
@@ -234,10 +229,8 @@ async def filter_page(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admins(update): return 
+    
     count, chat_id = re.findall(r"pages\((.+)\)", query_data)[0].split("|", 1)
     
     buttons= [[
@@ -266,10 +259,8 @@ async def auto_delete(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admins(update): return
+    
     count,value, chat_id = re.findall(r"delete\((.+)\)", query_data)[0].split("|", 2)
     value = True if value=="True" else False
     if value:
@@ -305,10 +296,8 @@ async def wlcm_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admins(update): return 
+    
     value, chat_id = re.findall(r"wlcm\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
@@ -338,10 +327,8 @@ async def protect_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat_id, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    
+    if not await admins(update): return
     value, chat_id = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
@@ -365,34 +352,51 @@ async def protect_mode(bot, update: CallbackQuery):
         reply_markup=reply_markup,
         parse_mode="html"
     )
+    
+@Client.on_callback_query(filters.regex(r"custom_info\((.+)\)"), group=2)
+async def imdb_mode(bot, update: CallbackQuery):
+    query_data = update.data
+    chat_id = update.message.chat.id
+    user_id = update.from_user.id
+    if not await admins(update): return
+    value, chat_id = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
+    buttons= [[
+                InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
+                ],[
+                InlineKeyboardButton("DEFAULT", callback_data=f"set(spell_template|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW", callback_data=f"custom_template({chat_id})")
+                ],[
+                InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
+                ],[
+                InlineKeyboardButton("DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k"), InlineKeyboardButton("ADD NEW", callback_data=f"custom_button({chat_id})")
+                ],[
+                InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
+                ]]
+    text=f"<i>Use Below Buttons to set custom message and button</i>"
+    reply_markup=InlineKeyboardMarkup(buttons) 
+    await update.message.edit_text(text, reply_markup=reply_markup, parse_mode="html")
+        
 @Client.on_callback_query(filters.regex(r"custom_template\((.+)\)"),group=2)
 async def custm_spell(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     i, mode = re.findall(r"custom_template\((.+)\)", update.data)[0].split("|", 1)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
-    st = await bot.get_chat_member(chat, update.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-    text = "please send a custom message to set spell check message or send /empty to remove current custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='button' else "👉🏻 <b>Now send the list of buttons</b> to insert on the inline keyboard, with texts and links, <b>using this parse:</b>\n\n<code>venom - https://t.me/venom_moviebot!venombot - https://t.me/venom_moviebot</code>\n\nIf you want to set up 2 buttons in the same row, separe them with <b>|</b>\n\n<b>Example:</b>\n<code>venom - https://t.me/venom_moviebot|venombot - https://t.me/venom_moviebot<code>."
-    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
+    if not await admins(update): return
+    text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>"
+    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]
     TEMPLATE[chat]= spell.text.html
-    texts, txt= "press Confirm to delete you custom spell check message" if spell.text=="/empty" else f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message", "press confirm to delete your custom spell check button" if spell.text=='/empty' else f"<code>{spell.text}</code>\n\nconfirm to set btn:{btn}\ntext:{reply_text}\nthis is your spell check button"
-    val= "None" if spell.text=="/empty" else "k"
-    intent = "spell_template" if not mode=="button" else "custom_button"
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({intent}|{val}|{chat}|not)")]]        
+    texts= f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|n|{chat}|not)")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)]]
     reply_markup=InlineKeyboardMarkup(buttons) 
-    await spell.reply_text(txt if mode=='button' else texts, reply_markup=reply_markup, parse_mode="html")
+    await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
     return 
 
-@Client.on_callback_query(filters.regex(r"cimdb_template\((.+)\)"),group=2)
+@Client.on_callback_query(filters.regex(r"cimdb_template\((.+)\)"),group=2 )
 async def imdb_template(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    st = await bot.get_chat_member(chat, update.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
+    if not await admins(update): return
     chat_id, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"cimdb_template({chat}|Fillings)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"cimdb_template({chat}|close)")]]
@@ -404,7 +408,7 @@ async def imdb_template(bot, update: CallbackQuery):
         return await update.message.delete()
     spell = await bot.ask(chat_id=chat,text="<b>please now send a custom imdb template for set as your group imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")]]        
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)]]    
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
     return 
 
@@ -413,12 +417,10 @@ async def custom_button(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     i, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
-    st = await bot.get_chat_member(chat, update.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(update.from_user.id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
+    if not await admins(update): return
     msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= msg.text.html
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(custom_button|e|{chat}|l)")]] 
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(custom_button|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)]] 
     await msg.reply_text(f'<code>{msg.text}</code>\n\npress confirm set this your custom spell check message button', reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
     return 
     
@@ -427,10 +429,8 @@ async def cb_set(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
     user_id = update.from_user.id
-    st = await bot.get_chat_member(chat, user_id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
-        return await update.answer("your are not group owner or admin", show_alert=True)
-
+    if not await admins(update): return 
+    
     action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", query_data)[0].split("|", 3)
 
     try:
