@@ -308,11 +308,11 @@ async def wlcm_mode(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(custom_wlcm|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW" if st=='None' else "ADD NEW ✅", callback_data=f"custom_template({chat_id}|wlcm)")
+                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(custom_wlcm|None|{chat_id}|k)"),InlineKeyboardButton("CUSTOM" if st=='None' else "CUSTOM ✅", callback_data=f"custom_template({chat_id}|wlcm)")
                 ],[
                 InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_wlcm_button|None|{chat_id}|k)"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|wlcm)")
+                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_wlcm_button|None|{chat_id}|k)"), InlineKeyboardButton("CUSTOM" if cb=='None' else "CUSTOM ✅", callback_data=f"custom_button({chat_id}|wlcm)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -371,15 +371,15 @@ async def custom_info(bot, update: CallbackQuery):
     prev = await db.find_chat(chat_id)
     st, cb = prev["configs"].get("spell_template"), prev["configs"].get("custom_button")
     
-    value, chat_id = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
+    value, k = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
     buttons= [[
                 InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(spell_template|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW" if st=='None' else "ADD NEW ✅", callback_data=f"custom_template({chat_id}|k)")
+                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(spell_template|None|{chat_id}|k)"),InlineKeyboardButton("CUSTOM" if st=='None' else "CUSTOM ✅", callback_data=f"custom_template({chat_id}|k)")
                 ],[
                 InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k)"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|k)")
+                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k)"), InlineKeyboardButton("CUSTOM" if cb=='None' else "CUSTOM ✅", callback_data=f"custom_button({chat_id}|k)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -433,7 +433,7 @@ async def custom_button(bot, update: CallbackQuery):
     if not await admins(bot, update): return
     msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= msg.text.html
-    cat = custom_wlcm_button if mode=='wlcm' else custom_button
+    cat = 'custom_wlcm_button' if mode=='wlcm' else 'custom_button'
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
     await msg.reply_text(f'<code>{msg.text}</code>\n\npress confirm set this your custom button', reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
     return 
