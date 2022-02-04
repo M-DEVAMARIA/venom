@@ -299,11 +299,20 @@ async def wlcm_mode(bot, update: CallbackQuery):
     if not await admins(bot, update): return 
     
     value, chat_id = re.findall(r"wlcm\((.+)\)", query_data)[0].split("|", 1)
-    
+    prev = await db.find_chat(chat_id)
+    st, cb = prev["configs"].get("custom_wlcm"), prev["configs"].get("custom_wlcm_button")
     value = True if value=="True" else False
     if value:
         buttons= [[
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(wlcm|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
+                ],[
+                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(custom_wlcm|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW" if st=='None' else "ADD NEW ✅", callback_data=f"custom_template({chat_id}|wlcm)")
+                ],[
+                InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
+                ],[
+                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_wlcm_button|None|{chat_id}|k)"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|wlcm)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -330,20 +339,11 @@ async def protect_mode(bot, update: CallbackQuery):
     
     if not await admins(bot, update): return
     value, chat_id = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
-    prev = await db.find_chat(chat_id)
-    st, cb = prev["configs"].get("custom_wlcm"), prev["configs"].get("custom_wlcm_button")
+    
     value = True if value=="True" else False
     if value:
         buttons= [[
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(protect|False|{chat_id}|{value})")
-                ],[
-                InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
-                ],[
-                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(custom_wlcm|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW" if st=='None' else "ADD NEW ✅", callback_data=f"custom_template({chat_id}|wlcm)")
-                ],[
-                InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
-                ],[
-                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_wlcm_button|None|{chat_id}|k"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|wlcm)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -379,7 +379,7 @@ async def custom_info(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|k)")
+                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k)"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|k)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
