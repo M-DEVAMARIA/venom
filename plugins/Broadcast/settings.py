@@ -12,7 +12,7 @@ from plugins import VERIFY
 TEMPLATE ={}
 IMDBTEMPLATE ={}
 
-async def admins(msg):
+async def admins(bot, msg):
     st = await bot.get_chat_member(msg.message.chat.id, msg.from_user.id)
     if not (st.status == "creator") or (st.status == "administrator") or (str(user_id) in ADMINS):
         await update.answer("your are not group owner or admin", show_alert=True)
@@ -85,7 +85,7 @@ async def buttons(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admin(msg): return
+    if not await admin(bot, update): return
     value2, value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 2)
 
     value = True if value=="True" else False
@@ -121,7 +121,7 @@ async def imdb_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return
+    if not await admins(bot, update): return
     settings = await db.find_chat(int(chat_id))
     imdb_temp = settings["configs"]["imdb_template"]
     value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
@@ -158,7 +158,7 @@ async def cb_show_invites(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return
+    if not await admins(bot, update): return
     
     value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
     prev = await db.find_chat(chat_id)
@@ -198,7 +198,7 @@ async def auto_filter(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return 
+    if not await admins(bot, update): return 
     
     value, chat_id = re.findall(r"auto\((.+)\)", query_data)[0].split("|", 1)
     
@@ -229,7 +229,7 @@ async def filter_page(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return 
+    if not await admins(bot, update): return 
     
     count, chat_id = re.findall(r"pages\((.+)\)", query_data)[0].split("|", 1)
     
@@ -259,7 +259,7 @@ async def auto_delete(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return
+    if not await admins(bot, update): return
     
     count,value, chat_id = re.findall(r"delete\((.+)\)", query_data)[0].split("|", 2)
     value = True if value=="True" else False
@@ -296,7 +296,7 @@ async def wlcm_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return 
+    if not await admins(bot, update): return 
     
     value, chat_id = re.findall(r"wlcm\((.+)\)", query_data)[0].split("|", 1)
     
@@ -328,7 +328,7 @@ async def protect_mode(bot, update: CallbackQuery):
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     
-    if not await admins(update): return
+    if not await admins(bot, update): return
     value, chat_id = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
@@ -358,7 +358,7 @@ async def imdb_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return
+    if not await admins(bot, update): return
     value, chat_id = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
     buttons= [[
                 InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
@@ -381,7 +381,7 @@ async def custm_spell(bot, update: CallbackQuery):
     prev = await db.find_chat(chat)
     i, mode = re.findall(r"custom_template\((.+)\)", update.data)[0].split("|", 1)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
-    if not await admins(update): return
+    if not await admins(bot, update): return
     text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>"
     spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= spell.text.html
@@ -396,7 +396,7 @@ async def imdb_template(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    if not await admins(update): return
+    if not await admins(bot, update): return
     chat_id, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"cimdb_template({chat}|Fillings)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"cimdb_template({chat}|close)")]]
@@ -417,7 +417,7 @@ async def custom_button(bot, update: CallbackQuery):
     chat = update.message.chat.id
     prev = await db.find_chat(chat)
     i, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
-    if not await admins(update): return
+    if not await admins(bot, update): return
     msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= msg.text.html
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(custom_button|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
@@ -429,7 +429,7 @@ async def cb_set(bot, update: CallbackQuery):
     query_data = update.data
     chat = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(update): return 
+    if not await admins(bot, update): return 
     
     action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", query_data)[0].split("|", 3)
 
