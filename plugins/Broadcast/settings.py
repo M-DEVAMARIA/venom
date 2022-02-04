@@ -358,16 +358,19 @@ async def imdb_mode(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
-    if not await admins(bot, update): return
+    if not await admins(bot, update): return 
+    prev = await db.find_chat(chat)
+    st, cb = prev["configs"].get("spell_template"), prev["configs"].get("custom_button")
+    
     value, chat_id = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
     buttons= [[
                 InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT", callback_data=f"set(spell_template|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW", callback_data=f"custom_template({chat_id})")
+                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(spell_template|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW" if st=='None' else "ADD NEW ✅", callback_data=f"custom_template({chat_id}|k)")
                 ],[
                 InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
                 ],[
-                InlineKeyboardButton("DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k"), InlineKeyboardButton("ADD NEW", callback_data=f"custom_button({chat_id})")
+                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_button|None|{chat_id}|k"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|k)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
