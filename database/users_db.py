@@ -119,14 +119,14 @@ class Database:
     
 
     async def update_mode(self, id, value):
-        await self.col.update_one({'id': int(id)}, {'$set': {'mode': value}})
+        await self.col.update_one({'id': int(id)}, {'$set': {'status': value}})
         
     
     async def get_mode(self, id):
         default = {'pm_filter': True, 'mode': True}
         user = await self.col.find_one({'id':int(id)})
         if user:
-            return user.get('mode', default)
+            return user.get('status', default)
         return default
     
     async def add_chat(self, chat, title):
