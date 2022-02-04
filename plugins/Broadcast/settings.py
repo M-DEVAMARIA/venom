@@ -330,11 +330,20 @@ async def protect_mode(bot, update: CallbackQuery):
     
     if not await admins(bot, update): return
     value, chat_id = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
-    
+    prev = await db.find_chat(chat_id)
+    st, cb = prev["configs"].get("custom_wlcm"), prev["configs"].get("custom_wlcm_button")
     value = True if value=="True" else False
     if value:
         buttons= [[
                 InlineKeyboardButton(" OFF ❌", callback_data=f"set(protect|False|{chat_id}|{value})")
+                ],[
+                InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
+                ],[
+                InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(custom_wlcm|None|{chat_id}|k)"),InlineKeyboardButton("ADD NEW" if st=='None' else "ADD NEW ✅", callback_data=f"custom_template({chat_id}|wlcm)")
+                ],[
+                InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
+                ],[
+                InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_wlcm_button|None|{chat_id}|k"), InlineKeyboardButton("ADD NEW" if cb=='None' else "ADD NEW ✅", callback_data=f"custom_button({chat_id}|wlcm)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -385,11 +394,12 @@ async def custm_spell(bot, update: CallbackQuery):
     i, mode = re.findall(r"custom_template\((.+)\)", update.data)[0].split("|", 1)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     if not await admins(bot, update): return
-    text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>"
+    text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "please send a custom message to set as your group welcome message\n\nexample:-\n\n<code>hey,{name}, welcome to {group}</code>"
     spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= spell.text.html
-    texts= f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|n|{chat}|not)")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]
+    texts= f"<code>{spell.text}</code>\n\nconfirm to set this is custom message"
+    cat = 'custom_wlcm' if mode=='wlcm' else 'spell_template'
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|n|{chat}|not)")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]
     reply_markup=InlineKeyboardMarkup(buttons) 
     await spell.reply_text(texts, reply_markup=reply_markup, parse_mode="html")
     return 
@@ -423,8 +433,9 @@ async def custom_button(bot, update: CallbackQuery):
     if not await admins(bot, update): return
     msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= msg.text.html
-    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(custom_button|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
-    await msg.reply_text(f'<code>{msg.text}</code>\n\npress confirm set this your custom spell check message button', reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
+    cat = custom_wlcm_button if mode=='wlcm' else custom_button
+    buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
+    await msg.reply_text(f'<code>{msg.text}</code>\n\npress confirm set this your custom button', reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
     return 
     
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
@@ -452,6 +463,8 @@ async def cb_set(bot, update: CallbackQuery):
     max_results = int(prev["configs"].get("max_results"))
     spell_template = prev["configs"].get("spell_template")
     custom_button = prev["configs"].get("custom_button")
+    custom_wlcm_button = prev["configs"].get("custom_wlcm_button")
+    custom_wlcm = prev["configs"].get("custom_wlcm")
     imdb_template = prev["configs"].get("imdb_template")
     auto_delete = True if prev["configs"].get("delete") == (True or "True") else False
     auto_delete_time = int(prev["configs"].get("delete_time"))
@@ -496,15 +509,21 @@ async def cb_set(bot, update: CallbackQuery):
     elif action == "protect":
         protect = True if val=="True" else False 
         
-    elif action == "wlcm":
+    elif action == "wlcm": 
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
         spell_template  = TEMPLATE.get(chat) if not val=="None" else val
     
+    elif action == "custom_wlcm":
+        custom_wlcm  = TEMPLATE.get(chat) if not val=="None" else val
+    
     elif action == "custom_button":
         custom_button  = TEMPLATE.get(chat) if not val=="None" else val
-        
+    
+    elif action == "custom_wlcm_button":
+        custom_wlcm_button  = TEMPLATE.get(chat) if not val=="None" else val
+    
     elif action == "imdb_template":
         imdb_template = IMDBTEMPLATE.get(chat) if not val=="None" else val
         
@@ -521,7 +540,9 @@ async def cb_set(bot, update: CallbackQuery):
         advance=advancespl,
         protect=protect,
         welcome=welcome,
+        custom_wlcm=custom_wlcm,
         spell_template=spell_template,
+        custom_wlcm_button=custom_wlcm_button,
         imdb_template=imdb_template,
         custom_button=custom_button,
         imDb=imdb
