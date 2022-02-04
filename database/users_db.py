@@ -43,8 +43,11 @@ class Database:
                 advance=True,
                 welcome=True,
                 protect=False,
-                spell_template='None',
+                custom_wlcm='None',
+                custom_button='None',
                 imdb_template='None',
+                spell_template='None',
+                custom_wlcm_button='None',
                 imDb=True
             ),
         )
