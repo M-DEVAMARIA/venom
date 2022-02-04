@@ -383,7 +383,7 @@ async def custm_spell(bot, update: CallbackQuery):
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     if not await admins(update): return
     text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>"
-    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]
+    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= spell.text.html
     texts= f"<code>{spell.text}</code>\n\nconfirm to set this is your spell check message"
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(spell_template|n|{chat}|not)")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)]]
