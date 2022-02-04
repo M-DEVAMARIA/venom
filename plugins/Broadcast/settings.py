@@ -354,12 +354,12 @@ async def protect_mode(bot, update: CallbackQuery):
     )
     
 @Client.on_callback_query(filters.regex(r"custom_info\((.+)\)"), group=2)
-async def imdb_mode(bot, update: CallbackQuery):
+async def custom_info(bot, update: CallbackQuery):
     query_data = update.data
     chat_id = update.message.chat.id
     user_id = update.from_user.id
     if not await admins(bot, update): return 
-    prev = await db.find_chat(chat)
+    prev = await db.find_chat(chat_id)
     st, cb = prev["configs"].get("spell_template"), prev["configs"].get("custom_button")
     
     value, chat_id = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
