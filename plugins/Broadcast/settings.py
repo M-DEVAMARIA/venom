@@ -17,7 +17,7 @@ async def admins(bot, msg):
     st = await bot.get_chat_member(grpid , msg.from_user.id)
     if not (st.status == "creator") or (st.status == "administrator") or (str(msg.from_user.id) in (ADMINS, grpid)):
         await update.answer("your are not group owner or admin", show_alert=True)
-        return Flase 
+        return False 
     return True 
 
 @Client.on_message(filters.command(['settings']))
@@ -26,7 +26,11 @@ async def botsetting_info(client, msg, call=False):
     grpid = await active_connection(str(userid))
     chat_type = msg.message.chat.type if call else msg.chat.type
     if chat_type == "private":
-        chat= grpid
+        if grpid is None:
+            mssg= msg.message if call else msg
+           return await mssg.err("I'm not connected to any groups! /connect to any groups"
+        else:
+           chat= grpid
     else:
         chat = msg.message.chat.id if call else msg.chat.id
     st = await client.get_chat_member(chat, msg.from_user.id)
