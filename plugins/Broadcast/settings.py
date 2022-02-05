@@ -28,8 +28,8 @@ async def botsetting_info(client, msg, call=False):
            try:
               grpid = await active_connection(str(userid))
            except:
-           mssg= msg.message if call else msg
-           return await mssg.err("I'm not connected to any groups! /connect to any groups")
+              mssg= msg.message if call else msg
+              return await mssg.err("I'm not connected to any groups! /connect to any groups")
         else:
            chat= grpid
     else:
