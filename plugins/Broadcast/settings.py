@@ -30,17 +30,17 @@ async def botsetting_info(client, msg, call=False):
               chat= grpid
            else:
               mssg= msg.message if call else msg
-              return await mssg.err("I'm not connected to any groups! /connect to any groups")
+              return await mssg.reply("I'm not connected to any groups! /connect to any groups")
     else:
         chat = msg.message.chat.id if call else msg.chat.id
-    st = await client.get_chat_member(chat, msg.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in (ADMINS, grpid)):
-        if call:
-            return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
-        else: 
-            k=await msg.reply_text("your not group owner or admin ")
-            await asyncio.sleep(5)
-            return await k.delete()
+        st = await client.get_chat_member(chat, msg.from_user.id)
+        if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in (ADMINS, grpid)):
+            if call:
+                return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
+            else: 
+                k=await msg.reply_text("your not group owner or admin ")
+                await asyncio.sleep(5)
+                return await k.delete()
     msg = msg.message if call else msg
     settings = await db.find_chat(int(chat))
     pm_file_chat  = settings["configs"].get("pm_fchat", False)
