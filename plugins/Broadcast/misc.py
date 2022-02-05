@@ -28,7 +28,7 @@ async def save_group(bot, cmd):
            pass
     for u in cmd.new_chat_members:
         try:
-            k = await cmd.reply(text=f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>" if msg=='None' else msg.format(name=u.mention, group=cmd.chat.title)), reply_markup='None' if btn=='None' else InlineKeyboardMarkup(btn))
+            k = await cmd.reply(text=f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>" if msg=='None' else msg.format(name=u.mention, group=cmd.chat.title), reply_markup='None' if btn=='None' else InlineKeyboardMarkup(btn))
         except:
             return 
         if k:
