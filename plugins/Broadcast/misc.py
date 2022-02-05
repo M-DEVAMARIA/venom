@@ -23,13 +23,13 @@ async def save_group(bot, cmd):
         try:
            w, msg = set["configs"]["welcome"], set["configs"]["custom_wlcm"]
            button = set["configs"]["custom_wlcm_button"]
-           btn = 'None' if button=='None' else parse_buttons(button) 
+           btn = parse_buttons(button) 
            if not w: return
         except:
            pass
     for u in cmd.new_chat_members:
         try:
-            k = await cmd.reply(text=f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>" if msg=='None' else msg.format(name=u.mention, group=cmd.chat.title), reply_markup=InlineKeyboardMarkup(btn))
+            k = await cmd.reply(text=f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>" if msg=='None' else msg.format(name=u.mention, group=cmd.chat.title), reply_markup=None if button=='None' else InlineKeyboardMarkup(btn))
         except:
             return 
         if k:
