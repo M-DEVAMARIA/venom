@@ -13,19 +13,23 @@ TEMPLATE ={}
 IMDBTEMPLATE ={}
 
 async def admins(bot, msg):
+    grpid = await active_connection(str(msg.from_user.id)) 
     st = await bot.get_chat_member(msg.message.chat.id, msg.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(msg.from_user.id) in ADMINS):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(msg.from_user.id) in (ADMINS, grpid)):
         await update.answer("your are not group owner or admin", show_alert=True)
         return Flase 
     return True 
 
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
-    chat = msg.message.chat.id if call else msg.chat.id
-    userid = msg.from_user.id
-    
-    st = await client.get_chat_member(chat, userid)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS):
+    grpid = await active_connection(str(msg.from_user.id))
+    chat_type = msg.message.chat.type if call else msg.chat.type
+    if chat_type == "private":
+        chat= grpid 
+    else:
+        chat = msg.message.chat.id if call else msg.chat.id
+    st = await client.get_chat_member(chat, msg.from_user.id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in (ADMINS, grpid)):
         if call:
             return await msg.answer(f"your are not group owner or admin {userid}", show_alert=True)
         else: 
@@ -83,8 +87,6 @@ async def bot_info(client, message):
 async def buttons(bot, update: CallbackQuery):
     #button mode callback function
     query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
     if not await admin(bot, update): return
     value2, value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 2)
 
@@ -118,13 +120,10 @@ async def buttons(bot, update: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"imddb\((.+)\)"), group=2)
 async def imdb_mode(bot, update: CallbackQuery):
     #imdb on / off calbackalback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
     if not await admins(bot, update): return
+    value, chat_id = re.findall(r"imddb\((.+)\)", update.data)[0].split("|", 1)
     settings = await db.find_chat(int(chat_id))
     imdb_temp = settings["configs"]["imdb_template"]
-    value, chat_id = re.findall(r"imddb\((.+)\)", query_data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
@@ -154,13 +153,10 @@ async def imdb_mode(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"spell\((.+)\)"), group=2)
 async def cb_show_invites(bot, update: CallbackQuery):
-    #imdb on / off calback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
+    
     if not await admins(bot, update): return
     
-    value,values, chat_id = re.findall(r"spell\((.+)\)", query_data)[0].split("|", 2)
+    value,values, chat_id = re.findall(r"spell\((.+)\)", update.data)[0].split("|", 2)
     prev = await db.find_chat(chat_id)
     custom = prev["configs"].get("spell_template")    
     value = True if value=="True" else False 
@@ -195,12 +191,9 @@ async def cb_show_invites(bot, update: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"auto\((.+)\)"), group=2)
 async def auto_filter(bot, update: CallbackQuery):
     #auto filter on / off calback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
     if not await admins(bot, update): return 
     
-    value, chat_id = re.findall(r"auto\((.+)\)", query_data)[0].split("|", 1)
+    value, chat_id = re.findall(r"auto\((.+)\)", update.data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
@@ -225,13 +218,10 @@ async def auto_filter(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"pages\((.+)\)"), group=2)
 async def filter_page(bot, update: CallbackQuery):
-    #imdb on / off calback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
+    #page no set function
     if not await admins(bot, update): return 
     
-    count, chat_id = re.findall(r"pages\((.+)\)", query_data)[0].split("|", 1)
+    count, chat_id = re.findall(r"pages\((.+)\)", update.data)[0].split("|", 1)
     
     buttons= [[
                 InlineKeyboardButton("5", callback_data=f"set(pages|5|{chat_id}|{count})"),
@@ -255,13 +245,10 @@ async def filter_page(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"delete\((.+)\)"), group=2)
 async def auto_delete(bot, update: CallbackQuery):
-    #imdb on / off calback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
+    #auto delete on / off calback function
     if not await admins(bot, update): return
     
-    count,value, chat_id = re.findall(r"delete\((.+)\)", query_data)[0].split("|", 2)
+    count,value, chat_id = re.findall(r"delete\((.+)\)", update.data)[0].split("|", 2)
     value = True if value=="True" else False
     if value:
          buttons= [[ 
@@ -293,12 +280,9 @@ async def auto_delete(bot, update: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"wlcm\((.+)\)"), group=2)
 async def wlcm_mode(bot, update: CallbackQuery):
     #wlcm on / off calbackalback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
     if not await admins(bot, update): return 
     
-    value, chat_id = re.findall(r"wlcm\((.+)\)", query_data)[0].split("|", 1)
+    value, chat_id = re.findall(r"wlcm\((.+)\)", update.data)[0].split("|", 1)
     prev = await db.find_chat(chat_id)
     st, cb = prev["configs"].get("custom_wlcm"), prev["configs"].get("custom_wlcm_button")
     value = True if value=="True" else False
@@ -332,13 +316,10 @@ async def wlcm_mode(bot, update: CallbackQuery):
     )
 @Client.on_callback_query(filters.regex(r"protect\((.+)\)"), group=2)
 async def protect_mode(bot, update: CallbackQuery):
-    #imdb on / off calbackalback function
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
+    #protect content on / off calbackalback function
     
     if not await admins(bot, update): return
-    value, chat_id = re.findall(r"protect\((.+)\)", query_data)[0].split("|", 1)
+    value, chat_id = re.findall(r"protect\((.+)\)", update.data)[0].split("|", 1)
     
     value = True if value=="True" else False
     if value:
@@ -364,14 +345,12 @@ async def protect_mode(bot, update: CallbackQuery):
     
 @Client.on_callback_query(filters.regex(r"custom_info\((.+)\)"), group=2)
 async def custom_info(bot, update: CallbackQuery):
-    query_data = update.data
-    chat_id = update.message.chat.id
-    user_id = update.from_user.id
+    #custom info function
     if not await admins(bot, update): return 
+    chat_id, i = re.findall(r"custom_info\((.+)\)", update.data)[0].split("|", 1)
     prev = await db.find_chat(chat_id)
     st, cb = prev["configs"].get("spell_template"), prev["configs"].get("custom_button")
     
-    value, k = re.findall(r"custom_info\((.+)\)", query_data)[0].split("|", 1)
     buttons= [[
                 InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
                 ],[
@@ -389,9 +368,8 @@ async def custom_info(bot, update: CallbackQuery):
         
 @Client.on_callback_query(filters.regex(r"custom_template\((.+)\)"),group=2)
 async def custm_spell(bot, update: CallbackQuery):
-    chat = update.message.chat.id
+    chat, mode  = re.findall(r"custom_template\((.+)\)", update.data)[0].split("|", 1)
     prev = await db.find_chat(chat)
-    i, mode = re.findall(r"custom_template\((.+)\)", update.data)[0].split("|", 1)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     if not await admins(bot, update): return
     text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "please send a custom message to set as your group welcome message\n\nexample:-\n\n<code>hey,{name}, welcome to {group}</code>"
@@ -406,11 +384,10 @@ async def custm_spell(bot, update: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"cimdb_template\((.+)\)"),group=2 )
 async def imdb_template(bot, update: CallbackQuery):
-    chat = update.message.chat.id
+    if not await admins(bot, update): return
+    chat, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    if not await admins(bot, update): return
-    chat_id, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
     buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"cimdb_template({chat}|Fillings)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"cimdb_template({chat}|close)")]]
     if current=="current":
@@ -427,9 +404,7 @@ async def imdb_template(bot, update: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"custom_button\((.+)\)"),group=2)
 async def custom_button(bot, update: CallbackQuery):
-    chat = update.message.chat.id
-    prev = await db.find_chat(chat)
-    i, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
+    chat, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
     if not await admins(bot, update): return
     msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= msg.text.html
@@ -440,12 +415,10 @@ async def custom_button(bot, update: CallbackQuery):
     
 @Client.on_callback_query(filters.regex(r"set\((.+)\)"), group=2)
 async def cb_set(bot, update: CallbackQuery):
-    query_data = update.data
-    chat = update.message.chat.id
-    user_id = update.from_user.id
+    # set to db 
     if not await admins(bot, update): return 
     
-    action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", query_data)[0].split("|", 3)
+    action, val, chat_id, curr_val = re.findall(r"set\((.+)\)", update.data)[0].split("|", 3)
 
     try:
         val, chat_id, curr_val = float(val), int(chat_id), float(curr_val)
@@ -456,7 +429,7 @@ async def cb_set(bot, update: CallbackQuery):
         await update.answer("New Value Cannot Be Old Value...Please Choose Different Value...!!!", show_alert=True)
         return
     
-    prev = await db.find_chat(chat)
+    prev = await db.find_chat(chat_id)
 
     spellCheck = True if prev["configs"].get("spellcheck") == (True or "True") else False
     max_pages = int(prev["configs"].get("max_pages"))
@@ -549,7 +522,7 @@ async def cb_set(bot, update: CallbackQuery):
         
     )
     
-    append_db = await db.update_configs(chat, new)
+    append_db = await db.update_configs(chat_id, new)
     
     if not append_db:
         text="This group was not in my database.please send command /start in group to add group in db. again you feel this issue send /refresh in group"
