@@ -22,7 +22,8 @@ async def admins(bot, msg):
 
 @Client.on_message(filters.command(['settings']))
 async def botsetting_info(client, msg, call=False): 
-    grpid = await active_connection(str(msg.from_user.id))
+    userid= msg.from_user.id
+    grpid = await active_connection(str(userid))
     chat_type = msg.message.chat.type if call else msg.chat.type
     if chat_type == "private":
         chat= grpid 
