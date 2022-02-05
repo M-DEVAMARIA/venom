@@ -29,8 +29,8 @@ async def save_group(bot, cmd):
     for u in cmd.new_chat_members:
         try:
             k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>"if m=='None' else m.format(name=u.mention, group=cmd.chat.title), reply_markup= None if btn=='None' else InlineKeyboardMarkup(btn))
-        except:
-            return 
+        except Exception as e:
+            return print(e)
         if k:
            try:
              await rest(30)
