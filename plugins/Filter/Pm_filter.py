@@ -767,9 +767,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
          i, use, value = query.data.split('#')
          if use=='update':
              if value=='True' or True:
-                await save_mode(int(query.from_user.id),'mode', False)
+                await save_mode(query.from_user.id,'mode', False)
              elif value=='False' or False:
-                await save_mode(int(query.from_user.id),'mode', True)
+                await save_mode(query.from_user.id,'mode', True)
              await asyncio.sleep(2)
              status = await db.get_mode(query.from_user.id)
              reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode_#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]])
@@ -884,8 +884,7 @@ async def group(client, message, spell=False):
             try:
               cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"], **locals())
             except KeyError as e:
-              ETEMPLATE = TEMPLATE.replace(f'{e}','wrong')
-              cap = ETEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"],wrong=f'key {e} unavailable', **locals())
+              cap = f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nThis group custom IMDb template is in wrong format.used a wrong key {e}. please group owner or admin correct it !</b>" 
         else:
             cap = f"<b>Here is What I Found In My Database For Your Query {searchs} </b>"   
         try:
