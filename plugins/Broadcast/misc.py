@@ -21,7 +21,7 @@ async def save_group(bot, cmd):
     set=await db.find_chat(cmd.chat.id) 
     if set:
         try:
-           w, m = set["configs"]["welcome"], set["configs"]["custom_wlcm"]
+           w, msg = set["configs"]["welcome"], set["configs"]["custom_wlcm"]
            btn = parse_buttons(set["configs"]["custom_wlcm_button"])
          #  if not w: return
         except Exception as e:
@@ -29,7 +29,7 @@ async def save_group(bot, cmd):
            pass
     for u in cmd.new_chat_members:
         try:
-            k = await cmd.reply(f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>")#if m=='None' else m.format(name=u.mention, group=cmd.chat.title), reply_markup= None if btn=='None' else InlineKeyboardMarkup(btn))
+            k = await cmd.reply(text=f"<b>Hey , {u.mention},\nWelcome to {cmd.chat.title}</b>" if msg=='None' else msg.format(name=u.mention, group=cmd.chat.title), reply_markup= None if btn=='None' else InlineKeyboardMarkup(btn))
         except Exception as e:
             return print(e)
         if k:
