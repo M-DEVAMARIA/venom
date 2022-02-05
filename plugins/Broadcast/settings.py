@@ -374,7 +374,7 @@ async def custm_spell(bot, update: CallbackQuery):
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     if not await admins(bot, update): return
     text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "please send a custom message to set as your group welcome message\n\nexample:-\n\n<code>hey,{name}, welcome to {group}</code>"
-    spell = await bot.ask(chat_id=chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
+    spell = await bot.ask(chat_id= update.from_user.id if update.chat.type=='private' else chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= spell.text.html
     texts= f"<code>{spell.text}</code>\n\nconfirm to set this is custom message"
     cat = 'custom_wlcm' if mode=='wlcm' else 'spell_template'
@@ -397,7 +397,7 @@ async def imdb_template(bot, update: CallbackQuery):
         return await update.message.reply_text(FILLINGS, reply_markup=InlineKeyboardMarkup(CLOSE) )
     if current=="close":
         return await update.message.delete()
-    spell = await bot.ask(chat_id=chat,text="<b>please now send a custom imdb template for set as your group imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
+    spell = await bot.ask(chat_id=update.from_user.id if update.chat.type=='private' else chat,text="<b>please now send a custom imdb template for set as your group imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[chat]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]    
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
@@ -407,7 +407,7 @@ async def imdb_template(bot, update: CallbackQuery):
 async def custom_button(bot, update: CallbackQuery):
     chat, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
     if not await admins(bot, update): return
-    msg = await bot.ask(chat_id=chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
+    msg = await bot.ask(chat_id=update.from_user.id if update.chat.type=='private' else chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[chat]= msg.text.html
     cat = 'custom_wlcm_button' if mode=='wlcm' else 'custom_button'
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
