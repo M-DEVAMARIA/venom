@@ -23,8 +23,9 @@ async def save_group(bot, cmd):
         try:
            w, m = set["configs"]["welcome"], set["configs"]["custom_wlcm"]
            btn = parse_buttons(set["configs"]["custom_wlcm_button"])
-           if not w: return
-        except:
+         #  if not w: return
+        except Exception as e:
+           print(e)
            pass
     for u in cmd.new_chat_members:
         try:
