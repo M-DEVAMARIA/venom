@@ -28,7 +28,7 @@ async def botsetting_info(client, msg, call=False):
     if chat_type == "private":
         if grpid is None:
             mssg= msg.message if call else msg
-           return await mssg.err("I'm not connected to any groups! /connect to any groups"
+           return await mssg.err("I'm not connected to any groups! /connect to any groups")
         else:
            chat= grpid
     else:
