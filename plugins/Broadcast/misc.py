@@ -22,7 +22,8 @@ async def save_group(bot, cmd):
     if set:
         try:
            w, msg = set["configs"]["welcome"], set["configs"]["custom_wlcm"]
-           btn = parse_buttons(set["configs"]["custom_wlcm_button"])
+           getbtn = set["configs"]["custom_wlcm_button"])
+           btn = 'None' if getbtn=='None' else parse_buttons(getbtn) 
            if not w: return
         except:
            pass
