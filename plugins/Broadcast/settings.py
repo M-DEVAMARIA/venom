@@ -487,19 +487,19 @@ async def cb_set(bot, update: CallbackQuery):
         welcome = True if val=="True" else False 
         
     elif action == "spell_template":
-        spell_template  = TEMPLATE.get(chat) if not val=="None" else val
+        spell_template  = TEMPLATE.get(chat_id) if not val=="None" else val
     
     elif action == "custom_wlcm":
-        custom_wlcm  = TEMPLATE.get(chat) if not val=="None" else val
+        custom_wlcm  = TEMPLATE.get(chat_id) if not val=="None" else val
     
     elif action == "custom_button":
-        custom_button  = TEMPLATE.get(chat) if not val=="None" else val
+        custom_button  = TEMPLATE.get(chat_id) if not val=="None" else val
     
     elif action == "custom_wlcm_button":
-        custom_wlcm_button  = TEMPLATE.get(chat) if not val=="None" else val
+        custom_wlcm_button  = TEMPLATE.get(chat_id) if not val=="None" else val
     
     elif action == "imdb_template":
-        imdb_template = IMDBTEMPLATE.get(chat) if not val=="None" else val
+        imdb_template = IMDBTEMPLATE.get(chat_id) if not val=="None" else val
         
 
     new = dict(
