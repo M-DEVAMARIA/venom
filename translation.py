@@ -92,9 +92,9 @@ A Module To Download Songs From Youtube
     TELPH_TXT = """
 <b>Telegraph</b>
 
-<b>Note:</b>
+<b>📚 Commands </b>
 
-</code>send media under 5mb then bot will send telegraph link</code> """
+/telegraph - </code>send media under 5mb then bot will send telegraph link</code> """
     COVID_TXT = """ <b> 🌏 covid information </b>
   
 A module to find all country covid informations.
