@@ -95,7 +95,7 @@ async def bot_info(client, message):
 async def buttons(bot, update: CallbackQuery):
     #button mode callback function
     query_data = update.data
-    if not await admin(bot, update): return
+    if not await admins(bot, update): return
     value2, value, chat_id = re.findall(r"inPM\((.+)\)", query_data)[0].split("|", 2)
 
     value = True if value=="True" else False
@@ -166,11 +166,11 @@ async def cb_show_invites(bot, update: CallbackQuery):
     
     value,values, chat_id = re.findall(r"spell\((.+)\)", update.data)[0].split("|", 2)
     prev = await db.find_chat(chat_id)
-    custom = prev["configs"].get("spell_template")    
+    custom, button = prev["configs"].get("spell_template"), prev["configs"].get("custom_button")
     value = True if value=="True" else False 
     act = "✅" if values=="True" else ""
     acts = "" if values=="True" else "✅"
-    cact= ""if custom=="None" else "✅"
+    cact= ""if custom and button=="None" else "✅"
     if value:
         buttons= [[
                 InlineKeyboardButton("ON ✅", callback_data=f"set(spell|True|{chat_id}|{value})"),
@@ -380,8 +380,8 @@ async def custm_spell(bot, update: CallbackQuery):
     prev = await db.find_chat(chat)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     if not await admins(bot, update): return
-    text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "please send a custom message to set as your group welcome message\n\nexample:-\n\n<code>hey,{name}, welcome to {group}</code>"
-    spell = await bot.ask(chat_id= update.from_user.id if update.message.chat.type=='private' else chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
+    text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "please send a custom message to set as your group welcome message\n\n<b>Example:-</b>\n\n<code>hey,{name}, welcome to {group}</code>"
+    spell = await bot.ask(chat_id= update.from_user.id if update.message.chat.type=='private' else chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[int(chat)]= spell.text.html
     texts= f"<code>{spell.text}</code>\n\nconfirm to set this is custom message"
     cat = 'custom_wlcm' if mode=='wlcm' else 'spell_template'
@@ -396,7 +396,7 @@ async def imdb_template(bot, update: CallbackQuery):
     chat, current = re.findall(r"cimdb_template\((.+)\)", update.data)[0].split("|", 1)
     prev = await db.find_chat(chat)
     value = prev["configs"].get("imdb_template")
-    buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"cimdb_template({chat}|Fillings)")]]
+    buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"cimdb_template({chat}|Fillings)")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"cimdb_template({chat}|close)")]]
     if current=="current":
         return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!", reply_markup=InlineKeyboardMarkup(CLOSE))
@@ -414,7 +414,7 @@ async def imdb_template(bot, update: CallbackQuery):
 async def custom_button(bot, update: CallbackQuery):
     chat, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
     if not await admins(bot, update): return
-    msg = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
+    msg = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text='send custom button using below Format\n\n<b>Note:</b>\n👉 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[int(chat)]= msg.text.html
     cat = 'custom_wlcm_button' if mode=='wlcm' else 'custom_button'
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
