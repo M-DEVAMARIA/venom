@@ -786,7 +786,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return await query.answer("cancel indexing",show_alert=True)
         
 async def save_mode(group_id, value):
-    current = await db.get_mode(group_id)
+    current = await db.get_mode(str(group_id))
     key = 'mode'
     current[key] = value
     await db.update_mode(group_id, current) 
