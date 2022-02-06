@@ -758,25 +758,24 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await botsetting_info(client, query, query)
     
     elif query.data.startswith("mode"):
-        status = await db.get_mode(query.from_user.id)
-        return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"cmode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"cmode#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]]))
-   
-    elif query.data.startswith("cmode"):
-         i, se, value = query.data.split('#')
+         i, use, value = query.data.split('#')
          if value== "True":
-             await save_mode(query.from_user.id, False)
+            await save_mode(query.from_user.id, False)
          elif value== "False":
-             await save_mode(query.from_user.id, True)
-         await asyncio.sleep(0.1)
+            await save_mode(query.from_user.id, True)
          status = await db.get_mode(query.from_user.id)
-         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"cmode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"cmode_#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]])
-         await query.message.edit_reply_markup(reply_markup)
-         
+         if use=="update"
+              reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode_#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]])
+              return await query.message.edit_reply_markup(reply_markup)
+         else;
+              return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]]))
+            
     elif query.data.startswith("request"):
         await query.answer('your Request successful', show_alert=True)
         i, movie, year = query.data.split('#')
+        channel = -1001707014490
         await query.message.delete()
-        await client.send_message(LOG_CHANNEL,
+        await client.send_message(channel,
                                  f'#request\n\n<b>From:</b> {query.from_user.mention}\n\n<b>movie info:</b>\n<b>Name:</b> {movie}\n<b>Year:</b> {year}')
                                                                                                                          
     elif query.data == "index":
