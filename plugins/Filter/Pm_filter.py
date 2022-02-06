@@ -758,7 +758,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await botsetting_info(client, query, query)
         
     elif query.data.startswith("mode"):
-         i, use, value = query.data.split('#')
+         i, se, value = query.data.split('#')
+         use = await db.get_mode(query.from_user.id)
          if use=='update':
              if value==True or 'True':
                 await save_mode(query.from_user.id, False)
