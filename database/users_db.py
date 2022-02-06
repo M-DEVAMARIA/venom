@@ -119,7 +119,7 @@ class Database:
     
 
     async def update_mode(self, id, value):
-        await self.col.update_one({'id': int(id)}, {'$set': {'status': value}})
+        await self.col.update_one({'id': id}, {'$set': {'status': value}})
         
     
     async def get_mode(self, id):
