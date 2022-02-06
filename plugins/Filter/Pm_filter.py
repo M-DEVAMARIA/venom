@@ -763,12 +763,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
    
     elif query.data.startswith("cmode"):
          i, se, value = query.data.split('#')
-         use = await db.get_mode(query.from_user.id)
-         if value==True or 'True':
+         if value== "True":
              await save_mode(query.from_user.id, False)
-         elif value==False or 'False':
+         elif value== "False":
              await save_mode(query.from_user.id, True)
-         await asyncio.sleep(1)
+         await asyncio.sleep(0.1)
          status = await db.get_mode(query.from_user.id)
          reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"cmode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"cmode_#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]])
          await query.message.edit_reply_markup(reply_markup)
@@ -786,7 +785,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return await query.answer("cancel indexing",show_alert=True)
         
 async def save_mode(group_id, value):
-    current = await db.get_mode(str(group_id))
+    current = await db.get_mode(group_id)
     key = 'mode'
     current[key] = value
     await db.update_mode(group_id, current) 
