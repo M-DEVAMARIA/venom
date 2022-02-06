@@ -24,8 +24,8 @@ async def admins(bot, msg):
 async def botsetting_info(client, msg, call=False): 
     userid= msg.from_user.id
     chat_type = msg.message.chat.type if call else msg.chat.type
+    grpid = await active_connection(str(userid))
     if chat_type == "private":
-           grpid = await active_connection(str(userid))
            if grpid != None:
               chat= grpid
            else:
