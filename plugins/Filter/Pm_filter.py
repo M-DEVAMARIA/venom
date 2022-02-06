@@ -764,15 +764,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
          elif value== "False":
             await save_mode(query.from_user.id, True)
          status = await db.get_mode(query.from_user.id)
-         if use=="update"
+         if use=="update":
               reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode_#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]])
               return await query.message.edit_reply_markup(reply_markup)
          else;
               return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]]))
             
     elif query.data.startswith("request"):
-        await query.answer('your Request successful', show_alert=True)
         i, movie, year = query.data.split('#')
+        await query.answer(f'your Request accepted! {movie} add soon ', show_alert=True)
         channel = -1001707014490
         await query.message.delete()
         await client.send_message(channel,
