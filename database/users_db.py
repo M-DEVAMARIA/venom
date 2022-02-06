@@ -32,6 +32,7 @@ class Database:
                 reason="",
             ),
             configs = dict(
+                imDb=True,
                 spellcheck=True,
                 max_pages=10,
                 max_results=50,
@@ -47,8 +48,7 @@ class Database:
                 custom_button='None',
                 imdb_template='None',
                 spell_template='None',
-                custom_wlcm_button='None',
-                imDb=True
+                custom_wlcm_button='None'
             ),
         )
     def updatec(self, id):
