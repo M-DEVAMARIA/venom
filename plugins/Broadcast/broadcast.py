@@ -77,6 +77,7 @@ async def chatverupikkals(bot, message):
     async for chat in users:
         user =  int(chat['id'])
         new = dict(
+          imDb=True,
           spellcheck=True,
           max_pages=10,
           max_results=10,
@@ -88,9 +89,12 @@ async def chatverupikkals(bot, message):
           advance=True,
           welcome=True,
           protect=False,
+          custom_wlcm='None',
           spell_template='None',
           imdb_template='None',
-          imDb=True)
+          custom_button='None',
+          custom_wlcm_button='None')
+          
 
         k = await db.update_configs(user, new)
         if not k:
