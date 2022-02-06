@@ -1,10 +1,8 @@
-#_________mdbotz___________________#
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from info import IMDB_TEMPLATE
+import imdb 
 from utils import temp
-import imdb
+from info import IMDB_TEMPLATE
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-VERIFY = {}
 
 START_BTN = InlineKeyboardMarkup(
         [[
@@ -97,4 +95,6 @@ HELPS = InlineKeyboardMarkup(
 
 BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
 BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+
+
 
