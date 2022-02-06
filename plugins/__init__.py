@@ -94,3 +94,7 @@ HELPS = InlineKeyboardMarkup(
        InlineKeyboardButton('⇚ ʙᴀᴄᴋ', callback_data='start'),
        InlineKeyboardButton('stαtus', callback_data='stats'),
        ]])
+
+BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
+BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+
