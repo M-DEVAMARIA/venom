@@ -47,7 +47,7 @@ async def normalspellmode(message, template):
     buttons = parse_buttons(button)
     reply_button = None#InlineKeyboardMarkup(buttons) if buttons!='[]' else InlineKeyboardMarkup([[InlineKeyboardButton("🔍 GOOGLE ", url=f'https://www.google.com/search?q={search}'), InlineKeyboardButton("IMDB 🔎", url=f'https://www.imdb.com/search?q={search}')]])
     spf = await message.reply_text(
-    text=f"<code>Sorry {buttons} {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
+    text=f"<code>Sorry {button} {message.from_user.mention},\n\n<b>I didn't get any files matches with {search}, maybe your spelling is wrong. try sending the proper movie name...</b></code>" if template=="None" else template.format(name=message.from_user.mention, search=search),
     reply_markup=reply_button,
     parse_mode="html",
     reply_to_message_id=message.message_id)
