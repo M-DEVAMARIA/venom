@@ -1,13 +1,11 @@
-import re, asyncio
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.errors import ButtonDataInvalid, FloodWait 
-from database.users_db import db
-from database.connection_db import active_connection
-from database.Settings_db import Database
+import re, asyncio 
+from database.users_db import db 
+from info import ADMINS, FILLINGS 
 from translation import Translation  
-from info import ADMINS, FILLINGS
-from plugins import VERIFY 
+from pyrogram import Client, filters
+from database.Settings_db import Database
+from database.connection_db import active_connection
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 TEMPLATE ={}
 IMDBTEMPLATE ={}
@@ -15,7 +13,7 @@ IMDBTEMPLATE ={}
 async def admins(bot, msg):
     grpid = await active_connection(str(msg.from_user.id)) if msg.message.chat.type=='private' else msg.message.chat.id
     st = await bot.get_chat_member(grpid , msg.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in (ADMINS, grpid)):
+    if not (st.status == "creator") or (st.status == "administrator") or (str(msg.from_user.id) in (ADMINS, grpid)):
         await msg.answer("your are not group owner or admin", show_alert=True)
         return False 
     return True 
