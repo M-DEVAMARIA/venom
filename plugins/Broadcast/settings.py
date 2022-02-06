@@ -409,7 +409,7 @@ async def custom_button(bot, update: CallbackQuery):
     chat, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
     if not await admins(bot, update): return
     msg = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text='send custom button using below Format\n\n<b>Note:</b>\n🛑 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Close ', callback_data=f"cimdb_template({chat}|close)")]]))
-    TEMPLATE[chat]= msg.text.html
+    TEMPLATE[int(chat)]= msg.text.html
     cat = 'custom_wlcm_button' if mode=='wlcm' else 'custom_button'
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
     await msg.reply_text(f'<code>{msg.text}</code>\n\npress confirm set this your custom button', reply_markup=InlineKeyboardMarkup(buttons), parse_mode="html")
