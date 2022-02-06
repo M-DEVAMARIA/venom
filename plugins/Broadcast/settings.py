@@ -3,7 +3,6 @@ from database.users_db import db
 from info import ADMINS, FILLINGS 
 from translation import Translation  
 from pyrogram import Client, filters
-from database.Settings_db import Database
 from database.connection_db import active_connection
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
