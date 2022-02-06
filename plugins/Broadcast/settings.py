@@ -302,7 +302,7 @@ async def wlcm_mode(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("DEFAULT ✅" if st=='None' else "DEFAULT", callback_data=f"set(custom_wlcm|None|{chat_id}|k)"),InlineKeyboardButton("CUSTOM" if st=='None' else "CUSTOM ✅", callback_data=f"custom_template({chat_id}|wlcm)")
                 ],[
-                InlineKeyboardButton("BUTTONS", callback_data=f"ioo")
+                InlineKeyboardButton("BUTTONS", callback_data=f"iooo")
                 ],[
                 InlineKeyboardButton("DEFAULT ✅" if cb=='None' else "DEFAULT", callback_data=f"set(custom_wlcm_button|None|{chat_id}|k)"), InlineKeyboardButton("CUSTOM" if cb=='None' else "CUSTOM ✅", callback_data=f"custom_button({chat_id}|wlcm)")
                 ],[
@@ -315,7 +315,7 @@ async def wlcm_mode(bot, update: CallbackQuery):
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
                     
-    text=f"<i>Use Below Buttons to welcome message on/off. </i>"
+    text=f"<i>Use Below Buttons to welcome message on/off and customise. </i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(
         text,
@@ -370,7 +370,7 @@ async def custom_info(bot, update: CallbackQuery):
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
-    text=f"<i>Use Below Buttons to set custom message and button</i>"
+    text=f"<i>Use Below Buttons to coustime spell check message and button</i>"
     reply_markup=InlineKeyboardMarkup(buttons) 
     await update.message.edit_text(text, reply_markup=reply_markup, parse_mode="html")
         
@@ -539,20 +539,12 @@ async def cb_set(bot, update: CallbackQuery):
     
     text=f"<b>Your Request Was Updated Sucessfully....</b>"
         
-    buttons = [
-        [
-            InlineKeyboardButton
-                (
-                    "⬅️ Back", callback_data=f"open({chat_id})"
-                ),
+    buttons = [[InlineKeyboardButton(
+               "⬅️ Back", callback_data=f"open({chat_id})"),
             
-            InlineKeyboardButton
-                (
-                    "✖️ Close ✖️", callback_data="close"
-                )
-        ]
-    ]
-    
+                InlineKeyboardButton(
+                "✖️ Close ✖️", callback_data="close")]]
+                
     reply_markup=InlineKeyboardMarkup(buttons)
     
     await update.message.edit_text(
