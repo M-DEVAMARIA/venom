@@ -21,7 +21,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
 BUTTONS = {}
-SPELL_CHECK = {}
 
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
@@ -761,16 +760,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data.startswith("mode"):
          i, use, value = query.data.split('#')
          if use=='update':
-             if value=='True' or True:
-                await save_mode(str(query.from_user.id),'mode', False)
-             elif value=='False' or False:
-                await save_mode(str(query.from_user.id),'mode', True)
+             if value==True or 'True':
+                await save_mode(query.from_user.id, False)
+             elif value==False or 'False':
+                await save_mode(query.from_user.id, True)
              await asyncio.sleep(2)
-             status = await db.get_mode(str(query.from_user.id))
+             status = await db.get_mode(query.from_user.id)
              reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode_#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]])
              return await query.message.edit_reply_markup(reply_markup)
          else:
-             status = await db.get_mode(str(query.from_user.id))
+             status = await db.get_mode(query.from_user.id)
              return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]]))
          
     elif query.data.startswith("request"):
@@ -785,8 +784,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if query.data.startswith('index_cancel'):
             return await query.answer("cancel indexing",show_alert=True)
         
-async def save_mode(group_id, key, value):
+async def save_mode(group_id, value):
     current = await db.get_mode(group_id)
+    key = 'mode'
     current[key] = value
     await db.update_mode(group_id, current) 
     
