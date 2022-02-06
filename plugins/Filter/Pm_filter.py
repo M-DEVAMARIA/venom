@@ -1,33 +1,28 @@
-# (c) @mdadmin2
-from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS, start_uptime, IMDB, P_TTI_SHOW_OFF, BROADCAST_CHANNEL as LOG_CHANNEL
-from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram import Client, filters
-import re, time, asyncio
 import re
 import ast
-import pyrogram 
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP, HELPS
-from translation import Translation 
-from plugins.Broadcast import index_files, botsetting_info
-from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired
-from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
-from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
-from database.users_db import db 
-from database.filters_db import del_all, find_filter, get_filters 
-from .Spell_filter import advancespellmode, normalspellmode
 import random
-BUTTONS = {}
-BOT = {}
-SPELL_CHECK = {}
 import logging
+import pyrogram 
+import time, asyncio
+from database.users_db import db 
+from translation import Translation 
+from pyrogram import Client, filters 
+from plugins.Broadcast import index_files, botsetting_info
+from .Spell_filter import advancespellmode, normalspellmode 
+from database.filters_db import del_all, find_filter, get_filters 
+from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
+from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
+from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP, HELPS, BUTTONS1, BUTTONS2
+from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
+from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
+from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS, start_uptime, IMDB, P_TTI_SHOW_OFF, BROADCAST_CHANNEL as LOG_CHANNEL
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
-BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
-BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 
+BUTTONS = {}
+SPELL_CHECK = {}
 
-    
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
     if message.text.startswith("/"):
