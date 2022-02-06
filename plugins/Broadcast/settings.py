@@ -33,10 +33,10 @@ async def botsetting_info(client, msg, call=False):
                 return
            else:
               mssg= msg.message if call else msg 
-              title = mssg.chat.title
               return await mssg.reply_text("I'm not connected to any groups! /connect to any groups")
     else:
         chat = msg.message.chat.id if call else msg.chat.id
+        title = msg.message.chat.title if call else msg.chat.title
         st = await client.get_chat_member(chat, msg.from_user.id)
         if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in (ADMINS, grpid)):
             if call:
