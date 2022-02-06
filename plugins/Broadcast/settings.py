@@ -60,12 +60,12 @@ async def botsetting_info(client, msg, call=False):
     imdb_temp = settings["configs"]["imdb_template"]
     delete = settings["configs"]["delete_time"]
     cap = "Single" if pm_file_chat else "Double"
-    imd = "ON ✅" if imdb else "OFF ❌"
-    spellc = "ON ✅" if spell else "OFF ❌"
-    autoc = "ON ✅" if autof else "OFF ❌"
-    deletec = "ON ✅" if autodelete else "OFF ❌"
-    wlcm = "ON ✅" if welcome else "OFF ❌"
-    prot = "ON ✅" if protect else "OFF ❌"
+    imd = "ON ✅" if imdb else "OFF ❎"
+    spellc = "ON ✅" if spell else "OFF ❎"
+    autoc = "ON ✅" if autof else "OFF ❎"
+    deletec = "ON ✅" if autodelete else "OFF ❎"
+    wlcm = "ON ✅" if welcome else "OFF ❎"
+    prot = "ON ✅" if protect else "OFF ❎"
     buttons = [[
             InlineKeyboardButton("Auto filter", callback_data=f"auto({autof}|{chat})"),
             InlineKeyboardButton("Spell mode ", callback_data=f"spell({spell}|{advance}|{chat})")
@@ -104,7 +104,7 @@ async def buttons(bot, update: CallbackQuery):
         buttons= [[
                 InlineKeyboardButton("DOUBLE ✅", callback_data=f"set(inPM|False|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Bot Pm ❌"if value2=="True" else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value2})")
+                InlineKeyboardButton("BOT PM ❎"if value2=="True" else "BOT PM ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value2})")
                 ],[
                 InlineKeyboardButton("⬅️ Back ", callback_data=f"open({chat_id})")
                 ]] 
@@ -112,7 +112,7 @@ async def buttons(bot, update: CallbackQuery):
         buttons=[[
                 InlineKeyboardButton("SINGLE ✅", callback_data=f"set(inPM|True|{chat_id}|{value})")
                 ],[
-                InlineKeyboardButton("Bot Pm ❌"if value2=="True" else "Bot Pm ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value2})")
+                InlineKeyboardButton("BOT Pm ❎"if value2=="True" else "BOT PM ✅" , callback_data=f"set(inPmcb|{values}|{chat_id}|{value2})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -136,7 +136,7 @@ async def imdb_mode(bot, update: CallbackQuery):
     value = True if value=="True" else False
     if value:
         buttons= [[
-                InlineKeyboardButton(" OFF ❌", callback_data=f"set(imddb|False|{chat_id}|{value})")
+                InlineKeyboardButton(" OFF ❎", callback_data=f"set(imddb|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("IMDB TEMPLATE", callback_data=f"k(k|k|{chat_id}|{value})")
                 ],[
@@ -174,10 +174,10 @@ async def cb_show_invites(bot, update: CallbackQuery):
     if value:
         buttons= [[
                 InlineKeyboardButton("ON ✅", callback_data=f"set(spell|True|{chat_id}|{value})"),
-                InlineKeyboardButton(" OFF ❌", callback_data=f"set(spell|False|{chat_id}|{value})")
+                InlineKeyboardButton(" OFF ❎", callback_data=f"set(spell|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton(f"Advance {act}", callback_data=f"set(advance|True|{chat_id}|{values})"),
-                InlineKeyboardButton(f"Normal {acts}"if custom=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
+                InlineKeyboardButton(f"Normal {acts}"if custom and button=="None" else "Normal", callback_data=f"set(advance|False|{chat_id}|{values})"),
                 InlineKeyboardButton(f"Custom {cact}"if values=="False" else "Custom", callback_data=f"custom_info({chat_id}|hi)")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
@@ -206,7 +206,7 @@ async def auto_filter(bot, update: CallbackQuery):
     value = True if value=="True" else False
     if value:
         buttons= [[
-                InlineKeyboardButton(" OFF ❌", callback_data=f"set(auto|False|{chat_id}|{value})")
+                InlineKeyboardButton(" OFF ❎", callback_data=f"set(auto|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -260,7 +260,7 @@ async def auto_delete(bot, update: CallbackQuery):
     value = True if value=="True" else False
     if value:
          buttons= [[ 
-                InlineKeyboardButton("Off ✖️", callback_data=f"set(autodelete|False|{chat_id}|{value})")
+                InlineKeyboardButton("Off ❎", callback_data=f"set(autodelete|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("🕑 Timer", callback_data="time")
                 ],[
@@ -273,7 +273,7 @@ async def auto_delete(bot, update: CallbackQuery):
                 ]]
     else:
         buttons =[[
-                InlineKeyboardButton("ON ✔", callback_data=f"set(autodelete|True|{chat_id}|{value})")
+                InlineKeyboardButton("ON ✅", callback_data=f"set(autodelete|True|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -296,7 +296,7 @@ async def wlcm_mode(bot, update: CallbackQuery):
     value = True if value=="True" else False
     if value:
         buttons= [[
-                InlineKeyboardButton(" OFF ❌", callback_data=f"set(wlcm|False|{chat_id}|{value})")
+                InlineKeyboardButton(" OFF ❎", callback_data=f"set(wlcm|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("MESSAGE", callback_data=f"ioo")
                 ],[
@@ -332,7 +332,7 @@ async def protect_mode(bot, update: CallbackQuery):
     value = True if value=="True" else False
     if value:
         buttons= [[
-                InlineKeyboardButton(" OFF ❌", callback_data=f"set(protect|False|{chat_id}|{value})")
+                InlineKeyboardButton(" OFF ❎", callback_data=f"set(protect|False|{chat_id}|{value})")
                 ],[
                 InlineKeyboardButton("⬅️ Back", callback_data=f"open({chat_id})")
                 ]]
@@ -380,7 +380,7 @@ async def custm_spell(bot, update: CallbackQuery):
     prev = await db.find_chat(chat)
     value = prev["configs"].get("custom_button") if mode=='button'  else prev["configs"].get("spell_template")
     if not await admins(bot, update): return
-    text = "please send a custom message to set spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "please send a custom message to set as your group welcome message\n\n<b>Example:-</b>\n\n<code>hey,{name}, welcome to {group}</code>"
+    text = "Now send custom spell check message\n\nexample:-\n\n<code>hey,{name},i cant find movie with your search {search}</code>" if not mode=='wlcm' else "Now send your group custom welcome message\n\n<b>Example:-</b>\n\n<code>hey,{name}, welcome to {group}</code>"
     spell = await bot.ask(chat_id= update.from_user.id if update.message.chat.type=='private' else chat,text=text,reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[int(chat)]= spell.text.html
     texts= f"<code>{spell.text}</code>\n\nconfirm to set this is custom message"
@@ -399,12 +399,12 @@ async def imdb_template(bot, update: CallbackQuery):
     buttons =[[InlineKeyboardButton("Current", callback_data=f"cimdb_template({chat}|current)"), InlineKeyboardButton("Fillings", callback_data=f"cimdb_template({chat}|Fillings)")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]
     CLOSE =[[InlineKeyboardButton("✖️ close ✖️", callback_data=f"cimdb_template({chat}|close)")]]
     if current=="current":
-        return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. your using default imdb template!", reply_markup=InlineKeyboardMarkup(CLOSE))
+        return await update.message.reply_text(f"Current:-\n\n{value}"if not value=='None' else "your are not using custom imdb template. using default imdb template!", reply_markup=InlineKeyboardMarkup(CLOSE))
     if current=="Fillings":
         return await update.message.reply_text(FILLINGS, reply_markup=InlineKeyboardMarkup(CLOSE) )
     if current=="close":
         return await update.message.delete()
-    spell = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text="<b>please now send a custom imdb template for set as your group imdb template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
+    spell = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text="<b>Now send your group custom Imdb Template</b>\n\n<i>example:-</i>\n\n<code>🎞Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10 (based on {votes} user ratings.)\n☀️ Languages : <code>{languages}</code>\n📀 RunTime: {runtime} Minutes\n📆 Release Info : {release_date}\n🎛 Countries : <code>{countries}</code></code>",reply_markup=InlineKeyboardMarkup(buttons))
     IMDBTEMPLATE[int(chat)]=spell.text
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set(imdb_template|e|{chat}|{value})")],[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]    
     await spell.reply_text(f"<code>{spell.text}</code>\n\nconfirm to set this is your group imdb template",reply_markup=InlineKeyboardMarkup(buttons) , parse_mode="html")
@@ -414,7 +414,7 @@ async def imdb_template(bot, update: CallbackQuery):
 async def custom_button(bot, update: CallbackQuery):
     chat, mode = re.findall(r"custom_button\((.+)\)", update.data)[0].split("|", 1)
     if not await admins(bot, update): return
-    msg = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text='send custom button using below Format\n\n<b>Note:</b>\n👉 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]))
+    msg = await bot.ask(chat_id=update.from_user.id if update.message.chat.type=='private' else chat,text='Now send custom button using below Format\n\n<b>Note:</b>\n👉 Buttons should be properly parsed as markdown format\n\n<b>FORMAT:</b>\n<code>[Venom][buttonurl:https://t.me/venom_moviebot]</code>\n', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]]))
     TEMPLATE[int(chat)]= msg.text.html
     cat = 'custom_wlcm_button' if mode=='wlcm' else 'custom_button'
     buttons =[[InlineKeyboardButton("Confirm ✅", callback_data=f"set({cat}|e|{chat}|l)")],[ InlineKeyboardButton('❌ Cancel ', callback_data=f"cimdb_template({chat}|close)")]] 
