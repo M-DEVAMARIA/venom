@@ -101,16 +101,14 @@ async def chatverupikkals(bot, message):
            await db.update(int(user), new)  
         else:
            try:
-             link = (await bot.create_chat_invite_link(user)).invite_link
-             await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvie link: {link}")
-           except ChatAdminRequired:
-             link ="im not admin in that chat"
-             await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvite link: {link}")
-           except Exception as e:
-             link = e
-             await message.reply_text(f"#updated\nupdated a chat\nID: {user}\nwith new {new}\ninvite link: {link}")
+             done+=1
+             await message.reply_text("appended")
+           except FloodWait as e:
+             await asyncio.sleep(e.x)
+             done+=1
+             await message.reply_text("appended")
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))          
-    await message.reply_text(f"successfully completed within: {time_taken}")
+    await message.reply_text(f"successfully completed within: {time_taken}\ndone: {done}")
 
 @Client.on_message(filters.command("refresh"))
 async def refresh(bot, message):
