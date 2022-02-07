@@ -9,15 +9,15 @@ class Translation(object):
 ╔═╦═╗╔═╗╔═╦╗╔═╗╔══╗ 
 ╚╗║╔╝║╩╣║║║║║╬║║║║║
 ─╚═╝─╚═╝╚╩═╝╚═╝╚╩╩╝ 
-   ╭━━━━━━━━━━━━━━━➣
-║┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
-║┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
-║┣⪼📡Hosted On : <a href="https://t.me/md_movises">Heroku</a>
-║┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
-║┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
-║┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
-║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.1</a>
-   ╰━━━━━━━━━━━━━━━➣
+  ╭━━━━━━━━━━━━━━━➣
+┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
+┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
+┣⪼📡Hosted On : <a href="https://t.me/md_movises">Heroku</a>
+┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
+┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
+┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
+┣⪼🗒️Version : <a href="t.me/md_movises">1.0.2</a>
+  ╰━━━━━━━━━━━━━━━➣
 """
     SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
 Current settings:-\n
@@ -90,11 +90,13 @@ A Module To Download Songs From Youtube
 
 /song <code>{song name}</code> - <code>Download song from youtube</code>"""
     TELPH_TXT = """
-<b>Telegraph</b>
+<b>TELEGRAPH MODULE</b>
+
+A Module To Upload Under 5MB Telegram Media To Telegra.ph
 
 <b>📚 Commands </b>
 
-/telegraph - </code>send media under 5mb then bot will send telegraph link</code> """
+/telegraph - </code>send media under 5mb</code> """
     COVID_TXT = """ <b> 🌏 covid information </b>
   
 A module to find all country covid informations.
