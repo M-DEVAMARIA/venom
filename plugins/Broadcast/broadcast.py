@@ -70,7 +70,7 @@ async def broadcast_messages(user_id, message):
 @Client.on_message(filters.command("gbroadcast") & filters.user(ADMINS))
 async def chatverupikkals(bot, message):
     users = await db.get_all_chats() 
-    k =await message.reply_text("starting process")
+    kk =await message.reply_text("starting process")
     done=0
     half=0
     start_time = time.time()
@@ -103,13 +103,13 @@ async def chatverupikkals(bot, message):
         else:
            try:
              done+=1
-             await k.edit(f"done: {done}\nfail: {half}")
+             await kk.edit(f"done: {done}\nfail: {half}")
            except FloodWait as e:
              await asyncio.sleep(e.x)
              done+=1
-             await k.edit(f"done: {done}\nfail: {half}")
+             await kk.edit(f"done: {done}\nfail: {half}")
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))          
-    await k.edit(f"successfully completed within: {time_taken}\ndone: {done}\nfail: {half}")
+    await kk.edit(f"successfully completed within: {time_taken}\ndone: {done}\nfail: {half}")
 
 @Client.on_message(filters.command("refresh"))
 async def refresh(bot, message):
