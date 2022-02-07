@@ -1,19 +1,18 @@
-import asyncio
+import time
+import asyncio 
+import logging
+import datetime 
+from database.users_db import db
 from pyrogram import Client, filters
-import datetime
-import time 
-from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL
-#broadcast 
+from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL 
 from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
-from database.users_db import db
-import logging
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
     
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
-# https://t.me/GetTGLink/4178
 async def verupikkals(bot, message):
     users = await db.get_all_users()
     b_msg = message.reply_to_message
@@ -115,7 +114,10 @@ async def chatverupikkals(bot, message):
 async def refresh(bot, message):
     users = await db.get_all_chats() 
     user = message.chat.id 
-    cmd = message
+    cmd = message 
+    st = await bot.get_chat_member(user, message.from_user.id)
+    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS): return
+           
     if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
             channel_id = cmd.chat.id
