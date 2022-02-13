@@ -780,8 +780,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                                                                                                          
     elif query.data == "index":
         await index_files(client, query, query)
-        if query.data.startswith('index_cancel'):
-            return await query.answer("cancel indexing",show_alert=True)
         
 async def save_mode(group_id, value):
     current = await db.get_mode(group_id)
