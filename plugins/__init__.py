@@ -93,8 +93,8 @@ class Button(object):
        InlineKeyboardButton('stαtus', callback_data='stats'),
        ]])
 
-  BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
-  BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+   BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
+   BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 
 
 
