@@ -3,8 +3,8 @@ from utils import temp
 from info import IMDB_TEMPLATE
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-
-START_BTN = InlineKeyboardMarkup(
+class Button(object)
+   START_BTN = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
         ],[
@@ -18,8 +18,8 @@ START_BTN = InlineKeyboardMarkup(
         ]] 
         ) 
            
-CALCULATE_TEXT = "Use below buttons to calculate numbers"
-CALCULATE_BUTTONS = InlineKeyboardMarkup(
+   CALCULATE_TEXT = "Use below buttons to calculate numbers"
+   CALCULATE_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton("DEL", callback_data="cal#DEL"),
         InlineKeyboardButton("AC", callback_data="cal#AC"),
@@ -48,9 +48,9 @@ CALCULATE_BUTTONS = InlineKeyboardMarkup(
         ]]
     )
 
-CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('📢 Join Updates Channel ', url='https://t.me/venombotupdates')]])
+   CAPTION = InlineKeyboardMarkup([[InlineKeyboardButton('📢 Join Updates Channel ', url='https://t.me/venombotupdates')]])
 
-HELP = InlineKeyboardMarkup(
+   HELP = InlineKeyboardMarkup(
         [[ 
         InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
         InlineKeyboardButton('ᴍᴀɴᴜᴀʟ fɪʟᴛᴇʀ', callback_data='manual'),
@@ -78,7 +78,7 @@ HELP = InlineKeyboardMarkup(
         ]]
      )
             
-HELPS = InlineKeyboardMarkup(
+   HELPS = InlineKeyboardMarkup(
        [[  
        InlineKeyboardButton('ᴀᴜᴛᴏ fɪʟᴛᴇʀ', callback_data='autofilter'),
        InlineKeyboardButton('ᴍᴀɴᴜᴀʟ fɪʟᴛᴇʀ', callback_data='manual')
@@ -93,8 +93,8 @@ HELPS = InlineKeyboardMarkup(
        InlineKeyboardButton('stαtus', callback_data='stats'),
        ]])
 
-BUTTONS1 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
-BUTTONS2 = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
+  BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="start")]])
+  BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('⇚back', callback_data="help")]])
 
 
 
