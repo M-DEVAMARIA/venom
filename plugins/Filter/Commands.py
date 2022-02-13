@@ -6,9 +6,9 @@ import logging
 import asyncio, time 
 from database.users_db import db 
 from translation import Translation 
+from plugins.__init__ import Button
 from pyrogram import Client, filters 
 from pyrogram.errors import UserNotParticipant
-from plugins.__init__ import CAPTION, START_BTN, CALCULATE_TEXT, CALCULATE_BUTTONS
 from utils import temp, Media, get_size, time_formatter, get_file_details, unpack_new_file_id
 from pyrogram.types import User, Message, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from info import ADMINS, BROADCAST_CHANNEL as LOG_CHANNEL , PHOTO, start_uptime, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
@@ -111,7 +111,7 @@ async def gstart(bot, cmd):
                     file_id=file_id,
                     caption=f_caption,
                     protect_content=True if ident == "venoms" else False,
-                    reply_markup=CAPTION
+                    reply_markup=Button.CAPTION
                     )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
@@ -135,7 +135,7 @@ async def gstart(bot, cmd):
             photo=random.choice(PHOTO), 
             caption=Translation.START_TXT.format(cmd.from_user.first_name),
             parse_mode="html",
-            reply_markup= START_BTN)
+            reply_markup=Button.START_BTN)
     return
 #===================file store start =================
 async def start(c, m):
@@ -298,8 +298,8 @@ async def report(bot, message):
 @Client.on_message(filters.command(["calc", "calculate", "calculator"]))
 async def calculate(bot, update):
     await update.reply_text(
-        text=CALCULATE_TEXT,
-        reply_markup=CALCULATE_BUTTONS,
+        text=Button.CALCULATE_TEXT,
+        reply_markup=Button.CALCULATE_BUTTONS,
         disable_web_page_preview=True,
         quote=True
     )
@@ -310,7 +310,7 @@ async def cb_data(bot, update):
         i, data = update.data.split('#')
         try:
             message_text = update.message.text.split("\n")[0].strip().split("=")[0].strip()
-            message_text = '' if CALCULATE_TEXT in message_text else message_text
+            message_text = '' if Button.CALCULATE_TEXT in message_text else message_text
             if data == "=":
                 text = float(eval(message_text))
             elif data == "DEL":
@@ -320,9 +320,9 @@ async def cb_data(bot, update):
             else:
                 text = message_text + data
             await update.message.edit_text(
-                text=f"{text}\n\n{CALCULATE_TEXT}",
+                text=f"{text}\n\n{Button.CALCULATE_TEXT}",
                 disable_web_page_preview=True,
-                reply_markup=CALCULATE_BUTTONS
+                reply_markup=Button.CALCULATE_BUTTONS
             )
         except Exception as error:
             print(error)
