@@ -6,15 +6,15 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 class Button(object)
    START_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('➕ ADD ME TO YOUR GROUP ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
+        InlineKeyboardButton('➕ ᗩᗪᗪ ᗰᗴ TO YOᑌᖇ ᘜᖇOᑌᑭ ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
         ],[
-        InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
-        InlineKeyboardButton("🤖 VENOM UPDATES", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
+        InlineKeyboardButton("Sᴇᴀʀᴄʜ Hᴇʀᴇ", switch_inline_query_current_chat=''),
+        InlineKeyboardButton("🤖 Vᴇɴᴏᴍ ᴜᴘᴅᴀᴛᴇs", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
         ],[
         InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="about"),
         InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')
         ],[
-        InlineKeyboardButton('MODE', callback_data='mode#i#i')
+        InlineKeyboardButton('Mᴏᴅᴇ', callback_data='mode#i#i')
         ]] 
         ) 
            
