@@ -1,9 +1,9 @@
 class Translation(object):
-    START_TXT = """ <b>HEY, {}</b>
+    START_TXT = """ <b>ʜᴇʏ,, {}</b>
 
-<b>I am a AutoFilter + ManualFilter  + Filestore bot I will give movies in your group and my PM ! Also I can store files</b>
+ɪ ᴀᴍ ᴀ ᴀᴜᴛᴏғɪʟᴛᴇʀ + ᴍᴀɴᴜᴀʟғɪʟᴛᴇʀ  + ғɪʟᴇsᴛᴏʀᴇ ʙᴏᴛ I ᴡɪʟʟ ɢɪᴠᴇ ᴍᴏᴠɪᴇs ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ ᴍʏ ᴘᴍ ! ᴀʟsᴏ ɪ ᴄᴀɴ sᴛᴏʀᴇ ғɪʟᴇs
 
-<b>Maintained by : <a href="t.me/mdadmin2">M.D Admin</a></b>"""
+<b>ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ : <a href="t.me/mdadmin2">ᴍ.ᴅ ᴀᴅᴍɪɴ</a></b>"""
 
     ABOUT_TXT = """
 ╔════❰ venom ❱═❍⊱❁۪۪
