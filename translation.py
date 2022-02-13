@@ -1,20 +1,20 @@
 class Translation(object):
     START_TXT = """ <b>ʜᴇʏ,, {}</b>
 
-ɪ ᴀᴍ ᴀ ᴀᴜᴛᴏғɪʟᴛᴇʀ + ᴍᴀɴᴜᴀʟғɪʟᴛᴇʀ  + ғɪʟᴇsᴛᴏʀᴇ ʙᴏᴛ I ᴡɪʟʟ ɢɪᴠᴇ ᴍᴏᴠɪᴇs ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ ᴍʏ ᴘᴍ ! ᴀʟsᴏ ɪ ᴄᴀɴ sᴛᴏʀᴇ ғɪʟᴇs
+<b>ɪ ᴀᴍ ᴀ ᴀᴜᴛᴏғɪʟᴛᴇʀ + ᴍᴀɴᴜᴀʟғɪʟᴛᴇʀ  + ғɪʟᴇsᴛᴏʀᴇ ʙᴏᴛ I ᴡɪʟʟ ɢɪᴠᴇ ᴍᴏᴠɪᴇs ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ ᴍʏ ᴘᴍ ! ᴀʟsᴏ ɪ ᴄᴀɴ sᴛᴏʀᴇ ғɪʟᴇs</b>
 
 <b>ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ : <a href="t.me/mdadmin2">ᴍ.ᴅ ᴀᴅᴍɪɴ</a></b>"""
 
     ABOUT_TXT = """
-╔════❰ venom ❱═❍⊱❁۪۪
+╔════❰ ᴠᴇɴᴏᴍ ❱═❍⊱❁۪۪
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
-║┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
-║┣⪼📡Hosted On : <a href="https://t.me/md_movises">Heroku</a>
-║┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
-║┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
-║┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
-║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.2</a>
+║┣⪼📃ʙᴏᴛ : <a href="t.me/md_movises">ᴠᴇɴᴏᴍ ʀᴏʙᴏᴛ</a>
+║┣⪼👦ᴄʀᴇᴀᴛᴏʀ : <a href="t.me/mdadmin2">ᴍᴅᴀᴅᴍɪɴ</a>
+║┣⪼📡ʜᴏsᴛᴇᴅ ᴏɴ : <a href="https://t.me/md_movises">ʜᴇʀᴏᴋᴜ</a>
+║┣⪼🗣️ʟᴀɴɢᴜᴀɢᴇ : <a href="https://docs.pyrogram.org">ᴘʏᴛʜᴏɴ3</a>
+║┣⪼📚ʟɪʙʀᴀʀʏ : <a href="https://docs.pyrogram.org">ᴘʏʀᴏɢʀᴀᴍ ᴀsʏɴᴄɪᴏ 1.13.0 </a>
+║┣⪼🕛ᴜᴘᴛɪᴍᴇ : <a href="t.me/md_movises">{}</a>
+║┣⪼🗒️ᴠᴇʀsɪᴏɴ : <a href="t.me/md_movises">1.0.2</a>
 ║╰━━━━━━━━━━━━━━━➣
 ╚══════════════════❍⊱❁۪۪
 """
