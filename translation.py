@@ -5,10 +5,7 @@ class Translation(object):
 
 <b>maintained by : <a href="t.me/mdadmin2">M.D Admin</a></b>"""
 
-    ABOUT_TXT = """ 
-╔═╦═╗╔═╗╔═╦╗╔═╗╔══╗ 
-╚╗║╔╝║╩╣║║║║║╬║║║║║
-─╚═╝─╚═╝╚╩═╝╚═╝╚╩╩╝ 
+    ABOUT_TXT = """
 ╭━━━━━━━━━━━━━━━➣
 ┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
 ┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
