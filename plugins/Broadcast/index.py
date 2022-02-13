@@ -14,7 +14,7 @@ logger.setLevel(logging.INFO)
 lock = asyncio.Lock()
 
 @Client.on_message(filters.command(['index', 'indexfiles']))
-async def index_file(bot, message, call=False):
+async def index_files(bot, message, call=False):
     """Save channel or group files""" 
     if lock.locked():
         await query.answer('Wait until previous process complete.')
@@ -47,7 +47,7 @@ async def index_file(bot, message, call=False):
     await index_files_to_db(int(last_msg_id),chat_id, msg, bot)
 
 @Client.on_callback_query(filters.regex(r'^index'))
-async def index_files(bot, query):
+async def index_file(bot, query):
     if query.data.startswith('index_cancel'):
         temp.CANCEL = True
         return await query.answer("Cancelling Indexing")
