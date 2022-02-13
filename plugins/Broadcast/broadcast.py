@@ -116,7 +116,7 @@ async def refresh(bot, message):
     user = message.chat.id 
     cmd = message 
     st = await bot.get_chat_member(user, message.from_user.id)
-    if not (st.status == "creator") or (st.status == "administrator") or (str(userid) in ADMINS): return
+    if not (st.status == "creator") or (st.status == "administrator") or (str(message.from_user.id) in ADMINS): return
            
     if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
