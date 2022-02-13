@@ -36,13 +36,13 @@ BANNED = {}
 SMART_OPEN = '“'
 SMART_CLOSE = '”'
 START_CHAR = ('\'', '"', SMART_OPEN)
-#______index.py_______#
+
 class temp(object):
-    
     ME = None
     CURRENT=int(os.environ.get("SKIP", 2))
     CANCEL = False 
     U_NAME = None
+    B_NAME = None 
     
 @instance.register
 class Media(Document):
