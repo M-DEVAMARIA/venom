@@ -6,15 +6,17 @@ class Translation(object):
 <b>maintained by : <a href="t.me/mdadmin2">M.D Admin</a></b>"""
 
     ABOUT_TXT = """
-╭━━━━━━━━━━━━━━━➣
-┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
-┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
-┣⪼📡Hosted On : <a href="https://t.me/md_movises">Heroku</a>
-┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
-┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
-┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
-┣⪼🗒️Version : <a href="t.me/md_movises">1.0.2</a>
-╰━━━━━━━━━━━━━━━➣
+╔════❰ venom ❱═❍⊱❁۪۪
+║╭━━━━━━━━━━━━━━━➣
+║┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
+║┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
+║┣⪼📡Hosted On : <a href="https://t.me/md_movises">Heroku</a>
+║┣⪼🗣️Language : <a href="https://docs.pyrogram.org">Python3</a>
+║┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
+║┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
+║┣⪼🗒️Version : <a href="t.me/md_movises">1.0.2</a>
+║╰━━━━━━━━━━━━━━━➣
+╚══════════════════❍⊱❁۪۪
 """
     SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
 Current settings:-\n
