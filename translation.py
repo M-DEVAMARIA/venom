@@ -9,7 +9,7 @@ class Translation(object):
 ╔═╦═╗╔═╗╔═╦╗╔═╗╔══╗ 
 ╚╗║╔╝║╩╣║║║║║╬║║║║║
 ─╚═╝─╚═╝╚╩═╝╚═╝╚╩╩╝ 
-  ╭━━━━━━━━━━━━━━━➣
+╭━━━━━━━━━━━━━━━➣
 ┣⪼📃Bot : <a href="t.me/md_movises">venom Robot</a>
 ┣⪼👦Creator : <a href="t.me/mdadmin2">MDADMIN</a>
 ┣⪼📡Hosted On : <a href="https://t.me/md_movises">Heroku</a>
@@ -17,7 +17,7 @@ class Translation(object):
 ┣⪼📚Library : <a href="https://docs.pyrogram.org">Pyrogram Asyncio 1.13.0 </a>
 ┣⪼🕛uptime : <a href="t.me/md_movises">{}</a>
 ┣⪼🗒️Version : <a href="t.me/md_movises">1.0.2</a>
-  ╰━━━━━━━━━━━━━━━➣
+╰━━━━━━━━━━━━━━━➣
 """
     SETTINGS_TXT = """<b>coustime your</b> {} <b>Group settings.</b>\n
 Current settings:-\n
@@ -38,7 +38,7 @@ change above value using buttons below
 
 1. Make me the admim of your channel if it's private .
 2. make sure that your channel does not contains cam rip, porn and fake files.
-3. send /index then Forward the last message to me with quotes.
+3. Forward the last message to me with quotes.
  I'll add all the files in that channel to my db."""
     
     MANUALFILTER_TXT = """
