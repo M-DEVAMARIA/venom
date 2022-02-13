@@ -6,6 +6,7 @@ import pyrogram
 import time, asyncio
 from database.users_db import db 
 from translation import Translation 
+from plugins.__init__ import Button
 from pyrogram import Client, filters 
 from plugins.Broadcast import index_files, botsetting_info
 from .Spell_filter import advancespellmode, normalspellmode 
@@ -13,7 +14,6 @@ from database.filters_db import del_all, find_filter, get_filters
 from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
-from plugins.__init__ import CALCULATE_TEXT, CALCULATE_BUTTONS, CAPTION, START_BTN, HELP, HELPS, BUTTONS1, BUTTONS2
 from utils import Media, get_filter_results, get_file_details, is_subscribed, get_poster, time_formatter, temp, search_gagala
 from database.connection_db import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
 from info import AUTH_CHANNEL, IMDB_TEMPLATE, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS, start_uptime, IMDB, P_TTI_SHOW_OFF, BROADCAST_CHANNEL as LOG_CHANNEL
@@ -263,7 +263,7 @@ async def givess_filter(client: Client, query):
                           chat_id=query.from_user.id,
                           file_id=file_id,
                           caption=f_caption,
-                          reply_markup=CAPTION,
+                          reply_markup=Button.CAPTION,
                           )
                 except FloodWait as e:
                     await asyncio.sleep(e.x)
@@ -272,7 +272,7 @@ async def givess_filter(client: Client, query):
                           chat_id=query.from_user.id,
                           file_id=file_id,
                           caption=f_caption,
-                          reply_markup=CAPTION,
+                          reply_markup=Button.CAPTION,
                           )
                 except Exception as e:
                     logger.exception(e)
@@ -390,7 +390,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         chat_id=query.from_user.id,
                         file_id=file_id,
                         caption=f_caption,
-                        reply_markup=CAPTION,
+                        reply_markup=Button.CAPTION,
                         protect_content=True if ident == "venoms" else False
                         )
         if query.data.startswith("checksub"):
@@ -416,7 +416,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
-                    reply_markup=CAPTION
+                    reply_markup=Button.CAPTION
                     )
                     
                  
@@ -618,7 +618,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "start": 
         await query.message.edit_text(
             text=Translation.START_TXT.format(query.from_user.first_name),
-            reply_markup=START_BTN,
+            reply_markup=Button.START_BTN,
             parse_mode='html'
             )
         
@@ -639,7 +639,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         mode = await db.get_mode(query.from_user.id)
         await query.message.edit_text(
             text="<b>ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ᴅᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ꜱᴘᴇᴄɪꜰɪᴄ ᴍᴏᴅᴜʟᴇꜱ..  </b>\n",
-            reply_markup=HELP if mode['mode'] else HELPS,
+            reply_markup=Button.HELP if mode['mode'] else Button.HELPS,
             parse_mode='html'
             )
  
@@ -647,100 +647,100 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "autofilter": 
         await query.message.edit_text(
             text=Translation.AUTOFILTER_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )
     elif query.data == "song": 
         await query.message.edit_text(
             text=Translation.SONG_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )
     
     elif query.data == "batch": 
         await query.message.edit_text(
             text=Translation.STORE_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )  
     elif query.data == "telegraph": 
         await query.message.edit_text(
             text=Translation.TELPH_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )  
      
     elif query.data == "pin": 
         await query.message.edit_text(
             text=Translation.PIN_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )  
     elif query.data == "clcltr": 
         await query.message.edit_text(
             text=Translation.CALC_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )  
     elif query.data == "wiki": 
         await query.message.edit_text(
             text=Translation.WIKI_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         )  
     elif query.data == "misc":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "covid":
         await query.message.edit_text(
             text=Translation.COVID_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "imbs": #dont change imbs it cause error in misc imdb|search
         await query.message.edit_text(
             text=Translation.IMDB_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "json":
         await query.message.edit_text(
             text=Translation.JSON_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "tts":
         await query.message.edit_text(
             text=Translation.TTS_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "sett":
         await query.message.edit_text(
             text=Translation.SETT_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "extramod":
         await query.message.edit_text(
             text=Translation.MISC_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     
     elif query.data == "connection": 
         await query.message.edit_text(
             text=Translation.CONNECTION_TXT,
-            reply_markup=BUTTONS2,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "manual": 
         await query.message.edit_text(
             text=Translation.MANUALFILTER_TXT,
-            reply_markup=BUTTONS1,
+            reply_markup=Button.BUTTONS,
             parse_mode='html'
         ) 
     elif query.data == "stats":
