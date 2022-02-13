@@ -777,8 +777,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
            return await client.send_message(channel,
                                  f'#request\n\n<b>From:</b> {query.from_user.mention}\n\n<b>movie info:</b>\n<b>Name:</b> {movie}\n<b>Year:</b> {year}\n<b>Released:</b> {release}',
                                  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADDED ✅', callback_data=f"requests#{user}#{movie}#{year}#added")]]))
-        await query.message.delete()
-        return await client.send_message(int(user), text=f"<b>you requested movie</b> <code>{movie}</code> <b>added to {temp.B_NAME} database</b>\n\nif you want this movie send mentioned movie name here")
+        
+        await client.send_message(int(user), text=f"<b>\nyou requested movie</b> <code>{movie}</code> <b>added to {temp.B_NAME} database</b>\n\nif you want this movie send mentioned movie name here") if await get_filter_results(movie) else return await query.answer(f"{movie} not found in my database")
+        return await query.message.delete()  
     
 async def save_mode(group_id, value):
     current = await db.get_mode(group_id)
