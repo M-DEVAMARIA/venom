@@ -8,13 +8,13 @@ class Button(object):
         [[
         InlineKeyboardButton('➕ ᗩᗪᗪ ᗰᗴ TO YOᑌᖇ ᘜᖇOᑌᑭ ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
         ],[
-        InlineKeyboardButton("Sᴇᴀʀᴄʜ Hᴇʀᴇ", switch_inline_query_current_chat=''),
-        InlineKeyboardButton("🤖 Vᴇɴᴏᴍ ᴜᴘᴅᴀᴛᴇs", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
+        InlineKeyboardButton("sᴇᴀʀᴄʜ ʜᴇʀᴇ", switch_inline_query_current_chat=''),
+        InlineKeyboardButton("🤖 ᴠᴇɴᴏᴍ ᴜᴘᴅᴀᴛᴇs", url=f"https://t.me/joinchat/EOI9s4lc00cyOTI1")
         ],[
         InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="about"),
         InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help')
         ],[
-        InlineKeyboardButton('Mᴏᴅᴇ', callback_data='mode#i#i')
+        InlineKeyboardButton('ᴍᴏᴅᴇ', callback_data='mode#i#i')
         ]] 
         ) 
            
