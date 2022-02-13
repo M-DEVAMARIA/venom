@@ -3,7 +3,7 @@ from utils import temp
 from info import IMDB_TEMPLATE
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-class Button(object)
+class Button(object):
    START_BTN = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('➕ ᗩᗪᗪ ᗰᗴ TO YOᑌᖇ ᘜᖇOᑌᑭ ➕', url=f'http://t.me/Venom_moviebot?startgroup=true'),
