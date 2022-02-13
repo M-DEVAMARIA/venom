@@ -217,11 +217,11 @@ async def advantage_spoll_choker(bot, query):
         return await query.message.delete()
     own = query.from_user.id
     db = await get_poster(query=movie_, id=True)
-    b, year= db['title'], db['year']
+    b, year, release= db['title'], db['year'], db['release_date']
     b = b.replace("- IMDb", "")
     files = await get_filter_results(b)
     if not files:
-        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{b}#{year}')]]))
+        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{own}#{b}#{year}#{release}')]]))
         return
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
@@ -645,11 +645,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
  
     
     elif query.data == "autofilter": 
-        buttons = [[InlineKeyboardButton('⇚ Back', callback_data='help'), InlineKeyboardButton('Index', callback_data='index')]]
-        reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=Translation.AUTOFILTER_TXT,
-            reply_markup=reply_markup,
+            reply_markup=BUTTONS2,
             parse_mode='html'
         )
     elif query.data == "song": 
@@ -771,16 +769,17 @@ async def cb_handler(client: Client, query: CallbackQuery):
               return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]]))
             
     elif query.data.startswith("request"):
-        i, movie, year = query.data.split('#')
-        await query.answer(f'your Request accepted! {movie} add soon ', show_alert=True)
-        channel = -1001707014490
+        i, user, movie, year, release  = query.data.split('#')
+        if not i=="requests":
+           await query.answer(f'your Request accepted! {movie} add soon ', show_alert=True)
+           channel = -1001707014490
+           await query.message.delete()
+           return await client.send_message(channel,
+                                 f'#request\n\n<b>From:</b> {query.from_user.mention}\n\n<b>movie info:</b>\n<b>Name:</b> {movie}\n<b>Year:</b> {year}\n<b>Released:</b> {release}',
+                                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADDED ✅', callback_data=f"requests#{user}#{movie}#{year}#added")]]))
         await query.message.delete()
-        await client.send_message(channel,
-                                 f'#request\n\n<b>From:</b> {query.from_user.mention}\n\n<b>movie info:</b>\n<b>Name:</b> {movie}\n<b>Year:</b> {year}')
-                                                                                                                         
-    elif query.data == "index":
-        await index_files(client, query, query)
-        
+        return await client.send_message(int(user), text=f"<b>you requested movie</b> <code>{movie}</code> <b>added to {temp.B_NAME} database</b>\n\nif you want this movie send mentioned movie name here")
+    
 async def save_mode(group_id, value):
     current = await db.get_mode(group_id)
     key = 'mode'
