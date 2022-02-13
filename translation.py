@@ -3,7 +3,7 @@ class Translation(object):
 
 <b>I am a AutoFilter + ManualFilter  + Filestore bot I will give movies in your group and my PM ! Also I can store files</b>
 
-<b>maintained by : <a href="t.me/mdadmin2">M.D Admin</a></b>"""
+<b>Maintained by : <a href="t.me/mdadmin2">M.D Admin</a></b>"""
 
     ABOUT_TXT = """
 ╔════❰ venom ❱═❍⊱❁۪۪
