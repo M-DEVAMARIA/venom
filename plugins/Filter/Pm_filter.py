@@ -220,7 +220,7 @@ async def advantage_spoll_choker(bot, query):
     if not movies:
         return await query.answer("You are using this for one of my old message, please send the request again.")
     movie = movies[(int(movie_))]
-    imdb = await get_poster(query=movie, id=True)
+    imdb = await get_poster(movie)
     title, year, release= imdb['title'], imdb['year'], imdb['release_date']
     title = b.replace("- IMDb", "")
     files = await get_filter_results(title)
