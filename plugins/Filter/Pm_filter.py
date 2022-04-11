@@ -220,16 +220,12 @@ async def advantage_spoll_choker(bot, query):
     if not movies:
         return await query.answer("You are using this for one of my old message, please send the request again.")
     movie = movies[(int(movie_))]
-    imdb = await get_poster(movie)
-    title, year, release= imdb['title'], imdb['year'], imdb['release_date']
-    title = title.replace("- IMDb", "")
-    return await query.message.edit(f"spell check string data :- {movies}\nextract name :- {movie}\nbutton split data {movie_}\ntitle :- {title}\nyear :- {year}\nrelease :- {release}")
-    files = await get_filter_results(title)
+    files = await get_filter_results(movie)
     if files:
        await query.answer('Checking for Movie in database...')
        await group(bot, query, (movie, files))
     else:
-       await query.message.edit(f"{title} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {title} ✅", callback_data=f'request#{query.from_user.id}#{title}#{year}#{release}')]]))
+       await query.message.edit(f"{movie} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {movie} ✅", callback_data=f'request#{query.from_user.id}#{movie}')]]))
        return
     
 @Client.on_callback_query(filters.regex(r"^spcheck"))
@@ -768,14 +764,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
               return await query.message.edit_text(text='you can choose bot features advance or normal as your wish', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADVANCE ✅' if status['mode'] else 'ADVANCE', callback_data=f"mode#update#{status['mode']}"), InlineKeyboardButton('NORMAL' if status['mode'] else 'NORMAL ✅', callback_data=f"mode#update#{status['mode']}")],[InlineKeyboardButton('back', callback_data="start")]]))
             
     elif query.data.startswith("request"):
-        i, user, movie, year, release  = query.data.split('#')
+        i, user, movie = query.data.split('#')
         if not i=="requests":
            await query.answer(f'your Request accepted! {movie} add soon ', show_alert=True)
            channel = -1001707014490
            await query.message.delete()
+           imdb = await get_poster(movie)
+           year, release= imdb['year'], imdb['release_date']
            return await client.send_message(channel,
                                  f'#request\n\n<b>From:</b> {query.from_user.mention}\n\n<b>movie info:</b>\n<b>Name:</b> {movie}\n<b>Year:</b> {year}\n<b>Released:</b> {release}',
-                                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADDED ✅', callback_data=f"requests#{user}#{movie}#{year}#added")]]))
+                                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('ADDED ✅', callback_data=f"requests#{user}#{movie}")]]))
         if await get_filter_results(movie):
            await client.send_message(int(user), text=f"<b>\nyou requested movie</b> <code>{movie}</code> <b>added to {temp.B_NAME} database</b>\n\nif you want this movie send mentioned movie name here")  
            return await query.message.delete()  
