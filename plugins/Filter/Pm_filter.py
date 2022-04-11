@@ -72,7 +72,7 @@ async def filter(client, message):
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = f"{re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))}"
+                filename = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
                 filename = f"{get_size(file.file_size)} {file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
@@ -839,7 +839,7 @@ async def group(client, message, spell=False):
        for file in files:
            file_id = file.file_id
            size = f"{get_size(file.file_size)}"
-           name = f"{re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))}"
+           name = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
            venom= "venoms" if protect=="True" else "venom"                  
            if single:
                btn.append(
