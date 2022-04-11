@@ -228,7 +228,7 @@ async def advantage_spoll_choker(bot, query):
        await query.answer('Checking for Movie in database...')
        await group(bot, query, (movie, files))
     else:
-       await query.message.edit(f"{title} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{query.from_user.id}#{title}#{year}#{release}')]]))
+       await query.message.edit(f"{title} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {title} ✅", callback_data=f'request#{query.from_user.id}#{title}#{year}#{release}')]]))
        return
     
 @Client.on_callback_query(filters.regex(r"^spcheck"))
