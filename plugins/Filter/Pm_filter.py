@@ -222,13 +222,11 @@ async def advantage_spoll_choker(bot, query):
     movie = movies[(int(movie_))]
     imdb = await get_poster(movie)
     title, year, release= imdb['title'], imdb['year'], imdb['release_date']
-    title = b.replace("- IMDb", "")
+    title = title.replace("- IMDb", "")
     files = await get_filter_results(title)
-    message = query.message.reply_to_message or query.message
-    chat = message.chat.id
     if files:
        await query.answer('Checking for Movie in database...')
-       await group(bot, query, (title, files))
+       await group(bot, query, (movie, files))
     else:
        await query.message.edit(f"{title} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{query.from_user.id}#{title}#{year}#{release}')]]))
        return
