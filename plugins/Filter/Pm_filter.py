@@ -223,6 +223,7 @@ async def advantage_spoll_choker(bot, query):
     imdb = await get_poster(movie)
     title, year, release= imdb['title'], imdb['year'], imdb['release_date']
     title = title.replace("- IMDb", "")
+    return await query.message.edit(f"spell check string data :- {movies}\nextract name :- {movie}\nbutton split data {movie_}\ntitle :- {title}\nyear :- {year}\nrelease :- {release}")
     files = await get_filter_results(title)
     if files:
        await query.answer('Checking for Movie in database...')
