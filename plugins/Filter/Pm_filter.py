@@ -9,8 +9,8 @@ from translation import Translation
 from plugins.__init__ import Button
 from pyrogram import Client, filters 
 from plugins.Broadcast import index_files, botsetting_info
-from .Spell_filter import advancespellmode, normalspellmode 
 from database.filters_db import del_all, find_filter, get_filters 
+from .Spell_filter import advancespellmode, normalspellmode, SPELL_CHECK
 from pyrogram.errors import UserNotParticipant, FloodWait, ChatAdminRequired 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
@@ -211,29 +211,28 @@ def split_list(l, n):
 
 @Client.on_callback_query(filters.regex(r"^spolling"))
 async def advantage_spoll_choker(bot, query):
-    _, user, single, imdb, max_pages, delete, delete_time, movie_ = query.data.split('#')
+    _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
         return await query.answer("This not for you", show_alert=True)
     if movie_  == "close_spellcheck":
         return await query.message.delete()
-    own = query.from_user.id
-    db = await get_poster(query=movie_, id=True)
-    b, year, release= db['title'], db['year'], db['release_date']
-    b = b.replace("- IMDb", "")
-    files = await get_filter_results(b)
-    if not files:
-        await query.message.edit(f"{b} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{own}#{b}#{year}#{release}')]]))
-        return
+    movies = SPELL_CHECK.get(query.message.reply_to_message.message_id)
+    if not movies:
+        return await query.answer("You are using this for one of my old message, please send the request again.")
+    movie = movies[(int(movie_))]
+    imdb = await get_poster(query=movie, id=True)
+    title, year, release= imdb['title'], imdb['year'], imdb['release_date']
+    title = b.replace("- IMDb", "")
+    files = await get_filter_results(title)
     message = query.message.reply_to_message or query.message
     chat = message.chat.id
-    spell = (b, files)
     if files:
-        await query.answer('Checking for Movie in database...')
-        try:
-          await group(bot, query, spell)
-        except:
-          await group(bot, query, spell)
-                               
+       await query.answer('Checking for Movie in database...')
+       await group(bot, query, (title, files))
+    else:
+       await query.message.edit(f"{title} not found in my database", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"Request To Add {b} ✅", callback_data=f'request#{query.from_user.id}#{title}#{year}#{release}')]]))
+       return
+    
 @Client.on_callback_query(filters.regex(r"^spcheck"))
 async def givess_filter(client: Client, query):
   
@@ -827,9 +826,8 @@ async def group(client, message, spell=False):
             if not files: 
                 if spcheck:
                      if advance:
-                         return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
-                     else:
-                         return await normalspellmode(message, spelltemp)
+                         return await advancespellmode(message)
+                     return await normalspellmode(message, spelltemp)
                 else: return 
     else:
        searchs, files = spell 
