@@ -111,7 +111,7 @@ async def gstart(bot, cmd):
                     file_id=file_id,
                     caption=f_caption,
                     protect_content=True if ident == "venoms" else False,
-                    reply_markup=Button.CAPTION
+                    reply_markup=Button.CAPTION,
                     )
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
