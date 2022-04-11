@@ -72,7 +72,7 @@ async def filter(client, message):
         if files:
             for file in files:
                 file_id = file.file_id
-                file_name = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
+                file_name = re.sub(r"(_|\,|\-|\.|\+)", " ", str(file.file_name))
                 filename = f"{get_size(file.file_size)} {file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
@@ -124,8 +124,8 @@ So you go to google or imdb and check the spelling of the movie you want.</b>"""
             
         imdb=await get_poster(search)
         if imdb:
+           cap = IMDB_TEMPLATE.format(query = query, title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
            try:
-              cap = IMDB_TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'],**locals())
               await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024], reply_markup=InlineKeyboardMarkup(buttons))
            except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
               pic = imdb.get('poster')
@@ -828,7 +828,7 @@ async def group(client, message, spell=False):
                 if spcheck:
                      if advance:
                          return await advancespellmode(message, single, imdbg, max_pages, delete, delete_time)
-                     if not advance:
+                     else:
                          return await normalspellmode(message, spelltemp)
                 else: return 
     else:
@@ -839,8 +839,8 @@ async def group(client, message, spell=False):
        for file in files:
            file_id = file.file_id
            size = f"{get_size(file.file_size)}"
-           name = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
-           venom= "venoms" if protect=="True" else "venom"                  
+           name = re.sub(r"(_|\,|\-|\.|\+)", " ", str(file.file_name))
+           venom= "venoms" if protect else "venom"                  
            if single:
                btn.append(
                       [InlineKeyboardButton(text=f"{size} {name}", callback_data=f"{venom}#{file_id}")]
@@ -876,7 +876,7 @@ async def group(client, message, spell=False):
         TEMPLATE = IMDB_TEMPLATE if imdbtemp=="None" else imdbtemp 
         if TEMPLATE:
             try:
-              cap = TEMPLATE.format(title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"], **locals())
+              cap = TEMPLATE.format(query = searchs, title = imdb['title'], url = imdb['url'], year = imdb['year'], genres = imdb['genres'], plot = imdb['plot'], rating = imdb['rating'], votes = imdb['votes'], languages = imdb["languages"], runtime = imdb["runtime"], countries = imdb["countries"], release_date = imdb['release_date'], director = imdb["director"], writer=imdb["writer"], aka = imdb["aka"], seasons = imdb["seasons"], box_office = imdb['box_office'], localized_title = imdb['localized_title'], kind = imdb['kind'], imdb_id = imdb["imdb_id"], cast = imdb["cast"], producer = imdb["producer"], composer = imdb["composer"], cinematographer = imdb["cinematographer"], music_team = imdb["music_team"], distributors = imdb["distributors"], certificates = imdb["certificates"], **locals())
             except KeyError as e:
               cap = f"<b>Here is What I Found In My Database For Your Query {searchs} \n\n⚠️ Disclaimer:-\nThis group custom IMDb template is in wrong format.used a wrong key {e}. please group owner or admin correct it !</b>" 
         else:
