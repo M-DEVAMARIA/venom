@@ -72,7 +72,7 @@ async def filter(client, message):
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
+                file_name = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
                 filename = f"{get_size(file.file_size)} {file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"checksub#{file_id}")]
